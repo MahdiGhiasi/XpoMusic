@@ -28,7 +28,7 @@ namespace ModernSpotifyUWP.Helpers
 
             // Enable wide and large tile sizes
             tile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/Wide310x150Logo.png");
-            tile.VisualElements.Square310x310Logo = new Uri("ms-appx:///Assets/Square310x310Logo.png");
+            tile.VisualElements.Square310x310Logo = new Uri("ms-appx:///Assets/LargeTile.png");
 
             // Show the display name on all sizes
             tile.VisualElements.ShowNameOnSquare150x150Logo = true;
