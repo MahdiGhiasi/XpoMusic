@@ -1,0 +1,115 @@
+.Root__nav-bar {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    -webkit-backdrop-filter: blur(20px);
+}
+
+.Root__main-view .contentSpacing {
+    padding-top: 20px !important;
+}
+
+.Root__now-playing-bar {
+    background-color: transparent;
+}
+
+.now-playing-bar-container {
+    background-color: rgba(40, 40, 40, 0.7);
+    -webkit-backdrop-filter: blur(30px);
+}
+
+.NavBar__download-item {
+    display: none;
+}
+
+.navBar-header .logo {
+}
+
+@media (min-width: 721px) {
+    .now-playing-bar__right__inner {
+        width: 200px;
+    }
+}
+
+.backbutton {
+    padding-left: 24px;
+    margin-right: -6px;
+    margin-bottom: 12px;
+    border-bottom-width: 0px;
+    cursor: pointer;
+}
+
+@media (max-width: 720px) {
+    .backbutton {
+        padding-left: 30px;
+    }
+}
+
+.backbutton span {
+    font-family: Segoe MDL2 Assets;
+    font-size: 20px;
+    padding-top: 10px;
+    display: inline-block;
+}
+
+.navBar-logo--size-small {
+    padding-top: 18px;
+}
+
+.segoe-icon {
+    font-size: 16px;
+}
+
+@media (max-width: 720px) {
+    .segoe-icon {
+        font-size: 18px;
+    }
+
+    .navBar ul {
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-height: 560px) {
+    .navBar ul {
+        margin-bottom: 10px;
+    }
+}
+
+
+/* Move top info banners a bit more down, so they don't get covered up via window close button */
+div[aria-live=polite] {
+    height: auto;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-right: 150px;
+}
+
+/* Making UI usable for width < 720px, as UWP needs to support 500px+ */
+body {
+    min-width: 500px;
+}
+
+.now-playing-bar-container {
+    min-width: 500px;
+}
+
+@media (max-width: 600px) {
+    .now-playing-bar__left {
+        width: 45%;
+    }
+
+    .now-playing-bar__center {
+        width: 50%;
+    }
+
+    .now-playing-bar__right {
+        /* TODO: Do something about this! */
+        display: none;
+    }
+}
+
+@media (max-width: 700px) {
+    .now-playing__widget-overlay {
+        display: none;
+    }
+}
+/* End of making UI usable for width < 720px, as UWP needs to support 500px+ */

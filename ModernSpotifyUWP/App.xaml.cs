@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -68,6 +69,25 @@ namespace ModernSpotifyUWP
                     // parameter
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
+                else if (!string.IsNullOrEmpty(e.Arguments))
+                {
+                    // If app is already opened but a secondary tile is clicked,
+
+                    var currentMainPage = (rootFrame.Content as MainPage);
+                    if (currentMainPage == null)
+                    {
+                        // if MainPage is not opened, navigate to MainPage with the necessary argument
+
+                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    }
+                    else
+                    {
+                        // if MainPage is opened already, send a signal to it so it can navigate to the new url.
+
+                        currentMainPage.NavigateToSecondaryTile(e.Arguments);
+                    }
+                }
+
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
