@@ -5,6 +5,9 @@
     xmlns:local="using:ModernSpotifyUWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"  
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors" 
+    xmlns:flyouts="using:ModernSpotifyUWP.Flyouts"
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -34,6 +37,32 @@
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
             </Storyboard>
+            <Storyboard x:Name="overlayShowStoryboard">
+                <DoubleAnimation Storyboard.TargetName="overlay" 
+                                 Storyboard.TargetProperty="(UIElement.Opacity)"
+                                 Duration="0:0:0.3" From="0" To="1">
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="flyoutContainer" 
+                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                 Duration="0:0:0.3" From="50" To="0">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+            <Storyboard x:Name="overlayHideStoryboard">
+                <DoubleAnimation Storyboard.TargetName="overlay" 
+                                 Storyboard.TargetProperty="(UIElement.Opacity)"
+                                 Duration="0:0:0.25" From="1" To="0">
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="flyoutContainer" 
+                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                 Duration="0:0:0.25" From="0" To="-50">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
     
@@ -44,6 +73,31 @@
                  NavigationFailed="MainWebView_NavigationFailed"
                  LoadCompleted="MainWebView_LoadCompleted" />
 
+        <Grid x:Name="overlay" Background="#00FFFFFF" Visibility="Collapsed">
+            <Grid>
+                <interactivity:Interaction.Behaviors>
+                    <behaviors:Blur x:Name="blurBehavior" 
+                                    Value="24" 
+                                    Duration="0" 
+                                    Delay="0" 
+                                    AutomaticallyStart="True"/>
+                </interactivity:Interaction.Behaviors>
+            </Grid>
+            <Grid x:Name="flyoutContainer">
+                <Grid.RenderTransform>
+                    <TranslateTransform />
+                </Grid.RenderTransform>
+                <flyouts:WhatsNewFlyout x:Name="whatsNewFlyout"
+                                        Visibility="Collapsed"
+                                        Width="300"
+                                        Height="250"
+                                        FlyoutCloseRequest="WhatsNewFlyout_FlyoutCloseRequest" />
+                <flyouts:SettingsFlyout x:Name="settingsFlyout"
+                                        Visibility="Collapsed"
+                                        FlyoutCloseRequest="SettingsFlyout_FlyoutCloseRequest" />
+            </Grid>
+        </Grid>
+        
         <Grid x:Name="splashScreen" Background="#201B1B">
             <Image x:Name="extendedSplashImage" 
                    RenderTransformOrigin="0.5, 0.5"
@@ -62,7 +116,7 @@
                           Foreground="White"
                           IsActive="True" />
         </Grid>
-        <Grid x:Name="loadFailedMessage" Background="#201B1B" Visibility="Visible">
+        <Grid x:Name="loadFailedMessage" Background="#201B1B" Visibility="Collapsed">
             <StackPanel MaxWidth="800" Padding="0,100,0,0">
                 <TextBlock Text="Connection failed."
                            TextWrapping="Wrap"

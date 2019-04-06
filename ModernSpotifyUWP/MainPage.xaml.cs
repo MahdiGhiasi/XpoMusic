@@ -130,6 +130,12 @@ namespace ModernSpotifyUWP
             mediaControls.IsPlayEnabled = true;
             mediaControls.IsPauseEnabled = true;
             mediaControls.ButtonPressed += SystemControls_ButtonPressed;
+
+            // Show what's new if necessary
+            if (WhatsNewHelper.ShouldShowWhatsNew())
+            {
+                OpenWhatsNew();
+            }
         }
 
         private void SystemControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs args)
@@ -195,7 +201,7 @@ namespace ModernSpotifyUWP
             else if (args.Uri.ToString().EndsWith("#xpotifysettings"))
             {
                 args.Cancel = true;
-                Debug.WriteLine("Settings!");
+                OpenSettings();
             }
             else if (args.Uri.ToString().EndsWith("#xpotifypintostart"))
             {
@@ -265,6 +271,40 @@ namespace ModernSpotifyUWP
             loadFailedUrlText.Text = e.Uri.ToString();
             loadFailedUrl = e.Uri;
             errorMessageText.Text = e.WebErrorStatus.ToString();
+        }
+
+        private void OpenSettings()
+        {
+            overlay.Visibility = Visibility.Visible;
+            settingsFlyout.Visibility = Visibility.Visible;
+            overlayShowStoryboard.Begin();
+        }
+
+        private void OpenWhatsNew()
+        {
+            whatsNewFlyout.InitFlyout();
+            overlay.Visibility = Visibility.Visible;
+            whatsNewFlyout.Visibility = Visibility.Visible;
+            overlayShowStoryboard.Begin();
+        }
+
+        private void WhatsNewFlyout_FlyoutCloseRequest(object sender, EventArgs e)
+        {
+            CloseOverlays();
+        }
+
+        private void SettingsFlyout_FlyoutCloseRequest(object sender, EventArgs e)
+        {
+            CloseOverlays();
+        }
+
+        private async void CloseOverlays()
+        {
+            overlayHideStoryboard.Begin();
+            await Task.Delay(250);
+            overlay.Visibility = Visibility.Collapsed;
+            settingsFlyout.Visibility = Visibility.Collapsed;
+            whatsNewFlyout.Visibility = Visibility.Collapsed;
         }
     }
 }

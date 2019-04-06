@@ -1,0 +1,54 @@
+﻿<UserControl
+    x:Class="ModernSpotifyUWP.Flyouts.WhatsNewFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ModernSpotifyUWP.Flyouts"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="200"
+    d:DesignWidth="300">
+
+
+    <Grid Background="#bb333333"
+          BorderBrush="#aaa"
+          BorderThickness="1"
+          MaxWidth="400"
+          MaxHeight="400">
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="50" Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" x:Name="Header">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="What's new in Xpotify version"
+                           FontWeight="Bold"
+                           Margin="10,10,0,10"/>
+                <TextBlock x:Name="VersionText" 
+                           Text="x.y.z"
+                           FontWeight="Bold"
+                           Margin="2,10,0,10"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1" Padding="14,8,14,14">
+            <ScrollViewer>
+                <StackPanel x:Name="Content">
+                    <StackPanel Tag="1" Margin="0,0,0,24" Visibility="Visible">
+                        <TextBlock Text="&#8226; "
+                                   Margin="0,0,0,8"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Row="2" Padding="12" x:Name="Footer">
+            <Button Content="OK"
+                    HorizontalAlignment="Center"
+                    Width="150"
+                    Background="{ThemeResource ListViewItemBackgroundSelectedPressed}"
+                    Tapped="OKButton_Tapped" />
+        </Grid>
+    </Grid>
+
+</UserControl>
