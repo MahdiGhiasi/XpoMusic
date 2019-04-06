@@ -14,11 +14,21 @@
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowHeight="200" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="songName.Visibility" Value="Visible" />
+                        <Setter Target="artistName.Visibility" Value="Visible" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowHeight="270" />
                     </VisualState.StateTriggers>
-
                     <VisualState.Setters>
                         <Setter Target="albumArtContainer.Visibility" Value="Visible" />
+                        <Setter Target="songName.Visibility" Value="Visible" />
+                        <Setter Target="artistName.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -40,16 +50,17 @@
                 <TextBlock x:Name="songName"
                            Text="Hello"
                            Margin="0,12,0,0"
+                           Visibility="Collapsed"
                            TextAlignment="Center"
                            FontWeight="Bold" />
                 <TextBlock x:Name="artistName"
                            Text="Evanescense"
-                           Margin="0,4,0,0"
+                           Margin="0,4,0,16"
+                           Visibility="Collapsed"
                            TextAlignment="Center"
                            FontWeight="Normal" />
                 <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Center"
-                            Margin="0,16,0,0">
+                            HorizontalAlignment="Center">
                     <Button x:Name="prevTrackButton" 
                             Background="Transparent"
                             ToolTipService.ToolTip="Previous track">
