@@ -41,6 +41,7 @@
         <WebView x:Name="mainWebView"
                  NavigationStarting="MainWebView_NavigationStarting"
                  FrameNavigationStarting="MainWebView_FrameNavigationStarting"
+                 NavigationFailed="MainWebView_NavigationFailed"
                  LoadCompleted="MainWebView_LoadCompleted" />
 
         <Grid x:Name="splashScreen" Background="#201B1B">
@@ -60,6 +61,58 @@
                           Height="40"
                           Foreground="White"
                           IsActive="True" />
+        </Grid>
+        <Grid x:Name="loadFailedMessage" Background="#201B1B" Visibility="Visible">
+            <StackPanel MaxWidth="800" Padding="0,100,0,0">
+                <TextBlock Text="Connection failed."
+                           TextWrapping="Wrap"
+                           FontWeight="Light"
+                           FontSize="34" />
+                <TextBlock Text="Please check your internet connection and then try again."
+                           Margin="0,20,0,0"
+                           TextWrapping="Wrap"
+                           FontWeight="Light"
+                           FontSize="22"/>
+                <TextBlock Text="Url:"
+                           Margin="0,20,0,0"
+                           Opacity="0.6"
+                           FontSize="14" />
+                <TextBlock x:Name="loadFailedUrlText"
+                           Margin="12,0,0,0"
+                           Text="[url]"
+                           TextWrapping="Wrap"
+                           Opacity="0.6"
+                           FontSize="14" />
+                <TextBlock Text="Error Message:"
+                           Margin="0,20,0,0"
+                           Opacity="0.6"
+                           FontSize="14" />
+                <TextBlock x:Name="errorMessageText"
+                           Margin="12,0,0,0"
+                           Text="[error]"
+                           TextWrapping="Wrap"
+                           Opacity="0.6"
+                           FontSize="14" />
+
+                <Button Content="Retry"
+                        Click="RetryConnectButton_Click"
+                        Margin="0,40,0,0"
+                        FontWeight="Light"
+                        Width="140"
+                        FontSize="20" />
+                <StackPanel Orientation="Horizontal" Margin="0,80,0,0">
+                    <TextBlock Text="Xpotify v"
+                               Opacity="0.5"
+                               FontWeight="ExtraLight"
+                               FontSize="12" />
+                    <TextBlock x:Name="loadFailedAppVersionText"
+                               Text="X.Y.Z"
+                               Opacity="0.5"
+                               FontWeight="ExtraLight"
+                               FontSize="12" />
+
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

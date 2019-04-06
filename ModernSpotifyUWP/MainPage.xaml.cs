@@ -38,6 +38,7 @@ namespace ModernSpotifyUWP
         MediaPlayer silentMediaPlayer;
         bool splashClosed = false;
         private CompactOverlayView compactOverlayView;
+        private Uri loadFailedUrl;
 
         public MainPage()
         {
@@ -49,6 +50,8 @@ namespace ModernSpotifyUWP
                 IsLoopingEnabled = true,
             };
             silentMediaPlayer.CommandManager.IsEnabled = false;
+
+            loadFailedAppVersionText.Text = PackageHelper.GetAppVersion();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -248,6 +251,20 @@ namespace ModernSpotifyUWP
         private void MainWebView_FrameNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             Debug.WriteLine("Frame: " + args.Uri.ToString());
+        }
+
+        private void RetryConnectButton_Click(object sender, RoutedEventArgs e)
+        {
+            loadFailedMessage.Visibility = Visibility.Collapsed;
+            mainWebView.Navigate(loadFailedUrl);
+        }
+
+        private void MainWebView_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
+        {
+            loadFailedMessage.Visibility = Visibility.Visible;
+            loadFailedUrlText.Text = e.Uri.ToString();
+            loadFailedUrl = e.Uri;
+            errorMessageText.Text = e.WebErrorStatus.ToString();
         }
     }
 }

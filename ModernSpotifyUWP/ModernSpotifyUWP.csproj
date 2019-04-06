@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PackageHelper.cs" />
     <Compile Include="Helpers\TileHelper.cs" />
     <Content Include="InjectedAssets\findPageTitle.js" />
     <Compile Include="MainPage.xaml.cs">
