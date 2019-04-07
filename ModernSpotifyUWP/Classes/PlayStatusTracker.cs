@@ -38,6 +38,9 @@ namespace ModernSpotifyUWP.Classes
             {
                 get
                 {
+                    if (!IsPlaying)
+                        return Math.Min(progressedMilliseconds, SongLengthMilliseconds);
+
                     return Math.Min(SongLengthMilliseconds, (int)(progressedMilliseconds 
                         + (DateTime.UtcNow - progressedMillisecondsSetMoment).TotalMilliseconds));
                 }

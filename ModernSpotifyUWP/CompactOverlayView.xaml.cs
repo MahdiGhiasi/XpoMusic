@@ -58,6 +58,12 @@ namespace ModernSpotifyUWP
             songName.Text = PlayStatusTracker.LastPlayStatus.SongName;
             artistName.Text = PlayStatusTracker.LastPlayStatus.ArtistName;
 
+            if (progressBar.Value != progressBar.Maximum && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds == progressBar.Maximum)
+            {
+                // Song just reached the end. refresh status now.
+                RefreshPlayStatus();
+            }
+
             if (progressBar.Maximum != PlayStatusTracker.LastPlayStatus.SongLengthMilliseconds)
             {
                 progressBar.Value = 0;
@@ -93,6 +99,12 @@ namespace ModernSpotifyUWP
 
         }
 
+        private async void RefreshPlayStatus()
+        {
+            await Task.Delay(1000);
+            await PlayStatusTracker.RefreshPlayStatus();
+        }
+
         private void CloseCompactOverlayButton_Click(object sender, RoutedEventArgs e)
         {
             timer.Tick -= Timer_Tick;
@@ -106,12 +118,19 @@ namespace ModernSpotifyUWP
             {
                 await (new Player()).Pause();
 
+                timer.Stop();
+                playButton.Visibility = Visibility.Visible;
+                pauseButton.Visibility = Visibility.Collapsed;
                 await Task.Delay(500);
-                PlayStatusTracker.RefreshPlayStatus();
+                await PlayStatusTracker.RefreshPlayStatus();
             }
             catch (UnauthorizedAccessException)
             {
                 UnauthorizedHelper.OnUnauthorizedError();
+            }
+            finally
+            {
+                timer.Start();
             }
         }
 
@@ -121,12 +140,19 @@ namespace ModernSpotifyUWP
             {
                 await (new Player()).ResumePlaying();
 
+                timer.Stop();
+                playButton.Visibility = Visibility.Collapsed;
+                pauseButton.Visibility = Visibility.Visible;
                 await Task.Delay(500);
-                PlayStatusTracker.RefreshPlayStatus();
+                await PlayStatusTracker.RefreshPlayStatus();
             }
             catch (UnauthorizedAccessException)
             {
                 UnauthorizedHelper.OnUnauthorizedError();
+            }
+            finally
+            {
+                timer.Start();
             }
         }
 
@@ -136,8 +162,8 @@ namespace ModernSpotifyUWP
             {
                 await (new Player()).PreviousTrack();
 
-                await Task.Delay(500);
-                PlayStatusTracker.RefreshPlayStatus();
+                await Task.Delay(1000);
+                await PlayStatusTracker.RefreshPlayStatus();
             }
             catch (UnauthorizedAccessException)
             {
@@ -151,8 +177,8 @@ namespace ModernSpotifyUWP
             {
                 await (new Player()).NextTrack();
 
-                await Task.Delay(500);
-                PlayStatusTracker.RefreshPlayStatus();
+                await Task.Delay(1000);
+                await PlayStatusTracker.RefreshPlayStatus();
             }
             catch (UnauthorizedAccessException)
             {

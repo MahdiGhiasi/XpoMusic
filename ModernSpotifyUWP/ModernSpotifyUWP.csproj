@@ -146,6 +146,7 @@
     <Compile Include="SpotifyApi\Model\Track.cs" />
     <Compile Include="SpotifyApi\Player.cs" />
     <Compile Include="SpotifyApi\TokenHelper.cs" />
+    <Content Include="InjectedAssets\checkCurrentPlaying.js" />
     <Content Include="InjectedAssets\findPageTitle.js" />
     <Compile Include="Helpers\WhatsNewHelper.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -250,6 +251,9 @@
       <Version>5.1.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
+      <Version>5.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>5.1.1</Version>
     </PackageReference>
     <PackageReference Include="sameerIOTApps.Plugin.SecureStorage">

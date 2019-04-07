@@ -5,6 +5,7 @@
     xmlns:local="using:ModernSpotifyUWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity" 
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:media="using:Microsoft.Xaml.Interactions.Media"
@@ -56,12 +57,17 @@
                 </interactivity:Interaction.Behaviors>
             </Image>
         </Grid>
-        <Grid Background="#95000000">
+        <Grid Background="#77000000">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                <Grid x:Name="albumArtContainer" 
-                      Background="Transparent" 
-                      Visibility="Collapsed"
-                      HorizontalAlignment="Center">
+                <controls:DropShadowPanel x:Name="albumArtContainer" 
+                                          BlurRadius="40.0" 
+                                          ShadowOpacity="1"
+                                          OffsetX="0.0" 
+                                          OffsetY="0.0" 
+                                          Color="#111"
+                                          Background="Transparent" 
+                                          Visibility="Collapsed"
+                                          HorizontalAlignment="Center">
                     <Image x:Name="albumArt"
                            Stretch="UniformToFill"
                            Visibility="Collapsed"
@@ -91,16 +97,16 @@
                             </core:EventTriggerBehavior>
                         </interactivity:Interaction.Behaviors>
                     </Image>
-                </Grid>
+                </controls:DropShadowPanel>
                 <TextBlock x:Name="songName"
                            Text=""
-                           Margin="0,12,0,0"
+                           Margin="0,16,0,0"
                            Visibility="Collapsed"
                            TextAlignment="Center"
                            FontWeight="Bold" />
                 <TextBlock x:Name="artistName"
                            Text=""
-                           Margin="0,4,0,16"
+                           Margin="0,4,0,20"
                            Visibility="Collapsed"
                            TextAlignment="Center"
                            FontWeight="Normal" />

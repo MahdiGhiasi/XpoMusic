@@ -34,13 +34,15 @@ namespace ModernSpotifyUWP
     public sealed partial class MainPage : Page
     {
         private const string SpotifyPwaUrlBeginsWith = "https://open.spotify.com";
-        private readonly Size compactOverlayDefaultSize = new Size(300, 250);
+        private readonly Size compactOverlayDefaultSize = new Size(300, 300);
         private readonly Size windowMinSize = new Size(500, 500);
 
         MediaPlayer silentMediaPlayer;
         bool splashClosed = false;
         private CompactOverlayView compactOverlayView;
         private Uri loadFailedUrl;
+        private DispatcherTimer playCheckTimer;
+        private string prevCurrentPlaying;
 
         public MainPage()
         {
@@ -159,6 +161,29 @@ namespace ModernSpotifyUWP
             {
                 OpenWhatsNew();
             }
+
+            playCheckTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(1),
+            };
+            playCheckTimer.Tick += PlayCheckTimer_Tick;
+            playCheckTimer.Start();
+        }
+
+        private async void PlayCheckTimer_Tick(object sender, object e)
+        {
+            try
+            {
+                var script = File.ReadAllText("InjectedAssets/checkCurrentPlaying.js");
+                var currentPlaying = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+
+                if (currentPlaying != prevCurrentPlaying)
+                {
+                    prevCurrentPlaying = currentPlaying;
+                    await PlayStatusTracker.RefreshPlayStatus();
+                }
+            }
+            catch { }
         }
 
         private async void SystemControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs e)
@@ -174,20 +199,25 @@ namespace ModernSpotifyUWP
                         case SystemMediaTransportControlsButton.Play:
                             if (await (new Player()).ResumePlaying())
                                 mediaControls.PlaybackStatus = MediaPlaybackStatus.Playing;
+
                             break;
                         case SystemMediaTransportControlsButton.Pause:
                             if (await (new Player()).Pause())
                                 mediaControls.PlaybackStatus = MediaPlaybackStatus.Paused;
+
                             break;
                         case SystemMediaTransportControlsButton.Stop:
                             if (await (new Player()).Pause())
                                 mediaControls.PlaybackStatus = MediaPlaybackStatus.Paused;
+
                             break;
                         case SystemMediaTransportControlsButton.Next:
                             await (new Player()).NextTrack();
+
                             break;
                         case SystemMediaTransportControlsButton.Previous:
                             await (new Player()).PreviousTrack();
+
                             break;
                     }
                 }
