@@ -162,8 +162,10 @@ namespace ModernSpotifyUWP
             {
                 await (new Player()).PreviousTrack();
 
+                (sender as Control).IsEnabled = false;
                 await Task.Delay(1000);
                 await PlayStatusTracker.RefreshPlayStatus();
+                (sender as Control).IsEnabled = true;
             }
             catch (UnauthorizedAccessException)
             {
@@ -177,8 +179,10 @@ namespace ModernSpotifyUWP
             {
                 await (new Player()).NextTrack();
 
+                (sender as Control).IsEnabled = false;
                 await Task.Delay(1000);
                 await PlayStatusTracker.RefreshPlayStatus();
+                (sender as Control).IsEnabled = true;
             }
             catch (UnauthorizedAccessException)
             {
