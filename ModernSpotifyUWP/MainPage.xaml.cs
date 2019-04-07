@@ -1,4 +1,5 @@
 ﻿using ModernSpotifyUWP.Helpers;
+using ModernSpotifyUWP.SpotifyApi;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -43,7 +44,7 @@ namespace ModernSpotifyUWP
         public MainPage()
         {
             this.InitializeComponent();
-           
+
             silentMediaPlayer = new MediaPlayer
             {
                 Source = MediaSource.CreateFromUri(new Uri("ms-appx:///Assets/Media/silent.wav")),
@@ -56,6 +57,21 @@ namespace ModernSpotifyUWP
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            var targetUrl = GetTargetUrl(e);
+
+            if (TokenHelper.HasTokens())
+            {
+                mainWebView.Navigate(new Uri(targetUrl));
+            }
+            else
+            {
+                var authorizationUrl = Authorization.GetAuthorizationUrl(targetUrl);
+                mainWebView.Navigate(new Uri(authorizationUrl));
+            }
+        }
+
+        private string GetTargetUrl(NavigationEventArgs e)
+        {
             var parameter = e.Parameter as string;
             if (!string.IsNullOrEmpty(parameter))
             {
@@ -65,9 +81,7 @@ namespace ModernSpotifyUWP
                     var urlDecoder = new WwwFormUrlDecoder(parameter);
                     var pageUrl = urlDecoder.GetFirstValueByName("pageUrl");
 
-                    mainWebView.Navigate(new Uri(pageUrl));
-
-                    return;
+                    return pageUrl;
                 }
                 catch (Exception ex)
                 {
@@ -76,7 +90,7 @@ namespace ModernSpotifyUWP
             }
 
             //mainWebView.Navigate(new Uri("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F"));
-            mainWebView.Navigate(new Uri("https://open.spotify.com/"));
+            return "https://open.spotify.com/";
         }
 
         public async void NavigateToSecondaryTile(string parameter)
@@ -127,8 +141,11 @@ namespace ModernSpotifyUWP
             // Media controls are necessary for the audio to continue when app is minimized.
             var mediaControls = SystemMediaTransportControls.GetForCurrentView();
             mediaControls.IsEnabled = true;
+            mediaControls.IsPreviousEnabled = true;
+            mediaControls.IsNextEnabled = true;
             mediaControls.IsPlayEnabled = true;
             mediaControls.IsPauseEnabled = true;
+            mediaControls.PlaybackStatus = MediaPlaybackStatus.Paused;
             mediaControls.ButtonPressed += SystemControls_ButtonPressed;
 
             // Show what's new if necessary
@@ -138,14 +155,45 @@ namespace ModernSpotifyUWP
             }
         }
 
-        private void SystemControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs args)
+        private async void SystemControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs e)
         {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            {
+                var mediaControls = SystemMediaTransportControls.GetForCurrentView();
+
+                switch (e.Button)
+                {
+                    case SystemMediaTransportControlsButton.Play:
+                        if (await (new Player()).ResumePlaying())
+                            mediaControls.PlaybackStatus = MediaPlaybackStatus.Playing;
+                        break;
+                    case SystemMediaTransportControlsButton.Pause:
+                        if (await (new Player()).Pause())
+                            mediaControls.PlaybackStatus = MediaPlaybackStatus.Paused;
+                        break;
+                    case SystemMediaTransportControlsButton.Stop:
+                        if (await (new Player()).Pause())
+                            mediaControls.PlaybackStatus = MediaPlaybackStatus.Paused;
+                        break;
+                    case SystemMediaTransportControlsButton.Next:
+                        await (new Player()).NextTrack();
+                        break;
+                    case SystemMediaTransportControlsButton.Previous:
+                        await (new Player()).PreviousTrack();
+                        break;
+                }
+            });
         }
 
         private async void MainWebView_LoadCompleted(object sender, NavigationEventArgs e)
         {
             if (!splashClosed)
                 CloseSplash();
+
+            if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
+            {
+                FinalizeAuthorization(e.Uri.ToString());
+            }
 
             if (e.Uri.ToString().ToLower().Contains(SpotifyPwaUrlBeginsWith.ToLower()))
             {
@@ -170,7 +218,7 @@ namespace ModernSpotifyUWP
 
             var checkIfInjected = "((document.getElementsByTagName('body')[0].getAttribute('data-scriptinjection') == null) ? '0' : '1');";
             var injected = await mainWebView.InvokeScriptAsync("eval", new string[] { checkIfInjected });
-        
+
             if (injected != "1")
             {
                 var script = File.ReadAllText("InjectedAssets/initScript.js");
@@ -267,10 +315,33 @@ namespace ModernSpotifyUWP
 
         private void MainWebView_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
         {
+            if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
+            {
+                FinalizeAuthorization(e.Uri.ToString());
+                return;
+            }
+
             loadFailedMessage.Visibility = Visibility.Visible;
             loadFailedUrlText.Text = e.Uri.ToString();
             loadFailedUrl = e.Uri;
             errorMessageText.Text = e.WebErrorStatus.ToString();
+        }
+
+        private async void FinalizeAuthorization(string url)
+        {
+            try
+            {
+                var urlDecoder = new WwwFormUrlDecoder(url.Substring(url.IndexOf('?') + 1));
+                await Authorization.RetrieveAndSaveTokensFromAuthCode(urlDecoder.GetFirstValueByName("code"));
+                mainWebView.Navigate(new Uri(urlDecoder.GetFirstValueByName("state")));
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Authorization failed. " + ex.ToString());
+
+                var authorizationUrl = Authorization.GetAuthorizationUrl("https://open.spotify.com/");
+                mainWebView.Navigate(new Uri(authorizationUrl));
+            }
         }
 
         private void OpenSettings()
