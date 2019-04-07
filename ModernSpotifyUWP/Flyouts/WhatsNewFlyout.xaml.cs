@@ -66,7 +66,7 @@ namespace ModernSpotifyUWP.Flyouts
             if (!changelogPresent)
                 FlyoutCloseRequest?.Invoke(this, new EventArgs());
 #if !DEBUG
-            App.Tracker.Send(HitBuilder.CreateCustomEvent("What's new", "Show", DeviceInfo.ApplicationVersionString).Build());
+            //App.Tracker.Send(HitBuilder.CreateCustomEvent("What's new", "Show", DeviceInfo.ApplicationVersionString).Build());
 #endif
         }
     }

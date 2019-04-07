@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap uap3 mp">
-  <Identity Name="feaf7b68-565e-48cc-bb90-c48d836c52d2" Publisher="CN=Mahdi" Version="0.9.0.0" />
-  <mp:PhoneIdentity PhoneProductId="feaf7b68-565e-48cc-bb90-c48d836c52d2" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="36835MahdiGhiasi.Xpotify" Publisher="CN=980F2E87-1831-4300-B1DC-4FDADD353F32" Version="0.9.0.0" />
+  <mp:PhoneIdentity PhoneProductId="e912f189-3e56-431c-935e-2cb74d520630" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Xpotify</DisplayName>
-    <PublisherDisplayName>Mahdi</PublisherDisplayName>
+    <PublisherDisplayName>Mahdi Ghiasi</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
