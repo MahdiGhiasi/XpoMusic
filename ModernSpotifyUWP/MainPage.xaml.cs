@@ -1,4 +1,5 @@
-﻿using ModernSpotifyUWP.Helpers;
+﻿using ModernSpotifyUWP.Classes;
+using ModernSpotifyUWP.Helpers;
 using ModernSpotifyUWP.SpotifyApi;
 using System;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace ModernSpotifyUWP
     public sealed partial class MainPage : Page
     {
         private const string SpotifyPwaUrlBeginsWith = "https://open.spotify.com";
-        private readonly Size compactOverlayDefaultSize = new Size(300, 300);
+        private readonly Size compactOverlayDefaultSize = new Size(300, 250);
         private readonly Size windowMinSize = new Size(500, 500);
 
         MediaPlayer silentMediaPlayer;
@@ -128,7 +129,7 @@ namespace ModernSpotifyUWP
             }
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
@@ -147,6 +148,11 @@ namespace ModernSpotifyUWP
             mediaControls.IsPauseEnabled = true;
             mediaControls.PlaybackStatus = MediaPlaybackStatus.Paused;
             mediaControls.ButtonPressed += SystemControls_ButtonPressed;
+            await mediaControls.DisplayUpdater.CopyFromFileAsync(MediaPlaybackType.Music,
+                await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Media/silent.wav")));
+
+            PlayStatusTracker.MediaControls = mediaControls;
+            PlayStatusTracker.StartRegularRefresh();
 
             // Show what's new if necessary
             if (WhatsNewHelper.ShouldShowWhatsNew())

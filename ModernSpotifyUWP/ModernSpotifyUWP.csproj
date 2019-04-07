@@ -119,6 +119,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Classes\PlayStatusTracker.cs" />
     <Compile Include="Flyouts\IFlyout.cs" />
     <Compile Include="Flyouts\SettingsFlyout.xaml.cs">
       <DependentUpon>SettingsFlyout.xaml</DependentUpon>
@@ -127,12 +128,16 @@
       <DependentUpon>WhatsNewFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\PackageHelper.cs" />
+    <Compile Include="Helpers\SongImageProvider.cs" />
     <Compile Include="Helpers\TileHelper.cs" />
     <Compile Include="Helpers\UnauthorizedHelper.cs" />
     <Compile Include="Secrets.cs" />
     <Compile Include="SpotifyApi\ApiBase.cs" />
+    <Compile Include="SpotifyApi\Album.cs" />
+    <Compile Include="SpotifyApi\Artist.cs" />
     <Compile Include="SpotifyApi\Authorization.cs" />
     <Compile Include="SpotifyApi\Model\AlbumSimplified.cs" />
+    <Compile Include="SpotifyApi\Model\Artist.cs" />
     <Compile Include="SpotifyApi\Model\ArtistSimplified.cs" />
     <Compile Include="SpotifyApi\Model\CurrentlyPlayingContext.cs" />
     <Compile Include="SpotifyApi\Model\Device.cs" />

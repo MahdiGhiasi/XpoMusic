@@ -5,6 +5,9 @@
     xmlns:local="using:ModernSpotifyUWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity" 
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+    xmlns:media="using:Microsoft.Xaml.Interactions.Media"
     mc:Ignorable="d"
     d:DesignHeight="280"
     d:DesignWidth="400">
@@ -35,26 +38,68 @@
         </VisualStateManager.VisualStateGroups>
         
         <Grid Background="White">
-            <Image x:Name="artistArt" />
+            <Image x:Name="artistArt" Stretch="UniformToFill">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="ImageOpened">
+                        <media:ControlStoryboardAction ControlStoryboardOption="Play">
+                            <media:ControlStoryboardAction.Storyboard>
+                                <Storyboard>
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                   Storyboard.TargetName="artistArt">
+                                        <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </media:ControlStoryboardAction.Storyboard>
+                        </media:ControlStoryboardAction>
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
+            </Image>
         </Grid>
-        <Grid Background="#66000000">
+        <Grid Background="#95000000">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
                 <Grid x:Name="albumArtContainer" 
-                      Background="#dadada" 
+                      Background="Transparent" 
                       Visibility="Collapsed"
                       HorizontalAlignment="Center">
                     <Image x:Name="albumArt"
+                           Stretch="UniformToFill"
+                           Visibility="Collapsed"
                            Width="100" 
-                           Height="100" />
+                           Height="100">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="ImageOpened">
+                                <media:ControlStoryboardAction ControlStoryboardOption="Play">
+                                    <media:ControlStoryboardAction.Storyboard>
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                                                           Storyboard.TargetName="albumArt">
+                                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                           Storyboard.TargetName="albumArt">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </media:ControlStoryboardAction.Storyboard>
+                                </media:ControlStoryboardAction>
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </Image>
                 </Grid>
                 <TextBlock x:Name="songName"
-                           Text="Hello"
+                           Text=""
                            Margin="0,12,0,0"
                            Visibility="Collapsed"
                            TextAlignment="Center"
                            FontWeight="Bold" />
                 <TextBlock x:Name="artistName"
-                           Text="Evanescense"
+                           Text=""
                            Margin="0,4,0,16"
                            Visibility="Collapsed"
                            TextAlignment="Center"
@@ -62,28 +107,37 @@
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center">
                     <Button x:Name="prevTrackButton" 
+                            Tapped="PrevTrackButton_Tapped"
                             Background="Transparent"
                             ToolTipService.ToolTip="Previous track">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE100;" />
                     </Button>
                     <Button x:Name="playButton" 
+                            Tapped="PlayButton_Tapped"
                             Background="Transparent"
                             ToolTipService.ToolTip="Play">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="32" Glyph="&#xE102;" />
                     </Button>
                     <Button x:Name="pauseButton" 
+                            Tapped="PauseButton_Tapped"
                             Background="Transparent" 
                             Visibility="Collapsed"
                             ToolTipService.ToolTip="Pause">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="32" Glyph="&#xE103;" />
                     </Button>
                     <Button x:Name="nextTrackButton" 
+                            Tapped="NextTrackButton_Tapped"
                             Background="Transparent" 
                             ToolTipService.ToolTip="Next track">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE101;" />
                     </Button>
                 </StackPanel>
             </StackPanel>
+            <ProgressBar x:Name="progressBar" 
+                         VerticalAlignment="Bottom"
+                         Value="40"
+                         Maximum="100"
+                         Foreground="#77ffffff" />
             <Button x:Name="closeCompactOverlayButton"
                     Background="Transparent"
                     HorizontalAlignment="Right"
@@ -104,10 +158,6 @@
                               Glyph="&#xEB9F;" />
                 </Grid>
             </Button>
-            <ProgressBar VerticalAlignment="Bottom"
-                         Value="40"
-                         Maximum="100"
-                         Foreground="#aaffffff" />
         </Grid>
     </Grid>
 </UserControl>
