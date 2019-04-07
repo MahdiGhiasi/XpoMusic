@@ -41,6 +41,9 @@
                 <DoubleAnimation Storyboard.TargetName="overlay" 
                                  Storyboard.TargetProperty="(UIElement.Opacity)"
                                  Duration="0:0:0.3" From="0" To="1">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
                 <DoubleAnimation Storyboard.TargetName="flyoutContainer" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
@@ -54,6 +57,9 @@
                 <DoubleAnimation Storyboard.TargetName="overlay" 
                                  Storyboard.TargetProperty="(UIElement.Opacity)"
                                  Duration="0:0:0.25" From="1" To="0">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
                 <DoubleAnimation Storyboard.TargetName="flyoutContainer" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
