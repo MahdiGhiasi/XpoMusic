@@ -10,7 +10,7 @@ namespace ModernSpotifyUWP.Helpers
 {
     public static class UnauthorizedHelper
     {
-        static readonly TimeSpan minimumNotifyDelay = TimeSpan.FromSeconds(10);
+        static readonly TimeSpan minimumNotifyDelay = TimeSpan.FromMinutes(3);
 
         static DateTime lastNotifyToUser = DateTime.MinValue;
 
