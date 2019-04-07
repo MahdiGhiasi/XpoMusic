@@ -36,12 +36,21 @@ namespace ModernSpotifyUWP.SpotifyApi
             SaveTokens(accessToken, GetTokens().RefreshToken);
         }
 
+        internal static void ClearTokens()
+        {
+            if (CrossSecureStorage.Current.HasKey(accessTokenKey))
+                CrossSecureStorage.Current.DeleteKey(accessTokenKey);
+
+            if (CrossSecureStorage.Current.HasKey(refreshTokenKey))
+                CrossSecureStorage.Current.DeleteKey(refreshTokenKey);
+        }
+
         public static TokenResult GetTokens()
         {
             return new TokenResult
             {
-                AccessToken = CrossSecureStorage.Current.GetValue(accessTokenKey),
-                RefreshToken = CrossSecureStorage.Current.GetValue(refreshTokenKey),
+                AccessToken = CrossSecureStorage.Current.GetValue(accessTokenKey) ?? "",
+                RefreshToken = CrossSecureStorage.Current.GetValue(refreshTokenKey) ?? "",
             };
         }
 

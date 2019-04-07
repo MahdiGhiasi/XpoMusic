@@ -161,26 +161,33 @@ namespace ModernSpotifyUWP
             {
                 var mediaControls = SystemMediaTransportControls.GetForCurrentView();
 
-                switch (e.Button)
+                try
                 {
-                    case SystemMediaTransportControlsButton.Play:
-                        if (await (new Player()).ResumePlaying())
-                            mediaControls.PlaybackStatus = MediaPlaybackStatus.Playing;
-                        break;
-                    case SystemMediaTransportControlsButton.Pause:
-                        if (await (new Player()).Pause())
-                            mediaControls.PlaybackStatus = MediaPlaybackStatus.Paused;
-                        break;
-                    case SystemMediaTransportControlsButton.Stop:
-                        if (await (new Player()).Pause())
-                            mediaControls.PlaybackStatus = MediaPlaybackStatus.Paused;
-                        break;
-                    case SystemMediaTransportControlsButton.Next:
-                        await (new Player()).NextTrack();
-                        break;
-                    case SystemMediaTransportControlsButton.Previous:
-                        await (new Player()).PreviousTrack();
-                        break;
+                    switch (e.Button)
+                    {
+                        case SystemMediaTransportControlsButton.Play:
+                            if (await (new Player()).ResumePlaying())
+                                mediaControls.PlaybackStatus = MediaPlaybackStatus.Playing;
+                            break;
+                        case SystemMediaTransportControlsButton.Pause:
+                            if (await (new Player()).Pause())
+                                mediaControls.PlaybackStatus = MediaPlaybackStatus.Paused;
+                            break;
+                        case SystemMediaTransportControlsButton.Stop:
+                            if (await (new Player()).Pause())
+                                mediaControls.PlaybackStatus = MediaPlaybackStatus.Paused;
+                            break;
+                        case SystemMediaTransportControlsButton.Next:
+                            await (new Player()).NextTrack();
+                            break;
+                        case SystemMediaTransportControlsButton.Previous:
+                            await (new Player()).PreviousTrack();
+                            break;
+                    }
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    UnauthorizedHelper.OnUnauthorizedError();
                 }
             });
         }
