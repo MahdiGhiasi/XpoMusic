@@ -23,8 +23,8 @@ namespace ModernSpotifyUWP.Helpers
 
             TokenHelper.ClearTokens();
 
-            var md = new MessageDialog("Please close and reopen Xpotify, and enter your credentials again. In " +
-                "the meantime, some features might not work correctly", "Authorization Error");
+            var md = new MessageDialog("Please close and reopen Xpotify; you may be asked to enter your credentials " +
+                "again. In the meantime, some features might not work correctly.", "Authorization Error");
             await md.ShowAsync();
         }
     }
