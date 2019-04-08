@@ -218,6 +218,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Wide310x150Logo.scale-400.png" />
+    <Content Include="InjectedAssets\isLoggedInCheck.js" />
     <Content Include="InjectedAssets\navigateToPage.js" />
     <Content Include="InjectedAssets\initScript.js" />
     <Content Include="InjectedAssets\style.css" />

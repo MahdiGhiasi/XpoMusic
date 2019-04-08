@@ -242,6 +242,21 @@ namespace ModernSpotifyUWP
             {
                 await InjectInitScript();
             }
+
+            if (!await CheckLoggedIn())
+            {
+                TokenHelper.ClearTokens();
+                var authorizationUrl = Authorization.GetAuthorizationUrl("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F");
+                mainWebView.Navigate(new Uri(authorizationUrl));
+            }
+        }
+
+        private async Task<bool> CheckLoggedIn()
+        {
+            var script = File.ReadAllText("InjectedAssets/isLoggedInCheck.js");
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+
+            return (result != "0");
         }
 
         private async void CloseSplash()
