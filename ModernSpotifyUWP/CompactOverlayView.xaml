@@ -10,6 +10,7 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:media="using:Microsoft.Xaml.Interactions.Media"
     mc:Ignorable="d"
+    RequestedTheme="Dark"
     d:DesignHeight="280"
     d:DesignWidth="400">
 
