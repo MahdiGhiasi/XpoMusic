@@ -10,6 +10,7 @@
     xmlns:flyouts="using:ModernSpotifyUWP.Flyouts"
     mc:Ignorable="d"
     Loaded="Page_Loaded"
+    SizeChanged="Page_SizeChanged"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Page.Resources>

@@ -34,8 +34,6 @@ namespace ModernSpotifyUWP
     public sealed partial class MainPage : Page
     {
         private const string SpotifyPwaUrlBeginsWith = "https://open.spotify.com";
-        private readonly Size compactOverlayDefaultSize = new Size(300, 300);
-        private readonly Size windowMinSize = new Size(500, 500);
 
         MediaPlayer silentMediaPlayer;
         bool splashClosed = false;
@@ -136,7 +134,7 @@ namespace ModernSpotifyUWP
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
 
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(windowMinSize);
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(LocalConfiguration.WindowMinSize);
 
             // Play silent sound to avoid suspending the app when it's minimized.
             silentMediaPlayer.Play();
@@ -331,7 +329,7 @@ namespace ModernSpotifyUWP
 
             var viewMode = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
             viewMode.ViewSizePreference = ViewSizePreference.Custom;
-            viewMode.CustomSize = compactOverlayDefaultSize;
+            viewMode.CustomSize = LocalConfiguration.CompactOverlaySize;
 
             var modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, viewMode);
 
@@ -434,6 +432,14 @@ namespace ModernSpotifyUWP
             overlay.Visibility = Visibility.Collapsed;
             settingsFlyout.Visibility = Visibility.Collapsed;
             whatsNewFlyout.Visibility = Visibility.Collapsed;
+        }
+
+        private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+            {
+                LocalConfiguration.CompactOverlaySize = new Size(this.ActualWidth, this.ActualHeight);
+            }
         }
     }
 }
