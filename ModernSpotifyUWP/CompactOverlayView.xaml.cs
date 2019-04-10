@@ -29,6 +29,15 @@ namespace ModernSpotifyUWP
         private DispatcherTimer timer;
         private string artistArtUrl;
         private string albumArtUrl;
+        private string currentSongId;
+
+        private enum AnimationState
+        {
+            None,
+            HiddenToRightSide,
+            HiddenToLeftSide,
+        }
+        private AnimationState animationState = AnimationState.None;
 
         public CompactOverlayView()
         {
@@ -55,9 +64,6 @@ namespace ModernSpotifyUWP
 
         private async Task Update()
         {
-            songName.Text = PlayStatusTracker.LastPlayStatus.SongName;
-            artistName.Text = PlayStatusTracker.LastPlayStatus.ArtistName;
-
             if (progressBar.Value != progressBar.Maximum && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds == progressBar.Maximum)
             {
                 // Song just reached the end. refresh status now.
@@ -82,21 +88,41 @@ namespace ModernSpotifyUWP
                 pauseButton.Visibility = Visibility.Collapsed;
             }
 
-            var artistArtUrl = await SongImageProvider.GetArtistArt(PlayStatusTracker.LastPlayStatus.ArtistId);
-            var albumArtUrl = await SongImageProvider.GetAlbumArt(PlayStatusTracker.LastPlayStatus.AlbumId);
-
-            if (artistArtUrl != this.artistArtUrl)
+            if (currentSongId != PlayStatusTracker.LastPlayStatus.SongId)
             {
-                artistArt.Source = new BitmapImage(new Uri(artistArtUrl));
-                this.artistArtUrl = artistArtUrl;
-            }
+                currentSongId = PlayStatusTracker.LastPlayStatus.SongId;
 
-            if (albumArtUrl != this.albumArtUrl)
-            {
-                albumArt.Source = new BitmapImage(new Uri(albumArtUrl));
-                this.albumArtUrl = albumArtUrl;
-            }
+                if (animationState == AnimationState.None)
+                {
+                    hideToLeftStoryboard.Begin();
+                    await Task.Delay(300);
+                }
 
+                songName.Text = PlayStatusTracker.LastPlayStatus.SongName;
+                artistName.Text = PlayStatusTracker.LastPlayStatus.ArtistName;
+
+                var artistArtUrl = await SongImageProvider.GetArtistArt(PlayStatusTracker.LastPlayStatus.ArtistId);
+                var albumArtUrl = await SongImageProvider.GetAlbumArt(PlayStatusTracker.LastPlayStatus.AlbumId);
+
+                if (artistArtUrl != this.artistArtUrl)
+                {
+                    artistArt.Source = new BitmapImage(new Uri(artistArtUrl));
+                    this.artistArtUrl = artistArtUrl;
+                }
+
+                if (albumArtUrl != this.albumArtUrl)
+                {
+                    albumArt.Source = new BitmapImage(new Uri(albumArtUrl));
+                    this.albumArtUrl = albumArtUrl;
+                }
+
+                if (animationState == AnimationState.HiddenToRightSide)
+                    showFromLeftStoryboard.Begin();
+                else // None or HiddenToLeftSide
+                    showFromRightStoryboard.Begin();
+
+                animationState = AnimationState.None;
+            }
         }
 
         private async void RefreshPlayStatus()
@@ -160,6 +186,9 @@ namespace ModernSpotifyUWP
         {
             try
             {
+                hideToRightStoryboard.Begin();
+                animationState = AnimationState.HiddenToRightSide;
+
                 await (new Player()).PreviousTrack();
 
                 (sender as Control).IsEnabled = false;
@@ -177,6 +206,9 @@ namespace ModernSpotifyUWP
         {
             try
             {
+                hideToLeftStoryboard.Begin();
+                animationState = AnimationState.HiddenToLeftSide;
+
                 await (new Player()).NextTrack();
 
                 (sender as Control).IsEnabled = false;
@@ -187,6 +219,20 @@ namespace ModernSpotifyUWP
             catch (UnauthorizedAccessException)
             {
                 UnauthorizedHelper.OnUnauthorizedError();
+            }
+        }
+
+        public void PlayChangeTrackAnimation(bool reverse)
+        {
+            if (reverse)
+            {
+                hideToRightStoryboard.Begin();
+                animationState = AnimationState.HiddenToRightSide;
+            }
+            else
+            {
+                hideToLeftStoryboard.Begin();
+                animationState = AnimationState.HiddenToLeftSide;
             }
         }
     }

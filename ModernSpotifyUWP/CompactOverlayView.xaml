@@ -14,6 +14,75 @@
     d:DesignHeight="280"
     d:DesignWidth="400">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Storyboard x:Name="hideToLeftStoryboard">
+                <DoubleAnimation Storyboard.TargetName="animatedPanel" 
+                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                 Duration="0:0:0.3" To="-150">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="animatedPanel" 
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0:0:0.3" To="0">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+            <Storyboard x:Name="hideToRightStoryboard">
+                <DoubleAnimation Storyboard.TargetName="animatedPanel" 
+                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                 Duration="0:0:0.3" To="150">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="animatedPanel" 
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0:0:0.3" To="0">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+            <Storyboard x:Name="showFromLeftStoryboard">
+                <DoubleAnimation Storyboard.TargetName="animatedPanel" 
+                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                 Duration="0:0:0.3" From="-150" To="0">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="animatedPanel" 
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0:0:0.3" From="0" To="1">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+            <Storyboard x:Name="showFromRightStoryboard">
+                <DoubleAnimation Storyboard.TargetName="animatedPanel" 
+                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                 Duration="0:0:0.3" From="150" To="0">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="animatedPanel" 
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0:0:0.3" From="0" To="1">
+                    <DoubleAnimation.EasingFunction>
+                        <ExponentialEase EasingMode="EaseOut" />
+                    </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -60,57 +129,62 @@
         </Grid>
         <Grid Background="#77000000">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                <controls:DropShadowPanel x:Name="albumArtContainer" 
-                                          BlurRadius="40.0" 
-                                          ShadowOpacity="1"
-                                          OffsetX="0.0" 
-                                          OffsetY="0.0" 
-                                          Color="#111"
-                                          Background="Transparent" 
-                                          Visibility="Collapsed"
-                                          HorizontalAlignment="Center">
-                    <Image x:Name="albumArt"
-                           Stretch="UniformToFill"
-                           Visibility="Collapsed"
-                           Width="100" 
-                           Height="100">
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="ImageOpened">
-                                <media:ControlStoryboardAction ControlStoryboardOption="Play">
-                                    <media:ControlStoryboardAction.Storyboard>
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
-                                                                           Storyboard.TargetName="albumArt">
-                                                <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                                                    <DiscreteObjectKeyFrame.Value>
-                                                        <Visibility>Visible</Visibility>
-                                                    </DiscreteObjectKeyFrame.Value>
-                                                </DiscreteObjectKeyFrame>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                                                                           Storyboard.TargetName="albumArt">
-                                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </media:ControlStoryboardAction.Storyboard>
-                                </media:ControlStoryboardAction>
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </Image>
-                </controls:DropShadowPanel>
-                <TextBlock x:Name="songName"
-                           Text=""
-                           Margin="0,16,0,0"
-                           Visibility="Collapsed"
-                           TextAlignment="Center"
-                           FontWeight="Bold" />
-                <TextBlock x:Name="artistName"
-                           Text=""
-                           Margin="0,4,0,20"
-                           Visibility="Collapsed"
-                           TextAlignment="Center"
-                           FontWeight="Normal" />
+                <StackPanel x:Name="animatedPanel" VerticalAlignment="Center" HorizontalAlignment="Stretch">
+                    <StackPanel.RenderTransform>
+                        <TranslateTransform />
+                    </StackPanel.RenderTransform>
+                    <controls:DropShadowPanel x:Name="albumArtContainer" 
+                                              BlurRadius="40.0" 
+                                              ShadowOpacity="1"
+                                              OffsetX="0.0" 
+                                              OffsetY="0.0" 
+                                              Color="#111"
+                                              Background="Transparent" 
+                                              Visibility="Collapsed"
+                                              HorizontalAlignment="Center">
+                        <Image x:Name="albumArt"
+                               Stretch="UniformToFill"
+                               Visibility="Collapsed"
+                               Width="100" 
+                               Height="100">
+                            <interactivity:Interaction.Behaviors>
+                                <core:EventTriggerBehavior EventName="ImageOpened">
+                                    <media:ControlStoryboardAction ControlStoryboardOption="Play">
+                                        <media:ControlStoryboardAction.Storyboard>
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                                                               Storyboard.TargetName="albumArt">
+                                                    <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                        <DiscreteObjectKeyFrame.Value>
+                                                            <Visibility>Visible</Visibility>
+                                                        </DiscreteObjectKeyFrame.Value>
+                                                    </DiscreteObjectKeyFrame>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                               Storyboard.TargetName="albumArt">
+                                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                                </DoubleAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </media:ControlStoryboardAction.Storyboard>
+                                    </media:ControlStoryboardAction>
+                                </core:EventTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
+                        </Image>
+                    </controls:DropShadowPanel>
+                    <TextBlock x:Name="songName"
+                               Text=""
+                               Margin="0,16,0,0"
+                               Visibility="Collapsed"
+                               TextAlignment="Center"
+                               FontWeight="Bold" />
+                    <TextBlock x:Name="artistName"
+                               Text=""
+                               Margin="0,4,0,20"
+                               Visibility="Collapsed"
+                               TextAlignment="Center"
+                               FontWeight="Normal" />
+                </StackPanel>
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Center">
                     <Button x:Name="prevTrackButton" 

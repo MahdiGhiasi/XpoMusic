@@ -212,10 +212,11 @@ namespace ModernSpotifyUWP
 
                             break;
                         case SystemMediaTransportControlsButton.Next:
+                            compactOverlayView?.PlayChangeTrackAnimation(reverse: false);
                             await (new Player()).NextTrack();
-
                             break;
                         case SystemMediaTransportControlsButton.Previous:
+                            compactOverlayView?.PlayChangeTrackAnimation(reverse: true);
                             await (new Player()).PreviousTrack();
 
                             break;
@@ -353,6 +354,8 @@ namespace ModernSpotifyUWP
 
             compactOverlayView.ExitCompactOverlayRequested -= CompactOverlayView_ExitCompactOverlayRequested;
             mainGrid.Children.Remove(compactOverlayView);
+
+            compactOverlayView = null;
 
             StoreEventHelper.Log("compactOverlayClosed");
         }
