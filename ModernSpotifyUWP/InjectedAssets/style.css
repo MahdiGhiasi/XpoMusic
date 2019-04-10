@@ -92,6 +92,16 @@ body {
     min-width: 500px;
 }
 
+@media (max-width: 720px) and (min-width: 601px) {
+    .now-playing-bar__center .player-controls__buttons {
+        width: 180px;
+    }
+
+    .now-playing-bar__center .playback-bar {
+        width: 214px;
+    }
+}
+
 @media (max-width: 600px) {
     .now-playing-bar__left {
         width: 45%;
@@ -103,13 +113,8 @@ body {
 
     .now-playing-bar__right {
         /* TODO: Do something about this! */
-        display: none;
+         display: none;
     }
 }
 
-@media (max-width: 700px) {
-    .now-playing__widget-overlay {
-        display: none;
-    }
-}
 /* End of making UI usable for width < 720px, as UWP needs to support 500px+ */
