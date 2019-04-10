@@ -83,19 +83,20 @@ namespace ModernSpotifyUWP.Classes
                 var player = new Player();
                 var current = await player.GetCurrentlyPlaying();
 
-                if (current == null)
-                {
-                    LastPlayStatus.AlbumId = "";
-                    LastPlayStatus.AlbumName = "";
-                    LastPlayStatus.ArtistId = "";
-                    LastPlayStatus.ArtistName = "";
-                    LastPlayStatus.ProgressedMilliseconds = 0;
-                    LastPlayStatus.SongLengthMilliseconds = 0;
-                    LastPlayStatus.SongId = "";
-                    LastPlayStatus.SongName = "";
-                    LastPlayStatus.IsPlaying = false;
-                }
-                else
+                //if (current == null)
+                //{
+                //    LastPlayStatus.AlbumId = "";
+                //    LastPlayStatus.AlbumName = "";
+                //    LastPlayStatus.ArtistId = "";
+                //    LastPlayStatus.ArtistName = "";
+                //    LastPlayStatus.ProgressedMilliseconds = 0;
+                //    LastPlayStatus.SongLengthMilliseconds = 0;
+                //    LastPlayStatus.SongId = "";
+                //    LastPlayStatus.SongName = "";
+                //    LastPlayStatus.IsPlaying = false;
+                //}
+                //else
+                if (current != null)
                 {
                     LastPlayStatus.AlbumId = current.item.album.id;
                     LastPlayStatus.AlbumName = current.item.album.name;
