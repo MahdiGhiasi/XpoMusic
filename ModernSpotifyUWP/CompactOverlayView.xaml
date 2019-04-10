@@ -19,7 +19,7 @@
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowHeight="200" />
+                        <AdaptiveTrigger MinWindowHeight="180" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="songName.Visibility" Value="Visible" />
@@ -123,14 +123,14 @@
                             Tapped="PlayButton_Tapped"
                             Background="Transparent"
                             ToolTipService.ToolTip="Play">
-                        <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="32" Glyph="&#xE102;" />
+                        <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="36" Glyph="&#xE102;" />
                     </Button>
                     <Button x:Name="pauseButton" 
                             Tapped="PauseButton_Tapped"
                             Background="Transparent" 
                             Visibility="Collapsed"
                             ToolTipService.ToolTip="Pause">
-                        <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="32" Glyph="&#xE103;" />
+                        <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="36" Glyph="&#xE103;" />
                     </Button>
                     <Button x:Name="nextTrackButton" 
                             Tapped="NextTrackButton_Tapped"
