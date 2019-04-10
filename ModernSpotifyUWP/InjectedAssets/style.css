@@ -104,6 +104,16 @@ body {
     .now-playing-bar__center .playback-bar {
         width: 214px;
     }
+
+    .now-playing-bar__left .track-info {
+        margin-right: 4px;
+        margin-left: 8px;
+    }
+
+    .now-playing-bar__left .control-button {
+        width: 22px;
+        min-width: 22px;
+    }
 }
 
 @media (max-width: 600px) {
