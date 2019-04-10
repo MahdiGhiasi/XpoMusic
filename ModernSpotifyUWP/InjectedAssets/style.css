@@ -23,6 +23,10 @@
 .navBar-header .logo {
 }
 
+.now-playing-bar__right {
+    padding-right: 8px;
+}
+
 @media (min-width: 721px) {
     .now-playing-bar__right__inner {
         width: 200px;
