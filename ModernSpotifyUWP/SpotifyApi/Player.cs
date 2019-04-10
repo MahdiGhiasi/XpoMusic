@@ -1,4 +1,5 @@
-﻿using ModernSpotifyUWP.SpotifyApi.Model;
+﻿using ModernSpotifyUWP.Helpers;
+using ModernSpotifyUWP.SpotifyApi.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace ModernSpotifyUWP.SpotifyApi
     {
         public async Task<CurrentlyPlayingContext> GetCurrentlyPlaying()
         {
+            StoreEventHelper.Log("api:me/getplayer");
+
             var result = await SendRequestWithTokenAsync("https://api.spotify.com/v1/me/player", HttpMethod.Get);
             var resultString = await result.Content.ReadAsStringAsync();
 
@@ -21,18 +24,24 @@ namespace ModernSpotifyUWP.SpotifyApi
 
         public async Task<bool> NextTrack()
         {
+            StoreEventHelper.Log("api:me/player/next");
+
             var result = await SendRequestWithTokenAsync("https://api.spotify.com/v1/me/player/next", HttpMethod.Post);
             return (result.StatusCode == System.Net.HttpStatusCode.NoContent);
         }
 
         public async Task<bool> PreviousTrack()
         {
+            StoreEventHelper.Log("api:me/player/previous");
+
             var result = await SendRequestWithTokenAsync("https://api.spotify.com/v1/me/player/previous", HttpMethod.Post);
             return (result.StatusCode == System.Net.HttpStatusCode.NoContent);
         }
 
         public async Task<bool> ResumePlaying()
         {
+            StoreEventHelper.Log("api:me/player/play");
+
             var result = await SendRequestWithTokenAsync("https://api.spotify.com/v1/me/player/play", HttpMethod.Put);
 
             if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
@@ -57,12 +66,16 @@ namespace ModernSpotifyUWP.SpotifyApi
 
         public async Task<bool> Pause()
         {
+            StoreEventHelper.Log("api:me/player/pause");
+
             var result = await SendRequestWithTokenAsync("https://api.spotify.com/v1/me/player/pause", HttpMethod.Put);
             return (result.StatusCode == System.Net.HttpStatusCode.NoContent);
         }
 
         public async Task<Devices> GetDevices()
         {
+            StoreEventHelper.Log("api:me/player/getdevices");
+
             var result = await SendRequestWithTokenAsync("https://api.spotify.com/v1/me/player/devices", HttpMethod.Get);
             var resultString = await result.Content.ReadAsStringAsync();
 
@@ -71,6 +84,8 @@ namespace ModernSpotifyUWP.SpotifyApi
 
         public async Task<bool> TransferPlayback(string deviceId, bool ensurePlayback)
         {
+            StoreEventHelper.Log("api:me/player:transferplayback");
+
             var ensurePlaybackString = ensurePlayback ? "true" : "false";
             var data = $"{{\"device_ids\":[\"{deviceId}\"], \"play\": \"{ensurePlaybackString}\"}}";
 

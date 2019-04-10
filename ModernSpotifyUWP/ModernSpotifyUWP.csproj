@@ -137,6 +137,7 @@
     <Compile Include="Helpers\LocalConfiguration.cs" />
     <Compile Include="Helpers\PackageHelper.cs" />
     <Compile Include="Helpers\SongImageProvider.cs" />
+    <Compile Include="Helpers\StoreEventHelper.cs" />
     <Compile Include="Helpers\TileHelper.cs" />
     <Compile Include="Helpers\UnauthorizedHelper.cs" />
     <Compile Include="Secrets.cs" />
@@ -257,6 +258,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.2</Version>
+    </PackageReference>
+    <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
+      <Name>Microsoft Engagement Framework</Name>
+    </SDKReference>
+    <PackageReference Include="Microsoft.Services.Store.Engagement">
+      <Version>10.1901.28001</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Services.Store.SDK">
+      <Version>10.1705.16001</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>5.1.1</Version>

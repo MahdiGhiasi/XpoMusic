@@ -166,6 +166,8 @@ namespace ModernSpotifyUWP
             };
             playCheckTimer.Tick += PlayCheckTimer_Tick;
             playCheckTimer.Start();
+
+            StoreEventHelper.Log("appOpened");
         }
 
         private async void PlayCheckTimer_Tick(object sender, object e)
@@ -246,6 +248,7 @@ namespace ModernSpotifyUWP
                 TokenHelper.ClearTokens();
                 var authorizationUrl = Authorization.GetAuthorizationUrl("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F");
                 mainWebView.Navigate(new Uri(authorizationUrl));
+                StoreEventHelper.Log("notLoggedIn");
             }
         }
 
@@ -306,18 +309,21 @@ namespace ModernSpotifyUWP
             {
                 args.Cancel = true;
                 OpenSettings();
+                StoreEventHelper.Log("settingsOpened");
             }
             else if (args.Uri.ToString().EndsWith("#xpotifypintostart"))
             {
                 args.Cancel = true;
 
                 await PinPageToStart();
+                StoreEventHelper.Log("pinToStart");
             }
             else if (args.Uri.ToString().EndsWith("#xpotifycompactoverlay"))
             {
                 args.Cancel = true;
 
                 await GoToCompactOverlayMode();
+                StoreEventHelper.Log("compactOverlayOpened");
             }
 
         }
@@ -347,6 +353,8 @@ namespace ModernSpotifyUWP
 
             compactOverlayView.ExitCompactOverlayRequested -= CompactOverlayView_ExitCompactOverlayRequested;
             mainGrid.Children.Remove(compactOverlayView);
+
+            StoreEventHelper.Log("compactOverlayClosed");
         }
 
         private async Task PinPageToStart()
