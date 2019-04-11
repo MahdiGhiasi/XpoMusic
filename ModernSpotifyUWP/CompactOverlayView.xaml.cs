@@ -121,6 +121,7 @@ namespace ModernSpotifyUWP
                 else // None or HiddenToLeftSide
                     showFromRightStoryboard.Begin();
 
+                nextTrackLoadingProgressRing.IsActive = false;
                 animationState = AnimationState.None;
             }
         }
@@ -142,13 +143,22 @@ namespace ModernSpotifyUWP
         {
             try
             {
-                await (new Player()).Pause();
-
-                timer.Stop();
                 playButton.Visibility = Visibility.Visible;
                 pauseButton.Visibility = Visibility.Collapsed;
-                await Task.Delay(500);
-                await PlayStatusTracker.RefreshPlayStatus();
+
+                if (await (new Player()).Pause())
+                {
+                    timer.Stop();
+                    await Task.Delay(500);
+                    await PlayStatusTracker.RefreshPlayStatus();
+                }
+                else
+                {
+                    playButton.Visibility = Visibility.Collapsed;
+                    pauseButton.Visibility = Visibility.Visible;
+
+                    await PlayStatusTracker.RefreshPlayStatus();
+                }
             }
             catch (UnauthorizedAccessException)
             {
@@ -156,7 +166,8 @@ namespace ModernSpotifyUWP
             }
             finally
             {
-                timer.Start();
+                if (!timer.IsEnabled)
+                    timer.Start();
             }
         }
 
@@ -164,13 +175,22 @@ namespace ModernSpotifyUWP
         {
             try
             {
-                await (new Player()).ResumePlaying();
-
-                timer.Stop();
                 playButton.Visibility = Visibility.Collapsed;
                 pauseButton.Visibility = Visibility.Visible;
-                await Task.Delay(500);
-                await PlayStatusTracker.RefreshPlayStatus();
+
+                if (await (new Player()).ResumePlaying())
+                {
+                    timer.Stop();
+                    await Task.Delay(500);
+                    await PlayStatusTracker.RefreshPlayStatus();
+                }
+                else
+                {
+                    playButton.Visibility = Visibility.Visible;
+                    pauseButton.Visibility = Visibility.Collapsed;
+
+                    await PlayStatusTracker.RefreshPlayStatus();
+                }
             }
             catch (UnauthorizedAccessException)
             {
@@ -178,7 +198,8 @@ namespace ModernSpotifyUWP
             }
             finally
             {
-                timer.Start();
+                if (!timer.IsEnabled)
+                    timer.Start();
             }
         }
 
@@ -186,10 +207,15 @@ namespace ModernSpotifyUWP
         {
             try
             {
-                hideToRightStoryboard.Begin();
-                animationState = AnimationState.HiddenToRightSide;
+                HideToRightAnimation();
 
-                await (new Player()).PreviousTrack();
+                if (!(await (new Player()).PreviousTrack()))
+                {
+                    showFromRightStoryboard.Begin();
+                    animationState = AnimationState.None;
+                    nextTrackLoadingProgressRing.IsActive = false;
+                    return;
+                }
 
                 (sender as Control).IsEnabled = false;
                 await Task.Delay(1000);
@@ -206,10 +232,15 @@ namespace ModernSpotifyUWP
         {
             try
             {
-                hideToLeftStoryboard.Begin();
-                animationState = AnimationState.HiddenToLeftSide;
+                HideToLeftAnimation();
 
-                await (new Player()).NextTrack();
+                if (!(await (new Player()).NextTrack()))
+                {
+                    showFromLeftStoryboard.Begin();
+                    animationState = AnimationState.None;
+                    nextTrackLoadingProgressRing.IsActive = false;
+                    return;
+                }
 
                 (sender as Control).IsEnabled = false;
                 await Task.Delay(1000);
@@ -222,18 +253,43 @@ namespace ModernSpotifyUWP
             }
         }
 
+        private async void HideToRightAnimation()
+        {
+            hideToRightStoryboard.Begin();
+            animationState = AnimationState.HiddenToRightSide;
+
+            await Task.Delay(300);
+            nextTrackLoadingProgressRing.IsActive = true;
+        }
+
+        private async void HideToLeftAnimation()
+        {
+            hideToLeftStoryboard.Begin();
+            animationState = AnimationState.HiddenToLeftSide;
+
+            await Task.Delay(300);
+            nextTrackLoadingProgressRing.IsActive = true;
+        }
+
         public void PlayChangeTrackAnimation(bool reverse)
         {
             if (reverse)
             {
-                hideToRightStoryboard.Begin();
-                animationState = AnimationState.HiddenToRightSide;
+                HideToRightAnimation();
             }
             else
             {
-                hideToLeftStoryboard.Begin();
-                animationState = AnimationState.HiddenToLeftSide;
+                HideToLeftAnimation();
             }
+        }
+
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                await Update();
+            }
+            catch { }
         }
     }
 }

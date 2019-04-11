@@ -212,12 +212,13 @@ namespace ModernSpotifyUWP
 
                             break;
                         case SystemMediaTransportControlsButton.Next:
-                            compactOverlayView?.PlayChangeTrackAnimation(reverse: false);
-                            await (new Player()).NextTrack();
+                            if (await (new Player()).NextTrack())
+                                compactOverlayView?.PlayChangeTrackAnimation(reverse: false);
+
                             break;
                         case SystemMediaTransportControlsButton.Previous:
-                            compactOverlayView?.PlayChangeTrackAnimation(reverse: true);
-                            await (new Player()).PreviousTrack();
+                            if (await (new Player()).PreviousTrack())
+                                compactOverlayView?.PlayChangeTrackAnimation(reverse: true);
 
                             break;
                     }

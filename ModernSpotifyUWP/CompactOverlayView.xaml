@@ -11,6 +11,7 @@
     xmlns:media="using:Microsoft.Xaml.Interactions.Media"
     mc:Ignorable="d"
     RequestedTheme="Dark"
+    Loaded="UserControl_Loaded"
     d:DesignHeight="280"
     d:DesignWidth="400">
 
@@ -19,7 +20,7 @@
             <Storyboard x:Name="hideToLeftStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                 Duration="0:0:0.3" To="-150">
+                                 Duration="0:0:0.3" To="-200">
                     <DoubleAnimation.EasingFunction>
                         <ExponentialEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
@@ -35,7 +36,7 @@
             <Storyboard x:Name="hideToRightStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                 Duration="0:0:0.3" To="150">
+                                 Duration="0:0:0.3" To="200">
                     <DoubleAnimation.EasingFunction>
                         <ExponentialEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
@@ -51,7 +52,7 @@
             <Storyboard x:Name="showFromLeftStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                 Duration="0:0:0.3" From="-150" To="0">
+                                 Duration="0:0:0.3" From="-200" To="0">
                     <DoubleAnimation.EasingFunction>
                         <ExponentialEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
@@ -67,7 +68,7 @@
             <Storyboard x:Name="showFromRightStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                 Duration="0:0:0.3" From="150" To="0">
+                                 Duration="0:0:0.3" From="200" To="0">
                     <DoubleAnimation.EasingFunction>
                         <ExponentialEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
@@ -80,6 +81,120 @@
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
             </Storyboard>
+            <Style x:Key="CircleButton" TargetType="Button">
+                <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+                <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
+                <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
+                <Setter Property="Padding" Value="8,4,8,4"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+                <Setter Property="UseSystemFocusVisuals" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="RootGrid">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="BorderCircle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumLowBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Stroke" Storyboard.TargetName="BorderCircle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumLowBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="BorderCircle">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlBackgroundBaseMediumLowBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlDisabledBaseMediumLowBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <ContentPresenter x:Name="ContentPresenter" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                                <Ellipse x:Name="BorderCircle"
+                                         Fill="#01FFFFFF"
+                                         Stroke="Transparent" 
+                                         StrokeThickness="1" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="MinimalButton" TargetType="Button">
+                <Setter Property="Background" Value="{ThemeResource SystemControlBackgroundBaseLowBrush}"/>
+                <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
+                <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundTransparentBrush}"/>
+                <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}"/>
+                <Setter Property="Padding" Value="8,4,8,4"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
+                <Setter Property="FontWeight" Value="Normal"/>
+                <Setter Property="FontSize" Value="{ThemeResource ControlContentThemeFontSize}"/>
+                <Setter Property="UseSystemFocusVisuals" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid x:Name="RootGrid" Background="#01FFFFFF">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal">
+                                            <Storyboard>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <PointerUpThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentPresenter">
+                                                    <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseMediumLowBrush}"/>
+                                                </ObjectAnimationUsingKeyFrames>
+                                                <PointerDownThemeAnimation Storyboard.TargetName="RootGrid"/>
+                                            </Storyboard>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <ContentPresenter x:Name="ContentPresenter" VerticalAlignment="Center" AutomationProperties.AccessibilityView="Raw" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     
@@ -92,7 +207,12 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="songName.Visibility" Value="Visible" />
+                        <Setter Target="songName.FontWeight" Value="Bold" />
                         <Setter Target="artistName.Visibility" Value="Visible" />
+                        <Setter Target="buttonsContainer.Margin" Value="0,0,0,0" />
+                        <Setter Target="nextTrackLoadingProgressRing.Margin" Value="0,0,0,60" />
+                        <Setter Target="nextTrackLoadingProgressRing.Width" Value="28" />
+                        <Setter Target="nextTrackLoadingProgressRing.Height" Value="28" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -102,7 +222,12 @@
                     <VisualState.Setters>
                         <Setter Target="albumArtContainer.Visibility" Value="Visible" />
                         <Setter Target="songName.Visibility" Value="Visible" />
+                        <Setter Target="songName.FontWeight" Value="Bold" />
                         <Setter Target="artistName.Visibility" Value="Visible" />
+                        <Setter Target="buttonsContainer.Margin" Value="0,0,0,0" />
+                        <Setter Target="nextTrackLoadingProgressRing.Margin" Value="0,0,0,60" />
+                        <Setter Target="nextTrackLoadingProgressRing.Width" Value="32" />
+                        <Setter Target="nextTrackLoadingProgressRing.Height" Value="32" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -128,6 +253,13 @@
             </Image>
         </Grid>
         <Grid Background="#77000000">
+            <ProgressRing x:Name="nextTrackLoadingProgressRing"
+                          IsActive="False"
+                          Foreground="White"
+                          Margin="0,0,0,54"
+                          Width="20"
+                          Height="20" />
+            
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch">
                 <StackPanel x:Name="animatedPanel" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                     <StackPanel.RenderTransform>
@@ -174,32 +306,45 @@
                     </controls:DropShadowPanel>
                     <TextBlock x:Name="songName"
                                Text=""
-                               Margin="0,16,0,0"
-                               Visibility="Collapsed"
+                               Margin="8,16,8,0"
+                               Visibility="Visible"
                                TextAlignment="Center"
-                               FontWeight="Bold" />
+                               FontWeight="Normal" />
                     <TextBlock x:Name="artistName"
                                Text=""
-                               Margin="0,4,0,20"
+                               Margin="8,4,8,20"
                                Visibility="Collapsed"
                                TextAlignment="Center"
                                FontWeight="Normal" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal"
+                <StackPanel x:Name="buttonsContainer" 
+                            Margin="0,8,0,0"
+                            Orientation="Horizontal"
                             HorizontalAlignment="Center">
                     <Button x:Name="prevTrackButton" 
+                            Style="{StaticResource CircleButton}" 
+                            Width="40"
+                            Height="40"
                             Tapped="PrevTrackButton_Tapped"
                             Background="Transparent"
                             ToolTipService.ToolTip="Previous track">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE100;" />
                     </Button>
                     <Button x:Name="playButton" 
+                            Style="{StaticResource CircleButton}" 
+                            Width="54"
+                            Height="54"
+                            Margin="4,0,4,0"
                             Tapped="PlayButton_Tapped"
                             Background="Transparent"
                             ToolTipService.ToolTip="Play">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="36" Glyph="&#xE102;" />
                     </Button>
                     <Button x:Name="pauseButton" 
+                            Style="{StaticResource CircleButton}" 
+                            Width="54"
+                            Height="54"
+                            Margin="4,0,4,0"
                             Tapped="PauseButton_Tapped"
                             Background="Transparent" 
                             Visibility="Collapsed"
@@ -207,6 +352,9 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="36" Glyph="&#xE103;" />
                     </Button>
                     <Button x:Name="nextTrackButton" 
+                            Style="{StaticResource CircleButton}" 
+                            Width="40"
+                            Height="40"
                             Tapped="NextTrackButton_Tapped"
                             Background="Transparent" 
                             ToolTipService.ToolTip="Next track">
@@ -216,10 +364,13 @@
             </StackPanel>
             <ProgressBar x:Name="progressBar" 
                          VerticalAlignment="Bottom"
+                         IsIndeterminate="False"
                          Value="40"
                          Maximum="100"
                          Foreground="#77ffffff" />
-            <Button x:Name="closeCompactOverlayButton"
+            <Button Style="{StaticResource MinimalButton}" x:Name="closeCompactOverlayButton"
+                    Width="40"
+                    Height="36"
                     Background="Transparent"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
