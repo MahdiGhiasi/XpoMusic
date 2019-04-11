@@ -30,6 +30,15 @@ namespace ModernSpotifyUWP.Helpers
             tile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/Wide310x150Logo.png");
             tile.VisualElements.Square310x310Logo = new Uri("ms-appx:///Assets/LargeTile.png");
 
+            var image = await GetTileImage(pageUrl);
+            if (image != null)
+            {
+                tile.VisualElements.Square150x150Logo = image;
+                tile.VisualElements.Wide310x150Logo = image;
+                tile.VisualElements.Square310x310Logo = image;
+            }
+
+
             // Show the display name on all sizes
             tile.VisualElements.ShowNameOnSquare150x150Logo = true;
             tile.VisualElements.ShowNameOnWide310x150Logo = true;
@@ -39,6 +48,49 @@ namespace ModernSpotifyUWP.Helpers
 
             if (!result)
                 Debug.WriteLine("Tile creation failed");
+        }
+
+        public static async Task<Uri> GetTileImage(string pageUrl)
+        {
+            try
+            {
+                if (pageUrl.ToLower().StartsWith("https://open.spotify.com/playlist/"))
+                {
+                    string playlistId = pageUrl.Substring("https://open.spotify.com/playlist/".Length);
+                    if (playlistId.Contains('/'))
+                        playlistId = playlistId.Substring(0, playlistId.IndexOf('/') - 1);
+
+                    var image = await ImageSaveHelper.GetAndSaveImage(await SongImageProvider.GetPlaylistArt(playlistId));
+
+                    return image;
+                }
+                else if (pageUrl.ToLower().StartsWith("https://open.spotify.com/artist/"))
+                {
+                    string artistId = pageUrl.Substring("https://open.spotify.com/artist/".Length);
+                    if (artistId.Contains('/'))
+                        artistId = artistId.Substring(0, artistId.IndexOf('/') - 1);
+
+                    var image = await ImageSaveHelper.GetAndSaveImage(await SongImageProvider.GetArtistArt(artistId));
+
+                    return image;
+                }
+                else if (pageUrl.ToLower().StartsWith("https://open.spotify.com/album/"))
+                {
+                    string albumId = pageUrl.Substring("https://open.spotify.com/album/".Length);
+                    if (albumId.Contains('/'))
+                        albumId = albumId.Substring(0, albumId.IndexOf('/') - 1);
+
+                    var image = await ImageSaveHelper.GetAndSaveImage(await SongImageProvider.GetAlbumArt(albumId));
+
+                    return image;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("GetTileImage failed: " + ex.ToString());
+            }
+
+            return null;
         }
     }
 }

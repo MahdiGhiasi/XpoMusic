@@ -12,6 +12,7 @@ namespace ModernSpotifyUWP.Helpers
     {
         static Dictionary<string, string> artistImages = new Dictionary<string, string>();
         static Dictionary<string, string> albumImages = new Dictionary<string, string>();
+        static Dictionary<string, string> playlistImages = new Dictionary<string, string>();
 
         public static async Task<string> GetArtistArt(string artistId)
         {
@@ -56,5 +57,28 @@ namespace ModernSpotifyUWP.Helpers
                 return "";
             }
         }
+
+        public static async Task<string> GetPlaylistArt(string playlistId)
+        {
+            if (playlistImages.ContainsKey(playlistId))
+                return playlistImages[playlistId];
+            if (string.IsNullOrEmpty(playlistId))
+                return "";
+
+            try
+            {
+                var playlistApi = new Playlist();
+                var playlist = await playlistApi.GetPlaylist(playlistId);
+
+                playlistImages[playlistId] = playlist.images.OrderBy(x => x.width).Last().url;
+                return playlistImages[playlistId];
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Fetching album art for {playlistId} failed: {ex}");
+                return "";
+            }
+        }
     }
 }
+

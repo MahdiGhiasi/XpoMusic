@@ -134,6 +134,7 @@
     <Compile Include="Flyouts\WhatsNewFlyout.xaml.cs">
       <DependentUpon>WhatsNewFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ImageSaveHelper.cs" />
     <Compile Include="Helpers\LocalConfiguration.cs" />
     <Compile Include="Helpers\PackageHelper.cs" />
     <Compile Include="Helpers\SongImageProvider.cs" />
@@ -152,8 +153,10 @@
     <Compile Include="SpotifyApi\Model\Device.cs" />
     <Compile Include="SpotifyApi\Model\Devices.cs" />
     <Compile Include="SpotifyApi\Model\Image.cs" />
+    <Compile Include="SpotifyApi\Model\Playlist.cs" />
     <Compile Include="SpotifyApi\Model\Track.cs" />
     <Compile Include="SpotifyApi\Player.cs" />
+    <Compile Include="SpotifyApi\Playlist.cs" />
     <Compile Include="SpotifyApi\TokenHelper.cs" />
     <Content Include="InjectedAssets\checkCurrentPlaying.js" />
     <Content Include="InjectedAssets\findPageTitle.js" />
