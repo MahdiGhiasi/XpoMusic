@@ -79,6 +79,12 @@
 }
 
 
+/* By [artistName] padding */
+.TrackListHeader__entity-by {
+    margin-right: 4px;
+}
+
+
 /* Move top info banners a bit more down, so they don't get covered up via window close button */
 div[aria-live=polite] {
     height: auto;
