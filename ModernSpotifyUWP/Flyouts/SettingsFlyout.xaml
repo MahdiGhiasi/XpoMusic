@@ -47,6 +47,8 @@
 
                         <HyperlinkButton Content="Rate and review"
                                          Click="RateAndReviewButton_Click"/>
+                        <HyperlinkButton Content="Send feedback"
+                                         Click="SendFeedbackButton_Click"/>
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
