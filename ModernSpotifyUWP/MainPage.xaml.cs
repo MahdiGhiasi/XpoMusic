@@ -62,13 +62,34 @@ namespace ModernSpotifyUWP
 
             if (TokenHelper.HasTokens())
             {
-                mainWebView.Navigate(new Uri(targetUrl));
+                if (LocalConfiguration.IsLoggedInByFacebook)
+                {
+                    // We need to open the login page and click on facebook button
+                    Debug.WriteLine("Logging in via Facebook...");
+                    var loginUrl = "https://accounts.spotify.com/login?continue=" + System.Net.WebUtility.UrlEncode(targetUrl);
+                    mainWebView.Navigate(new Uri(loginUrl));
+                }
+                else
+                {
+                    mainWebView.Navigate(new Uri(targetUrl));
+                }
             }
             else
             {
-                var authorizationUrl = Authorization.GetAuthorizationUrl(targetUrl);
-                mainWebView.Navigate(new Uri(authorizationUrl));
+                Authorize(targetUrl, clearExisting: false);
             }
+        }
+
+        private void Authorize(string targetUrl, bool clearExisting)
+        {
+            if (clearExisting)
+            {
+                TokenHelper.ClearTokens();
+                LocalConfiguration.IsLoggedInByFacebook = false;
+            }
+
+            var authorizationUrl = Authorization.GetAuthorizationUrl(targetUrl);
+            mainWebView.Navigate(new Uri(authorizationUrl));
         }
 
         private string GetTargetUrl(NavigationEventArgs e)
@@ -90,7 +111,6 @@ namespace ModernSpotifyUWP
                 }
             }
 
-            //mainWebView.Navigate(new Uri("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F"));
             return "https://open.spotify.com/";
         }
 
@@ -232,6 +252,15 @@ namespace ModernSpotifyUWP
 
         private async void MainWebView_LoadCompleted(object sender, NavigationEventArgs e)
         {
+            if (e.Uri.ToString().StartsWith(Authorization.SpotifyLoginUri) && LocalConfiguration.IsLoggedInByFacebook)
+            {
+                if (await TryPushingFacebookLoginButton())
+                {
+                    Debug.WriteLine("Pushed the facebook login button.");
+                    return;
+                }
+            }
+
             if (!splashClosed)
                 CloseSplash();
 
@@ -247,11 +276,17 @@ namespace ModernSpotifyUWP
 
             if (!await CheckLoggedIn())
             {
-                TokenHelper.ClearTokens();
-                var authorizationUrl = Authorization.GetAuthorizationUrl("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F");
-                mainWebView.Navigate(new Uri(authorizationUrl));
+                Authorize("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F", clearExisting: true);
                 StoreEventHelper.Log("notLoggedIn");
             }
+        }
+
+        private async Task<bool> TryPushingFacebookLoginButton()
+        {
+            var script = File.ReadAllText("InjectedAssets/clickOnFacebookLogin.js");
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+
+            return (result == "1");
         }
 
         private async Task<bool> CheckLoggedIn()
@@ -287,13 +322,13 @@ namespace ModernSpotifyUWP
             }
         }
 
-        private async void MainWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        private async void MainWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs e)
         {
-            Debug.WriteLine("Page: " + args.Uri.ToString());
+            Debug.WriteLine("Page: " + e.Uri.ToString());
 
-            if (args.Uri.ToString().EndsWith("#xpotifygoback"))
+            if (e.Uri.ToString().EndsWith("#xpotifygoback"))
             {
-                args.Cancel = true;
+                e.Cancel = true;
 
                 //var len = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.history.length.toString()" });
                 //Debug.WriteLine("Len: " + len);
@@ -307,27 +342,33 @@ namespace ModernSpotifyUWP
                 //var curLocation2 = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.location.href" });
                 //Debug.WriteLine("curLocation2: " + curLocation2);
             }
-            else if (args.Uri.ToString().EndsWith("#xpotifysettings"))
+            else if (e.Uri.ToString().EndsWith("#xpotifysettings"))
             {
-                args.Cancel = true;
+                e.Cancel = true;
                 OpenSettings();
                 StoreEventHelper.Log("settingsOpened");
             }
-            else if (args.Uri.ToString().EndsWith("#xpotifypintostart"))
+            else if (e.Uri.ToString().EndsWith("#xpotifypintostart"))
             {
-                args.Cancel = true;
+                e.Cancel = true;
 
                 await PinPageToStart();
                 StoreEventHelper.Log("pinToStart");
             }
-            else if (args.Uri.ToString().EndsWith("#xpotifycompactoverlay"))
+            else if (e.Uri.ToString().EndsWith("#xpotifycompactoverlay"))
             {
-                args.Cancel = true;
+                e.Cancel = true;
 
                 await GoToCompactOverlayMode();
                 StoreEventHelper.Log("compactOverlayOpened");
             }
 
+
+            if (e.Uri.ToString().StartsWith(Authorization.FacebookLoginFinishRedirectUri))
+            {
+                Debug.WriteLine("Logged in by Facebook.");
+                LocalConfiguration.IsLoggedInByFacebook = true;
+            }
         }
 
         private async Task GoToCompactOverlayMode()
@@ -407,8 +448,7 @@ namespace ModernSpotifyUWP
             {
                 Debug.WriteLine("Authorization failed. " + ex.ToString());
 
-                var authorizationUrl = Authorization.GetAuthorizationUrl("https://open.spotify.com/");
-                mainWebView.Navigate(new Uri(authorizationUrl));
+                Authorize("https://open.spotify.com/", clearExisting: false);
             }
         }
 

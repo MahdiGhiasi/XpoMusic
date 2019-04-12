@@ -13,6 +13,8 @@ namespace ModernSpotifyUWP.SpotifyApi
     public static class Authorization
     {
         internal static readonly string Scopes = "user-read-recently-played playlist-read-private user-read-email user-library-read user-read-playback-state user-read-private user-modify-playback-state user-read-currently-playing";
+        internal static readonly string SpotifyLoginUri = "https://accounts.spotify.com/";
+        internal static readonly string FacebookLoginFinishRedirectUri = "https://accounts.spotify.com/api/facebook/oauth/access_token";
         internal static readonly string RedirectUri = "https://xpotify.ghiasi.net/login/redirect";
 
         public static string GetAuthorizationUrl(string state)

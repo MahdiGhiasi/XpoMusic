@@ -159,6 +159,7 @@
     <Compile Include="SpotifyApi\Playlist.cs" />
     <Compile Include="SpotifyApi\TokenHelper.cs" />
     <Content Include="InjectedAssets\checkCurrentPlaying.js" />
+    <Content Include="InjectedAssets\clickOnFacebookLogin.js" />
     <Content Include="InjectedAssets\findPageTitle.js" />
     <Compile Include="Helpers\WhatsNewHelper.cs" />
     <Compile Include="MainPage.xaml.cs">

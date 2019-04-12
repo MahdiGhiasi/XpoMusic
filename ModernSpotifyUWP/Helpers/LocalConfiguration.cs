@@ -40,6 +40,18 @@ namespace ModernSpotifyUWP.Helpers
 
         public static Size WindowMinSize => new Size(500, 500);
 
+        public static bool IsLoggedInByFacebook
+        {
+            get
+            {
+                return GetConfiguration("IsLoggedInByFacebook") == "1";
+            }
+            set
+            {
+                SetConfiguration("IsLoggedInByFacebook", value ? "1" : "0");
+            }
+        }
+
         private static string GetConfiguration(string key)
         {
             var completeKey = "LocalConfiguration_" + key;
