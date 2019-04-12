@@ -439,6 +439,12 @@
                          Value="40"
                          Maximum="100"
                          Foreground="#77ffffff" />
+            <Image Source="Assets/spotify-monochrome-white.png"
+                   Width="20"
+                   Height="20" 
+                   Margin="4,0,0,10"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Bottom"/>
             <Button Style="{StaticResource MinimalButton}" x:Name="closeCompactOverlayButton"
                     Width="40"
                     Height="36"

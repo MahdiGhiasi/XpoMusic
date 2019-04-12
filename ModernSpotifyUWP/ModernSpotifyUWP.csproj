@@ -293,6 +293,7 @@
     <Content Include="Assets\Logo\contrast-white\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Logo\contrast-white\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Logo\contrast-white\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\spotify-monochrome-white.png" />
     <Content Include="InjectedAssets\checkCurrentPlaying.js" />
     <Content Include="InjectedAssets\clickOnFacebookLogin.js" />
     <Content Include="InjectedAssets\findPageTitle.js" />
