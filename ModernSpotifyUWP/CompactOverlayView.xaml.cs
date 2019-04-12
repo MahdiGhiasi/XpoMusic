@@ -39,6 +39,9 @@ namespace ModernSpotifyUWP
         }
         private AnimationState animationState = AnimationState.None;
 
+        private DateTime spinnerShowTime = DateTime.MaxValue;
+        private readonly TimeSpan maximumSpinnerShowTime = TimeSpan.FromSeconds(7);
+
         public CompactOverlayView()
         {
             this.InitializeComponent();
@@ -120,6 +123,21 @@ namespace ModernSpotifyUWP
                     showFromLeftStoryboard.Begin();
                 else // None or HiddenToLeftSide
                     showFromRightStoryboard.Begin();
+
+                nextTrackLoadingProgressRing.IsActive = false;
+                animationState = AnimationState.None;
+            }
+            else if ((DateTime.UtcNow - spinnerShowTime) > maximumSpinnerShowTime 
+                && nextTrackLoadingProgressRing.IsActive)
+            {
+                // Workaround for when prev track gets pushed when no prev track is there,
+                // or in general when a command fails.
+                // (progress ring should not be shown forever!)
+
+                if (animationState == AnimationState.HiddenToRightSide)
+                    showFromRightStoryboard.Begin();
+                else // None or HiddenToLeftSide
+                    showFromLeftStoryboard.Begin();
 
                 nextTrackLoadingProgressRing.IsActive = false;
                 animationState = AnimationState.None;
@@ -257,6 +275,7 @@ namespace ModernSpotifyUWP
         {
             hideToRightStoryboard.Begin();
             animationState = AnimationState.HiddenToRightSide;
+            spinnerShowTime = DateTime.UtcNow;
 
             await Task.Delay(300);
             nextTrackLoadingProgressRing.IsActive = true;
@@ -266,6 +285,7 @@ namespace ModernSpotifyUWP
         {
             hideToLeftStoryboard.Begin();
             animationState = AnimationState.HiddenToLeftSide;
+            spinnerShowTime = DateTime.UtcNow;
 
             await Task.Delay(300);
             nextTrackLoadingProgressRing.IsActive = true;
