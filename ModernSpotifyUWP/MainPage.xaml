@@ -111,7 +111,7 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Width="620"
-                   Source="Assets/SplashScreen.png">
+                   Source="Assets/Logo/SplashScreen.png">
                 <Image.RenderTransform>
                     <ScaleTransform ScaleX="1" ScaleY="1" />
                 </Image.RenderTransform>

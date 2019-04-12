@@ -25,12 +25,12 @@ namespace ModernSpotifyUWP.Helpers
                 tileId,
                 title,
                 arguments,
-                new Uri("ms-appx:///Assets/Square150x150Logo.png"),
+                new Uri("ms-appx:///Assets/Logo/Square150x150Logo.png"),
                 TileSize.Default);
 
             // Enable wide and large tile sizes
-            tile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/Wide310x150Logo.png");
-            tile.VisualElements.Square310x310Logo = new Uri("ms-appx:///Assets/LargeTile.png");
+            tile.VisualElements.Wide310x150Logo = new Uri("ms-appx:///Assets/Logo/Wide310x150Logo.png");
+            tile.VisualElements.Square310x310Logo = new Uri("ms-appx:///Assets/Logo/LargeTile.png");
 
             var image = await GetTileImage(pageUrl);
             if (image != null)
