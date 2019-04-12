@@ -38,10 +38,10 @@ namespace ModernSpotifyUWP.SpotifyApi
                 if ((response.IsSuccessStatusCode == false) && (response.StatusCode == System.Net.HttpStatusCode.Unauthorized))
                     throw new UnauthorizedAccessException();
 
-                if (response.IsSuccessStatusCode == false)
-                {
+                if (response.IsSuccessStatusCode)
+                    logger.Info($"Request to {url} returned with status code {response.StatusCode}.");
+                else
                     logger.Warn($"Request to {url} returned with status code {response.StatusCode}.");
-                }
 
                 return response;
             }
