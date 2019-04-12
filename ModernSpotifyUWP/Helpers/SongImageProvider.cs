@@ -10,6 +10,8 @@ namespace ModernSpotifyUWP.Helpers
 {
     public static class SongImageProvider
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         static Dictionary<string, string> artistImages = new Dictionary<string, string>();
         static Dictionary<string, string> albumImages = new Dictionary<string, string>();
         static Dictionary<string, string> playlistImages = new Dictionary<string, string>();
@@ -31,7 +33,7 @@ namespace ModernSpotifyUWP.Helpers
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Fetching artist art for {artistId} failed: {ex}");
+                logger.Info($"Fetching artist art for {artistId} failed: {ex}");
                 return "";
             }
         }
@@ -53,7 +55,7 @@ namespace ModernSpotifyUWP.Helpers
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Fetching album art for {albumId} failed: {ex}");
+                logger.Info($"Fetching album art for {albumId} failed: {ex}");
                 return "";
             }
         }
@@ -75,7 +77,7 @@ namespace ModernSpotifyUWP.Helpers
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Fetching album art for {playlistId} failed: {ex}");
+                logger.Info($"Fetching album art for {playlistId} failed: {ex}");
                 return "";
             }
         }

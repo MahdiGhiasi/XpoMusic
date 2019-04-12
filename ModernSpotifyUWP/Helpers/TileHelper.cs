@@ -11,6 +11,8 @@ namespace ModernSpotifyUWP.Helpers
 {
     public static class TileHelper
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public static async Task PinPageToStart(string pageUrl, string title)
         {
             // TODO: Download and use album/artist/playlist image for tile, if applicable
@@ -47,7 +49,7 @@ namespace ModernSpotifyUWP.Helpers
             var result = await tile.RequestCreateAsync();
 
             if (!result)
-                Debug.WriteLine("Tile creation failed");
+                logger.Info("Tile creation failed");
         }
 
         public static async Task<Uri> GetTileImage(string pageUrl)
@@ -87,7 +89,7 @@ namespace ModernSpotifyUWP.Helpers
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("GetTileImage failed: " + ex.ToString());
+                logger.Info("GetTileImage failed: " + ex.ToString());
             }
 
             return null;

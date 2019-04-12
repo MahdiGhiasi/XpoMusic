@@ -14,6 +14,8 @@ namespace ModernSpotifyUWP.Classes
 {
     public static class PlayStatusTracker
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         static readonly TimeSpan regularPollInterval = TimeSpan.FromSeconds(10);
 
         static DispatcherTimer timer;
@@ -113,7 +115,7 @@ namespace ModernSpotifyUWP.Classes
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("RefreshPlayStatus failed: " + ex.ToString());
+                logger.Info("RefreshPlayStatus failed: " + ex.ToString());
             }
         }
 

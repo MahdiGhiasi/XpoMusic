@@ -33,6 +33,8 @@ namespace ModernSpotifyUWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         private const string SpotifyPwaUrlBeginsWith = "https://open.spotify.com";
 
         MediaPlayer silentMediaPlayer;
@@ -65,7 +67,7 @@ namespace ModernSpotifyUWP
                 if (LocalConfiguration.IsLoggedInByFacebook)
                 {
                     // We need to open the login page and click on facebook button
-                    Debug.WriteLine("Logging in via Facebook...");
+                    logger.Info("Logging in via Facebook...");
                     var loginUrl = "https://accounts.spotify.com/login?continue=" + System.Net.WebUtility.UrlEncode(targetUrl);
                     mainWebView.Navigate(new Uri(loginUrl));
                 }
@@ -107,7 +109,7 @@ namespace ModernSpotifyUWP
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"Parsing input parameter {e.Parameter.ToString()} failed. {ex}");
+                    logger.Info($"Parsing input parameter {e.Parameter.ToString()} failed. {ex}");
                 }
             }
 
@@ -128,7 +130,7 @@ namespace ModernSpotifyUWP
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Parsing input parameter {parameter} failed. {ex}");
+                logger.Info($"Parsing input parameter {parameter} failed. {ex}");
             }
         }
 
@@ -256,7 +258,7 @@ namespace ModernSpotifyUWP
             {
                 if (await TryPushingFacebookLoginButton())
                 {
-                    Debug.WriteLine("Pushed the facebook login button.");
+                    logger.Info("Pushed the facebook login button.");
                     return;
                 }
             }
@@ -324,23 +326,23 @@ namespace ModernSpotifyUWP
 
         private async void MainWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs e)
         {
-            Debug.WriteLine("Page: " + e.Uri.ToString());
+            logger.Info("Page: " + e.Uri.ToString());
 
             if (e.Uri.ToString().EndsWith("#xpotifygoback"))
             {
                 e.Cancel = true;
 
                 //var len = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.history.length.toString()" });
-                //Debug.WriteLine("Len: " + len);
+                //logger.Info("Len: " + len);
                 //var curLocation = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.location.href" });
-                //Debug.WriteLine("curLocation: " + curLocation);
+                //logger.Info("curLocation: " + curLocation);
 
                 await mainWebView.InvokeScriptAsync("eval", new string[] { "window.history.go(-1);" });
 
                 //var len2 = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.history.length.toString()" });
-                //Debug.WriteLine("Len2: " + len2);
+                //logger.Info("Len2: " + len2);
                 //var curLocation2 = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.location.href" });
-                //Debug.WriteLine("curLocation2: " + curLocation2);
+                //logger.Info("curLocation2: " + curLocation2);
             }
             else if (e.Uri.ToString().EndsWith("#xpotifysettings"))
             {
@@ -366,7 +368,7 @@ namespace ModernSpotifyUWP
 
             if (e.Uri.ToString().StartsWith(Authorization.FacebookLoginFinishRedirectUri))
             {
-                Debug.WriteLine("Logged in by Facebook.");
+                logger.Info("Logged in by Facebook.");
                 LocalConfiguration.IsLoggedInByFacebook = true;
             }
         }
@@ -413,7 +415,7 @@ namespace ModernSpotifyUWP
 
         private void MainWebView_FrameNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
-            Debug.WriteLine("Frame: " + args.Uri.ToString());
+            logger.Info("Frame: " + args.Uri.ToString());
         }
 
         private void RetryConnectButton_Click(object sender, RoutedEventArgs e)
@@ -446,7 +448,7 @@ namespace ModernSpotifyUWP
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Authorization failed. " + ex.ToString());
+                logger.Info("Authorization failed. " + ex.ToString());
 
                 Authorize("https://open.spotify.com/", clearExisting: false);
             }

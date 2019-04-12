@@ -228,6 +228,9 @@
     <Content Include="InjectedAssets\navigateToPage.js" />
     <Content Include="InjectedAssets\initScript.js" />
     <Content Include="InjectedAssets\style.css" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
@@ -280,6 +283,12 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>5.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.6.2</Version>
+    </PackageReference>
+    <PackageReference Include="NLog.Schema">
+      <Version>4.6.2</Version>
     </PackageReference>
     <PackageReference Include="sameerIOTApps.Plugin.SecureStorage">
       <Version>2.5.0</Version>
