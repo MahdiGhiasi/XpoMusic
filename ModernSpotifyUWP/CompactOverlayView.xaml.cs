@@ -150,10 +150,14 @@ namespace ModernSpotifyUWP
             await PlayStatusTracker.RefreshPlayStatus();
         }
 
-        private void CloseCompactOverlayButton_Click(object sender, RoutedEventArgs e)
+        public void PrepareToExit()
         {
             timer.Tick -= Timer_Tick;
             timer.Stop();
+        }
+
+        private void CloseCompactOverlayButton_Click(object sender, RoutedEventArgs e)
+        {
             ExitCompactOverlayRequested?.Invoke(this, new EventArgs());
         }
 
@@ -308,6 +312,7 @@ namespace ModernSpotifyUWP
             try
             {
                 await Update();
+                await PlayStatusTracker.RefreshPlayStatus();
             }
             catch { }
         }

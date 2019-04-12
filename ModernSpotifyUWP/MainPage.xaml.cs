@@ -121,6 +121,10 @@ namespace ModernSpotifyUWP
             try
             {
                 // Launched from a secondary tile
+
+                if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+                    CloseCompactOverlay();
+
                 var urlDecoder = new WwwFormUrlDecoder(parameter);
                 var pageUrl = urlDecoder.GetFirstValueByName("pageUrl");
 
@@ -392,13 +396,19 @@ namespace ModernSpotifyUWP
             }
         }
 
-        private async void CompactOverlayView_ExitCompactOverlayRequested(object sender, EventArgs e)
+        private void CompactOverlayView_ExitCompactOverlayRequested(object sender, EventArgs e)
+        {
+            CloseCompactOverlay();
+        }
+
+        private async void CloseCompactOverlay()
         {
             await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
 
             compactOverlayView.ExitCompactOverlayRequested -= CompactOverlayView_ExitCompactOverlayRequested;
             mainGrid.Children.Remove(compactOverlayView);
 
+            compactOverlayView.PrepareToExit();
             compactOverlayView = null;
 
             StoreEventHelper.Log("compactOverlayClosed");
