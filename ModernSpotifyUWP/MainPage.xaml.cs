@@ -1,4 +1,5 @@
-﻿using ModernSpotifyUWP.Classes;
+﻿using Microsoft.Toolkit.Uwp.Helpers;
+using ModernSpotifyUWP.Classes;
 using ModernSpotifyUWP.Helpers;
 using ModernSpotifyUWP.SpotifyApi;
 using System;
@@ -193,7 +194,8 @@ namespace ModernSpotifyUWP
             playCheckTimer.Tick += PlayCheckTimer_Tick;
             playCheckTimer.Start();
 
-            StoreEventHelper.Log("appOpened");
+            AnalyticsHelper.PageView("MainPage");
+            AnalyticsHelper.Log("appOpened", SystemInformation.OperatingSystemVersion.ToString());
         }
 
         private async void PlayCheckTimer_Tick(object sender, object e)
@@ -283,7 +285,7 @@ namespace ModernSpotifyUWP
             if (!await CheckLoggedIn())
             {
                 Authorize("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F", clearExisting: true);
-                StoreEventHelper.Log("notLoggedIn");
+                AnalyticsHelper.Log("notLoggedIn");
             }
         }
 
@@ -352,21 +354,21 @@ namespace ModernSpotifyUWP
             {
                 e.Cancel = true;
                 OpenSettings();
-                StoreEventHelper.Log("settingsOpened");
+                AnalyticsHelper.Log("settingsOpened");
             }
             else if (e.Uri.ToString().EndsWith("#xpotifypintostart"))
             {
                 e.Cancel = true;
 
                 await PinPageToStart();
-                StoreEventHelper.Log("pinToStart");
+                AnalyticsHelper.Log("pinToStart");
             }
             else if (e.Uri.ToString().EndsWith("#xpotifycompactoverlay"))
             {
                 e.Cancel = true;
 
                 await GoToCompactOverlayMode();
-                StoreEventHelper.Log("compactOverlayOpened");
+                AnalyticsHelper.Log("compactOverlayOpened");
             }
 
 
@@ -411,7 +413,7 @@ namespace ModernSpotifyUWP
             compactOverlayView.PrepareToExit();
             compactOverlayView = null;
 
-            StoreEventHelper.Log("compactOverlayClosed");
+            AnalyticsHelper.Log("compactOverlayClosed");
         }
 
         private async Task PinPageToStart()
