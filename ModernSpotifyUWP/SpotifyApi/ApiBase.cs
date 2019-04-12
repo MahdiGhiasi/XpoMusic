@@ -10,6 +10,8 @@ namespace ModernSpotifyUWP.SpotifyApi
 {
     public class ApiBase
     {
+        protected static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public Task<HttpResponseMessage> SendRequestWithTokenAsync(string url, HttpMethod httpMethod)
         {
             return SendRequestWithTokenAsync(url, httpMethod, new Dictionary<string, string>(), canUseRefreshToken: true);
@@ -35,6 +37,11 @@ namespace ModernSpotifyUWP.SpotifyApi
 
                 if ((response.IsSuccessStatusCode == false) && (response.StatusCode == System.Net.HttpStatusCode.Unauthorized))
                     throw new UnauthorizedAccessException();
+
+                if (response.IsSuccessStatusCode == false)
+                {
+                    logger.Warn($"Request to {url} returned with status code {response.StatusCode}.");
+                }
 
                 return response;
             }

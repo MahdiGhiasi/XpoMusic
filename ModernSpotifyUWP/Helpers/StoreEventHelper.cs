@@ -9,6 +9,8 @@ namespace ModernSpotifyUWP.Helpers
 {
     public static class StoreEventHelper
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         private static StoreServicesCustomEventLogger customEventLogger = null;
 
         public static void Log(string eventName)
@@ -18,6 +20,8 @@ namespace ModernSpotifyUWP.Helpers
                 customEventLogger = StoreServicesCustomEventLogger.GetDefault();
 
             customEventLogger.Log(eventName);
+
+            logger.Info($"Store event '{eventName}' fired.");
 #endif
         }
     }
