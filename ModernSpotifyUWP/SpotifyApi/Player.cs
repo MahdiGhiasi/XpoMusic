@@ -50,7 +50,6 @@ namespace ModernSpotifyUWP.SpotifyApi
                 if (resultText.Contains("NO_ACTIVE_DEVICE"))
                 {
                     var devices = await GetDevices();
-
                     var thisDevice = devices.devices.FirstOrDefault(x => x.name.Contains("Edge") && x.name.Contains("Web"));
 
                     if (thisDevice != null)
@@ -90,6 +89,16 @@ namespace ModernSpotifyUWP.SpotifyApi
             var data = $"{{\"device_ids\":[\"{deviceId}\"], \"play\": \"{ensurePlaybackString}\"}}";
 
             var result = await SendJsonRequestWithTokenAsync("https://api.spotify.com/v1/me/player", HttpMethod.Put, data);
+            return (result.StatusCode == System.Net.HttpStatusCode.NoContent);
+        }
+
+        public async Task<bool> SetVolume(string deviceId, double volume)
+        {
+            AnalyticsHelper.Log("api:me/player:setvolume");
+
+            var volume_percent = (int)Math.Round(volume * 100.0);
+
+            var result = await SendRequestWithTokenAsync($"https://api.spotify.com/v1/me/player/volume?volume_percent={volume_percent}&device_id={deviceId}", HttpMethod.Put);
             return (result.StatusCode == System.Net.HttpStatusCode.NoContent);
         }
     }

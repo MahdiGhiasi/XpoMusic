@@ -1,7 +1,9 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
 using ModernSpotifyUWP.Classes;
+using ModernSpotifyUWP.Classes.Model;
 using ModernSpotifyUWP.Helpers;
 using ModernSpotifyUWP.SpotifyApi;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -44,6 +46,7 @@ namespace ModernSpotifyUWP
         private Uri loadFailedUrl;
         private DispatcherTimer playCheckTimer;
         private string prevCurrentPlaying;
+        private LocalStoragePlayback initialPlaybackState = null;
 
         public MainPage()
         {
@@ -97,6 +100,8 @@ namespace ModernSpotifyUWP
 
         private string GetTargetUrl(NavigationEventArgs e)
         {
+            var destinationUrl = "https://open.spotify.com";
+
             var parameter = e.Parameter as string;
             if (!string.IsNullOrEmpty(parameter))
             {
@@ -106,7 +111,7 @@ namespace ModernSpotifyUWP
                     var urlDecoder = new WwwFormUrlDecoder(parameter);
                     var pageUrl = urlDecoder.GetFirstValueByName("pageUrl");
 
-                    return pageUrl;
+                    destinationUrl = pageUrl;
                 }
                 catch (Exception ex)
                 {
@@ -114,7 +119,7 @@ namespace ModernSpotifyUWP
                 }
             }
 
-            return "https://open.spotify.com/";
+            return "https://open.spotify.com/static/offline.html?redirectUrl=" + System.Net.WebUtility.UrlEncode(destinationUrl);
         }
 
         public async void NavigateToSecondaryTile(string parameter)
@@ -198,6 +203,43 @@ namespace ModernSpotifyUWP
             AnalyticsHelper.Log("appOpened", SystemInformation.OperatingSystemVersion.ToString());
         }
 
+        private async void SetInitialPlaybackState()
+        {
+            // Restore initial playback state
+            // (We removed the localStorage entry, because of PWA's bug with Edge. See clearPlaybackLocalStorage.js for more info)
+
+            if (initialPlaybackState == null)
+                return;
+
+            try
+            {
+                await Task.Delay(TimeSpan.FromSeconds(3));
+
+                var player = new Player();
+
+                SpotifyApi.Model.Device thisDevice = null;
+
+                for (int i = 0; i < 10; i++)
+                {
+                    var devices = await player.GetDevices();
+                    thisDevice = devices.devices.FirstOrDefault(x => x.name.Contains("Edge") && x.name.Contains("Web"));
+
+                    if (thisDevice != null)
+                        break;
+                    await Task.Delay(TimeSpan.FromSeconds(2));
+                }
+
+                if (thisDevice != null)
+                {
+                    await player.SetVolume(thisDevice.id, initialPlaybackState.volume);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("SetInitialPlaybackState failed: " + ex.ToString());
+            }
+        }
+
         private async void PlayCheckTimer_Tick(object sender, object e)
         {
             try
@@ -269,6 +311,38 @@ namespace ModernSpotifyUWP
                 }
             }
 
+            if (e.Uri.ToString().StartsWith("https://open.spotify.com/static/offline.html?redirectUrl="))
+            {
+                var url = e.Uri.ToString();
+
+                logger.Info("Clearing local storage and redirecting...");
+                var script = File.ReadAllText("InjectedAssets/clearPlaybackLocalStorage.js");
+                var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+
+                try
+                {
+                    if (result.Length > 0)
+                    {
+                        initialPlaybackState = JsonConvert.DeserializeObject<LocalStoragePlayback>(result);
+                        logger.Info("initial playback volume = " + initialPlaybackState.volume);
+                    }
+                    else
+                    {
+                        logger.Info("localStorage.playback was undefined.");
+                    }
+                }
+                catch
+                {
+                    logger.Warn("Decoding localStorage.playback failed.");
+                    logger.Info("localStorage.playback content was: " + result);
+                }
+
+                var urlDecoder = new WwwFormUrlDecoder(url.Substring(url.IndexOf('?') + 1));
+                mainWebView.Navigate(new Uri(urlDecoder.GetFirstValueByName("redirectUrl")));
+
+                return;
+            }
+
             if (!splashClosed)
                 CloseSplash();
 
@@ -280,6 +354,7 @@ namespace ModernSpotifyUWP
             if (e.Uri.ToString().ToLower().Contains(SpotifyPwaUrlBeginsWith.ToLower()))
             {
                 await InjectInitScript();
+                SetInitialPlaybackState();
             }
 
             if (!await CheckLoggedIn())
