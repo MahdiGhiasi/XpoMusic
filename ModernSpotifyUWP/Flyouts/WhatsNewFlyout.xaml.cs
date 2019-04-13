@@ -44,7 +44,7 @@ namespace ModernSpotifyUWP.Flyouts
         public void InitFlyout()
         {
             bool changelogPresent = false;
-            var ids = WhatsNewHelper.GetWhatsNewContentId();
+            var ids = WhatsNewHelper.GetWhatsNewContentIdAndMarkAsRead();
 
             foreach (var item in Content.Children)
             {

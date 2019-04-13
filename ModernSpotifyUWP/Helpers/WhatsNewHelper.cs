@@ -23,29 +23,39 @@ namespace ModernSpotifyUWP.Helpers
             {
                 if (v < Version.Parse(PackageHelper.GetAppVersion()))
                 {
-                    return true;
+                    if (GetWhatsNewContentId().Count > 0)
+                    {
+                        return true;
+                    }
                 }
             }
 
             return false;
         }
 
-        public static List<string> GetWhatsNewContentId()
+        public static List<string> GetWhatsNewContentIdAndMarkAsRead()
         {
-            List<string> output = new List<string>();
-
             if (!ShouldShowWhatsNew())
-                return output;
+                return new List<string>();
 
+            List<string> output = GetWhatsNewContentId();
+           
+            MarkThisWhatsNewAsRead();
+
+            return output;
+        }
+
+        private static List<string> GetWhatsNewContentId()
+        {
             Version prevVersion = new Version(0, 0, 0, 0);
 
             if (ApplicationData.Current.LocalSettings.Values.ContainsKey(latestWhatsNewVersionKey))
                 Version.TryParse(ApplicationData.Current.LocalSettings.Values[latestWhatsNewVersionKey].ToString(), out prevVersion);
 
+            List<string> output = new List<string>();
+
             //if (prevVersion < new Version("1.1.0.0"))
             //    output.Add("1");
-
-            MarkThisWhatsNewAsRead();
 
             return output;
         }
