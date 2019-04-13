@@ -354,37 +354,41 @@
                                               Background="Transparent" 
                                               Visibility="Collapsed"
                                               HorizontalAlignment="Center">
-                        <Image x:Name="albumArt" 
-                               Source="{x:Bind ViewModel.AlbumArt, Mode=OneWay}"
-                               ToolTipService.ToolTip="{x:Bind ViewModel.AlbumName, Mode=OneWay}"
-                               Stretch="UniformToFill"
-                               Visibility="Collapsed"
-                               Width="100" 
-                               Height="100">
-                            <interactivity:Interaction.Behaviors>
-                                <core:EventTriggerBehavior EventName="ImageOpened">
-                                    <media:ControlStoryboardAction ControlStoryboardOption="Play">
-                                        <media:ControlStoryboardAction.Storyboard>
-                                            <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
-                                                                               Storyboard.TargetName="albumArt">
-                                                    <DiscreteObjectKeyFrame KeyTime="00:00:00">
-                                                        <DiscreteObjectKeyFrame.Value>
-                                                            <Visibility>Visible</Visibility>
-                                                        </DiscreteObjectKeyFrame.Value>
-                                                    </DiscreteObjectKeyFrame>
-                                                </ObjectAnimationUsingKeyFrames>
-                                                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                                                                               Storyboard.TargetName="albumArt">
-                                                    <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                                    <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
-                                                </DoubleAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </media:ControlStoryboardAction.Storyboard>
-                                    </media:ControlStoryboardAction>
-                                </core:EventTriggerBehavior>
-                            </interactivity:Interaction.Behaviors>
-                        </Image>
+                        <Grid x:Name="albumArt" 
+                              ToolTipService.ToolTip="{x:Bind ViewModel.AlbumName, Mode=OneWay}"
+                              Visibility="Collapsed"
+                              Width="100" 
+                              Height="100">
+                            <Grid.Background>
+                                <ImageBrush ImageSource="{x:Bind ViewModel.AlbumArt, Mode=OneWay}"
+                                            Stretch="UniformToFill">
+                                    <interactivity:Interaction.Behaviors>
+                                        <core:EventTriggerBehavior EventName="ImageOpened">
+                                            <media:ControlStoryboardAction ControlStoryboardOption="Play">
+                                                <media:ControlStoryboardAction.Storyboard>
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)"
+                                                                                       Storyboard.TargetName="albumArt">
+                                                            <DiscreteObjectKeyFrame KeyTime="00:00:00">
+                                                                <DiscreteObjectKeyFrame.Value>
+                                                                    <Visibility>Visible</Visibility>
+                                                                </DiscreteObjectKeyFrame.Value>
+                                                            </DiscreteObjectKeyFrame>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                                       Storyboard.TargetName="albumArt">
+                                                            <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                                        </DoubleAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </media:ControlStoryboardAction.Storyboard>
+                                            </media:ControlStoryboardAction>
+                                        </core:EventTriggerBehavior>
+                                    </interactivity:Interaction.Behaviors>
+                                </ImageBrush>
+                            </Grid.Background>
+                            
+                        </Grid>
                     </controls:DropShadowPanel>
                     <TextBlock x:Name="songName" 
                                Text="{x:Bind ViewModel.SongName, Mode=OneWay}"
