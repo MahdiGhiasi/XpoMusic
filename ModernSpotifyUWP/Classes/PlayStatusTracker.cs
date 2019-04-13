@@ -52,6 +52,13 @@ namespace ModernSpotifyUWP.Classes
                     progressedMillisecondsSetMoment = DateTime.UtcNow;
                 }
             }
+
+            public static event EventHandler Updated;
+
+            internal static void InvokeUpdated()
+            {
+                Updated?.Invoke(null, null);
+            }
         }
 
         static PlayStatusTracker()
@@ -96,6 +103,8 @@ namespace ModernSpotifyUWP.Classes
                 //    LastPlayStatus.SongId = "";
                 //    LastPlayStatus.SongName = "";
                 //    LastPlayStatus.IsPlaying = false;
+                //
+                //    LastPlayStatus.InvokeUpdated();
                 //}
                 //else
                 if (current != null)
@@ -109,6 +118,8 @@ namespace ModernSpotifyUWP.Classes
                     LastPlayStatus.SongId = current.item.id;
                     LastPlayStatus.SongName = current.item.name;
                     LastPlayStatus.IsPlaying = current.is_playing;
+
+                    LastPlayStatus.InvokeUpdated();
                 }
 
                 await UpdateMediaControls();

@@ -160,6 +160,8 @@
     <Compile Include="SpotifyApi\Player.cs" />
     <Compile Include="SpotifyApi\Playlist.cs" />
     <Compile Include="SpotifyApi\TokenHelper.cs" />
+    <Compile Include="ViewModels\CompactOverlayViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Content Include="Assets\Logo\contrast-black\LargeTile.scale-100.png" />
     <Content Include="Assets\Logo\contrast-black\LargeTile.scale-125.png" />
     <Content Include="Assets\Logo\contrast-black\LargeTile.scale-150.png" />

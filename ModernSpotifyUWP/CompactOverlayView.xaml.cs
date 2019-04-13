@@ -1,6 +1,7 @@
 ﻿using ModernSpotifyUWP.Classes;
 using ModernSpotifyUWP.Helpers;
 using ModernSpotifyUWP.SpotifyApi;
+using ModernSpotifyUWP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,9 +27,9 @@ namespace ModernSpotifyUWP
     {
         public event EventHandler ExitCompactOverlayRequested;
 
+        //private CompactOverlayViewModel ViewModel => this.DataContext as CompactOverlayViewModel;
+
         private DispatcherTimer timer;
-        private string artistArtUrl;
-        private string albumArtUrl;
         private string currentSongId;
 
         private enum AnimationState
@@ -67,29 +68,16 @@ namespace ModernSpotifyUWP
 
         private async Task Update()
         {
-            if (progressBar.Value != progressBar.Maximum && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds == progressBar.Maximum)
+            if (ViewModel.ProgressBarValue != ViewModel.ProgressBarMaximum && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds == ViewModel.ProgressBarMaximum)
             {
                 // Song just reached the end. refresh status now.
                 RefreshPlayStatus();
             }
 
-            if (progressBar.Maximum != PlayStatusTracker.LastPlayStatus.SongLengthMilliseconds)
-            {
-                progressBar.Value = 0;
-                progressBar.Maximum = PlayStatusTracker.LastPlayStatus.SongLengthMilliseconds;
-            }
-            progressBar.Value = PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds;
+            ViewModel.ProgressBarMaximum = PlayStatusTracker.LastPlayStatus.SongLengthMilliseconds;
+            ViewModel.ProgressBarValue = PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds;
 
-            if (PlayStatusTracker.LastPlayStatus.IsPlaying)
-            {
-                playButton.Visibility = Visibility.Collapsed;
-                pauseButton.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                playButton.Visibility = Visibility.Visible;
-                pauseButton.Visibility = Visibility.Collapsed;
-            }
+            ViewModel.IsPlaying = PlayStatusTracker.LastPlayStatus.IsPlaying;
 
             if (currentSongId != PlayStatusTracker.LastPlayStatus.SongId)
             {
@@ -101,34 +89,26 @@ namespace ModernSpotifyUWP
                     await Task.Delay(300);
                 }
 
-                songName.Text = PlayStatusTracker.LastPlayStatus.SongName;
-                artistName.Text = PlayStatusTracker.LastPlayStatus.ArtistName;
+                ViewModel.SongName = PlayStatusTracker.LastPlayStatus.SongName;
+                ViewModel.AlbumName = PlayStatusTracker.LastPlayStatus.AlbumName;
+                ViewModel.ArtistName = PlayStatusTracker.LastPlayStatus.ArtistName;
 
                 var artistArtUrl = await SongImageProvider.GetArtistArt(PlayStatusTracker.LastPlayStatus.ArtistId);
                 var albumArtUrl = await SongImageProvider.GetAlbumArt(PlayStatusTracker.LastPlayStatus.AlbumId);
 
-                if (artistArtUrl != this.artistArtUrl)
-                {
-                    artistArt.ImageSource = new BitmapImage(new Uri(artistArtUrl));
-                    this.artistArtUrl = artistArtUrl;
-                }
-
-                if (albumArtUrl != this.albumArtUrl)
-                {
-                    albumArt.Source = new BitmapImage(new Uri(albumArtUrl));
-                    this.albumArtUrl = albumArtUrl;
-                }
+                ViewModel.ArtistArt = new BitmapImage(new Uri(artistArtUrl));
+                ViewModel.AlbumArt = new BitmapImage(new Uri(albumArtUrl));
 
                 if (animationState == AnimationState.HiddenToRightSide)
                     showFromLeftStoryboard.Begin();
                 else // None or HiddenToLeftSide
                     showFromRightStoryboard.Begin();
 
-                nextTrackLoadingProgressRing.IsActive = false;
+                ViewModel.ProgressRingActive = false;
                 animationState = AnimationState.None;
             }
             else if ((DateTime.UtcNow - spinnerShowTime) > maximumSpinnerShowTime 
-                && nextTrackLoadingProgressRing.IsActive)
+                && ViewModel.ProgressRingActive)
             {
                 // Workaround for when prev track gets pushed when no prev track is there,
                 // or in general when a command fails.
@@ -139,7 +119,7 @@ namespace ModernSpotifyUWP
                 else // None or HiddenToLeftSide
                     showFromLeftStoryboard.Begin();
 
-                nextTrackLoadingProgressRing.IsActive = false;
+                ViewModel.ProgressRingActive = false;
                 animationState = AnimationState.None;
             }
         }
@@ -165,8 +145,7 @@ namespace ModernSpotifyUWP
         {
             try
             {
-                playButton.Visibility = Visibility.Visible;
-                pauseButton.Visibility = Visibility.Collapsed;
+                ViewModel.IsPlaying = false;
 
                 if (await (new Player()).Pause())
                 {
@@ -176,8 +155,7 @@ namespace ModernSpotifyUWP
                 }
                 else
                 {
-                    playButton.Visibility = Visibility.Collapsed;
-                    pauseButton.Visibility = Visibility.Visible;
+                    ViewModel.IsPlaying = true;
 
                     await PlayStatusTracker.RefreshPlayStatus();
                 }
@@ -197,8 +175,7 @@ namespace ModernSpotifyUWP
         {
             try
             {
-                playButton.Visibility = Visibility.Collapsed;
-                pauseButton.Visibility = Visibility.Visible;
+                ViewModel.IsPlaying = true;
 
                 if (await (new Player()).ResumePlaying())
                 {
@@ -208,8 +185,7 @@ namespace ModernSpotifyUWP
                 }
                 else
                 {
-                    playButton.Visibility = Visibility.Visible;
-                    pauseButton.Visibility = Visibility.Collapsed;
+                    ViewModel.IsPlaying = false;
 
                     await PlayStatusTracker.RefreshPlayStatus();
                 }
@@ -235,14 +211,14 @@ namespace ModernSpotifyUWP
                 {
                     showFromRightStoryboard.Begin();
                     animationState = AnimationState.None;
-                    nextTrackLoadingProgressRing.IsActive = false;
+                    ViewModel.ProgressRingActive = false;
                     return;
                 }
 
-                (sender as Control).IsEnabled = false;
+                ViewModel.PrevButtonEnabled = false;
                 await Task.Delay(1000);
                 await PlayStatusTracker.RefreshPlayStatus();
-                (sender as Control).IsEnabled = true;
+                ViewModel.PrevButtonEnabled = true;
             }
             catch (UnauthorizedAccessException)
             {
@@ -260,14 +236,14 @@ namespace ModernSpotifyUWP
                 {
                     showFromLeftStoryboard.Begin();
                     animationState = AnimationState.None;
-                    nextTrackLoadingProgressRing.IsActive = false;
+                    ViewModel.ProgressRingActive = false;
                     return;
                 }
 
-                (sender as Control).IsEnabled = false;
+                ViewModel.NextButtonEnabled = false;
                 await Task.Delay(1000);
                 await PlayStatusTracker.RefreshPlayStatus();
-                (sender as Control).IsEnabled = true;
+                ViewModel.NextButtonEnabled = true;
             }
             catch (UnauthorizedAccessException)
             {
@@ -282,7 +258,7 @@ namespace ModernSpotifyUWP
             spinnerShowTime = DateTime.UtcNow;
 
             await Task.Delay(300);
-            nextTrackLoadingProgressRing.IsActive = true;
+            ViewModel.ProgressRingActive = true;
         }
 
         private async void HideToLeftAnimation()
@@ -292,7 +268,7 @@ namespace ModernSpotifyUWP
             spinnerShowTime = DateTime.UtcNow;
 
             await Task.Delay(300);
-            nextTrackLoadingProgressRing.IsActive = true;
+            ViewModel.ProgressRingActive = true;
         }
 
         public void PlayChangeTrackAnimation(bool reverse)

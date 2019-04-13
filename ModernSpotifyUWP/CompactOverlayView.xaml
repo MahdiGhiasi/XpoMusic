@@ -9,11 +9,16 @@
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity" 
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:media="using:Microsoft.Xaml.Interactions.Media"
+    xmlns:vm="using:ModernSpotifyUWP.ViewModels"
     mc:Ignorable="d"
     RequestedTheme="Dark"
     Loaded="UserControl_Loaded"
     d:DesignHeight="280"
     d:DesignWidth="400">
+
+    <UserControl.DataContext>
+        <vm:CompactOverlayViewModel x:Name="ViewModel" />
+    </UserControl.DataContext>
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -307,8 +312,7 @@
         <Grid Background="White">
             <Grid x:Name="artistArtContainer">
                 <Grid.Background>
-                    <ImageBrush x:Name="artistArt"
-                                Stretch="UniformToFill">
+                    <ImageBrush ImageSource="{x:Bind ViewModel.ArtistArt, Mode=OneWay}" Stretch="UniformToFill">
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="ImageOpened">
                                 <media:ControlStoryboardAction ControlStoryboardOption="Play">
@@ -329,8 +333,8 @@
             </Grid>
         </Grid>
         <Grid Background="#77000000">
-            <ProgressRing x:Name="nextTrackLoadingProgressRing"
-                          IsActive="False"
+            <ProgressRing x:Name="nextTrackLoadingProgressRing" 
+                          IsActive="{x:Bind ViewModel.ProgressRingActive, Mode=OneWay}"
                           Foreground="White"
                           Margin="0,0,0,54"
                           Width="20"
@@ -350,7 +354,9 @@
                                               Background="Transparent" 
                                               Visibility="Collapsed"
                                               HorizontalAlignment="Center">
-                        <Image x:Name="albumArt"
+                        <Image x:Name="albumArt" 
+                               Source="{x:Bind ViewModel.AlbumArt, Mode=OneWay}"
+                               ToolTipService.ToolTip="{x:Bind ViewModel.AlbumName, Mode=OneWay}"
                                Stretch="UniformToFill"
                                Visibility="Collapsed"
                                Width="100" 
@@ -380,14 +386,14 @@
                             </interactivity:Interaction.Behaviors>
                         </Image>
                     </controls:DropShadowPanel>
-                    <TextBlock x:Name="songName"
-                               Text=""
+                    <TextBlock x:Name="songName" 
+                               Text="{x:Bind ViewModel.SongName, Mode=OneWay}"
                                Margin="8,16,8,0"
                                Visibility="Visible"
                                TextAlignment="Center"
                                FontWeight="SemiBold" />
                     <TextBlock x:Name="artistName"
-                               Text=""
+                               Text="{x:Bind ViewModel.ArtistName, Mode=OneWay}"
                                Margin="8,4,8,20"
                                Visibility="Collapsed"
                                TextAlignment="Center"
@@ -397,8 +403,8 @@
                             Margin="0,8,0,0"
                             Orientation="Horizontal"
                             HorizontalAlignment="Center">
-                    <Button x:Name="prevTrackButton" 
-                            Style="{StaticResource CircleButton}" 
+                    <Button Style="{StaticResource CircleButton}" 
+                            IsEnabled="{x:Bind ViewModel.PrevButtonEnabled, Mode=OneWay}"
                             Width="40"
                             Height="40"
                             Tapped="PrevTrackButton_Tapped"
@@ -406,8 +412,8 @@
                             ToolTipService.ToolTip="Previous track">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE100;" />
                     </Button>
-                    <Button x:Name="playButton" 
-                            Style="{StaticResource CircleButton}" 
+                    <Button Style="{StaticResource CircleButton}" 
+                            Visibility="{x:Bind ViewModel.PlayButtonVisibility, Mode=OneWay}"
                             Width="54"
                             Height="54"
                             Margin="4,0,4,0"
@@ -416,19 +422,18 @@
                             ToolTipService.ToolTip="Play">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="36" Glyph="&#xE102;" />
                     </Button>
-                    <Button x:Name="pauseButton" 
-                            Style="{StaticResource CircleButton}" 
+                    <Button Style="{StaticResource CircleButton}" 
+                            Visibility="{x:Bind ViewModel.PauseButtonVisibility, Mode=OneWay}"
                             Width="54"
                             Height="54"
                             Margin="4,0,4,0"
                             Tapped="PauseButton_Tapped"
                             Background="Transparent" 
-                            Visibility="Collapsed"
                             ToolTipService.ToolTip="Pause">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="36" Glyph="&#xE103;" />
                     </Button>
-                    <Button x:Name="nextTrackButton" 
-                            Style="{StaticResource CircleButton}" 
+                    <Button Style="{StaticResource CircleButton}" 
+                            IsEnabled="{x:Bind ViewModel.NextButtonEnabled, Mode=OneWay}"
                             Width="40"
                             Height="40"
                             Tapped="NextTrackButton_Tapped"
@@ -438,11 +443,10 @@
                     </Button>
                 </StackPanel>
             </StackPanel>
-            <ProgressBar x:Name="progressBar" 
-                         VerticalAlignment="Bottom"
+            <ProgressBar VerticalAlignment="Bottom"
                          IsIndeterminate="False"
-                         Value="40"
-                         Maximum="100"
+                         Value="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay}"
+                         Maximum="{x:Bind ViewModel.ProgressBarMaximum, Mode=OneWay}"
                          Foreground="#77ffffff" />
             <Image Source="Assets/spotify-monochrome-white.png"
                    Width="20"
@@ -450,7 +454,7 @@
                    Margin="4,0,0,8"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Bottom"/>
-            <Button Style="{StaticResource MinimalButton}" x:Name="closeCompactOverlayButton"
+            <Button Style="{StaticResource MinimalButton}"
                     Width="40"
                     Height="36"
                     Background="Transparent"
