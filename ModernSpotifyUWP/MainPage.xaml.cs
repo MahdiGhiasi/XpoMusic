@@ -60,6 +60,7 @@ namespace ModernSpotifyUWP
             silentMediaPlayer.CommandManager.IsEnabled = false;
 
             loadFailedAppVersionText.Text = PackageHelper.GetAppVersion();
+            VisualStateManager.GoToState(this, "SplashScreen", false);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -343,8 +344,9 @@ namespace ModernSpotifyUWP
                 return;
             }
 
-            if (!splashClosed)
-                CloseSplash();
+            var currentStateName = VisualStateManager.GetVisualStateGroups(mainGrid).FirstOrDefault().CurrentState.Name;
+            if (currentStateName == "SplashScreen" || currentStateName == "LoadFailedScreen")
+                VisualStateManager.GoToState(this, "MainScreen", false);
 
             if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
             {
@@ -378,17 +380,6 @@ namespace ModernSpotifyUWP
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result != "0");
-        }
-
-        private async void CloseSplash()
-        {
-            splashClosed = true;
-
-            await Task.Delay(500);
-
-            splashHideStoryboard.Begin();
-            await Task.Delay(400);
-            splashScreen.Visibility = Visibility.Collapsed;
         }
 
         private async Task InjectInitScript()
@@ -493,11 +484,15 @@ namespace ModernSpotifyUWP
 
         private async Task PinPageToStart()
         {
+            VisualStateManager.GoToState(this, "MainScreenWaiting", false);
+
             var findPageTitleScript = File.ReadAllText("InjectedAssets/findPageTitle.js");
             var pageUrl = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.location.href" });
             var pageTitle = await mainWebView.InvokeScriptAsync("eval", new string[] { findPageTitleScript });
 
             await TileHelper.PinPageToStart(pageUrl, pageTitle);
+
+            VisualStateManager.GoToState(this, "MainScreen", false);
         }
 
         private void MainWebView_FrameNavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
@@ -507,7 +502,7 @@ namespace ModernSpotifyUWP
 
         private void RetryConnectButton_Click(object sender, RoutedEventArgs e)
         {
-            loadFailedMessage.Visibility = Visibility.Collapsed;
+            VisualStateManager.GoToState(this, "SplashScreen", false);
             mainWebView.Navigate(loadFailedUrl);
         }
 
@@ -519,7 +514,7 @@ namespace ModernSpotifyUWP
                 return;
             }
 
-            loadFailedMessage.Visibility = Visibility.Visible;
+            VisualStateManager.GoToState(this, "LoadFailedScreen", false);
             loadFailedUrlText.Text = e.Uri.ToString();
             loadFailedUrl = e.Uri;
             errorMessageText.Text = e.WebErrorStatus.ToString();
@@ -543,17 +538,15 @@ namespace ModernSpotifyUWP
 
         private void OpenSettings()
         {
-            overlay.Visibility = Visibility.Visible;
             settingsFlyout.Visibility = Visibility.Visible;
-            overlayShowStoryboard.Begin();
+            VisualStateManager.GoToState(this, "OverlayScreen", false);
         }
 
         private void OpenWhatsNew()
         {
             whatsNewFlyout.InitFlyout();
-            overlay.Visibility = Visibility.Visible;
             whatsNewFlyout.Visibility = Visibility.Visible;
-            overlayShowStoryboard.Begin();
+            VisualStateManager.GoToState(this, "OverlayScreen", false);
         }
 
         private void WhatsNewFlyout_FlyoutCloseRequest(object sender, EventArgs e)
@@ -568,11 +561,7 @@ namespace ModernSpotifyUWP
 
         private async void CloseOverlays()
         {
-            overlayHideStoryboard.Begin();
-            await Task.Delay(250);
-            overlay.Visibility = Visibility.Collapsed;
-            settingsFlyout.Visibility = Visibility.Collapsed;
-            whatsNewFlyout.Visibility = Visibility.Collapsed;
+            VisualStateManager.GoToState(this, "MainScreen", false);
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
