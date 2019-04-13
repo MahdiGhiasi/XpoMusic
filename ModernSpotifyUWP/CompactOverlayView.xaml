@@ -305,23 +305,28 @@
         </VisualStateManager.VisualStateGroups>
         
         <Grid Background="White">
-            <Image x:Name="artistArt" Stretch="UniformToFill">
-                <interactivity:Interaction.Behaviors>
-                    <core:EventTriggerBehavior EventName="ImageOpened">
-                        <media:ControlStoryboardAction ControlStoryboardOption="Play">
-                            <media:ControlStoryboardAction.Storyboard>
-                                <Storyboard>
-                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                                                                   Storyboard.TargetName="artistArt">
-                                        <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                                        <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
-                                    </DoubleAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </media:ControlStoryboardAction.Storyboard>
-                        </media:ControlStoryboardAction>
-                    </core:EventTriggerBehavior>
-                </interactivity:Interaction.Behaviors>
-            </Image>
+            <Grid x:Name="artistArtContainer">
+                <Grid.Background>
+                    <ImageBrush x:Name="artistArt"
+                                Stretch="UniformToFill">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="ImageOpened">
+                                <media:ControlStoryboardAction ControlStoryboardOption="Play">
+                                    <media:ControlStoryboardAction.Storyboard>
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                           Storyboard.TargetName="artistArtContainer">
+                                                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </media:ControlStoryboardAction.Storyboard>
+                                </media:ControlStoryboardAction>
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </ImageBrush>
+                </Grid.Background>
+            </Grid>
         </Grid>
         <Grid Background="#77000000">
             <ProgressRing x:Name="nextTrackLoadingProgressRing"

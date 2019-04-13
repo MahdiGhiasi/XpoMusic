@@ -109,7 +109,7 @@ namespace ModernSpotifyUWP
 
                 if (artistArtUrl != this.artistArtUrl)
                 {
-                    artistArt.Source = new BitmapImage(new Uri(artistArtUrl));
+                    artistArt.ImageSource = new BitmapImage(new Uri(artistArtUrl));
                     this.artistArtUrl = artistArtUrl;
                 }
 
