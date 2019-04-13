@@ -442,7 +442,7 @@
             <Image Source="Assets/spotify-monochrome-white.png"
                    Width="20"
                    Height="20" 
-                   Margin="4,0,0,10"
+                   Margin="4,0,0,8"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Bottom"/>
             <Button Style="{StaticResource MinimalButton}" x:Name="closeCompactOverlayButton"
