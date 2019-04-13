@@ -170,11 +170,6 @@
     <Content Include="Assets\Logo\contrast-black\SmallTile.scale-150.png" />
     <Content Include="Assets\Logo\contrast-black\SmallTile.scale-200.png" />
     <Content Include="Assets\Logo\contrast-black\SmallTile.scale-400.png" />
-    <Content Include="Assets\Logo\contrast-black\SplashScreen.scale-100.png" />
-    <Content Include="Assets\Logo\contrast-black\SplashScreen.scale-125.png" />
-    <Content Include="Assets\Logo\contrast-black\SplashScreen.scale-150.png" />
-    <Content Include="Assets\Logo\contrast-black\SplashScreen.scale-200.png" />
-    <Content Include="Assets\Logo\contrast-black\SplashScreen.scale-400.png" />
     <Content Include="Assets\Logo\contrast-black\Square150x150Logo.scale-100.png" />
     <Content Include="Assets\Logo\contrast-black\Square150x150Logo.scale-125.png" />
     <Content Include="Assets\Logo\contrast-black\Square150x150Logo.scale-150.png" />
@@ -215,11 +210,6 @@
     <Content Include="Assets\Logo\contrast-standard\SmallTile.scale-150.png" />
     <Content Include="Assets\Logo\contrast-standard\SmallTile.scale-200.png" />
     <Content Include="Assets\Logo\contrast-standard\SmallTile.scale-400.png" />
-    <Content Include="Assets\Logo\contrast-standard\SplashScreen.scale-100.png" />
-    <Content Include="Assets\Logo\contrast-standard\SplashScreen.scale-125.png" />
-    <Content Include="Assets\Logo\contrast-standard\SplashScreen.scale-150.png" />
-    <Content Include="Assets\Logo\contrast-standard\SplashScreen.scale-200.png" />
-    <Content Include="Assets\Logo\contrast-standard\SplashScreen.scale-400.png" />
     <Content Include="Assets\Logo\contrast-standard\Square150x150Logo.scale-100.png" />
     <Content Include="Assets\Logo\contrast-standard\Square150x150Logo.scale-125.png" />
     <Content Include="Assets\Logo\contrast-standard\Square150x150Logo.scale-150.png" />
@@ -260,11 +250,6 @@
     <Content Include="Assets\Logo\contrast-white\SmallTile.scale-150.png" />
     <Content Include="Assets\Logo\contrast-white\SmallTile.scale-200.png" />
     <Content Include="Assets\Logo\contrast-white\SmallTile.scale-400.png" />
-    <Content Include="Assets\Logo\contrast-white\SplashScreen.scale-100.png" />
-    <Content Include="Assets\Logo\contrast-white\SplashScreen.scale-125.png" />
-    <Content Include="Assets\Logo\contrast-white\SplashScreen.scale-150.png" />
-    <Content Include="Assets\Logo\contrast-white\SplashScreen.scale-200.png" />
-    <Content Include="Assets\Logo\contrast-white\SplashScreen.scale-400.png" />
     <Content Include="Assets\Logo\contrast-white\Square150x150Logo.scale-100.png" />
     <Content Include="Assets\Logo\contrast-white\Square150x150Logo.scale-125.png" />
     <Content Include="Assets\Logo\contrast-white\Square150x150Logo.scale-150.png" />
@@ -295,6 +280,11 @@
     <Content Include="Assets\Logo\contrast-white\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\Logo\contrast-white\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\Logo\contrast-white\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-100.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-125.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-150.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Logo\SplashScreen.scale-400.png" />
     <Content Include="Assets\spotify-monochrome-white.png" />
     <Content Include="InjectedAssets\checkCurrentPlaying.js" />
     <Content Include="InjectedAssets\clearPlaybackLocalStorage.js" />
