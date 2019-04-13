@@ -62,6 +62,26 @@ namespace ModernSpotifyUWP.ViewModels
             }
         }
 
+        private Uri artistArtUri;
+        public Uri ArtistArtUri
+        {
+            get
+            {
+                return artistArtUri;
+            }
+            set
+            {
+                if (artistArtUri != value)
+                {
+                    artistArtUri = value;
+                    artistArt = new BitmapImage(value);
+
+                    FirePropertyChangedEvent(nameof(ArtistArtUri));
+                    FirePropertyChangedEvent(nameof(ArtistArt));
+                }
+            }
+        }
+
         private ImageSource artistArt;
         public ImageSource ArtistArt
         {
@@ -69,12 +89,24 @@ namespace ModernSpotifyUWP.ViewModels
             {
                 return artistArt;
             }
+        }
+
+        private Uri albumArtUri;
+        public Uri AlbumArtUri
+        {
+            get
+            {
+                return albumArtUri;
+            }
             set
             {
-                if (artistArt != value)
+                if (albumArtUri != value)
                 {
-                    artistArt = value;
-                    FirePropertyChangedEvent(nameof(ArtistArt));
+                    albumArtUri = value;
+                    albumArt = new BitmapImage(value);
+
+                    FirePropertyChangedEvent(nameof(AlbumArtUri));
+                    FirePropertyChangedEvent(nameof(AlbumArt));
                 }
             }
         }
@@ -85,14 +117,6 @@ namespace ModernSpotifyUWP.ViewModels
             get
             {
                 return albumArt;
-            }
-            set
-            {
-                if (albumArt != value)
-                {
-                    albumArt = value;
-                    FirePropertyChangedEvent(nameof(AlbumArt));
-                }
             }
         }
 

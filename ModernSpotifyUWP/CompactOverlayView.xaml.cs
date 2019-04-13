@@ -96,8 +96,8 @@ namespace ModernSpotifyUWP
                 var artistArtUrl = await SongImageProvider.GetArtistArt(PlayStatusTracker.LastPlayStatus.ArtistId);
                 var albumArtUrl = await SongImageProvider.GetAlbumArt(PlayStatusTracker.LastPlayStatus.AlbumId);
 
-                ViewModel.ArtistArt = new BitmapImage(new Uri(artistArtUrl));
-                ViewModel.AlbumArt = new BitmapImage(new Uri(albumArtUrl));
+                ViewModel.ArtistArtUri = new Uri(artistArtUrl);
+                ViewModel.AlbumArtUri = new Uri(albumArtUrl);
 
                 if (animationState == AnimationState.HiddenToRightSide)
                     showFromLeftStoryboard.Begin();
