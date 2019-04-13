@@ -400,6 +400,12 @@ namespace ModernSpotifyUWP
         {
             logger.Info("Page: " + e.Uri.ToString());
 
+            if (e.Uri.ToString().StartsWith("https://open.spotify.com/static/offline.html?redirectUrl="))
+            {
+                VisualStateManager.GoToState(this, "SplashScreen", false);
+            }
+
+
             if (e.Uri.ToString().EndsWith("#xpotifygoback"))
             {
                 e.Cancel = true;
