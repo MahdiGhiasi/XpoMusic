@@ -102,6 +102,8 @@ namespace ModernSpotifyUWP.ViewModels
             {
                 if (albumArtUri != value)
                 {
+                    AlbumArtContainerOpacity = 0.0;
+
                     albumArtUri = value;
                     albumArt = new BitmapImage(value);
 
@@ -215,6 +217,20 @@ namespace ModernSpotifyUWP.ViewModels
             {
                 nextButtonEnabled = value;
                 FirePropertyChangedEvent(nameof(NextButtonEnabled));
+            }
+        }
+
+        private double albumArtContainerOpacity = 0.0;
+        public double AlbumArtContainerOpacity
+        {
+            get
+            {
+                return albumArtContainerOpacity;
+            }
+            set
+            {
+                albumArtContainerOpacity = value;
+                FirePropertyChangedEvent(nameof(AlbumArtContainerOpacity));
             }
         }
     }
