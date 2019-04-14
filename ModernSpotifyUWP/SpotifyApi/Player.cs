@@ -14,10 +14,13 @@ namespace ModernSpotifyUWP.SpotifyApi
     {
         public async Task<CurrentlyPlayingContext> GetCurrentlyPlaying()
         {
-            AnalyticsHelper.Log("api:me/getplayer");
+            //AnalyticsHelper.Log("api:me/getplayer");
 
             var result = await SendRequestWithTokenAsync("https://api.spotify.com/v1/me/player", HttpMethod.Get);
             var resultString = await result.Content.ReadAsStringAsync();
+
+            if (result.IsSuccessStatusCode == false)
+                AnalyticsHelper.Log("api:me/getplayer::" + result.StatusCode.ToString());
 
             return JsonConvert.DeserializeObject<CurrentlyPlayingContext>(resultString);
         }
