@@ -102,7 +102,7 @@ body {
     min-width: 500px;
 }
 
-@media (max-width: 720px) and (min-width: 601px) {
+@media (max-width: 720px) {
     .now-playing-bar__center .player-controls__buttons {
         width: 180px;
     }
@@ -122,7 +122,7 @@ body {
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
     .now-playing-bar__left {
         width: 45%;
     }
@@ -132,9 +132,71 @@ body {
     }
 
     .now-playing-bar__right {
-        /* TODO: Do something about this! */
-         display: none;
+        width: 90px;
+        min-width: 90px;
     }
+
+    .now-playing-bar__right__inner {
+        width: 90px;
+        min-width: 90px;
+    }
+
+        .now-playing-bar__right__inner .ExtraControls {
+            flex-wrap: wrap-reverse;
+        }
+
+        .now-playing-bar__right__inner .control-button {
+            width: 22px;
+            min-width: 22px;
+            margin-right: 2px;
+            margin-left: 2px;
+        }
+
+        .now-playing-bar__right__inner .volume-bar {
+            width: 81px;
+        }
+
+        .now-playing-bar__right__inner .CompactOverlayButton {
+            margin-right: 6px;
+        }
+
+        .now-playing-bar__right__inner .ExtraControls__connect-device-picker .connect-device-list-container {
+            right: 0;
+            bottom: 72px;
+        }
+
+            .now-playing-bar__right__inner .ExtraControls__connect-device-picker .connect-device-list-container:before {
+                width: 0;
+                height: 0;
+                bottom: 0;
+            }
+}
+
+@media (max-width: 550px) {
+    .now-playing-bar__right {
+        width: 80px;
+        min-width: 80px;
+    }
+
+    .now-playing-bar__right__inner {
+        width: 80px;
+        min-width: 80px;
+    }
+
+        .now-playing-bar__right__inner .control-button {
+            width: 22px;
+            min-width: 22px;
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+
+        .now-playing-bar__right__inner .volume-bar {
+            width: 69px;
+        }
+
+        .now-playing-bar__right__inner .volume-bar .control-button {
+            margin-right: 2px;
+        }
 }
 
 @media (max-width: 630px) {
