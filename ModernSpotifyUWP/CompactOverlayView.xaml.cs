@@ -27,7 +27,7 @@ namespace ModernSpotifyUWP
     {
         public event EventHandler ExitCompactOverlayRequested;
 
-        //private CompactOverlayViewModel ViewModel => this.DataContext as CompactOverlayViewModel;
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         private DispatcherTimer timer;
         private string currentSongId;
@@ -146,10 +146,10 @@ namespace ModernSpotifyUWP
             try
             {
                 ViewModel.IsPlaying = false;
+                timer.Stop();
 
                 if (await (new Player()).Pause())
                 {
-                    timer.Stop();
                     await Task.Delay(500);
                     await PlayStatusTracker.RefreshPlayStatus();
                 }
@@ -176,10 +176,10 @@ namespace ModernSpotifyUWP
             try
             {
                 ViewModel.IsPlaying = true;
+                timer.Stop();
 
                 if (await (new Player()).ResumePlaying())
                 {
-                    timer.Stop();
                     await Task.Delay(500);
                     await PlayStatusTracker.RefreshPlayStatus();
                 }
