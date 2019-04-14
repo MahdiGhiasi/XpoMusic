@@ -288,10 +288,12 @@ namespace ModernSpotifyUWP
                     else
                     {
                         stuckDetectSecondChance = false;
-                        logger.Info("Playback seems to have stuck. Will issue a Previous Track command.");
+                        logger.Warn("Playback seems to have stuck. Will issue a Previous Track command.");
 
                         var player = new Player();
                         await player.PreviousTrack();
+
+                        AnalyticsHelper.Log("playbackStuck1");
                     }
                 }
                 else
