@@ -294,6 +294,8 @@ namespace ModernSpotifyUWP
                         await player.PreviousTrack();
 
                         AnalyticsHelper.Log("playbackStuck1");
+
+                        ToastHelper.SendDebugToast("PlaybackStuck1", "PrevTrack issued.");
                     }
                 }
                 else
