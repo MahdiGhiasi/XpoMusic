@@ -445,6 +445,7 @@
                          Maximum="{x:Bind ViewModel.ProgressBarMaximum, Mode=OneWay}"
                          Foreground="#77ffffff" />
             <Image Source="Assets/spotify-monochrome-white.png"
+                   Opacity="0.5"
                    Width="20"
                    Height="20" 
                    Margin="4,0,0,8"
