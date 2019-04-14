@@ -93,6 +93,10 @@ div[aria-live=polite] {
     padding-right: 150px;
 }
 
+.now-playing-bar__right__inner .CompactOverlayButton {
+    margin-top: -1px;
+}
+
 /* Making UI usable for width < 720px, as UWP needs to support 500px+ */
 body {
     min-width: 500px;
@@ -142,7 +146,8 @@ body {
     }
 
         .now-playing-bar__right__inner .ExtraControls {
-            flex-wrap: wrap-reverse;
+            flex-wrap: wrap;
+            margin-top: 4px;
         }
 
         .now-playing-bar__right__inner .control-button {
@@ -154,6 +159,7 @@ body {
 
         .now-playing-bar__right__inner .volume-bar {
             width: 81px;
+            margin-top: 4px;
         }
 
         .now-playing-bar__right__inner .CompactOverlayButton {
