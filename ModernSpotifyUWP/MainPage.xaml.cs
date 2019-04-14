@@ -44,9 +44,10 @@ namespace ModernSpotifyUWP
         bool splashClosed = false;
         private CompactOverlayView compactOverlayView;
         private Uri loadFailedUrl;
-        private DispatcherTimer playCheckTimer;
+        private DispatcherTimer playCheckTimer, stuckDetectTimer;
         private string prevCurrentPlaying;
         private LocalStoragePlayback initialPlaybackState = null;
+        private bool stuckDetectSecondChance = false;
 
         public MainPage()
         {
@@ -200,6 +201,13 @@ namespace ModernSpotifyUWP
             playCheckTimer.Tick += PlayCheckTimer_Tick;
             playCheckTimer.Start();
 
+            stuckDetectTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(5),
+            };
+            stuckDetectTimer.Tick += StuckDetectTimer_Tick;
+            stuckDetectTimer.Start();
+
             AnalyticsHelper.PageView("MainPage");
             AnalyticsHelper.Log("appOpened", SystemInformation.OperatingSystemVersion.ToString());
         }
@@ -251,10 +259,71 @@ namespace ModernSpotifyUWP
                 if (currentPlaying != prevCurrentPlaying)
                 {
                     prevCurrentPlaying = currentPlaying;
+                    logger.Info($"CurrentPlaying text extracted from web page changed to '{currentPlaying}'.");
+
                     await PlayStatusTracker.RefreshPlayStatus();
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                logger.Warn("checkCurrentPlaying failed: " + ex.ToString());
+            }
+        }
+
+        private async void StuckDetectTimer_Tick(object sender, object e)
+        {
+            try
+            {
+                var script = File.ReadAllText("InjectedAssets/checkCurrentSongPlayTime.js");
+                var currentPlayTime = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+
+                if (currentPlayTime == "0:00" 
+                    && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds > 5000
+                    && PlayStatusTracker.LastPlayStatus.IsPlaying)
+                {
+                    if (stuckDetectSecondChance == false)
+                    {
+                        stuckDetectSecondChance = true;
+                    }
+                    else
+                    {
+                        stuckDetectSecondChance = false;
+                        logger.Info("Playback seems to have stuck. Will issue a Previous Track command.");
+
+                        var player = new Player();
+                        await player.PreviousTrack();
+
+                        // template to load for showing Toast Notification
+                        var xmlToastTemplate = "<toast launch=\"app-defined-string\">" +
+                                                 "<visual>" +
+                                                   "<binding template =\"ToastGeneric\">" +
+                                                     "<text>Sample Notification</text>" +
+                                                     "<text>" +
+                                                       "OhShit" +
+                                                     "</text>" +
+                                                   "</binding>" +
+                                                 "</visual>" +
+                                               "</toast>";
+
+                        // load the template as XML document
+                        var xmlDocument = new Windows.Data.Xml.Dom.XmlDocument();
+                        xmlDocument.LoadXml(xmlToastTemplate);
+
+                        // create the toast notification and show to user
+                        var toastNotification = new Windows.UI.Notifications.ToastNotification(xmlDocument);
+                        var notification = Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier();
+                        notification.Show(toastNotification);
+                    }
+                }
+                else
+                {
+                    stuckDetectSecondChance = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("checkCurrentSongPlayTime failed: " + ex.ToString());
+            }
         }
 
         private async void SystemControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs e)
