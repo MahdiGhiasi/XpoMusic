@@ -292,27 +292,6 @@ namespace ModernSpotifyUWP
 
                         var player = new Player();
                         await player.PreviousTrack();
-
-                        // template to load for showing Toast Notification
-                        var xmlToastTemplate = "<toast launch=\"app-defined-string\">" +
-                                                 "<visual>" +
-                                                   "<binding template =\"ToastGeneric\">" +
-                                                     "<text>Sample Notification</text>" +
-                                                     "<text>" +
-                                                       "OhShit" +
-                                                     "</text>" +
-                                                   "</binding>" +
-                                                 "</visual>" +
-                                               "</toast>";
-
-                        // load the template as XML document
-                        var xmlDocument = new Windows.Data.Xml.Dom.XmlDocument();
-                        xmlDocument.LoadXml(xmlToastTemplate);
-
-                        // create the toast notification and show to user
-                        var toastNotification = new Windows.UI.Notifications.ToastNotification(xmlDocument);
-                        var notification = Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier();
-                        notification.Show(toastNotification);
                     }
                 }
                 else
