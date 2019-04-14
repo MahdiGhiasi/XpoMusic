@@ -142,6 +142,7 @@
     <Compile Include="Helpers\SongImageProvider.cs" />
     <Compile Include="Helpers\AnalyticsHelper.cs" />
     <Compile Include="Helpers\TileHelper.cs" />
+    <Compile Include="Helpers\ToastHelper.cs" />
     <Compile Include="Helpers\UnauthorizedHelper.cs" />
     <Compile Include="Secrets.cs" />
     <Compile Include="SpotifyApi\ApiBase.cs" />
