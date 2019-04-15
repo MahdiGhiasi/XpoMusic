@@ -35,7 +35,7 @@ namespace ModernSpotifyUWP
         /// <summary>
         /// If this variable is set, track change animation will run in reverse direction as a song change is detected.
         /// NOTE: DO NOT set this variable directly to true, use SetPrevTrackCommandIssued() method, which reverts the
-        /// change automatically after 3 seconds.
+        /// change automatically after 4 seconds.
         /// </summary>
         private bool prevTrackCommandIssued = false;
 
@@ -304,11 +304,11 @@ namespace ModernSpotifyUWP
 
         private async void SetPrevTrackCommandIssued()
         {
-            // This is only valid if a change is detected in the next 3 seconds,
+            // This is only valid if a change is detected in the next 4 seconds,
             // otherwise, its value is returned to false.
             prevTrackCommandIssued = true;
 
-            await Task.Delay(TimeSpan.FromSeconds(3));
+            await Task.Delay(TimeSpan.FromSeconds(4));
             prevTrackCommandIssued = false;
         }
 
