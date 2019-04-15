@@ -139,11 +139,15 @@
     <Compile Include="Helpers\ImageSaveHelper.cs" />
     <Compile Include="Helpers\LocalConfiguration.cs" />
     <Compile Include="Helpers\PackageHelper.cs" />
+    <Compile Include="Helpers\PlaybackActionHelper.cs" />
     <Compile Include="Helpers\SongImageProvider.cs" />
     <Compile Include="Helpers\AnalyticsHelper.cs" />
     <Compile Include="Helpers\TileHelper.cs" />
     <Compile Include="Helpers\ToastHelper.cs" />
     <Compile Include="Helpers\UnauthorizedHelper.cs" />
+    <Content Include="InjectedAssets\actionNextTrack.js" />
+    <Content Include="InjectedAssets\actionPause.js" />
+    <Compile Include="Helpers\WebViewInjectionHandler.cs" />
     <Compile Include="Secrets.cs" />
     <Compile Include="SpotifyApi\ApiBase.cs" />
     <Compile Include="SpotifyApi\Album.cs" />
@@ -289,6 +293,8 @@
     <Content Include="Assets\Logo\SplashScreen.scale-200.png" />
     <Content Include="Assets\Logo\SplashScreen.scale-400.png" />
     <Content Include="Assets\spotify-monochrome-white.png" />
+    <Content Include="InjectedAssets\actionPlay.js" />
+    <Content Include="InjectedAssets\actionPrevTrack.js" />
     <Content Include="InjectedAssets\checkCurrentPlaying.js" />
     <Content Include="InjectedAssets\checkCurrentSongPlayTime.js" />
     <Content Include="InjectedAssets\clearPlaybackLocalStorage.js" />

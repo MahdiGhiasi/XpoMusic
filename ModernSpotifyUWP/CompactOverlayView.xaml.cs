@@ -32,6 +32,13 @@ namespace ModernSpotifyUWP
         private DispatcherTimer timer;
         private string currentSongId;
 
+        /// <summary>
+        /// If this variable is set, track change animation will run in reverse direction as a song change is detected.
+        /// NOTE: DO NOT set this variable directly to true, use SetPrevTrackCommandIssued() method, which reverts the
+        /// change automatically after 3 seconds.
+        /// </summary>
+        private bool prevTrackCommandIssued = false;
+
         private enum AnimationState
         {
             None,
@@ -85,8 +92,19 @@ namespace ModernSpotifyUWP
 
                 if (animationState == AnimationState.None)
                 {
-                    hideToLeftStoryboard.Begin();
-                    await Task.Delay(300);
+                    if (prevTrackCommandIssued)
+                    {
+                        prevTrackCommandIssued = false;
+
+                        animationState = AnimationState.HiddenToRightSide;
+                        hideToRightStoryboard.Begin();
+                        await Task.Delay(300);
+                    }
+                    else
+                    {
+                        hideToLeftStoryboard.Begin();
+                        await Task.Delay(300);
+                    }
                 }
 
                 ViewModel.SongName = PlayStatusTracker.LastPlayStatus.SongName;
@@ -148,7 +166,7 @@ namespace ModernSpotifyUWP
                 ViewModel.IsPlaying = false;
                 timer.Stop();
 
-                if (await (new Player()).Pause())
+                if (await PlaybackActionHelper.Pause())
                 {
                     await Task.Delay(500);
                     await PlayStatusTracker.RefreshPlayStatus();
@@ -178,7 +196,7 @@ namespace ModernSpotifyUWP
                 ViewModel.IsPlaying = true;
                 timer.Stop();
 
-                if (await (new Player()).ResumePlaying())
+                if (await PlaybackActionHelper.Play())
                 {
                     await Task.Delay(500);
                     await PlayStatusTracker.RefreshPlayStatus();
@@ -205,16 +223,17 @@ namespace ModernSpotifyUWP
         {
             try
             {
-                HideToRightAnimation();
+                //HideToRightAnimation();
 
-                if (!(await (new Player()).PreviousTrack()))
+                if (!(await PlaybackActionHelper.PreviousTrack()))
                 {
-                    showFromRightStoryboard.Begin();
+                    //showFromRightStoryboard.Begin();
                     animationState = AnimationState.None;
                     ViewModel.ProgressRingActive = false;
                     return;
                 }
 
+                SetPrevTrackCommandIssued();
                 ViewModel.PrevButtonEnabled = false;
                 await Task.Delay(1000);
                 await PlayStatusTracker.RefreshPlayStatus();
@@ -232,7 +251,7 @@ namespace ModernSpotifyUWP
             {
                 HideToLeftAnimation();
 
-                if (!(await (new Player()).NextTrack()))
+                if (!(await PlaybackActionHelper.NextTrack()))
                 {
                     showFromLeftStoryboard.Begin();
                     animationState = AnimationState.None;
@@ -275,12 +294,22 @@ namespace ModernSpotifyUWP
         {
             if (reverse)
             {
-                HideToRightAnimation();
+                SetPrevTrackCommandIssued();
             }
             else
             {
                 HideToLeftAnimation();
             }
+        }
+
+        private async void SetPrevTrackCommandIssued()
+        {
+            // This is only valid if a change is detected in the next 3 seconds,
+            // otherwise, its value is returned to false.
+            prevTrackCommandIssued = true;
+
+            await Task.Delay(TimeSpan.FromSeconds(3));
+            prevTrackCommandIssued = false;
         }
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)

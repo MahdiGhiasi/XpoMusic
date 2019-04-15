@@ -38,10 +38,7 @@ namespace ModernSpotifyUWP
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        private const string SpotifyPwaUrlBeginsWith = "https://open.spotify.com";
-
         MediaPlayer silentMediaPlayer;
-        bool splashClosed = false;
         private CompactOverlayView compactOverlayView;
         private Uri loadFailedUrl;
         private DispatcherTimer playCheckTimer, stuckDetectTimer;
@@ -59,6 +56,8 @@ namespace ModernSpotifyUWP
                 IsLoopingEnabled = true,
             };
             silentMediaPlayer.CommandManager.IsEnabled = false;
+
+            WebViewInjectionHandler.Init(this.mainWebView);
 
             loadFailedAppVersionText.Text = PackageHelper.GetAppVersion();
             VisualStateManager.GoToState(this, "SplashScreen", false);
@@ -136,30 +135,13 @@ namespace ModernSpotifyUWP
                 var urlDecoder = new WwwFormUrlDecoder(parameter);
                 var pageUrl = urlDecoder.GetFirstValueByName("pageUrl");
 
-                await NavigateToSpotifyUrl(pageUrl);
+                await WebViewInjectionHandler.NavigateToSpotifyUrl(pageUrl);
 
                 return;
             }
             catch (Exception ex)
             {
                 logger.Info($"Parsing input parameter {parameter} failed. {ex}");
-            }
-        }
-
-        private async Task NavigateToSpotifyUrl(string url)
-        {
-            var currentUrl = await mainWebView.InvokeScriptAsync("eval", new String[] { "document.location.href;" });
-
-            if (currentUrl.ToLower().StartsWith(SpotifyPwaUrlBeginsWith.ToLower()))
-            {
-                var script = File.ReadAllText("InjectedAssets/navigateToPage.js")
-                    + $"navigateToPage('{url.Replace("'", "\\'")}');";
-
-                await mainWebView.InvokeScriptAsync("eval", new string[] { script });
-            }
-            else
-            {
-                mainWebView.Navigate(new Uri(url));
             }
         }
 
@@ -253,9 +235,7 @@ namespace ModernSpotifyUWP
         {
             try
             {
-                var script = File.ReadAllText("InjectedAssets/checkCurrentPlaying.js");
-                var currentPlaying = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
-
+                var currentPlaying = await WebViewInjectionHandler.GetCurrentPlaying();
                 if (currentPlaying != prevCurrentPlaying)
                 {
                     prevCurrentPlaying = currentPlaying;
@@ -273,9 +253,8 @@ namespace ModernSpotifyUWP
         private async void StuckDetectTimer_Tick(object sender, object e)
         {
             try
-            {
-                var script = File.ReadAllText("InjectedAssets/checkCurrentSongPlayTime.js");
-                var currentPlayTime = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            {                 
+                var currentPlayTime = await WebViewInjectionHandler.GetCurrentSongPlayTime();
 
                 if (currentPlayTime == "0:00" 
                     && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds > 5000
@@ -288,7 +267,7 @@ namespace ModernSpotifyUWP
                     else
                     {
                         stuckDetectSecondChance = false;
-                        logger.Warn("Playback seems to have stuck. Will issue a Previous Track command.");
+                        logger.Warn("Playback seems to have stuck. Will issue a Previous Track command via API.");
 
                         var player = new Player();
                         await player.PreviousTrack();
@@ -320,27 +299,27 @@ namespace ModernSpotifyUWP
                     switch (e.Button)
                     {
                         case SystemMediaTransportControlsButton.Play:
-                            if (await (new Player()).ResumePlaying())
+                            if (await PlaybackActionHelper.Play())
                                 mediaControls.PlaybackStatus = MediaPlaybackStatus.Playing;
 
                             break;
                         case SystemMediaTransportControlsButton.Pause:
-                            if (await (new Player()).Pause())
+                            if (await PlaybackActionHelper.Pause())
                                 mediaControls.PlaybackStatus = MediaPlaybackStatus.Paused;
 
                             break;
                         case SystemMediaTransportControlsButton.Stop:
-                            if (await (new Player()).Pause())
+                            if (await PlaybackActionHelper.Pause())
                                 mediaControls.PlaybackStatus = MediaPlaybackStatus.Paused;
 
                             break;
                         case SystemMediaTransportControlsButton.Next:
-                            if (await (new Player()).NextTrack())
+                            if (await PlaybackActionHelper.NextTrack())
                                 compactOverlayView?.PlayChangeTrackAnimation(reverse: false);
 
                             break;
                         case SystemMediaTransportControlsButton.Previous:
-                            if (await (new Player()).PreviousTrack())
+                            if (await PlaybackActionHelper.PreviousTrack())
                                 compactOverlayView?.PlayChangeTrackAnimation(reverse: true);
 
                             break;
@@ -357,7 +336,7 @@ namespace ModernSpotifyUWP
         {
             if (e.Uri.ToString().StartsWith(Authorization.SpotifyLoginUri) && LocalConfiguration.IsLoggedInByFacebook)
             {
-                if (await TryPushingFacebookLoginButton())
+                if (await WebViewInjectionHandler.TryPushingFacebookLoginButton())
                 {
                     logger.Info("Pushed the facebook login button.");
                     return;
@@ -369,8 +348,7 @@ namespace ModernSpotifyUWP
                 var url = e.Uri.ToString();
 
                 logger.Info("Clearing local storage and redirecting...");
-                var script = File.ReadAllText("InjectedAssets/clearPlaybackLocalStorage.js");
-                var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+                var result = await WebViewInjectionHandler.ClearPlaybackLocalStorage();
 
                 try
                 {
@@ -405,45 +383,15 @@ namespace ModernSpotifyUWP
                 FinalizeAuthorization(e.Uri.ToString());
             }
 
-            if (e.Uri.ToString().ToLower().Contains(SpotifyPwaUrlBeginsWith.ToLower()))
+            if (e.Uri.ToString().ToLower().Contains(WebViewInjectionHandler.SpotifyPwaUrlBeginsWith.ToLower()))
             {
-                await InjectInitScript();
+                await WebViewInjectionHandler.InjectInitScript();
                 SetInitialPlaybackState();
             }
 
-            if (!await CheckLoggedIn())
+            if (!await WebViewInjectionHandler.CheckLoggedIn())
             {
                 Authorize("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F", clearExisting: true);
-            }
-        }
-
-        private async Task<bool> TryPushingFacebookLoginButton()
-        {
-            var script = File.ReadAllText("InjectedAssets/clickOnFacebookLogin.js");
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
-
-            return (result == "1");
-        }
-
-        private async Task<bool> CheckLoggedIn()
-        {
-            var script = File.ReadAllText("InjectedAssets/isLoggedInCheck.js");
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
-
-            return (result != "0");
-        }
-
-        private async Task InjectInitScript()
-        {
-            // TODO: Add js code so it does not inject again if already injected
-
-            var checkIfInjected = "((document.getElementsByTagName('body')[0].getAttribute('data-scriptinjection') == null) ? '0' : '1');";
-            var injected = await mainWebView.InvokeScriptAsync("eval", new string[] { checkIfInjected });
-
-            if (injected != "1")
-            {
-                var script = File.ReadAllText("InjectedAssets/initScript.js");
-                await mainWebView.InvokeScriptAsync("eval", new string[] { script });
                 AnalyticsHelper.Log("mainEvent", "notLoggedIn");
             }
         }
@@ -462,37 +410,27 @@ namespace ModernSpotifyUWP
             {
                 e.Cancel = true;
 
-                //var len = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.history.length.toString()" });
-                //logger.Info("Len: " + len);
-                //var curLocation = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.location.href" });
-                //logger.Info("curLocation: " + curLocation);
-
-                await mainWebView.InvokeScriptAsync("eval", new string[] { "window.history.go(-1);" });
-
-                //var len2 = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.history.length.toString()" });
-                //logger.Info("Len2: " + len2);
-                //var curLocation2 = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.location.href" });
-                //logger.Info("curLocation2: " + curLocation2);
+                await WebViewInjectionHandler.GoBack();
             }
             else if (e.Uri.ToString().EndsWith("#xpotifysettings"))
             {
                 e.Cancel = true;
                 OpenSettings();
-                AnalyticsHelper.Log("settingsOpened");
+                AnalyticsHelper.PageView("Settings");
             }
             else if (e.Uri.ToString().EndsWith("#xpotifypintostart"))
             {
                 e.Cancel = true;
 
                 await PinPageToStart();
-                AnalyticsHelper.Log("pinToStart");
+                AnalyticsHelper.Log("mainEvent", "pinToStart");
             }
             else if (e.Uri.ToString().EndsWith("#xpotifycompactoverlay"))
             {
                 e.Cancel = true;
 
                 await GoToCompactOverlayMode();
-                AnalyticsHelper.Log("compactOverlayOpened");
+                AnalyticsHelper.Log("mainEvent", "compactOverlayOpened");
             }
 
 
@@ -537,16 +475,15 @@ namespace ModernSpotifyUWP
             compactOverlayView.PrepareToExit();
             compactOverlayView = null;
 
-            AnalyticsHelper.Log("compactOverlayClosed");
+            AnalyticsHelper.Log("mainEvent", "compactOverlayClosed");
         }
 
         private async Task PinPageToStart()
         {
             VisualStateManager.GoToState(this, "MainScreenWaiting", false);
 
-            var findPageTitleScript = File.ReadAllText("InjectedAssets/findPageTitle.js");
-            var pageUrl = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.location.href" });
-            var pageTitle = await mainWebView.InvokeScriptAsync("eval", new string[] { findPageTitleScript });
+            var pageUrl = await WebViewInjectionHandler.GetPageUrl();
+            var pageTitle = await WebViewInjectionHandler.GetPageTitle();
 
             await TileHelper.PinPageToStart(pageUrl, pageTitle);
 
