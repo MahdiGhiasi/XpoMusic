@@ -135,7 +135,6 @@
     <Compile Include="Flyouts\WhatsNewFlyout.xaml.cs">
       <DependentUpon>WhatsNewFlyout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\HitBuilderEx.cs" />
     <Compile Include="Helpers\ImageSaveHelper.cs" />
     <Compile Include="Helpers\LocalConfiguration.cs" />
     <Compile Include="Helpers\PackageHelper.cs" />
