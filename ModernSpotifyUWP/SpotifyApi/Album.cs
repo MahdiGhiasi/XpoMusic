@@ -13,7 +13,7 @@ namespace ModernSpotifyUWP.SpotifyApi
     {
         public async Task<Model.AlbumSimplified> GetAlbum(string albumId)
         {
-            AnalyticsHelper.Log("api:getalbum");
+            AnalyticsHelper.Log("api", "getalbum");
 
             var result = await SendRequestWithTokenAsync($"https://api.spotify.com/v1/albums/{albumId}", HttpMethod.Get);
             var resultString = await result.Content.ReadAsStringAsync();

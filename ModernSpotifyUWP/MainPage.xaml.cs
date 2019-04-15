@@ -209,7 +209,7 @@ namespace ModernSpotifyUWP
             stuckDetectTimer.Start();
 
             AnalyticsHelper.PageView("MainPage");
-            AnalyticsHelper.Log("appOpened", SystemInformation.OperatingSystemVersion.ToString());
+            AnalyticsHelper.Log("mainEvent", "appOpened", SystemInformation.OperatingSystemVersion.ToString());
         }
 
         private async void SetInitialPlaybackState()
@@ -293,7 +293,7 @@ namespace ModernSpotifyUWP
                         var player = new Player();
                         await player.PreviousTrack();
 
-                        AnalyticsHelper.Log("playbackStuck1");
+                        AnalyticsHelper.Log("playbackStuck", "1");
 
                         ToastHelper.SendDebugToast("PlaybackStuck1", "PrevTrack issued.");
                     }
@@ -414,7 +414,6 @@ namespace ModernSpotifyUWP
             if (!await CheckLoggedIn())
             {
                 Authorize("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F", clearExisting: true);
-                AnalyticsHelper.Log("notLoggedIn");
             }
         }
 
@@ -445,6 +444,7 @@ namespace ModernSpotifyUWP
             {
                 var script = File.ReadAllText("InjectedAssets/initScript.js");
                 await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+                AnalyticsHelper.Log("mainEvent", "notLoggedIn");
             }
         }
 

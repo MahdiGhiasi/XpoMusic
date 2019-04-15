@@ -43,17 +43,6 @@ namespace ModernSpotifyUWP.Helpers
             }
         }
 
-
-        public static void Log(string eventName)
-        {
-#if !DEBUG
-            StoreCustomEventLogger.Log(eventName);
-            GoogleAnalyticsTracker.Send(HitBuilder.CreateCustomEvent(eventName, "").Build());
-
-            logger.Info($"Analytics event '{eventName}' fired.");
-#endif
-        }
-
         public static void Log(string eventName, string action)
         {
 #if !DEBUG
@@ -77,7 +66,7 @@ namespace ModernSpotifyUWP.Helpers
         internal static void PageView(string pageName)
         {
 #if !DEBUG
-            GoogleAnalyticsTracker.Send(HitBuilderEx.CreatePageView("/" + pageName));
+            GoogleAnalyticsTracker.Send(HitBuilder.CreateScreenView(pageName).Build());
 
             logger.Info($"PageView '{pageName}' fired.");
 #endif

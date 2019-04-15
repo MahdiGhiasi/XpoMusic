@@ -13,7 +13,7 @@ namespace ModernSpotifyUWP.SpotifyApi
     {
         public async Task<Model.Playlist> GetPlaylist(string playlistId)
         {
-            AnalyticsHelper.Log("api:getplaylist");
+            AnalyticsHelper.Log("api", "getplaylist");
 
             var result = await SendRequestWithTokenAsync($"https://api.spotify.com/v1/playlists/{playlistId}", HttpMethod.Get);
             var resultString = await result.Content.ReadAsStringAsync();
