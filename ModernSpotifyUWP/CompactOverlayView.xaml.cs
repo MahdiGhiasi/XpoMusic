@@ -54,8 +54,6 @@ namespace ModernSpotifyUWP
         {
             this.InitializeComponent();
 
-            Update();
-
             timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1),
