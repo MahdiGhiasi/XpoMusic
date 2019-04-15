@@ -322,6 +322,11 @@ namespace ModernSpotifyUWP
                             if (await PlaybackActionHelper.PreviousTrack())
                                 compactOverlayView?.PlayChangeTrackAnimation(reverse: true);
 
+                            // Necessary for progress bar update, in case 'previous' command goes to 
+                            // the beginning of the same track.
+                            await Task.Delay(500);
+                            await PlayStatusTracker.RefreshPlayStatus(); 
+
                             break;
                     }
                 }

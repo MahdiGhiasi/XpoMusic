@@ -1,4 +1,5 @@
-﻿using ModernSpotifyUWP.SpotifyApi;
+﻿using ModernSpotifyUWP.Classes;
+using ModernSpotifyUWP.SpotifyApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,10 @@ namespace ModernSpotifyUWP.Helpers
 
         public static async Task<bool> NextTrack()
         {
+            // Progress bar on CompactOverlay should jump *immediately* to 0,
+            // so the user get the feeling that their command was received.
+            PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds = 0;
+
             if (await WebViewInjectionHandler.NextTrack())
             {
                 await Task.Delay(100);
@@ -44,6 +49,10 @@ namespace ModernSpotifyUWP.Helpers
 
         public static async Task<bool> PreviousTrack()
         {
+            // Progress bar on CompactOverlay should jump *immediately* to 0,
+            // so the user get the feeling that their command was received.
+            PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds = 0;
+
             if (await WebViewInjectionHandler.PreviousTrack())
             {
                 await Task.Delay(100);
