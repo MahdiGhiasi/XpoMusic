@@ -204,29 +204,35 @@
         <Grid x:Name="loadFailedMessage" Background="#201B1B" Visibility="Collapsed">
             <StackPanel MaxWidth="800" Padding="0,100,0,0">
                 <TextBlock Text="Connection failed."
+                           Foreground="White"
                            TextWrapping="Wrap"
                            FontWeight="Light"
                            FontSize="34" />
                 <TextBlock Text="Please check your internet connection and then try again."
+                           Foreground="White"
                            Margin="0,20,0,0"
                            TextWrapping="Wrap"
                            FontWeight="Light"
                            FontSize="22"/>
                 <TextBlock Text="Url:"
+                           Foreground="White"
                            Margin="0,20,0,0"
                            Opacity="0.6"
                            FontSize="14" />
                 <TextBlock x:Name="loadFailedUrlText"
+                           Foreground="White"
                            Margin="12,0,0,0"
                            Text="[url]"
                            TextWrapping="Wrap"
                            Opacity="0.6"
                            FontSize="14" />
                 <TextBlock Text="Error Message:"
+                           Foreground="White"
                            Margin="0,20,0,0"
                            Opacity="0.6"
                            FontSize="14" />
                 <TextBlock x:Name="errorMessageText"
+                           Foreground="White"
                            Margin="12,0,0,0"
                            Text="[error]"
                            TextWrapping="Wrap"
@@ -234,6 +240,8 @@
                            FontSize="14" />
 
                 <Button Content="Retry"
+                        Background="#4D4949"
+                        Foreground="White"
                         Click="RetryConnectButton_Click"
                         Margin="0,40,0,0"
                         FontWeight="Light"
@@ -241,11 +249,13 @@
                         FontSize="20" />
                 <StackPanel Orientation="Horizontal" Margin="0,80,0,0">
                     <TextBlock Text="Xpotify v"
+                               Foreground="White"
                                Opacity="0.5"
                                FontWeight="ExtraLight"
                                FontSize="12" />
                     <TextBlock x:Name="loadFailedAppVersionText"
                                Text="X.Y.Z"
+                               Foreground="White"
                                Opacity="0.5"
                                FontWeight="ExtraLight"
                                FontSize="12" />
