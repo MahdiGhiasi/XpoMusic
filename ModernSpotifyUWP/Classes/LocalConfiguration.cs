@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Storage;
 
-namespace ModernSpotifyUWP.Helpers
+namespace ModernSpotifyUWP.Classes
 {
     public static class LocalConfiguration
     {
