@@ -260,6 +260,10 @@ namespace ModernSpotifyUWP
 
         private async void PlayCheckTimer_Tick(object sender, object e)
         {
+            // Ignore if not logged in
+            if (!TokenHelper.HasTokens())
+                return;
+
             try
             {
                 var currentPlaying = await WebViewInjectionHandler.GetCurrentPlaying();
@@ -279,6 +283,10 @@ namespace ModernSpotifyUWP
 
         private async void StuckDetectTimer_Tick(object sender, object e)
         {
+            // Ignore if not logged in
+            if (!TokenHelper.HasTokens())
+                return;
+
             try
             {                 
                 var currentPlayTime = await WebViewInjectionHandler.GetCurrentSongPlayTime();

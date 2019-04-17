@@ -70,6 +70,10 @@ namespace ModernSpotifyUWP.Classes
 
         private static async void Timer_Tick(object sender, object e)
         {
+            // Ignore if not logged in
+            if (!TokenHelper.HasTokens())
+                return;
+
             if ((DateTime.UtcNow - lastStatusFetch) > AppConstants.Instance.PlayStatePollInterval)
             {
                 await RefreshPlayStatus();
