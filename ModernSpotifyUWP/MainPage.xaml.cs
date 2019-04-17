@@ -17,6 +17,7 @@ using Windows.Foundation.Collections;
 using Windows.Media;
 using Windows.Media.Core;
 using Windows.Media.Playback;
+using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -148,8 +149,7 @@ namespace ModernSpotifyUWP
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            coreTitleBar.ExtendViewIntoTitleBar = true;
+            InitTitleBar();
 
             ApplicationView.GetForCurrentView().SetPreferredMinSize(LocalConfiguration.WindowMinSize);
 
@@ -193,6 +193,30 @@ namespace ModernSpotifyUWP
 
             AnalyticsHelper.PageView("MainPage");
             AnalyticsHelper.Log("mainEvent", "appOpened", SystemInformation.OperatingSystemVersion.ToString());
+        }
+
+        private static void InitTitleBar()
+        {
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            coreTitleBar.ExtendViewIntoTitleBar = true;
+
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+
+            // Set active window colors
+            titleBar.ForegroundColor = Colors.White;
+            titleBar.BackgroundColor = Colors.Black;
+            titleBar.ButtonForegroundColor = Colors.White;
+            titleBar.ButtonBackgroundColor = Colors.Black;
+            titleBar.ButtonHoverForegroundColor = Colors.White;
+            titleBar.ButtonHoverBackgroundColor = Color.FromArgb(255, 35, 35, 35);
+            titleBar.ButtonPressedForegroundColor = Colors.White;
+            titleBar.ButtonPressedBackgroundColor = Color.FromArgb(255, 51, 51, 51);
+
+            // Set inactive window colors
+            titleBar.InactiveForegroundColor = Color.FromArgb(255, 200, 200, 200);
+            titleBar.InactiveBackgroundColor = Colors.Black;
+            titleBar.ButtonInactiveForegroundColor = Color.FromArgb(255, 200, 200, 200);
+            titleBar.ButtonInactiveBackgroundColor = Colors.Black;
         }
 
         private async void SetInitialPlaybackState()
