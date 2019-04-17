@@ -44,7 +44,8 @@ namespace ModernSpotifyUWP
         private DispatcherTimer playCheckTimer, stuckDetectTimer;
         private string prevCurrentPlaying;
         private LocalStoragePlayback initialPlaybackState = null;
-        private bool stuckDetectSecondChance = false;
+        private int stuckDetectCounter = 0;
+        private DateTime lastStuckFixApiCall;
 
         public MainPage()
         {
@@ -185,7 +186,7 @@ namespace ModernSpotifyUWP
 
             stuckDetectTimer = new DispatcherTimer
             {
-                Interval = TimeSpan.FromSeconds(5),
+                Interval = TimeSpan.FromSeconds(4),
             };
             stuckDetectTimer.Tick += StuckDetectTimer_Tick;
             stuckDetectTimer.Start();
@@ -260,26 +261,46 @@ namespace ModernSpotifyUWP
                     && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds > 5000
                     && PlayStatusTracker.LastPlayStatus.IsPlaying)
                 {
-                    if (stuckDetectSecondChance == false)
+                    if (stuckDetectCounter < 2)
                     {
-                        stuckDetectSecondChance = true;
+                        stuckDetectCounter++;
                     }
                     else
                     {
-                        stuckDetectSecondChance = false;
-                        logger.Warn("Playback seems to have stuck. Will issue a Previous Track command via API.");
+                        stuckDetectCounter = 0;
+                        logger.Warn("Playback seems to have stuck.");
 
-                        var player = new Player();
-                        await player.PreviousTrack();
+                        var result = false;
 
-                        AnalyticsHelper.Log("playbackStuck", "1");
+                        if ((DateTime.UtcNow - lastStuckFixApiCall) > TimeSpan.FromMinutes(1))
+                        {
+                            lastStuckFixApiCall = DateTime.UtcNow;
 
-                        ToastHelper.SendDebugToast("PlaybackStuck1", "PrevTrack issued.");
+                            var player = new Player();
+                            result = await player.PreviousTrack();
+                        }
+
+                        if (result)
+                        {
+                            AnalyticsHelper.Log("playbackStuck", "1");
+                            ToastHelper.SendDebugToast("PlaybackStuck1", "PrevTrack issued.");
+                            logger.Info("playbackStuck1");
+                        }
+                        else
+                        {
+                            await WebViewInjectionHandler.NextTrack();
+                            await Task.Delay(1500);
+                            await WebViewInjectionHandler.PreviousTrack();
+
+                            AnalyticsHelper.Log("playbackStuck", "2");
+                            ToastHelper.SendDebugToast("PlaybackStuck2", "NextAndPrevTrack issued.");
+                            logger.Info("playbackStuck2");
+                        }
                     }
                 }
                 else
                 {
-                    stuckDetectSecondChance = false;
+                    stuckDetectCounter = 0;
                 }
             }
             catch (Exception ex)
