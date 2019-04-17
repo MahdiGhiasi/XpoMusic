@@ -61,7 +61,7 @@ namespace ModernSpotifyUWP
 
             WebViewInjectionHandler.Init(this.mainWebView);
 
-            loadFailedAppVersionText.Text = PackageHelper.GetAppVersion();
+            loadFailedAppVersionText.Text = PackageHelper.GetAppVersionString();
             VisualStateManager.GoToState(this, "SplashScreen", false);
         }
 
@@ -150,8 +150,10 @@ namespace ModernSpotifyUWP
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             InitTitleBar();
-
             ApplicationView.GetForCurrentView().SetPreferredMinSize(LocalConfiguration.WindowMinSize);
+
+            // Update app constants from server
+            AppConstants.Instance.Update();
 
             // Play silent sound to avoid suspending the app when it's minimized.
             silentMediaPlayer.Play();

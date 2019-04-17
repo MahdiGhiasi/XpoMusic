@@ -32,7 +32,7 @@ namespace ModernSpotifyUWP.Flyouts
         {
             this.InitializeComponent();
 
-            appVersionText.Text = PackageHelper.GetAppVersion();
+            appVersionText.Text = PackageHelper.GetAppVersionString();
         }
 
         private void OKButton_Tapped(object sender, TappedRoutedEventArgs e)
@@ -73,7 +73,7 @@ namespace ModernSpotifyUWP.Flyouts
             }
 
             emailMessage.To.Add(new EmailRecipient(supportEmailAddress));
-            emailMessage.Subject = $"Xpotify v{PackageHelper.GetAppVersion()}";
+            emailMessage.Subject = $"Xpotify v{PackageHelper.GetAppVersionString()}";
             if (logFileReference != null)
             {
                 emailMessage.Attachments.Add(new EmailAttachment("xpotify-email.log", logFileReference));

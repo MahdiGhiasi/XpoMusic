@@ -21,7 +21,7 @@ namespace ModernSpotifyUWP.Helpers
 
             if (Version.TryParse(ApplicationData.Current.LocalSettings.Values[latestWhatsNewVersionKey].ToString(), out Version v))
             {
-                if (v < Version.Parse(PackageHelper.GetAppVersion()))
+                if (v < Version.Parse(PackageHelper.GetAppVersionString()))
                 {
                     if (GetWhatsNewContentId().Count > 0)
                     {
@@ -62,7 +62,7 @@ namespace ModernSpotifyUWP.Helpers
 
         private static void MarkThisWhatsNewAsRead()
         {
-            ApplicationData.Current.LocalSettings.Values[latestWhatsNewVersionKey] = PackageHelper.GetAppVersion();
+            ApplicationData.Current.LocalSettings.Values[latestWhatsNewVersionKey] = PackageHelper.GetAppVersionString();
         }
     }
 }

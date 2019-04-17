@@ -16,8 +16,6 @@ namespace ModernSpotifyUWP.Classes
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        static readonly TimeSpan regularPollInterval = TimeSpan.FromSeconds(10);
-
         static DispatcherTimer timer;
         static DateTime lastStatusFetch = DateTime.MinValue;
 
@@ -72,7 +70,7 @@ namespace ModernSpotifyUWP.Classes
 
         private static async void Timer_Tick(object sender, object e)
         {
-            if ((DateTime.UtcNow - lastStatusFetch) > regularPollInterval)
+            if ((DateTime.UtcNow - lastStatusFetch) > AppConstants.Instance.PlayStatePollInterval)
             {
                 await RefreshPlayStatus();
             }

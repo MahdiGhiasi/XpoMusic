@@ -33,7 +33,7 @@ namespace ModernSpotifyUWP.Flyouts
                     sp.Visibility = Visibility.Collapsed;
             }
 
-            VersionText.Text = PackageHelper.GetAppVersion();
+            VersionText.Text = PackageHelper.GetAppVersionString();
         }
 
         private void OKButton_Tapped(object sender, TappedRoutedEventArgs e)
