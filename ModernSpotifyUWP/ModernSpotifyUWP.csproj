@@ -137,7 +137,7 @@
     </Compile>
     <Compile Include="Helpers\CropBitmap.cs" />
     <Compile Include="Helpers\ImageSaveHelper.cs" />
-    <Compile Include="Helpers\LocalConfiguration.cs" />
+    <Compile Include="Classes\LocalConfiguration.cs" />
     <Compile Include="Helpers\PackageHelper.cs" />
     <Compile Include="Helpers\PlaybackActionHelper.cs" />
     <Compile Include="Helpers\SongImageProvider.cs" />
