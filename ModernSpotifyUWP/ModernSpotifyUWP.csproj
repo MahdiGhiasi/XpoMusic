@@ -152,7 +152,7 @@
     <Content Include="Assets\xpotify-white.png" />
     <Content Include="InjectedAssets\actionNextTrack.js" />
     <Content Include="InjectedAssets\actionPause.js" />
-    <Compile Include="Helpers\WebViewInjectionHandler.cs" />
+    <Compile Include="Helpers\WebViewHelper.cs" />
     <Compile Include="Secrets.cs" />
     <Compile Include="SpotifyApi\ApiBase.cs" />
     <Compile Include="SpotifyApi\Album.cs" />
