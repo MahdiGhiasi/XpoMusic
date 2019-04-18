@@ -12,7 +12,7 @@ namespace ModernSpotifyUWP.Helpers
     {
         public static async Task<bool> Play()
         {
-            if (await WebViewInjectionHandler.Play())
+            if (await WebViewHelper.Play())
             {
                 await Task.Delay(100);
                 return true;
@@ -23,7 +23,7 @@ namespace ModernSpotifyUWP.Helpers
 
         public static async Task<bool> Pause()
         {
-            if (await WebViewInjectionHandler.Pause())
+            if (await WebViewHelper.Pause())
             {
                 await Task.Delay(100);
                 return true;
@@ -38,7 +38,7 @@ namespace ModernSpotifyUWP.Helpers
             // so the user get the feeling that their command was received.
             PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds = 0;
 
-            if (await WebViewInjectionHandler.NextTrack())
+            if (await WebViewHelper.NextTrack())
             {
                 await Task.Delay(100);
                 return true;
@@ -53,7 +53,7 @@ namespace ModernSpotifyUWP.Helpers
             // so the user get the feeling that their command was received.
             PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds = 0;
 
-            if (await WebViewInjectionHandler.PreviousTrack())
+            if (await WebViewHelper.PreviousTrack())
             {
                 await Task.Delay(100);
                 return true;

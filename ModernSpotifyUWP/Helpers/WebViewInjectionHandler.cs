@@ -8,7 +8,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace ModernSpotifyUWP.Helpers
 {
-    public static class WebViewInjectionHandler
+    public static class WebViewHelper
     {
         public const string SpotifyPwaUrlBeginsWith = "https://open.spotify.com";
 

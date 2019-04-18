@@ -27,6 +27,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -59,7 +60,7 @@ namespace ModernSpotifyUWP
             };
             silentMediaPlayer.CommandManager.IsEnabled = false;
 
-            WebViewInjectionHandler.Init(this.mainWebView);
+            WebViewHelper.Init(this.mainWebView);
 
             loadFailedAppVersionText.Text = PackageHelper.GetAppVersionString();
             VisualStateManager.GoToState(this, "SplashScreen", false);
@@ -137,7 +138,7 @@ namespace ModernSpotifyUWP
                 var urlDecoder = new WwwFormUrlDecoder(parameter);
                 var pageUrl = urlDecoder.GetFirstValueByName("pageUrl");
 
-                await WebViewInjectionHandler.NavigateToSpotifyUrl(pageUrl);
+                await WebViewHelper.NavigateToSpotifyUrl(pageUrl);
 
                 return;
             }
@@ -266,7 +267,7 @@ namespace ModernSpotifyUWP
 
             try
             {
-                var currentPlaying = await WebViewInjectionHandler.GetCurrentPlaying();
+                var currentPlaying = await WebViewHelper.GetCurrentPlaying();
                 if (currentPlaying != prevCurrentPlaying)
                 {
                     prevCurrentPlaying = currentPlaying;
@@ -289,7 +290,7 @@ namespace ModernSpotifyUWP
 
             try
             {                 
-                var currentPlayTime = await WebViewInjectionHandler.GetCurrentSongPlayTime();
+                var currentPlayTime = await WebViewHelper.GetCurrentSongPlayTime();
 
                 if (currentPlayTime == "0:00" 
                     && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds > 5000
@@ -322,9 +323,9 @@ namespace ModernSpotifyUWP
                         }
                         else
                         {
-                            await WebViewInjectionHandler.NextTrack();
+                            await WebViewHelper.NextTrack();
                             await Task.Delay(1500);
-                            await WebViewInjectionHandler.PreviousTrack();
+                            await WebViewHelper.PreviousTrack();
 
                             AnalyticsHelper.Log("playbackStuck", "2");
                             ToastHelper.SendDebugToast("PlaybackStuck2", "NextAndPrevTrack issued.");
@@ -396,7 +397,7 @@ namespace ModernSpotifyUWP
         {
             if (e.Uri.ToString().StartsWith(Authorization.SpotifyLoginUri) && LocalConfiguration.IsLoggedInByFacebook)
             {
-                if (await WebViewInjectionHandler.TryPushingFacebookLoginButton())
+                if (await WebViewHelper.TryPushingFacebookLoginButton())
                 {
                     logger.Info("Pushed the facebook login button.");
                     return;
@@ -408,7 +409,7 @@ namespace ModernSpotifyUWP
                 var url = e.Uri.ToString();
 
                 logger.Info("Clearing local storage and redirecting...");
-                var result = await WebViewInjectionHandler.ClearPlaybackLocalStorage();
+                var result = await WebViewHelper.ClearPlaybackLocalStorage();
 
                 try
                 {
@@ -443,13 +444,13 @@ namespace ModernSpotifyUWP
                 FinalizeAuthorization(e.Uri.ToString());
             }
 
-            if (e.Uri.ToString().ToLower().Contains(WebViewInjectionHandler.SpotifyPwaUrlBeginsWith.ToLower()))
+            if (e.Uri.ToString().ToLower().Contains(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
             {
-                await WebViewInjectionHandler.InjectInitScript();
+                await WebViewHelper.InjectInitScript();
                 SetInitialPlaybackState();
             }
 
-            if (!await WebViewInjectionHandler.CheckLoggedIn())
+            if (!await WebViewHelper.CheckLoggedIn())
             {
                 Authorize("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F", clearExisting: true);
                 AnalyticsHelper.Log("mainEvent", "notLoggedIn");
@@ -470,7 +471,7 @@ namespace ModernSpotifyUWP
             {
                 e.Cancel = true;
 
-                await WebViewInjectionHandler.GoBack();
+                await WebViewHelper.GoBack();
             }
             else if (e.Uri.ToString().EndsWith("#xpotifysettings"))
             {
@@ -542,8 +543,8 @@ namespace ModernSpotifyUWP
         {
             VisualStateManager.GoToState(this, "MainScreenWaiting", false);
 
-            var pageUrl = await WebViewInjectionHandler.GetPageUrl();
-            var pageTitle = await WebViewInjectionHandler.GetPageTitle();
+            var pageUrl = await WebViewHelper.GetPageUrl();
+            var pageTitle = await WebViewHelper.GetPageTitle();
 
             await TileHelper.PinPageToStart(pageUrl, pageTitle);
 
