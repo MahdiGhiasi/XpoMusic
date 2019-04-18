@@ -127,6 +127,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\AppConstants.cs" />
+    <Compile Include="Classes\Model\Language.cs" />
     <Compile Include="Classes\Model\LocalStoragePlayback.cs" />
     <Compile Include="Classes\PlayStatusTracker.cs" />
     <Compile Include="Flyouts\IFlyout.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Helpers\CropBitmap.cs" />
     <Compile Include="Helpers\ImageSaveHelper.cs" />
     <Compile Include="Classes\LocalConfiguration.cs" />
+    <Compile Include="Helpers\LanguageHelper.cs" />
     <Compile Include="Helpers\PackageHelper.cs" />
     <Compile Include="Helpers\PlaybackActionHelper.cs" />
     <Compile Include="Helpers\SongImageProvider.cs" />

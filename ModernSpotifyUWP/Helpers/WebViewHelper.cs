@@ -1,10 +1,12 @@
-﻿using System;
+﻿using ModernSpotifyUWP.Classes.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using Windows.Web.Http;
 
 namespace ModernSpotifyUWP.Helpers
 {
@@ -17,6 +19,23 @@ namespace ModernSpotifyUWP.Helpers
         public static void Init(WebView webView)
         {
             mainWebView = webView;
+        }
+
+        public static void Navigate(Uri targetUri)
+        {
+            // TODO: Read language preference from configuration
+            Navigate(targetUri, Language.Default); 
+        }
+
+        public static void Navigate(Uri targetUri, Language language)
+        {
+            var request = new HttpRequestMessage(HttpMethod.Get, targetUri);
+
+            var languageString = LanguageHelper.GetHeaderLanguageString(language);
+            if (!string.IsNullOrWhiteSpace(languageString))
+                request.Headers.Add("Accept-Language", languageString);
+
+            mainWebView.NavigateWithHttpRequestMessage(request);
         }
 
         public static async Task InjectInitScript()
@@ -88,7 +107,7 @@ namespace ModernSpotifyUWP.Helpers
             }
             else
             {
-                mainWebView.Navigate(new Uri(url));
+                Navigate(new Uri(url));
             }
         }
 

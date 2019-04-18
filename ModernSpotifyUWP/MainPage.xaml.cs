@@ -77,11 +77,11 @@ namespace ModernSpotifyUWP
                     // We need to open the login page and click on facebook button
                     logger.Info("Logging in via Facebook...");
                     var loginUrl = "https://accounts.spotify.com/login?continue=" + System.Net.WebUtility.UrlEncode(targetUrl);
-                    mainWebView.Navigate(new Uri(loginUrl));
+                    WebViewHelper.Navigate(new Uri(loginUrl));
                 }
                 else
                 {
-                    mainWebView.Navigate(new Uri(targetUrl));
+                    WebViewHelper.Navigate(new Uri(targetUrl));
                 }
             }
             else
@@ -99,7 +99,7 @@ namespace ModernSpotifyUWP
             }
 
             var authorizationUrl = Authorization.GetAuthorizationUrl(targetUrl);
-            mainWebView.Navigate(new Uri(authorizationUrl));
+            WebViewHelper.Navigate(new Uri(authorizationUrl));
         }
 
         private string GetTargetUrl(NavigationEventArgs e)
@@ -123,7 +123,7 @@ namespace ModernSpotifyUWP
                 }
             }
 
-            return "https://open.spotify.com/static/offline.html?redirectUrl=" + System.Net.WebUtility.UrlEncode(destinationUrl);
+            return destinationUrl;// "https://open.spotify.com/static/offline.html?redirectUrl=" + System.Net.WebUtility.UrlEncode(destinationUrl);
         }
 
         public async void NavigateToSecondaryTile(string parameter)
@@ -430,7 +430,7 @@ namespace ModernSpotifyUWP
                 }
 
                 var urlDecoder = new WwwFormUrlDecoder(url.Substring(url.IndexOf('?') + 1));
-                mainWebView.Navigate(new Uri(urlDecoder.GetFirstValueByName("redirectUrl")));
+                WebViewHelper.Navigate(new Uri(urlDecoder.GetFirstValueByName("redirectUrl")));
 
                 return;
             }
@@ -559,7 +559,7 @@ namespace ModernSpotifyUWP
         private void RetryConnectButton_Click(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "SplashScreen", false);
-            mainWebView.Navigate(loadFailedUrl);
+            WebViewHelper.Navigate(loadFailedUrl);
         }
 
         private void MainWebView_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
@@ -582,7 +582,7 @@ namespace ModernSpotifyUWP
             {
                 var urlDecoder = new WwwFormUrlDecoder(url.Substring(url.IndexOf('?') + 1));
                 await Authorization.RetrieveAndSaveTokensFromAuthCode(urlDecoder.GetFirstValueByName("code"));
-                mainWebView.Navigate(new Uri(urlDecoder.GetFirstValueByName("state")));
+                WebViewHelper.Navigate(new Uri(urlDecoder.GetFirstValueByName("state")));
             }
             catch (Exception ex)
             {
