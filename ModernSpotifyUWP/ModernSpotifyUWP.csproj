@@ -294,7 +294,6 @@
     <Content Include="Assets\Logo\SplashScreen.scale-150.png" />
     <Content Include="Assets\Logo\SplashScreen.scale-200.png" />
     <Content Include="Assets\Logo\SplashScreen.scale-400.png" />
-    <Content Include="Assets\spotify-monochrome-white.png" />
     <Content Include="InjectedAssets\actionPlay.js" />
     <Content Include="InjectedAssets\actionPrevTrack.js" />
     <Content Include="InjectedAssets\checkCurrentPlaying.js" />
