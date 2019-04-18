@@ -20,7 +20,8 @@
     display: none;
 }
 
-.navBar-header .logo {
+.navBar-header {
+    margin-bottom: 12px;
 }
 
 .now-playing-bar__right {
@@ -54,8 +55,12 @@
     display: inline-block;
 }
 
+.navBar-logo--size-large {
+    display: none;
+}
+
 .navBar-logo--size-small {
-    padding-top: 18px;
+    display: none;
 }
 
 .segoe-icon {
@@ -200,9 +205,9 @@ body {
             width: 69px;
         }
 
-        .now-playing-bar__right__inner .volume-bar .control-button {
-            margin-right: 2px;
-        }
+            .now-playing-bar__right__inner .volume-bar .control-button {
+                margin-right: 2px;
+            }
 }
 
 @media (max-width: 630px) {
