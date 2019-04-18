@@ -143,6 +143,7 @@
     <Compile Include="Helpers\LanguageHelper.cs" />
     <Compile Include="Helpers\PackageHelper.cs" />
     <Compile Include="Helpers\PlaybackActionHelper.cs" />
+    <Compile Include="Helpers\ProxyHelper.cs" />
     <Compile Include="Helpers\SongImageProvider.cs" />
     <Compile Include="Helpers\AnalyticsHelper.cs" />
     <Compile Include="Helpers\TileHelper.cs" />
