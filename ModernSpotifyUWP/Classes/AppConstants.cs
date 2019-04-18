@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 
 namespace ModernSpotifyUWP.Classes
 {
@@ -28,10 +29,21 @@ namespace ModernSpotifyUWP.Classes
         private AppConstants() { }
 
         [JsonProperty]
-        public int PlayStatePollIntervalMilliseconds { get; private set; } = 10000;
+        public int PlayStatePollIntervalMilliseconds { get; private set; } = 20000;
 
-        public TimeSpan PlayStatePollInterval => TimeSpan.FromMilliseconds(PlayStatePollIntervalMilliseconds);
+        [JsonProperty]
+        public int PlayStatePollIntervalMillisecondsWithCompactOverlayOpen { get; private set; } = 10000;
 
+        public TimeSpan PlayStatePollInterval
+        {
+            get
+            {
+                if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+                    return TimeSpan.FromMilliseconds(PlayStatePollIntervalMillisecondsWithCompactOverlayOpen);
+
+                return TimeSpan.FromMilliseconds(PlayStatePollIntervalMilliseconds);
+            }
+        }
 
         private string UpdateUri
         {
