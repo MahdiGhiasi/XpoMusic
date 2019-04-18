@@ -12,6 +12,8 @@ namespace ModernSpotifyUWP.Helpers
 {
     public static class WebViewHelper
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public const string SpotifyPwaUrlBeginsWith = "https://open.spotify.com";
 
         private static WebView mainWebView;
