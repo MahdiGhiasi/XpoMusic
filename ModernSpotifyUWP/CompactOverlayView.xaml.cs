@@ -68,7 +68,10 @@ namespace ModernSpotifyUWP
             {
                 await Update();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                logger.Warn("Update failed: " + ex.ToString());
+            }
         }
 
         private async Task Update()
@@ -317,7 +320,10 @@ namespace ModernSpotifyUWP
                 await Update();
                 await PlayStatusTracker.RefreshPlayStatus();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                logger.Warn("Loaded event failed: " + ex.ToString());
+            }
         }
     }
 }
