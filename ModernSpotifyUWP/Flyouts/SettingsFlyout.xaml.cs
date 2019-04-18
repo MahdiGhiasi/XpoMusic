@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Runtime.Serialization;
 using Windows.ApplicationModel.Email;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -25,6 +26,7 @@ namespace ModernSpotifyUWP.Flyouts
     public sealed partial class SettingsFlyout : UserControl, IFlyout<EventArgs>
     {
         private const string supportEmailAddress = "xpotifyapp@gmail.com";
+        private readonly Uri privacyPolicyPageUri = new Uri("https://ghiasi.net/xpotify/privacy.html");
 
         public event EventHandler<EventArgs> FlyoutCloseRequest;
 
@@ -81,6 +83,11 @@ namespace ModernSpotifyUWP.Flyouts
 
             await EmailManager.ShowComposeNewEmailAsync(emailMessage);
 
+        }
+
+        private async void PrivacyPolicyButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(privacyPolicyPageUri);
         }
     }
 }
