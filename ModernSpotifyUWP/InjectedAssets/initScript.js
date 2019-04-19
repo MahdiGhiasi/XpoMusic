@@ -33,9 +33,9 @@ function injectNowPlayingRightButton(button) {
     }
 }
 
-
 // Mark page as injected
-document.getElementsByTagName('body')[0].setAttribute('data-scriptinjection', 1);
+var body = document.getElementsByTagName('body')[0];
+body.setAttribute('data-scriptinjection', 1);
 
 // Inject style.css
 var customStyleLink = document.createElement('link');
