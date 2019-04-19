@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:interactivity="using:Microsoft.Xaml.Interactivity"  
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors" 
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:flyouts="using:ModernSpotifyUWP.Flyouts"
     mc:Ignorable="d"
     Loaded="Page_Loaded"
@@ -37,6 +38,57 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="loadFailedMessage"
                                                        Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="MainScreenQuick">
+                    <Storyboard>
+                        <!-- Hide splash screen -->
+                        <DoubleAnimation Storyboard.TargetName="splashScreen" 
+                                         Storyboard.TargetProperty="Opacity"
+                                         Duration="0:0:0.2" To="0">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+
+                        <!-- Hide flyout overlay if visible -->
+                        <DoubleAnimation Storyboard.TargetName="overlay" 
+                                 Storyboard.TargetProperty="(UIElement.Opacity)"
+                                 Duration="0:0:0" From="1" To="0">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="flyoutContainer" 
+                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                 Duration="0:0:0" From="0" To="-50">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+                        <!-- Set visibilities for elements -->
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashScreen"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="loadFailedMessage"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="overlay"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="settingsFlyout"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="whatsNewFlyout"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="Collapsed" />
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
@@ -151,6 +203,11 @@
                  FrameNavigationStarting="MainWebView_FrameNavigationStarting"
                  NavigationFailed="MainWebView_NavigationFailed"
                  LoadCompleted="MainWebView_LoadCompleted" />
+        <Grid x:Name="mainWebViewInvertFilter" Visibility="Collapsed" IsHitTestVisible="False">
+            <Grid.Background>
+                <media:BackdropInvertBrush />
+            </Grid.Background>
+        </Grid>
         <ProgressRing x:Name="mainProgressRing"
                       Foreground="White"
                       Width="60"

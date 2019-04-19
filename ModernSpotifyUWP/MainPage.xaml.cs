@@ -436,8 +436,12 @@ namespace ModernSpotifyUWP
             }
 
             var currentStateName = VisualStateManager.GetVisualStateGroups(mainGrid).FirstOrDefault().CurrentState.Name;
-            if (currentStateName == "SplashScreen" || currentStateName == "LoadFailedScreen")
-                VisualStateManager.GoToState(this, "MainScreen", false);
+            if (currentStateName == "SplashScreen" || currentStateName == "LoadFailedScreen") {
+                if (e.Uri.ToString().ToLower().Contains(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
+                    VisualStateManager.GoToState(this, "MainScreen", false);
+                else
+                    VisualStateManager.GoToState(this, "MainScreenQuick", false);
+            }
 
             if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
             {
@@ -447,6 +451,7 @@ namespace ModernSpotifyUWP
             if (e.Uri.ToString().ToLower().Contains(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
             {
                 await WebViewHelper.InjectInitScript();
+                mainWebViewInvertFilter.Visibility = Visibility.Visible;
                 SetInitialPlaybackState();
             }
 
@@ -460,12 +465,6 @@ namespace ModernSpotifyUWP
         private async void MainWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs e)
         {
             logger.Info("Page: " + e.Uri.ToString());
-
-            if (e.Uri.ToString().StartsWith("https://open.spotify.com/static/offline.html?redirectUrl="))
-            {
-                VisualStateManager.GoToState(this, "SplashScreen", false);
-            }
-
 
             if (e.Uri.ToString().EndsWith("#xpotifygoback"))
             {
@@ -493,7 +492,13 @@ namespace ModernSpotifyUWP
                 await GoToCompactOverlayMode();
                 AnalyticsHelper.Log("mainEvent", "compactOverlayOpened");
             }
+            else
+            {
+                VisualStateManager.GoToState(this, "SplashScreen", false);
+            }
 
+            if (!e.Uri.ToString().ToLower().StartsWith(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
+                mainWebViewInvertFilter.Visibility = Visibility.Collapsed;
 
             if (e.Uri.ToString().StartsWith(Authorization.FacebookLoginFinishRedirectUri))
             {

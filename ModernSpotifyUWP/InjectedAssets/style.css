@@ -1,3 +1,23 @@
+
+html {
+    /*
+        Content color is inverted, and then WebView is inverted again in XAML,
+        so it has dark scrollbar theme instead of light.
+    */
+    filter: invert(1);
+    /* 
+
+        Color of the bounce effect of page when using touch or touchpad.
+        This color should be the inverted of the desired color, because of
+        the filter declared above.
+    */
+    background-color: #E7E7E7; /* invert(#E7E7E7) = #181818 */
+}
+
+body {
+    background-color: #181818;
+}
+
 .Root__nav-bar {
     background-color: rgba(0, 0, 0, 0.2) !important;
     -webkit-backdrop-filter: blur(20px);
