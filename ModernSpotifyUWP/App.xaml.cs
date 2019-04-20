@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModernSpotifyUWP.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -8,6 +9,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -23,6 +25,8 @@ namespace ModernSpotifyUWP
     /// </summary>
     sealed partial class App : Application
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -31,6 +35,16 @@ namespace ModernSpotifyUWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            this.UnhandledException += App_UnhandledException;
+        }
+
+        private async void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)
+        {
+            e.Handled = true;
+
+            AnalyticsHelper.Log("unhandledException", e.Message, e.Exception.ToString());
+            await new MessageDialog(e.Message + "\r\n---\r\n" + e.Exception.ToString(), "An exception has been occured in Xpotify.").ShowAsync();
+            logger.Error("Unhandled exception: \r\n" + e.Message + "\r\n---\r\n" + e.Exception.ToString());
         }
 
         /// <summary>
