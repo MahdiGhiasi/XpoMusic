@@ -124,7 +124,7 @@ namespace ModernSpotifyUWP
                 }
             }
 
-            return destinationUrl;// "https://open.spotify.com/static/offline.html?redirectUrl=" + System.Net.WebUtility.UrlEncode(destinationUrl);
+            return "https://open.spotify.com/static/offline.html?redirectUrl=" + System.Net.WebUtility.UrlEncode(destinationUrl);
         }
 
         public async void NavigateToSecondaryTile(string parameter)
