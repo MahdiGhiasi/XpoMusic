@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     RequestedTheme="Dark"
-    d:DesignHeight="200"
+    d:DesignHeight="240"
     d:DesignWidth="300">
 
 
@@ -36,8 +36,12 @@
             <ScrollViewer>
                 <StackPanel x:Name="Content">
                     <StackPanel Tag="1" Margin="0,0,0,24" Visibility="Visible">
-                        <TextBlock Text="&#8226; "
+                        <TextBlock Text="&#8226; Dark themed scrollbar"
                                    Margin="0,0,0,8"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Text="The scrollbar is now dark to match the app theme!"
+                                   Margin="16,0,0,0"
+                                   Opacity="0.5"
                                    TextWrapping="Wrap" />
                     </StackPanel>
                 </StackPanel>
