@@ -48,6 +48,7 @@ namespace ModernSpotifyUWP
         private LocalStoragePlayback initialPlaybackState = null;
         private int stuckDetectCounter = 0;
         private DateTime lastStuckFixApiCall;
+        private bool isWebViewGoingBack = false;
 
         public MainPage()
         {
@@ -469,6 +470,7 @@ namespace ModernSpotifyUWP
             if (e.Uri.ToString().EndsWith("#xpotifygoback"))
             {
                 e.Cancel = true;
+                isWebViewGoingBack = true;
 
                 await WebViewHelper.GoBack();
             }
@@ -492,8 +494,9 @@ namespace ModernSpotifyUWP
                 await GoToCompactOverlayMode();
                 AnalyticsHelper.Log("mainEvent", "compactOverlayOpened");
             }
-            else
+            else if (!isWebViewGoingBack)
             {
+                // Open splash screen, unless #xpotifygoback is happening.
                 VisualStateManager.GoToState(this, "SplashScreen", false);
             }
 
@@ -505,6 +508,8 @@ namespace ModernSpotifyUWP
                 logger.Info("Logged in by Facebook.");
                 LocalConfiguration.IsLoggedInByFacebook = true;
             }
+
+            isWebViewGoingBack = false;
         }
 
         private async Task GoToCompactOverlayMode()
