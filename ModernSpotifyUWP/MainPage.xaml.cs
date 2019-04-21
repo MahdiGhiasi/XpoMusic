@@ -628,6 +628,11 @@ namespace ModernSpotifyUWP
         private async void CloseOverlays()
         {
             VisualStateManager.GoToState(this, "MainScreen", false);
+
+            await Task.Delay(300);
+
+            settingsFlyout.Visibility = Visibility.Collapsed;
+            whatsNewFlyout.Visibility = Visibility.Collapsed;
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
