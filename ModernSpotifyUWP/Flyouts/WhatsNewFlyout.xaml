@@ -5,55 +5,57 @@
     xmlns:local="using:ModernSpotifyUWP.Flyouts"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     RequestedTheme="Dark"
-    d:DesignHeight="240"
-    d:DesignWidth="300">
-
+    d:DesignHeight="300"
+    d:DesignWidth="400">
 
     <Grid Background="#bb333333"
           BorderBrush="#aaa"
-          BorderThickness="1"
-          MaxWidth="400"
-          MaxHeight="400">
-        <Grid.RowDefinitions>
-            <RowDefinition MinHeight="50" Height="Auto" />
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" x:Name="Header">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="What's new in Xpotify version"
-                           FontWeight="Bold"
-                           Margin="10,10,0,10"/>
-                <TextBlock x:Name="VersionText" 
-                           Text="x.y.z"
-                           FontWeight="Bold"
-                           Margin="2,10,0,10"/>
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="1" Padding="14,8,14,14">
-            <ScrollViewer>
-                <StackPanel x:Name="Content">
-                    <StackPanel Tag="1" Margin="0,0,0,24" Visibility="Visible">
-                        <TextBlock Text="&#8226; Dark themed scrollbar"
-                                   Margin="0,0,0,8"
-                                   TextWrapping="Wrap" />
-                        <TextBlock Text="The scrollbar is now dark to match the app theme!"
-                                   Margin="16,0,0,0"
-                                   Opacity="0.5"
-                                   TextWrapping="Wrap" />
-                    </StackPanel>
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>
-        <Grid Grid.Row="2" Padding="12" x:Name="Footer">
-            <Button Content="OK"
-                    HorizontalAlignment="Center"
-                    Width="150"
-                    Background="{ThemeResource ListViewItemBackgroundSelectedPressed}"
-                    Tapped="OKButton_Tapped" />
-        </Grid>
+          BorderThickness="1">
+        <controls:NavigationView x:Name="navigationView" 
+                                 PaneDisplayMode="Top" 
+                                 IsSettingsVisible="False" 
+                                 IsBackEnabled="True"
+                                 BackRequested="NavigationView_BackRequested">
+            <controls:NavigationView.MenuItems>
+                <controls:NavigationViewItem Content="What's new" />
+            </controls:NavigationView.MenuItems>
+            <Grid>
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition MinHeight="32" Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" x:Name="Header">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Xpotify v"
+                                           FontWeight="Bold"
+                                           Margin="10,10,0,0"/>
+                                <TextBlock x:Name="VersionText" 
+                                           Text="x.y.z"
+                                           FontWeight="Bold"
+                                           Margin="0,10,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Row="1" Padding="14,8,14,14">
+                            <StackPanel x:Name="Content">
+                                <StackPanel Tag="1" Margin="0,0,0,24" Visibility="Visible">
+                                    <TextBlock Text="&#8226; Dark themed scrollbar"
+                                               Margin="0,0,0,8"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="The scrollbar is now dark to match the app theme!"
+                                               Margin="16,0,0,0"
+                                               Opacity="0.5"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </controls:NavigationView>
     </Grid>
-
 </UserControl>

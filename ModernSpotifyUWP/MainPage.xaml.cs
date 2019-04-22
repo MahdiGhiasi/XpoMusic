@@ -51,6 +51,7 @@ namespace ModernSpotifyUWP
         private DateTime lastStuckFixApiCall;
         private bool isWebViewGoingBack = false;
         private string webViewPreviousUri = "";
+        private bool shouldShowWhatsNew = false;
 
         public MainPage()
         {
@@ -182,7 +183,7 @@ namespace ModernSpotifyUWP
             // Show what's new if necessary
             if (WhatsNewHelper.ShouldShowWhatsNew())
             {
-                OpenWhatsNew();
+                shouldShowWhatsNew = true;
             }
 
             playCheckTimer = new DispatcherTimer
@@ -462,10 +463,16 @@ namespace ModernSpotifyUWP
 
             var currentStateName = VisualStateManager.GetVisualStateGroups(mainGrid).FirstOrDefault().CurrentState.Name;
             if (currentStateName == "SplashScreen" || currentStateName == "LoadFailedScreen") {
+
                 if (e.Uri.ToString().ToLower().Contains(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
                     VisualStateManager.GoToState(this, "MainScreen", false);
                 else
                     VisualStateManager.GoToState(this, "MainScreenQuick", false);
+
+                if (shouldShowWhatsNew)
+                {
+                    OpenWhatsNew();
+                }
             }
 
             if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
@@ -641,8 +648,10 @@ namespace ModernSpotifyUWP
             VisualStateManager.GoToState(this, "OverlayScreen", false);
         }
 
-        private void OpenWhatsNew()
+        private async void OpenWhatsNew()
         {
+            await Task.Delay(700);
+
             whatsNewFlyout.InitFlyout();
             whatsNewFlyout.Visibility = Visibility.Visible;
             VisualStateManager.GoToState(this, "OverlayScreen", false);

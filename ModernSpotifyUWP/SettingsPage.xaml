@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="ModernSpotifyUWP.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ModernSpotifyUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Width="400"
+    Height="500"
+    Background="Transparent">
+
+    <Grid>
+        <ScrollViewer>
+            <StackPanel x:Name="Content" Padding="14">
+                <StackPanel Margin="0,0,0,24" Visibility="Visible">
+                    <TextBlock Text="Interface language:" />
+                    <ComboBox Margin="0,8,0,0" 
+                              Width="200" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

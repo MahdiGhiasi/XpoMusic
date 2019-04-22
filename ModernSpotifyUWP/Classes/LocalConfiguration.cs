@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Storage;
+using static ModernSpotifyUWP.Helpers.ProxyHelper;
 
 namespace ModernSpotifyUWP.Classes
 {
@@ -49,6 +50,62 @@ namespace ModernSpotifyUWP.Classes
             set
             {
                 SetConfiguration("IsLoggedInByFacebook", value ? "1" : "0");
+            }
+        }
+
+        public static bool IsCustomProxyEverEnabledInThisSession { get; private set; } = IsCustomProxyEnabled;
+
+        public static bool IsCustomProxyEnabled
+        {
+            get
+            {
+                return GetConfiguration("IsCustomProxyEnabled") == "1";
+            }
+            set
+            {
+                if (value)
+                    IsCustomProxyEnabled = true;
+
+                SetConfiguration("IsCustomProxyEnabled", value ? "1" : "0");
+            }
+        }
+
+        public static string CustomProxyAddress
+        {
+            get
+            {
+                return GetConfiguration("CustomProxyAddress");
+            }
+            set
+            {
+                SetConfiguration("CustomProxyAddress", value);
+            }
+        }
+
+        public static string CustomProxyPort
+        {
+            get
+            {
+                return GetConfiguration("CustomProxyPort");
+            }
+            set
+            {
+                SetConfiguration("CustomProxyPort", value);
+            }
+        }
+
+        public static ProxyType CustomProxyType
+        {
+            get
+            {
+                if (!int.TryParse(GetConfiguration("CustomProxyPort"), out int type))
+                    type = (int)ProxyType.HttpHttps;
+
+                return (ProxyType)type;
+            }
+            set
+            {
+                SetConfiguration("CustomProxyPort", ((int)value).ToString());
             }
         }
 

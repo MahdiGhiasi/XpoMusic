@@ -5,80 +5,30 @@
     xmlns:local="using:ModernSpotifyUWP.Flyouts"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     RequestedTheme="Dark"
-    d:DesignHeight="300"
+    d:DesignHeight="500"
     d:DesignWidth="400">
 
     <Grid Background="#ee333333"
           BorderBrush="#aaa"
           BorderThickness="1"
           MaxWidth="400"
-          MaxHeight="400">
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Padding="14,14,14,14">
-            <ScrollViewer>
-                <StackPanel x:Name="Content">
-                    <StackPanel Margin="0,0,0,24" Visibility="Visible">
-                        <Grid Margin="0,0,0,20">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid Grid.Column="0">
-                                <Image Source="ms-appx-web:///Assets/xpotify-white.png"
-                                       Margin="4,4,16,0"
-                                       Width="32"
-                                       Height="32" 
-                                       VerticalAlignment="Top" />
-                            </Grid>
-                            <StackPanel Grid.Column="1">
-                                <TextBlock Text="Xpotify"
-                                           FontSize="24"
-                                           FontWeight="Light"
-                                           Margin="0,0,0,4"
-                                           TextWrapping="Wrap" />
-                                <TextBlock Text="A modern Spotify client for Windows 10"
-                                           FontSize="14"
-                                           Opacity="0.8"
-                                           FontWeight="Light"
-                                           Margin="0,0,0,8"
-                                           TextWrapping="Wrap" />
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
-                                    <TextBlock Text="v"
-                                               Opacity="0.5"
-                                               FontWeight="ExtraLight"
-                                               FontSize="12" />
-                                    <TextBlock x:Name="appVersionText"
-                                               Text="X.Y.Z"
-                                               Opacity="0.5"
-                                               FontWeight="ExtraLight"
-                                               FontSize="12" />
-                                </StackPanel>
-                            </StackPanel>
-                        </Grid>
-                        
-
-                        <HyperlinkButton Content="Rate and review"
-                                         Click="RateAndReviewButton_Click"/>
-                        <HyperlinkButton Content="Send feedback"
-                                         Click="SendFeedbackButton_Click"/>
-                        <HyperlinkButton Content="Privacy policy"
-                                         Click="PrivacyPolicyButton_Click"/>
-                    </StackPanel>
-                </StackPanel>
-            </ScrollViewer>
-        </Grid>
-        <Grid Grid.Row="2" Padding="12" x:Name="Footer">
-            <Button Content="OK"
-                    HorizontalAlignment="Right"
-                    Width="150"
-                    Background="{ThemeResource ListViewItemBackgroundSelectedPressed}"
-                    Tapped="OKButton_Tapped" />
+          MaxHeight="500">
+        <Grid Grid.Row="0">
+            <controls:NavigationView x:Name="navigationView" 
+                                     PaneDisplayMode="Top" 
+                                     IsSettingsVisible="False" 
+                                     IsBackEnabled="True"
+                                     SelectionChanged="NavigationView_SelectionChanged"
+                                     BackRequested="NavigationView_BackRequested">
+                <controls:NavigationView.MenuItems>
+                    <controls:NavigationViewItem Content="Settings" x:Name="settingsMenuItem" />
+                    <controls:NavigationViewItem Content="About" x:Name="aboutMenuItem" />
+                </controls:NavigationView.MenuItems>
+                <Frame x:Name="contentFrame" />
+            </controls:NavigationView>
         </Grid>
     </Grid>
-
 </UserControl>

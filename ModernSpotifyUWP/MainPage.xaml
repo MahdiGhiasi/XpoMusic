@@ -253,8 +253,8 @@
                 </Grid.RenderTransform>
                 <flyouts:WhatsNewFlyout x:Name="whatsNewFlyout"
                                         Visibility="Collapsed"
-                                        Width="300"
-                                        Height="250"
+                                        Width="400"
+                                        Height="300"
                                         FlyoutCloseRequest="WhatsNewFlyout_FlyoutCloseRequest" />
                 <flyouts:SettingsFlyout x:Name="settingsFlyout"
                                         Visibility="Collapsed"

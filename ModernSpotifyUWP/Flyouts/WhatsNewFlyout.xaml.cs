@@ -34,9 +34,10 @@ namespace ModernSpotifyUWP.Flyouts
             }
 
             VersionText.Text = PackageHelper.GetAppVersionString();
+            navigationView.SelectedItem = navigationView.MenuItems.First();
         }
 
-        private void OKButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private void NavigationView_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)
         {
             FlyoutCloseRequest?.Invoke(this, new EventArgs());
         }

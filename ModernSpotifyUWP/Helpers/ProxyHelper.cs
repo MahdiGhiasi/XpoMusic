@@ -9,6 +9,12 @@ namespace ModernSpotifyUWP.Helpers
 {
     public static class ProxyHelper
     {
+        public enum ProxyType
+        {
+            HttpHttps = 1,
+            Socks = 2,
+        }
+
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         public static void SetProxyInProcess(string proxy, string proxyBypass)

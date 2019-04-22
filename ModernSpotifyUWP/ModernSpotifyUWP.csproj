@@ -123,6 +123,9 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,9 @@
     <Compile Include="Classes\Model\Language.cs" />
     <Compile Include="Classes\Model\LocalStoragePlayback.cs" />
     <Compile Include="Classes\PlayStatusTracker.cs" />
+    <Compile Include="Controls\ProxyConfiguration.xaml.cs">
+      <DependentUpon>ProxyConfiguration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Flyouts\IFlyout.cs" />
     <Compile Include="Flyouts\SettingsFlyout.xaml.cs">
       <DependentUpon>SettingsFlyout.xaml</DependentUpon>
@@ -159,6 +165,9 @@
     <Content Include="InjectedAssets\actionPause.js" />
     <Compile Include="Helpers\WebViewHelper.cs" />
     <Compile Include="Secrets.cs" />
+    <Compile Include="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SpotifyApi\ApiBase.cs" />
     <Compile Include="SpotifyApi\Album.cs" />
     <Compile Include="SpotifyApi\Artist.cs" />
@@ -176,6 +185,7 @@
     <Compile Include="SpotifyApi\Playlist.cs" />
     <Compile Include="SpotifyApi\TokenHelper.cs" />
     <Compile Include="ViewModels\CompactOverlayViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Content Include="Assets\Logo\contrast-black\LargeTile.scale-100.png" />
     <Content Include="Assets\Logo\contrast-black\LargeTile.scale-125.png" />
@@ -316,12 +326,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest"
-	              Condition="'$(Configuration)'=='Release'">
+    <AppxManifest Include="Package.appxmanifest" Condition="'$(Configuration)'=='Release'">
       <SubType>Designer</SubType>
     </AppxManifest>
-	<AppxManifest Include="Package.debug.appxmanifest"
-	              Condition="'$(Configuration)'=='Debug'">
+    <AppxManifest Include="Package.debug.appxmanifest" Condition="'$(Configuration)'=='Debug'">
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="ModernSpotifyUWP_StoreKey.pfx" />
@@ -344,6 +352,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\ProxyConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Flyouts\SettingsFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -360,10 +376,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.UI.Xaml">
+      <Version>2.1.190405004.1</Version>
     </PackageReference>
     <PackageReference Include="UWP.SDKforGoogleAnalytics.Managed">
       <Version>1.5.2</Version>
