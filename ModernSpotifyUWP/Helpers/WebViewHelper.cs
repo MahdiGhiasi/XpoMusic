@@ -1,4 +1,5 @@
-﻿using ModernSpotifyUWP.Classes.Model;
+﻿using ModernSpotifyUWP.Classes;
+using ModernSpotifyUWP.Classes.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,11 +26,10 @@ namespace ModernSpotifyUWP.Helpers
 
         public static void Navigate(Uri targetUri)
         {
-            // TODO: Read language preference from configuration
-            Navigate(targetUri, Language.Default); 
+            Navigate(targetUri, LocalConfiguration.Language); 
         }
 
-        public static void Navigate(Uri targetUri, Language language)
+        private static void Navigate(Uri targetUri, Language language)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, targetUri);
 

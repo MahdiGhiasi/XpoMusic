@@ -130,6 +130,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Classes\AppConstants.cs" />
+    <Compile Include="Classes\Converters\LanguageToStringConverter.cs" />
     <Compile Include="Classes\Model\Language.cs" />
     <Compile Include="Classes\Model\LocalStoragePlayback.cs" />
     <Compile Include="Classes\PlayStatusTracker.cs" />

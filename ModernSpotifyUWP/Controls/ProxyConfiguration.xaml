@@ -16,7 +16,7 @@
                 System-wide proxy settings will be used.
             </TextBlock>
             <TextBlock Margin="0,4,0,0" Foreground="Red" TextWrapping="Wrap">
-                You'll need to close and reopen Xpotify for changes to take effect.
+                You'll need to close and reopen Xpotify for this change to take effect.
             </TextBlock>
             <StackPanel Margin="16,8,0,0">
                 <RadioButton Content="HTTP/HTTPS proxy"

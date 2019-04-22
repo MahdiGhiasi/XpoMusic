@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModernSpotifyUWP.Classes.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -108,6 +109,22 @@ namespace ModernSpotifyUWP.Classes
                 SetConfiguration("CustomProxyPort", ((int)value).ToString());
             }
         }
+
+        public static Language Language
+        {
+            get
+            {
+                if (!int.TryParse(GetConfiguration("Language"), out int type))
+                    type = (int)Language.Default;
+
+                return (Language)type;
+            }
+            set
+            {
+                SetConfiguration("Language", ((int)value).ToString());
+            }
+        }
+
 
         private static string GetConfiguration(string key)
         {

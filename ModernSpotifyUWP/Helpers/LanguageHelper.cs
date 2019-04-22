@@ -15,9 +15,14 @@ namespace ModernSpotifyUWP.Helpers
 
             var items = Enum.GetValues(typeof(Language));
             foreach (var item in items)
+            {
+                if ((Language)item == Language.Default)
+                    continue;
                 output.Add((Language)item);
+            }
 
             output = output.OrderBy(x => GetLanguageName(x)).ToList();
+            output.Insert(0, Language.Default);
 
             return output;
         }
@@ -30,8 +35,6 @@ namespace ModernSpotifyUWP.Helpers
                     return "English";
                 case Language.Arabic:
                     return "Arabic";
-                case Language.Chinese:
-                    return "Chinese";
                 case Language.Hungarian:
                     return "Hungarian";
                 case Language.Czech:
@@ -84,8 +87,6 @@ namespace ModernSpotifyUWP.Helpers
                     return "en";
                 case Language.Arabic:
                     return "ar";
-                case Language.Chinese:
-                    return "zh";
                 case Language.Hungarian:
                     return "hu";
                 case Language.Czech:
