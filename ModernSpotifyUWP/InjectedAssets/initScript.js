@@ -33,9 +33,66 @@ function injectNowPlayingRightButton(button) {
     }
 }
 
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+function getPwaUri(uri) {
+    if (uri === undefined || uri.trim() === "") {
+        return "";
+    }
+
+    uri = uri.replace('http://', 'https://');
+    var uriLowerCase = uri.toLowerCase();
+
+    if (uriLowerCase.startsWith("https://open.spotify.com"))
+        return uri;
+
+    if (uriLowerCase.startsWith("spotify:")) {
+        if (uriLowerCase.indexOf("spotify:artist:") >= 0) {
+            idx = uriLowerCase.indexOf("spotify:artist:") + "spotify:artist:".length;
+            return "https://open.spotify.com/artist/" + uri.substring(idx);
+        }
+        else if (uriLowerCase.indexOf("spotify:album:") >= 0) {
+            idx = uriLowerCase.indexOf("spotify:album:") + "spotify:album:".length;
+            return "https://open.spotify.com/album/" + uri.substring(idx);
+        }
+        else if (uriLowerCase.indexOf("spotify:playlist:") >= 0) {
+            idx = uriLowerCase.indexOf("spotify:playlist:") + "spotify:playlist:".length;
+            return "https://open.spotify.com/playlist/" + uri.substring(idx);
+        }
+        else if (uriLowerCase.indexOf("spotify:track:") >= 0) {
+            idx = uriLowerCase.indexOf("spotify:track:") + "spotify:track:".length;
+            return "https://open.spotify.com/track/" + uri.substring(idx);
+        }
+    }
+
+    return "";
+}
+
+function drop(event) {
+    var data = event.dataTransfer.getData("Text");
+    var uri = getPwaUri(data);
+
+    if (uri === undefined || uri.length === 0) {
+        return;
+    }
+
+    event.preventDefault();
+
+    // Navigate to page
+    history.pushState({}, null, uri);
+    history.pushState({}, null, uri + "#navigatingToPagePleaseIgnore");
+    history.back();
+}
+
+
+
 // Mark page as injected
 var body = document.getElementsByTagName('body')[0];
 body.setAttribute('data-scriptinjection', 1);
+body.ondrop = drop;
+body.ondragover = allowDrop;
 
 // Inject style.css
 var customStyleLink = document.createElement('link');
