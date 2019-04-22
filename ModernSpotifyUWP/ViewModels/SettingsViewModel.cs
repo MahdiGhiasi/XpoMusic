@@ -15,12 +15,11 @@ namespace ModernSpotifyUWP.ViewModels
         public SettingsViewModel()
         {
             Languages = LanguageHelper.GetLanguages();
-            SelectedLanguage = LocalConfiguration.Language;
         }
 
         public List<Language> Languages { get; set; }
 
-        private Language selectedLanguage;
+        private Language selectedLanguage = LocalConfiguration.Language;
         public Language SelectedLanguage
         {
             get
