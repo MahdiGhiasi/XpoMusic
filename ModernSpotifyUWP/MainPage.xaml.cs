@@ -49,6 +49,7 @@ namespace ModernSpotifyUWP
         private int stuckDetectCounter = 0;
         private DateTime lastStuckFixApiCall;
         private bool isWebViewGoingBack = false;
+        private string webViewPreviousUri = "";
 
         public MainPage()
         {
@@ -499,8 +500,13 @@ namespace ModernSpotifyUWP
             }
             else if (!isWebViewGoingBack)
             {
-                // Open splash screen, unless #xpotifygoback is happening.
-                VisualStateManager.GoToState(this, "SplashScreen", false);
+                if (!webViewPreviousUri.ToLower().StartsWith(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower())
+                    || !e.Uri.ToString().ToLower().StartsWith(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
+                {
+                    // Open splash screen, unless #xpotifygoback is happening or
+                    // both new and old uris are in open.spotify.com itself.
+                    VisualStateManager.GoToState(this, "SplashScreen", false);
+                }
             }
 
             if (!e.Uri.ToString().ToLower().StartsWith(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
@@ -513,6 +519,7 @@ namespace ModernSpotifyUWP
             }
 
             isWebViewGoingBack = false;
+            webViewPreviousUri = e.Uri.ToString();
         }
 
         private async Task GoToCompactOverlayMode()
