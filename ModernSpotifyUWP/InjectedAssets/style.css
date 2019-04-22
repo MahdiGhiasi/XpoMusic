@@ -54,6 +54,16 @@ body {
     }
 }
 
+.backButtonContainer {
+    transition: opacity linear .2s;
+}
+
+.backButtonContainer-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: default;
+}
+
 .backbutton {
     padding-left: 24px;
     margin-right: -6px;

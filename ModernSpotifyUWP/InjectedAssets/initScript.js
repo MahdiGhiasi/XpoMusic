@@ -46,6 +46,8 @@ document.getElementsByTagName('head')[0].appendChild(customStyleLink);
 
 // Inject back button
 var backButtonDiv = document.createElement('div');
+backButtonDiv.classList.add("backButtonContainer");
+backButtonDiv.classList.add("backButtonContainer-disabled");
 backButtonDiv.innerHTML = "<a class='backbutton' href='#xpotifygoback'><span>&#xE72B;</span></a>";
 
 injectBackButton(backButtonDiv);
@@ -71,3 +73,15 @@ compactOverlayButton.innerHTML = '<a style="border-bottom: 0px;" href="#xpotifyc
     + '<div style="left: 12px; top: -6px; font-size: 9px; position: absolute;">&#xEB9F;</div>'
     + '</div></button></a>';
 injectNowPlayingRightButton(compactOverlayButton);
+
+setTimeout(function () {
+    window.location.hash = "xpotifyInitialPage";
+
+    setInterval(function () {
+        if (window.location.hash === "#xpotifyInitialPage") {
+            backButtonDiv.classList.add("backButtonContainer-disabled");
+        } else {
+            backButtonDiv.classList.remove("backButtonContainer-disabled");
+        }
+    }, 500);
+}, 1000);

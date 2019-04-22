@@ -494,6 +494,9 @@ namespace ModernSpotifyUWP
                 await GoToCompactOverlayMode();
                 AnalyticsHelper.Log("mainEvent", "compactOverlayOpened");
             }
+            else if (e.Uri.ToString().EndsWith("#xpotifyInitialPage"))
+            {
+            }
             else if (!isWebViewGoingBack)
             {
                 // Open splash screen, unless #xpotifygoback is happening.
