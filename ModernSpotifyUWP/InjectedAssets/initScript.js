@@ -116,8 +116,8 @@ pinToStartButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-lef
     + '<span class="navbar-link__text">Pin this page to start</span></div></a></div>';
 var settingsButton = document.createElement('div');
 settingsButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#xpotifysettings">'
-    + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE170;</span></div>'
-    + '<span class="navbar-link__text">About Xpotify</span></div></a></div>';
+    + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE115;</span></div>'
+    + '<span class="navbar-link__text">Xpotify settings</span></div></a></div>';
 injectNavbarDownButton(pinToStartButton);
 injectNavbarDownButton(settingsButton);
 
