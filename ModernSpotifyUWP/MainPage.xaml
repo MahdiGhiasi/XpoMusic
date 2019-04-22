@@ -28,6 +28,10 @@
                                                        Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
                         </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="topBarButtonsStackPanel"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
                 <VisualState x:Name="LoadFailedScreen">
@@ -208,35 +212,6 @@
                       IsActive="False"
                       Visibility="Collapsed" />
 
-        <Grid x:Name="topBar" 
-              Height="32"
-              VerticalAlignment="Top"
-              HorizontalAlignment="Stretch">
-            <Rectangle x:Name="topBarBackground"
-                       Fill="#01000000" />
-            <StackPanel Orientation="Horizontal" 
-                        FlowDirection="RightToLeft"
-                        Margin="0,0,138,0">
-                <Grid x:Name="topBarButtonSeparator" Width="46" Height="32" Background="Black"></Grid>
-                <Button x:Name="openLinkFromClipboard"
-                        Style="{StaticResource TopBarButtonStyle}" 
-                        Width="46"
-                        Height="32"
-                        Click="OpenLinkFromClipboard_Click"
-                        ToolTipService.ToolTip="Open Spotify link from clipboard">
-                    <Button.Content>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE78B;" RenderTransformOrigin="0.5, 0.5">
-                            <FontIcon.RenderTransform>
-                                <RotateTransform Angle="180" />
-                            </FontIcon.RenderTransform>
-                        </FontIcon>
-                    </Button.Content>
-                </Button>
-
-            </StackPanel>
-        </Grid>
-        
-        
         <Grid x:Name="overlay" Background="#00FFFFFF" Visibility="Collapsed">
             <Grid>
                 <interactivity:Interaction.Behaviors>
@@ -343,6 +318,35 @@
                     </StackPanel>
                 </StackPanel>
             </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="topBar" 
+              Height="32"
+              VerticalAlignment="Top"
+              HorizontalAlignment="Stretch">
+            <Rectangle x:Name="topBarBackground"
+                       Fill="#01000000" />
+            <StackPanel x:Name="topBarButtonsStackPanel" 
+                        Orientation="Horizontal" 
+                        FlowDirection="RightToLeft"
+                        Margin="0,0,138,0">
+                <Grid x:Name="topBarButtonSeparator" Width="46" Height="32" Background="Black" Visibility="Collapsed"></Grid>
+                <Button x:Name="openLinkFromClipboard"
+                        Style="{StaticResource TopBarButtonStyle}" 
+                        Visibility="Collapsed"
+                        Width="46"
+                        Height="32"
+                        Click="OpenLinkFromClipboard_Click"
+                        ToolTipService.ToolTip="Open Spotify link from clipboard">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE78B;" RenderTransformOrigin="0.5, 0.5">
+                            <FontIcon.RenderTransform>
+                                <RotateTransform Angle="180" />
+                            </FontIcon.RenderTransform>
+                        </FontIcon>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>
