@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModernSpotifyUWP.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,11 @@ namespace ModernSpotifyUWP
         public SettingsPage()
         {
             this.InitializeComponent();
+        }
+
+        private void RestartApp_Click(object sender, RoutedEventArgs e)
+        {
+            PackageHelper.RestartApp();
         }
     }
 }

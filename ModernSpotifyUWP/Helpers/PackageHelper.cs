@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
+using Windows.ApplicationModel.Core;
 
 namespace ModernSpotifyUWP.Helpers
 {
@@ -23,5 +24,13 @@ namespace ModernSpotifyUWP.Helpers
             return Version.Parse(GetAppVersionString());
         }
 
+        public static async void RestartApp()
+        {
+            var result = await CoreApplication.RequestRestartAsync("");
+            if (result != AppRestartFailureReason.RestartPending)
+            {
+                CoreApplication.Exit();
+            }
+        }
     }
 }

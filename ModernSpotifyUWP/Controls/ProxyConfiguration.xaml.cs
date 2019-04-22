@@ -53,7 +53,7 @@ namespace ModernSpotifyUWP.Controls
             };
             cd.PrimaryButtonClick += (s, args) =>
             {
-                RestartApp();
+                PackageHelper.RestartApp();
             };
 
             await cd.ShowAsync();
@@ -61,16 +61,7 @@ namespace ModernSpotifyUWP.Controls
 
         private void RestartApp_Click(object sender, RoutedEventArgs e)
         {
-            RestartApp();
-        }
-
-        private static async void RestartApp()
-        {
-            var result = await CoreApplication.RequestRestartAsync("");
-            if (result != AppRestartFailureReason.RestartPending)
-            {
-                CoreApplication.Exit();
-            }
+            PackageHelper.RestartApp();
         }
     }
 }
