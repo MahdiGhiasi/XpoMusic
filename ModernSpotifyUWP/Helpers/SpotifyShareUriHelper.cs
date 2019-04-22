@@ -13,6 +13,8 @@ namespace ModernSpotifyUWP.Helpers
             if (string.IsNullOrWhiteSpace(uri))
                 return "";
 
+            uri = uri.Replace("http://", "https://");
+
             var uriLowerCase = uri.ToLower();
 
             if (uriLowerCase.StartsWith(WebViewHelper.SpotifyPwaUrlBeginsWith))
