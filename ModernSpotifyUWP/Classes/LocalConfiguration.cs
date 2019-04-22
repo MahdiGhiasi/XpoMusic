@@ -54,8 +54,6 @@ namespace ModernSpotifyUWP.Classes
             }
         }
 
-        public static bool IsCustomProxyEverEnabledInThisSession { get; private set; } = IsCustomProxyEnabled;
-
         public static bool IsCustomProxyEnabled
         {
             get
@@ -64,9 +62,6 @@ namespace ModernSpotifyUWP.Classes
             }
             set
             {
-                if (value)
-                    IsCustomProxyEnabled = true;
-
                 SetConfiguration("IsCustomProxyEnabled", value ? "1" : "0");
             }
         }
@@ -99,14 +94,14 @@ namespace ModernSpotifyUWP.Classes
         {
             get
             {
-                if (!int.TryParse(GetConfiguration("CustomProxyPort"), out int type))
+                if (!int.TryParse(GetConfiguration("CustomProxyType"), out int type))
                     type = (int)ProxyType.HttpHttps;
 
                 return (ProxyType)type;
             }
             set
             {
-                SetConfiguration("CustomProxyPort", ((int)value).ToString());
+                SetConfiguration("CustomProxyType", ((int)value).ToString());
             }
         }
 

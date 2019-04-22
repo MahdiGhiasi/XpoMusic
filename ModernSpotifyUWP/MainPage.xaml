@@ -9,6 +9,7 @@
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors" 
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:flyouts="using:ModernSpotifyUWP.Flyouts"
+    xmlns:controls="using:ModernSpotifyUWP.Controls"
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     SizeChanged="Page_SizeChanged"
@@ -302,6 +303,17 @@
                             FontWeight="Light"
                             Width="140"
                             FontSize="20" />
+
+                    <HyperlinkButton x:Name="loadFailedProxySettingsLink" 
+                                     Content="Proxy settings"
+                                     Margin="0,24,0,0"
+                                     Click="LoadFailedProxySettingsLink_Click" />
+                    <controls:ProxyConfiguration x:Name="loadFailedProxySettings" 
+                                                 Width="300"
+                                                 HorizontalAlignment="Left"
+                                                 Visibility="Collapsed"
+                                                 Margin="0,24,0,0" />
+                    
                     <StackPanel Orientation="Horizontal" Margin="0,80,0,0">
                         <TextBlock Text="Xpotify v"
                                    Foreground="White"

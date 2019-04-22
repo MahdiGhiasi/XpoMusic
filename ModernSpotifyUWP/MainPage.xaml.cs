@@ -55,6 +55,7 @@ namespace ModernSpotifyUWP
 
         public MainPage()
         {
+            ProxyHelper.ApplyProxySettings();
             this.InitializeComponent();
 
             silentMediaPlayer = new MediaPlayer
@@ -685,6 +686,12 @@ namespace ModernSpotifyUWP
             {
                 await WebViewHelper.NavigateToSpotifyUrl(uri);
             }
+        }
+
+        private void LoadFailedProxySettingsLink_Click(object sender, RoutedEventArgs e)
+        {
+            loadFailedProxySettingsLink.Visibility = Visibility.Collapsed;
+            loadFailedProxySettings.Visibility = Visibility.Visible;
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)

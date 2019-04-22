@@ -5,24 +5,35 @@
     xmlns:local="using:ModernSpotifyUWP.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:ModernSpotifyUWP.ViewModels"
     mc:Ignorable="d"
-    d:DesignHeight="350"
+    d:DesignHeight="420"
     d:DesignWidth="300">
 
+    <UserControl.DataContext>
+        <vm:ProxyConfigurationViewModel x:Name="ViewModel" />
+    </UserControl.DataContext>
+    
     <Grid x:Name="mainGrid">
         <StackPanel>
-            <ToggleSwitch Header="Use custom proxy" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <TextBlock Margin="0,4,0,0" Opacity="0.5" TextWrapping="Wrap">
+            <ToggleSwitch Header="Use custom proxy server" 
+                          IsOn="{x:Bind ViewModel.IsCustomProxyEnabled, Mode=TwoWay}"
+                          HorizontalAlignment="Left" 
+                          VerticalAlignment="Top"/>
+            <TextBlock Margin="0,4,0,0" Opacity="0.5" TextWrapping="Wrap" Visibility="{x:Bind ViewModel.SystemProxyNoticeVisibility, Mode=OneWay}">
                 System-wide proxy settings will be used.
             </TextBlock>
-            <TextBlock Margin="0,4,0,0" Foreground="Red" TextWrapping="Wrap">
+            <TextBlock Margin="0,4,0,0" Foreground="Red" TextWrapping="Wrap" Visibility="{x:Bind ViewModel.RestartNeededNoticeVisibility, Mode=OneWay}">
                 You'll need to close and reopen Xpotify for this change to take effect.
             </TextBlock>
-            <StackPanel Margin="16,8,0,0">
+            <HyperlinkButton Content="Restart Xpotify"
+                             Visibility="{x:Bind ViewModel.RestartNeededNoticeVisibility, Mode=OneWay}"
+                             Click="RestartApp_Click"/>
+            <StackPanel Margin="16,8,0,0" Visibility="{x:Bind ViewModel.ProxyConfigurationVisibility, Mode=OneWay}">
                 <RadioButton Content="HTTP/HTTPS proxy"
-                             IsChecked="True" />
+                             IsChecked="{x:Bind ViewModel.IsHttpProxy, Mode=TwoWay}" />
                 <RadioButton Content="SOCKS proxy" 
-                             IsChecked="False" />
+                             IsChecked="{x:Bind ViewModel.IsSocksProxy, Mode=TwoWay}" />
                 <Grid Margin="0,8,0,0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -30,14 +41,23 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
                         <TextBlock Text="Address:" />
-                        <TextBox Margin="0,4,0,0" />
+                        <TextBox Margin="0,4,0,0" 
+                                 Text="{x:Bind ViewModel.ProxyAddress, Mode=TwoWay}" />
                     </StackPanel>
                     <StackPanel Grid.Column="1" Margin="12,0,0,0">
                         <TextBlock Text="Port:" />
-                        <TextBox Margin="0,4,0,0" />
+                        <TextBox Margin="0,4,0,0" 
+                                 MaxLength="5"
+                                 InputScope="NumericPin"
+                                 BeforeTextChanging="PortTextBox_BeforeTextChanging"
+                                 Text="{x:Bind ViewModel.ProxyPort, Mode=TwoWay}" />
                     </StackPanel>
                 </Grid>
-                <RichTextBlock Margin="0,20,0,0" Opacity="0.7">
+                <Button Margin="0,8,0,0" 
+                        Content="Apply settings" 
+                        HorizontalAlignment="Right"
+                        Click="Button_Click" />
+                <RichTextBlock Margin="0,8,0,0" Opacity="0.7">
                     <Paragraph>
                         <Run>If you want to set a local proxy, you'll need to enable loopback for this app first.</Run>
                     </Paragraph>

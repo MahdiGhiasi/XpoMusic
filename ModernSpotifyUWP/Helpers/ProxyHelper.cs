@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModernSpotifyUWP.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -15,10 +16,24 @@ namespace ModernSpotifyUWP.Helpers
             Socks = 2,
         }
 
+        public static bool IsCustomProxyEverEnabledInThisSession { get; private set; } = false;
+
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
+        internal static void SetSocksProxyInProcess(string address, string port)
+        {
+            SetProxyInProcess($"socks={address}:{port}", "local");
+        }
+
+        internal static void SetHttpHttpsProxyInProcess(string address, string port)
+        {
+            SetProxyInProcess($"http={address}:{port};https={address}:{port}", "local");
+        }
 
         public static void SetProxyInProcess(string proxy, string proxyBypass)
         {
+            IsCustomProxyEverEnabledInThisSession = true;
+
             var proxyInfo = new INTERNET_PROXY_INFO
             {
                 dwAccessType = INTERNET_OPEN_TYPE.INTERNET_OPEN_TYPE_PROXY,
@@ -33,6 +48,22 @@ namespace ModernSpotifyUWP.Helpers
                 var errorCode = Marshal.GetLastWin32Error();
                 logger.Warn($"UrlMkSetSessionOption failed with error code {errorCode}.");
             }
+        }
+
+        internal static void ApplyProxySettings()
+        {
+            if (!LocalConfiguration.IsCustomProxyEnabled)
+                return;
+
+            if (string.IsNullOrWhiteSpace(LocalConfiguration.CustomProxyAddress))
+                return;
+            if (string.IsNullOrWhiteSpace(LocalConfiguration.CustomProxyPort))
+                return;
+
+            if (LocalConfiguration.CustomProxyType == ProxyType.HttpHttps)
+                SetHttpHttpsProxyInProcess(LocalConfiguration.CustomProxyAddress, LocalConfiguration.CustomProxyPort);
+            else
+                SetSocksProxyInProcess(LocalConfiguration.CustomProxyAddress, LocalConfiguration.CustomProxyPort);
         }
 
         internal enum INTERNET_OPTION
@@ -70,6 +101,5 @@ namespace ModernSpotifyUWP.Helpers
             INTERNET_PROXY_INFO pBuffer,
             uint dwBufferLength,
             uint dwReserved);
-
     }
 }

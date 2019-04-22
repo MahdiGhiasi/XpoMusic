@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:ModernSpotifyUWP.ViewModels"
     xmlns:converters="using:ModernSpotifyUWP.Classes.Converters"
+    xmlns:controls="using:ModernSpotifyUWP.Controls"
     mc:Ignorable="d"
     Width="400"
     Height="500"
@@ -40,6 +41,7 @@
                                TextWrapping="Wrap"
                                Foreground="Red"
                                Visibility="{x:Bind ViewModel.LanguageRestartNeededNoticeVisibility, Mode=OneWay}" />
+                    <controls:ProxyConfiguration Margin="0,24,0,0" />
                 </StackPanel>
             </StackPanel>
         </ScrollViewer>
