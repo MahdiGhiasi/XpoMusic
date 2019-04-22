@@ -209,7 +209,7 @@ namespace ModernSpotifyUWP
             {
                 var isSpotifyUriPresent = await ClipboardHelper.IsSpotifyUriPresent();
 
-                if (isSpotifyUriPresent)
+                if (isSpotifyUriPresent && TokenHelper.HasTokens())
                 {
                     topBarButtonSeparator.Visibility = Visibility.Visible;
                     openLinkFromClipboard.Visibility = Visibility.Visible;
