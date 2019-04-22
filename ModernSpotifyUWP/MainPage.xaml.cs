@@ -18,6 +18,7 @@ using Windows.Media;
 using Windows.Media.Core;
 using Windows.Media.Playback;
 using Windows.UI;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -154,6 +155,7 @@ namespace ModernSpotifyUWP
         {
             InitTitleBar();
             ApplicationView.GetForCurrentView().SetPreferredMinSize(LocalConfiguration.WindowMinSize);
+            Window.Current.CoreWindow.Activated += Window_Activated;
 
             // Update app constants from server
             AppConstants.Instance.Update();
@@ -200,10 +202,30 @@ namespace ModernSpotifyUWP
             AnalyticsHelper.Log("mainEvent", "appOpened", SystemInformation.OperatingSystemVersion.ToString());
         }
 
-        private static void InitTitleBar()
+        private async void Window_Activated(object sender, WindowActivatedEventArgs e)
+        {
+            if (e.WindowActivationState != CoreWindowActivationState.Deactivated)
+            {
+                var isSpotifyUriPresent = await ClipboardHelper.IsSpotifyUriPresent();
+
+                if (isSpotifyUriPresent)
+                {
+                    topBarButtonSeparator.Visibility = Visibility.Visible;
+                    openLinkFromClipboard.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    topBarButtonSeparator.Visibility = Visibility.Collapsed;
+                    openLinkFromClipboard.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void InitTitleBar()
         {
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
+            Window.Current.SetTitleBar(topBarBackground);
 
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
@@ -643,6 +665,16 @@ namespace ModernSpotifyUWP
 
             settingsFlyout.Visibility = Visibility.Collapsed;
             whatsNewFlyout.Visibility = Visibility.Collapsed;
+        }
+
+        private async void OpenLinkFromClipboard_Click(object sender, RoutedEventArgs e)
+        {
+            var uri = await ClipboardHelper.GetSpotifyUri();
+
+            if (!string.IsNullOrWhiteSpace(uri))
+            {
+                await WebViewHelper.NavigateToSpotifyUrl(uri);
+            }
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)

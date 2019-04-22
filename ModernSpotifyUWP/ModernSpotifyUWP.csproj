@@ -137,6 +137,7 @@
     <Compile Include="Flyouts\WhatsNewFlyout.xaml.cs">
       <DependentUpon>WhatsNewFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\CropBitmap.cs" />
     <Compile Include="Helpers\ImageSaveHelper.cs" />
     <Compile Include="Classes\LocalConfiguration.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Helpers\ProxyHelper.cs" />
     <Compile Include="Helpers\SongImageProvider.cs" />
     <Compile Include="Helpers\AnalyticsHelper.cs" />
+    <Compile Include="Helpers\SpotifyShareUriHelper.cs" />
     <Compile Include="Helpers\TileHelper.cs" />
     <Compile Include="Helpers\ToastHelper.cs" />
     <Compile Include="Helpers\UnauthorizedHelper.cs" />
