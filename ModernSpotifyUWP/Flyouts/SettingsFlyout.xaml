@@ -11,7 +11,7 @@
     d:DesignHeight="500"
     d:DesignWidth="400">
 
-    <Grid Background="#ee333333"
+    <Grid Background="{ThemeResource NavigationViewExpandedPaneBackground}"
           BorderBrush="#aaa"
           BorderThickness="1"
           MaxWidth="400"

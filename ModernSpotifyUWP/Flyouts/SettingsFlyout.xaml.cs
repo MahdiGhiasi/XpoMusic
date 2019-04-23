@@ -1,4 +1,5 @@
-﻿using ModernSpotifyUWP.Helpers;
+﻿using ModernSpotifyUWP.Classes;
+using ModernSpotifyUWP.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,6 +32,11 @@ namespace ModernSpotifyUWP.Flyouts
         public SettingsFlyout()
         {
             this.InitializeComponent();
+
+            if (LocalConfiguration.Theme == Classes.Model.Theme.Dark)
+                RequestedTheme = ElementTheme.Dark;
+            else
+                RequestedTheme = ElementTheme.Light;
 
             navigationView.SelectedItem = navigationView.MenuItems.First();
         }

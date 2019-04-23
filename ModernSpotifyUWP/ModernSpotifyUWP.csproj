@@ -165,6 +165,7 @@
     <Content Include="Assets\Logo\contrast-standard\Square44x44Logo.altform-unplated_targetsize-24.png" />
     <Content Include="Assets\Logo\contrast-white\Square44x44Logo.altform-unplated_targetsize-24.png" />
     <Content Include="Assets\xpotify-white.png" />
+    <Content Include="Assets\xpotify.png" />
     <Content Include="InjectedAssets\actionNextTrack.js" />
     <Content Include="InjectedAssets\actionPause.js" />
     <Compile Include="Helpers\WebViewHelper.cs" />

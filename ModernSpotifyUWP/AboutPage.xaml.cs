@@ -1,4 +1,5 @@
-﻿using ModernSpotifyUWP.Helpers;
+﻿using ModernSpotifyUWP.Classes;
+using ModernSpotifyUWP.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -34,6 +35,17 @@ namespace ModernSpotifyUWP
         public AboutPage()
         {
             this.InitializeComponent();
+
+            if (LocalConfiguration.Theme == Classes.Model.Theme.Dark)
+            {
+                coloredLogo.Visibility = Visibility.Collapsed;
+                whiteLogo.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                coloredLogo.Visibility = Visibility.Visible;
+                whiteLogo.Visibility = Visibility.Collapsed;
+            }
 
             appVersionText.Text = PackageHelper.GetAppVersionString();
         }
