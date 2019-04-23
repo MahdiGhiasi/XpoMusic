@@ -54,25 +54,7 @@ namespace ModernSpotifyUWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
-            {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Load state from previously suspended application
-                }
-
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
-            }
+            Frame rootFrame = InitRootFrame(e.PreviousExecutionState);
 
             if (e.PrelaunchActivated == false)
             {
@@ -105,6 +87,69 @@ namespace ModernSpotifyUWP
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+        }
+
+        protected override void OnActivated(IActivatedEventArgs e)
+        {
+            Frame rootFrame = InitRootFrame(e.PreviousExecutionState);
+
+            // Handle toast activation
+            if (e is ToastNotificationActivatedEventArgs)
+            {
+                var toastActivationArgs = e as ToastNotificationActivatedEventArgs;
+
+                // Parse the query string (using QueryString.NET)
+                var args = new WwwFormUrlDecoder(toastActivationArgs.Argument);
+
+                // See what action is being requested 
+                switch (args.GetFirstValueByName("action"))
+                {
+                    // Open the image
+                    case "reopenApp":
+                        if (rootFrame.Content == null)
+                        {
+                            rootFrame.Navigate(typeof(MainPage));
+                        }
+                        break;
+                }
+
+                // If we're loading the app for the first time, place the main page on
+                // the back stack so that user can go back after they've been
+                // navigated to the specific page
+                if (rootFrame.BackStack.Count == 0)
+                    rootFrame.BackStack.Add(new PageStackEntry(typeof(MainPage), null, null));
+            }
+
+            // TODO: Handle other types of activation
+
+            // Ensure the current window is active
+            Window.Current.Activate();
+        }
+
+        private Frame InitRootFrame(ApplicationExecutionState previousExecutionState)
+        {
+            // Get the root frame
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
+            if (rootFrame == null)
+            {
+                // Create a Frame to act as the navigation context and navigate to the first page
+                rootFrame = new Frame();
+
+                rootFrame.NavigationFailed += OnNavigationFailed;
+
+                if (previousExecutionState == ApplicationExecutionState.Terminated)
+                {
+                    //TODO: Load state from previously suspended application
+                }
+
+                // Place the frame in the current Window
+                Window.Current.Content = rootFrame;
+            }
+
+            return rootFrame;
         }
 
         /// <summary>

@@ -24,13 +24,10 @@ namespace ModernSpotifyUWP.Helpers
             return Version.Parse(GetAppVersionString());
         }
 
-        public static async void RestartApp()
+        public static void RestartApp()
         {
-            var result = await CoreApplication.RequestRestartAsync("");
-            if (result != AppRestartFailureReason.RestartPending)
-            {
-                CoreApplication.Exit();
-            }
+            ToastHelper.SendReopenAppToast();
+            CoreApplication.Exit();
         }
     }
 }

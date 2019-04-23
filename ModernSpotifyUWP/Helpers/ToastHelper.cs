@@ -34,5 +34,28 @@ namespace ModernSpotifyUWP.Helpers
             notification.Show(toastNotification);
 #endif
         }
+
+        public static void SendReopenAppToast()
+        {
+#if DEBUG
+            // template to load for showing Toast Notification
+            var xmlToastTemplate = "<toast launch=\"action=reopenApp\">" +
+                                     "<visual>" +
+                                       "<binding template =\"ToastGeneric\">" +
+                                         "<text>Tap here to open Xpotify again</text>" +
+                                       "</binding>" +
+                                     "</visual>" +
+                                   "</toast>";
+
+            // load the template as XML document
+            var xmlDocument = new Windows.Data.Xml.Dom.XmlDocument();
+            xmlDocument.LoadXml(xmlToastTemplate);
+
+            // create the toast notification and show to user
+            var toastNotification = new Windows.UI.Notifications.ToastNotification(xmlDocument);
+            var notification = Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier();
+            notification.Show(toastNotification);
+#endif
+        }
     }
 }
