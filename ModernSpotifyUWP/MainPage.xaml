@@ -213,7 +213,7 @@
             </Grid.Background>
         </Grid>
         <ProgressRing x:Name="mainProgressRing"
-                      Foreground="White"
+                      Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                       Width="60"
                       Height="60"
                       IsActive="False"
