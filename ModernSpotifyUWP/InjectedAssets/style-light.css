@@ -9,8 +9,8 @@
         filter: invert(0);
     }
 
-.navBar-link--active, .navBar-link--active:focus, .navBar-link--active:hover {
-    color: #000;
+.navBar-link--active:after {
+    background-color: #1DB954;
     filter: invert(1);
 }
 
