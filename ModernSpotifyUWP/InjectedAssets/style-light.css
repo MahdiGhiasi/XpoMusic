@@ -1,13 +1,17 @@
 ﻿.cover-art, .artist-header, .ConnectBar, .div[aria-live=polite],
-.btn-green, .control-button--active, .progress-bar--is-active .progress-bar__fg,
-.tracklist-row--active .position, .tracklist-row--active .tracklist-duration,
-.tracklist-row--active .tracklist-name, .tracklist-row--active .tracklist-play-pause {
+.btn-green, .control-button--active, .progress-bar--is-active .progress-bar__fg {
     filter: invert(1);
 }
 
-    .artist-header .btn-green {
-        filter: invert(0);
-    }
+.tracklist-row--active .position, .tracklist-row--active .tracklist-duration,
+.tracklist-row--active .tracklist-name, .tracklist-row--active .tracklist-play-pause {
+    color: #1DB954 !important;
+    filter: invert(1);
+}
+
+.artist-header .btn-green {
+    filter: invert(0);
+}
 
 .navBar-link--active:after {
     background-color: #1DB954;
