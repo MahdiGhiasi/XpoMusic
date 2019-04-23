@@ -232,21 +232,56 @@ namespace ModernSpotifyUWP
 
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
-            // Set active window colors
-            titleBar.ForegroundColor = Colors.White;
-            titleBar.BackgroundColor = Colors.Black;
-            titleBar.ButtonForegroundColor = Colors.White;
-            titleBar.ButtonBackgroundColor = Colors.Black;
-            titleBar.ButtonHoverForegroundColor = Colors.White;
-            titleBar.ButtonHoverBackgroundColor = Color.FromArgb(255, 35, 35, 35);
-            titleBar.ButtonPressedForegroundColor = Colors.White;
-            titleBar.ButtonPressedBackgroundColor = Color.FromArgb(255, 51, 51, 51);
+            if (LocalConfiguration.Theme == Theme.Dark)
+            {
+                // Top bar buttons background color
+                TopBarButtonsAcrylicBrush.TintColor = Colors.Black;
+                TopBarButtonsAcrylicBrush.FallbackColor = Colors.Black;
 
-            // Set inactive window colors
-            titleBar.InactiveForegroundColor = Color.FromArgb(255, 200, 200, 200);
-            titleBar.InactiveBackgroundColor = Colors.Black;
-            titleBar.ButtonInactiveForegroundColor = Color.FromArgb(255, 200, 200, 200);
-            titleBar.ButtonInactiveBackgroundColor = Colors.Black;
+                // Top bar extra buttons style
+                openLinkFromClipboard.Style = Application.Current.Resources["TopBarDarkButtonStyle"] as Style;
+
+                // Set active window colors
+                titleBar.ForegroundColor = Colors.White;
+                titleBar.BackgroundColor = Colors.Transparent;
+                titleBar.ButtonForegroundColor = Colors.White;
+                titleBar.ButtonBackgroundColor = Colors.Transparent;
+                titleBar.ButtonHoverForegroundColor = Colors.White;
+                titleBar.ButtonHoverBackgroundColor = Color.FromArgb(255, 100, 100, 100);
+                titleBar.ButtonPressedForegroundColor = Colors.White;
+                titleBar.ButtonPressedBackgroundColor = Color.FromArgb(255, 140, 140, 140);
+
+                // Set inactive window colors
+                titleBar.InactiveForegroundColor = Color.FromArgb(255, 200, 200, 200);
+                titleBar.InactiveBackgroundColor = Colors.Transparent;
+                titleBar.ButtonInactiveForegroundColor = Color.FromArgb(255, 200, 200, 200);
+                titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            }
+            else
+            {
+                // Top bar buttons background color
+                TopBarButtonsAcrylicBrush.TintColor = Colors.White;
+                TopBarButtonsAcrylicBrush.FallbackColor = Colors.White;
+
+                // Top bar extra buttons style
+                openLinkFromClipboard.Style = Application.Current.Resources["TopBarLightButtonStyle"] as Style;
+
+                // Set active window colors
+                titleBar.ForegroundColor = Colors.Black;
+                titleBar.BackgroundColor = Colors.Transparent;
+                titleBar.ButtonForegroundColor = Colors.Black;
+                titleBar.ButtonBackgroundColor = Colors.Transparent;
+                titleBar.ButtonHoverForegroundColor = Colors.Black;
+                titleBar.ButtonHoverBackgroundColor = Color.FromArgb(255, 200, 200, 200);
+                titleBar.ButtonPressedForegroundColor = Colors.Black;
+                titleBar.ButtonPressedBackgroundColor = Color.FromArgb(255, 160, 160, 160);
+
+                // Set inactive window colors
+                titleBar.InactiveForegroundColor = Color.FromArgb(255, 255 - 200, 255 - 200, 255 - 200);
+                titleBar.InactiveBackgroundColor = Colors.Transparent;
+                titleBar.ButtonInactiveForegroundColor = Color.FromArgb(255, 255 - 200, 255 - 200, 255 - 200);
+                titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+            }
         }
 
         private async void SetInitialPlaybackState()
@@ -484,7 +519,10 @@ namespace ModernSpotifyUWP
             if (e.Uri.ToString().ToLower().Contains(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
             {
                 await WebViewHelper.InjectInitScript();
-                mainWebViewInvertFilter.Visibility = Visibility.Visible;
+                if (LocalConfiguration.Theme == Theme.Dark)
+                    mainWebViewInvertFilter.Visibility = Visibility.Visible;
+                else
+                    await WebViewHelper.InjectLightThemeScript();
                 SetInitialPlaybackState();
             }
 

@@ -16,6 +16,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <converters:LanguageToStringConverter x:Key="LanguageToStringConverter" />
+            <converters:ThemeToStringConverter x:Key="ThemeToStringConverter" />
         </ResourceDictionary>
     </Page.Resources>
     <Page.DataContext>
@@ -26,7 +27,27 @@
         <ScrollViewer>
             <StackPanel x:Name="Content" Padding="14">
                 <StackPanel Margin="0,0,0,24" Visibility="Visible">
-                    <TextBlock Text="Interface language:" />
+                    <TextBlock Text="Theme:" />
+                    <ComboBox ItemsSource="{x:Bind ViewModel.Themes, Mode=OneWay}"
+                              SelectedItem="{x:Bind ViewModel.SelectedTheme, Mode=TwoWay}"
+                              Margin="0,8,0,0" 
+                              Width="200">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource ThemeToStringConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Text="You'll need to close and reopen Xpotify for this change to take effect."
+                               TextWrapping="Wrap"
+                               Margin="0,4,0,0"
+                               Foreground="Red"
+                               Visibility="{x:Bind ViewModel.ThemeRestartNeededNoticeVisibility, Mode=OneWay}" />
+                    <HyperlinkButton Content="Restart Xpotify"
+                             Visibility="{x:Bind ViewModel.ThemeRestartNeededNoticeVisibility, Mode=OneWay}"
+                             Click="RestartApp_Click"/>
+                    
+                    <TextBlock Text="Interface language:" Margin="0,24,0,0" />
                     <ComboBox ItemsSource="{x:Bind ViewModel.Languages, Mode=OneWay}"
                               SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}"
                               Margin="0,8,0,0" 

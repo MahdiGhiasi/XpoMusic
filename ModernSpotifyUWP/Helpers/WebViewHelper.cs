@@ -52,6 +52,18 @@ namespace ModernSpotifyUWP.Helpers
             }
         }
 
+        public static async Task InjectLightThemeScript()
+        {
+            var checkIfInjected = "((document.getElementsByTagName('body')[0].getAttribute('data-scriptinjection-lighttheme') == null) ? '0' : '1');";
+            var injected = await mainWebView.InvokeScriptAsync("eval", new string[] { checkIfInjected });
+
+            if (injected != "1")
+            {
+                var script = File.ReadAllText("InjectedAssets/initLightTheme.js");
+                await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            }
+        }
+
         public static async Task<bool> CheckLoggedIn()
         {
             var script = File.ReadAllText("InjectedAssets/isLoggedInCheck.js");

@@ -120,6 +120,21 @@ namespace ModernSpotifyUWP.Classes
             }
         }
 
+        public static Theme Theme
+        {
+            get
+            {
+                if (!int.TryParse(GetConfiguration("Theme"), out int type))
+                    type = (int)Theme.Dark;
+
+                return (Theme)type;
+            }
+            set
+            {
+                SetConfiguration("Theme", ((int)value).ToString());
+            }
+        }
+
 
         private static string GetConfiguration(string key)
         {

@@ -14,6 +14,7 @@ namespace ModernSpotifyUWP.ViewModels
     {
         public SettingsViewModel()
         {
+            Themes = ThemeHelper.GetThemes();
             Languages = LanguageHelper.GetLanguages();
         }
 
@@ -50,6 +51,42 @@ namespace ModernSpotifyUWP.ViewModels
             {
                 languageRestartNeededNoticeVisibility = value;
                 FirePropertyChangedEvent(nameof(LanguageRestartNeededNoticeVisibility));
+            }
+        }
+
+        public List<Theme> Themes { get; set; }
+
+        private Theme selectedTheme = LocalConfiguration.Theme;
+        public Theme SelectedTheme
+        {
+            get
+            {
+                return selectedTheme;
+            }
+            set
+            {
+                if (selectedTheme == value)
+                    return;
+
+                selectedTheme = value;
+                FirePropertyChangedEvent(nameof(SelectedTheme));
+                LocalConfiguration.Theme = value;
+                ThemeRestartNeededNoticeVisibility = Visibility.Visible;
+                AnalyticsHelper.Log("settingChange", "theme", value.ToString());
+            }
+        }
+
+        private Visibility themeRestartNeededNoticeVisibility = Visibility.Collapsed;
+        public Visibility ThemeRestartNeededNoticeVisibility
+        {
+            get
+            {
+                return themeRestartNeededNoticeVisibility;
+            }
+            set
+            {
+                themeRestartNeededNoticeVisibility = value;
+                FirePropertyChangedEvent(nameof(ThemeRestartNeededNoticeVisibility));
             }
         }
     }

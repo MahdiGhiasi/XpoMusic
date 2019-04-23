@@ -13,9 +13,15 @@
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     SizeChanged="Page_SizeChanged"
-    
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <AcrylicBrush x:Name="TopBarButtonsAcrylicBrush" BackgroundSource="Backdrop"
+                          TintOpacity="0.3" TintColor="#FFFFFFFF" FallbackColor="#77FFFFFF" />
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid x:Name="mainGrid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -333,18 +339,20 @@
         </Grid>
 
         <Grid x:Name="topBar" 
+              RequestedTheme="Light"
               Height="32"
               VerticalAlignment="Top"
               HorizontalAlignment="Stretch">
             <Rectangle x:Name="topBarBackground"
                        Fill="#01000000" />
             <StackPanel x:Name="topBarButtonsStackPanel" 
+                        HorizontalAlignment="Right"
+                        Background="{ThemeResource TopBarButtonsAcrylicBrush}"
+                        Padding="138,0,0,0"
                         Orientation="Horizontal" 
-                        FlowDirection="RightToLeft"
-                        Margin="0,0,138,0">
-                <Grid x:Name="topBarButtonSeparator" Width="46" Height="32" Background="Black" Visibility="Collapsed"></Grid>
+                        FlowDirection="RightToLeft">
+                <Grid x:Name="topBarButtonSeparator" Width="46" Height="32" Visibility="Collapsed"></Grid>
                 <Button x:Name="openLinkFromClipboard"
-                        Style="{StaticResource TopBarButtonStyle}" 
                         Visibility="Collapsed"
                         Width="46"
                         Height="32"
