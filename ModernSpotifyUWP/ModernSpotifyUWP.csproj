@@ -139,6 +139,9 @@
     <Compile Include="Controls\ProxyConfiguration.xaml.cs">
       <DependentUpon>ProxyConfiguration.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DonatePage.xaml.cs">
+      <DependentUpon>DonatePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Flyouts\IFlyout.cs" />
     <Compile Include="Flyouts\SettingsFlyout.xaml.cs">
       <DependentUpon>SettingsFlyout.xaml</DependentUpon>
@@ -365,6 +368,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\ProxyConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DonatePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

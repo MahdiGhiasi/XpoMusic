@@ -26,6 +26,7 @@
                 <controls:NavigationView.MenuItems>
                     <controls:NavigationViewItem Content="Settings" x:Name="settingsMenuItem" />
                     <controls:NavigationViewItem Content="About" x:Name="aboutMenuItem" />
+                    <controls:NavigationViewItem Content="Donate" x:Name="donateMenuItem" />
                 </controls:NavigationView.MenuItems>
                 <Frame x:Name="contentFrame" />
             </controls:NavigationView>

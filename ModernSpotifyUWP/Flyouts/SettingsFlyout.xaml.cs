@@ -58,6 +58,8 @@ namespace ModernSpotifyUWP.Flyouts
                 contentFrame.NavigateToType(typeof(SettingsPage), null, navOptions);
             else if (args.SelectedItem == aboutMenuItem)
                 contentFrame.NavigateToType(typeof(AboutPage), null, navOptions);
+            else if (args.SelectedItem == donateMenuItem)
+                contentFrame.NavigateToType(typeof(DonatePage), null, navOptions);
         }
     }
 }
