@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace ModernSpotifyUWP
@@ -108,7 +109,8 @@ namespace ModernSpotifyUWP
                     case "reopenApp":
                         if (rootFrame.Content == null)
                         {
-                            rootFrame.Navigate(typeof(MainPage));
+
+                            rootFrame.Navigate(typeof(MainPage), null, new SuppressNavigationTransitionInfo());
                         }
                         break;
                 }
