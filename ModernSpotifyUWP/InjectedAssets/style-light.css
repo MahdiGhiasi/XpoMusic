@@ -71,6 +71,6 @@ header.artist-header:after {
 }
 
 /* Error page image */
-.main .dialog img {
+#main .dialog img {
     filter: invert(0);
 }
