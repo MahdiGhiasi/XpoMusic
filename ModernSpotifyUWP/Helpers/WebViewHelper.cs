@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
+using Windows.Web.Http.Filters;
 
 namespace ModernSpotifyUWP.Helpers
 {
@@ -93,6 +94,29 @@ namespace ModernSpotifyUWP.Helpers
             //logger.Info("Len2: " + len2);
             //var curLocation2 = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.location.href" });
             //logger.Info("curLocation2: " + curLocation2);
+        }
+
+        public static void ClearCookies()
+        {
+            // WebView.ClearTemporaryWebDataAsync() causes cookies (that will be added later) to not 
+            // be saved upon app exit during current session. It seems to be a bug. 
+            // So we can't use that to clear cookies.
+
+            ClearCookies(new Uri("https://www.spotify.com"));
+            ClearCookies(new Uri("https://spotify.com"));
+            ClearCookies(new Uri("https://accounts.spotify.com"));
+            ClearCookies(new Uri("https://open.spotify.com"));
+            ClearCookies(new Uri("https://facebook.com"));
+            ClearCookies(new Uri("https://www.facebook.com"));
+        }
+
+        private static void ClearCookies(Uri uri)
+        {
+            HttpBaseProtocolFilter baseFilter = new HttpBaseProtocolFilter();
+            foreach (var cookie in baseFilter.CookieManager.GetCookies(uri))
+            {
+                baseFilter.CookieManager.DeleteCookie(cookie);
+            }
         }
 
         public static async Task<string> GetPageUrl()

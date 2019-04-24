@@ -95,11 +95,11 @@ namespace ModernSpotifyUWP
             }
         }
 
-        private async void Authorize(string targetUrl, bool clearExisting)
+        private void Authorize(string targetUrl, bool clearExisting)
         {
             if (clearExisting)
             {
-                await WebView.ClearTemporaryWebDataAsync();
+                WebViewHelper.ClearCookies();
                 TokenHelper.ClearTokens();
                 LocalConfiguration.IsLoggedInByFacebook = false;
             }
