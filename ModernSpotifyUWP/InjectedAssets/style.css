@@ -18,6 +18,17 @@ body {
     background-color: #181818;
 }
 
+@media (min-height: 1100px) {
+    html {
+        /* 
+            The contents become pixelated when the height is too much on Edge.
+            Adding blur(0) does not make it crystal clear as it should, but it's
+            still better than not having that.
+        */
+        filter: invert(1) blur(0);
+    }
+}
+
 .Root__nav-bar {
     background-color: rgba(0, 0, 0, 0.2) !important;
     -webkit-backdrop-filter: blur(20px);
