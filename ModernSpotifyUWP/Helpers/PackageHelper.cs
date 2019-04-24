@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
+using Windows.UI.Xaml;
 
 namespace ModernSpotifyUWP.Helpers
 {
@@ -27,7 +28,7 @@ namespace ModernSpotifyUWP.Helpers
         public static void RestartApp()
         {
             ToastHelper.SendReopenAppToast();
-            CoreApplication.Exit();
+            Application.Current.Exit();
         }
     }
 }
