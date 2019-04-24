@@ -37,7 +37,10 @@ namespace ModernSpotifyUWP.Flyouts
                 RequestedTheme = ElementTheme.Dark;
             else
                 RequestedTheme = ElementTheme.Light;
+        }
 
+        public void InitFlyout()
+        {
             navigationView.SelectedItem = navigationView.MenuItems.First();
         }
 

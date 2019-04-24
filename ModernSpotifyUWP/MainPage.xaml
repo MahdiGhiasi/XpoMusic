@@ -248,7 +248,7 @@
                                     AutomaticallyStart="True"/>
                 </interactivity:Interaction.Behaviors>
             </Grid>
-            <Grid x:Name="flyoutContainer">
+            <Grid x:Name="flyoutContainer" Margin="0,40,0,40">
                 <Grid.RenderTransform>
                     <TranslateTransform />
                 </Grid.RenderTransform>

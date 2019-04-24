@@ -713,6 +713,7 @@ namespace ModernSpotifyUWP
 
         private void OpenSettings()
         {
+            settingsFlyout.InitFlyout();
             settingsFlyout.Visibility = Visibility.Visible;
             VisualStateManager.GoToState(this, "OverlayScreen", false);
         }
