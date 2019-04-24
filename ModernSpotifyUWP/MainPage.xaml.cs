@@ -44,7 +44,7 @@ namespace ModernSpotifyUWP
         MediaPlayer silentMediaPlayer;
         private CompactOverlayView compactOverlayView;
         private Uri loadFailedUrl;
-        private DispatcherTimer playCheckTimer, stuckDetectTimer;
+        private DispatcherTimer playCheckTimer, stuckDetectTimer, clipboardCheckTimer;
         private string prevCurrentPlaying;
         private LocalStoragePlayback initialPlaybackState = null;
         private int stuckDetectCounter = 0;
@@ -194,6 +194,13 @@ namespace ModernSpotifyUWP
             playCheckTimer.Tick += PlayCheckTimer_Tick;
             playCheckTimer.Start();
 
+            clipboardCheckTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(3),
+            };
+            clipboardCheckTimer.Tick += ClipboardCheckTimer_Tick;
+            clipboardCheckTimer.Start();
+
             stuckDetectTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(4),
@@ -208,9 +215,17 @@ namespace ModernSpotifyUWP
                 splashScreenToLightStoryboard.Begin();
         }
 
-        private async void Window_Activated(object sender, WindowActivatedEventArgs e)
+        private void Window_Activated(object sender, WindowActivatedEventArgs e)
         {
             if (e.WindowActivationState != CoreWindowActivationState.Deactivated)
+            {
+                CheckForSpotifyUriInClipboard();
+            }
+        }
+
+        private async void CheckForSpotifyUriInClipboard()
+        {
+            try
             {
                 var isSpotifyUriPresent = await ClipboardHelper.IsSpotifyUriPresent();
 
@@ -224,6 +239,10 @@ namespace ModernSpotifyUWP
                     topBarButtonSeparator.Visibility = Visibility.Collapsed;
                     openLinkFromClipboard.Visibility = Visibility.Collapsed;
                 }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("CheckForSpotifyUriInClipboard failed: " + ex.ToString());
             }
         }
 
@@ -345,6 +364,15 @@ namespace ModernSpotifyUWP
             {
                 logger.Warn("checkCurrentPlaying failed: " + ex.ToString());
             }
+        }
+
+        private void ClipboardCheckTimer_Tick(object sender, object e)
+        {
+            // Ignore if not logged in
+            if (!TokenHelper.HasTokens())
+                return;
+
+            CheckForSpotifyUriInClipboard();
         }
 
         private async void StuckDetectTimer_Tick(object sender, object e)
