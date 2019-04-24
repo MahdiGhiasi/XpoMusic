@@ -9,8 +9,6 @@
     xmlns:converters="using:ModernSpotifyUWP.Classes.Converters"
     xmlns:controls="using:ModernSpotifyUWP.Controls"
     mc:Ignorable="d"
-    Width="400"
-    Height="500"
     Background="Transparent">
 
     <Page.Resources>

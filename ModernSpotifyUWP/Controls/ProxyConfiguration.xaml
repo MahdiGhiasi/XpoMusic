@@ -29,7 +29,7 @@
             <HyperlinkButton Content="Restart Xpotify"
                              Visibility="{x:Bind ViewModel.RestartNeededNoticeVisibility, Mode=OneWay}"
                              Click="RestartApp_Click"/>
-            <StackPanel Margin="16,8,0,0" Visibility="{x:Bind ViewModel.ProxyConfigurationVisibility, Mode=OneWay}">
+            <StackPanel Margin="16,8,16,0" Visibility="{x:Bind ViewModel.ProxyConfigurationVisibility, Mode=OneWay}">
                 <RadioButton Content="HTTP/HTTPS proxy"
                              IsChecked="{x:Bind ViewModel.IsHttpProxy, Mode=TwoWay}" />
                 <RadioButton Content="SOCKS proxy" 
