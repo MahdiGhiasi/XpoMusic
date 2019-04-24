@@ -28,13 +28,12 @@
 
 .Root__main-view .artist-header nav {
     filter: invert(0);
+    z-index: 2;
 }
 
     .Root__main-view .artist-header nav a {
-        color: white !important;
+        color: black !important;
     }
-
-
 
 header.artist-header:after {
     content: "";
@@ -44,8 +43,8 @@ header.artist-header:after {
     left: 0;
     pointer-events: none;
     width: 100%;
-    height: 20px;
-    background: linear-gradient( to bottom, rgba(225, 225, 225, 0) 0%, rgba(225, 225, 225, 0.013) 8.1%, rgba(225, 225, 225, 0.049) 15.5%, rgba(225, 225, 225, 0.104) 22.5%, rgba(225, 225, 225, 0.175) 29%, rgba(225, 225, 225, 0.259) 35.3%, rgba(225, 225, 225, 0.352) 41.2%, rgba(225, 225, 225, 0.45) 47.1%, rgba(225, 225, 225, 0.55) 52.9%, rgba(225, 225, 225, 0.648) 58.8%, rgba(225, 225, 225, 0.741) 64.7%, rgba(225, 225, 225, 0.825) 71%, rgba(225, 225, 225, 0.896) 77.5%, rgba(225, 225, 225, 0.951) 84.5%, rgba(225, 225, 225, 0.987) 91.9%, rgba(225, 225, 225, 1) 100% );
+    height: 160px;
+    background: linear-gradient( to bottom, rgba(231, 231, 231, 0) 0%, rgba(231, 231, 231, 0.013) 8.1%, rgba(231, 231, 231, 0.049) 15.5%, rgba(231, 231, 231, 0.104) 22.5%, rgba(231, 231, 231, 0.175) 29%, rgba(231, 231, 231, 0.259) 35.3%, rgba(231, 231, 231, 0.352) 41.2%, rgba(231, 231, 231, 0.45) 47.1%, rgba(231, 231, 231, 0.55) 52.9%, rgba(231, 231, 231, 0.648) 58.8%, rgba(231, 231, 231, 0.741) 64.7%, rgba(231, 231, 231, 0.825) 71%, rgba(231, 231, 231, 0.896) 77.5%, rgba(231, 231, 231, 0.951) 84.5%, rgba(231, 231, 231, 0.987) 91.9%, rgba(231, 231, 231, 1) 100% );
 }
 
 .view-header:after {
@@ -69,4 +68,9 @@ header.artist-header:after {
 .react-contextmenu.react-contextmenu--visible {
     /* Context menu shadow should be dark in light mode as well */
     box-shadow: 0 0 20px 8px rgba(255,255,255,0.2) !important;
+}
+
+/* Error page image */
+.main .dialog img {
+    filter: invert(0);
 }
