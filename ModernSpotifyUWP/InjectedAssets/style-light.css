@@ -65,3 +65,8 @@ header.artist-header:after {
     background-color: rgba(40, 40, 40, 0.6) !important;
     -webkit-backdrop-filter: blur(20px);
 }
+
+.react-contextmenu.react-contextmenu--visible {
+    /* Context menu shadow should be dark in light mode as well */
+    box-shadow: 0 0 20px 8px rgba(255,255,255,0.2) !important;
+}
