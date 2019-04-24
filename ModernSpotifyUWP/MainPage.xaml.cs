@@ -579,7 +579,6 @@ namespace ModernSpotifyUWP
             {
                 e.Cancel = true;
                 OpenSettings();
-                AnalyticsHelper.PageView("Settings");
             }
             else if (e.Uri.ToString().EndsWith("#xpotifypintostart"))
             {

@@ -55,11 +55,20 @@ namespace ModernSpotifyUWP.Flyouts
             };
 
             if (args.SelectedItem == settingsMenuItem)
+            {
                 contentFrame.NavigateToType(typeof(SettingsPage), null, navOptions);
+                AnalyticsHelper.PageView("SettingsPage");
+            }
             else if (args.SelectedItem == aboutMenuItem)
+            {
                 contentFrame.NavigateToType(typeof(AboutPage), null, navOptions);
+                AnalyticsHelper.PageView("AboutPage");
+            }
             else if (args.SelectedItem == donateMenuItem)
+            {
                 contentFrame.NavigateToType(typeof(DonatePage), null, navOptions);
+                AnalyticsHelper.PageView("DonatePage");
+            }
         }
     }
 }
