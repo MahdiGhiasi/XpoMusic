@@ -1,5 +1,5 @@
-﻿.cover-art, .artist-header, .view-header, .ConnectBar, .div[aria-live=polite],
-.btn-green, .control-button--active, .progress-bar--is-active .progress-bar__fg {
+﻿.cover-art, .artist-header, .view-header, .ConnectBar, .btn-green, .btn-fg-green,
+div[aria-live=polite], .control-button--active, .progress-bar--is-active .progress-bar__fg {
     filter: invert(1);
 }
 
