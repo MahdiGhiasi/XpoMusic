@@ -17,8 +17,27 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <AcrylicBrush x:Name="TopBarButtonsAcrylicBrush" BackgroundSource="Backdrop"
+            <AcrylicBrush x:Name="topBarButtonsAcrylicBrush" BackgroundSource="Backdrop"
                           TintOpacity="0.3" TintColor="#FFFFFFFF" FallbackColor="#77FFFFFF" />
+
+            <Storyboard x:Name="splashScreenToLightStoryboard">
+                <ColorAnimation Storyboard.TargetName="splashScreen"
+                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                To="#D1D3D3"
+                                Duration="0:0:0.6">
+                    <ColorAnimation.EasingFunction>
+                        <ExponentialEase />
+                    </ColorAnimation.EasingFunction>
+                </ColorAnimation>
+                <ColorAnimation Storyboard.TargetName="splashProgressRing"
+                                Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                To="Black"
+                                Duration="0:0:0.6">
+                    <ColorAnimation.EasingFunction>
+                        <ExponentialEase />
+                    </ColorAnimation.EasingFunction>
+                </ColorAnimation>
+            </Storyboard>
         </ResourceDictionary>
     </Page.Resources>
     
@@ -255,7 +274,7 @@
                     <ScaleTransform ScaleX="1" ScaleY="1" />
                 </Image.RenderTransform>
             </Image>
-            <ProgressRing x:Name="progressRing"
+            <ProgressRing x:Name="splashProgressRing"
                           Margin="0,380,0,0"
                           Width="40"
                           Height="40"
@@ -347,7 +366,7 @@
                        Fill="#01000000" />
             <StackPanel x:Name="topBarButtonsStackPanel" 
                         HorizontalAlignment="Right"
-                        Background="{ThemeResource TopBarButtonsAcrylicBrush}"
+                        Background="{ThemeResource topBarButtonsAcrylicBrush}"
                         Padding="138,0,0,0"
                         Orientation="Horizontal" 
                         FlowDirection="RightToLeft">

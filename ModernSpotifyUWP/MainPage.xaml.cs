@@ -203,6 +203,9 @@ namespace ModernSpotifyUWP
 
             AnalyticsHelper.PageView("MainPage");
             AnalyticsHelper.Log("mainEvent", "appOpened", SystemInformation.OperatingSystemVersion.ToString());
+            
+            if (LocalConfiguration.Theme == Theme.Light)
+                splashScreenToLightStoryboard.Begin();
         }
 
         private async void Window_Activated(object sender, WindowActivatedEventArgs e)
@@ -235,8 +238,8 @@ namespace ModernSpotifyUWP
             if (LocalConfiguration.Theme == Theme.Dark)
             {
                 // Top bar buttons background color
-                TopBarButtonsAcrylicBrush.TintColor = Colors.Black;
-                TopBarButtonsAcrylicBrush.FallbackColor = Colors.Black;
+                topBarButtonsAcrylicBrush.TintColor = Colors.Black;
+                topBarButtonsAcrylicBrush.FallbackColor = Colors.Black;
 
                 // Top bar extra buttons style
                 openLinkFromClipboard.Style = Application.Current.Resources["TopBarDarkButtonStyle"] as Style;
@@ -260,8 +263,8 @@ namespace ModernSpotifyUWP
             else
             {
                 // Top bar buttons background color
-                TopBarButtonsAcrylicBrush.TintColor = Colors.White;
-                TopBarButtonsAcrylicBrush.FallbackColor = Colors.White;
+                topBarButtonsAcrylicBrush.TintColor = Colors.White;
+                topBarButtonsAcrylicBrush.FallbackColor = Colors.White;
 
                 // Top bar extra buttons style
                 openLinkFromClipboard.Style = Application.Current.Resources["TopBarLightButtonStyle"] as Style;
