@@ -27,6 +27,10 @@ body {
     padding-top: 20px !important;
 }
 
+.Root__main-view .view-header {
+    margin-top: -20px;
+}
+
 .Root__now-playing-bar {
     background-color: transparent;
 }
