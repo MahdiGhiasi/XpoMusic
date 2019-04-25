@@ -8,7 +8,7 @@
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     RequestedTheme="Dark"
-    d:DesignHeight="300"
+    d:DesignHeight="450"
     d:DesignWidth="400">
 
     <Grid Background="{ThemeResource NavigationViewExpandedPaneBackground}"
@@ -42,13 +42,73 @@
                         </Grid>
                         <Grid Grid.Row="1" Padding="14,8,14,14">
                             <StackPanel x:Name="Content">
+                                <StackPanel Tag="2" Margin="0,0,0,24" Visibility="Visible">
+                                    <TextBlock Text="&#8226; Open shared spotify links in Xpotify"
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,8"
+                                               TextWrapping="Wrap" />
+                                    <RichTextBlock Margin="16,0,0,0" 
+                                                   IsTextSelectionEnabled="False">
+                                        <Paragraph>
+                                            <Run>Links starting with</Run>
+                                            <Run FontStyle="Italic" FontWeight="SemiBold">spotify:</Run>
+                                            <Run>or</Run>
+                                            <Run FontStyle="Italic" FontWeight="SemiBold">https://open.spotify.com/</Run>
+                                            <Run>can be opened easily in Xpotify.</Run>
+                                        </Paragraph>
+                                    </RichTextBlock>
+                                    <RichTextBlock Margin="16,8,0,0" 
+                                                   Opacity="0.7"
+                                                   IsTextSelectionEnabled="False">
+                                        <Paragraph>
+                                            <Run>&#8226; Copy the link to clipboard and click on</Run>
+                                            <InlineUIContainer>
+                                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE78B;" RenderTransformOrigin="0.5, 0.5" Margin="0,0,0,-5">
+                                                    <FontIcon.RenderTransform>
+                                                        <RotateTransform Angle="180" />
+                                                    </FontIcon.RenderTransform>
+                                                </FontIcon>
+                                            </InlineUIContainer>
+                                            <Run>icon that appears on the top right side of the app, next to minimize button.</Run>
+                                        </Paragraph>
+                                        <Paragraph Margin="0,4,0,0">
+                                            <Run>&#8226; Or just drag and drop the link into the Xpotify window!</Run>
+                                        </Paragraph>
+                                    </RichTextBlock>
+
+                                    <TextBlock Text="&#8226; Light theme"
+                                               FontWeight="SemiBold"
+                                               Margin="0,16,0,0"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="Xpotify now supports a light theme as well as the default dark theme."
+                                               Margin="16,4,0,0"
+                                               Opacity="0.7"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="&#8226; Fluent design improvements"
+                                               FontWeight="SemiBold"
+                                               Margin="0,12,0,0"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="&#8226; Custom proxy server setting support"
+                                               FontWeight="SemiBold"
+                                               Margin="0,12,0,0"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="&#8226; Custom language setting support"
+                                               FontWeight="SemiBold"
+                                               Margin="0,12,0,0"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="&#8226; Bugfixes and improvements"
+                                               FontWeight="SemiBold"
+                                               Margin="0,12,0,0"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
                                 <StackPanel Tag="1" Margin="0,0,0,24" Visibility="Visible">
                                     <TextBlock Text="&#8226; Dark themed scrollbar"
+                                               FontWeight="SemiBold"
                                                Margin="0,0,0,8"
                                                TextWrapping="Wrap" />
                                     <TextBlock Text="The scrollbar is now dark to match the app theme!"
                                                Margin="16,0,0,0"
-                                               Opacity="0.5"
+                                               Opacity="0.7"
                                                TextWrapping="Wrap" />
                                 </StackPanel>
                             </StackPanel>
