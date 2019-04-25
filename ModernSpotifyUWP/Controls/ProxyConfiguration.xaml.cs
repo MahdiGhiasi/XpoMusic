@@ -44,7 +44,7 @@ namespace ModernSpotifyUWP.Controls
             ContentDialog cd = new ContentDialog
             {
                 Title = "Restart Xpotify",
-                Content = "We need to restart Xpotify app in order to apply proxy settings.",
+                Content = "We need to restart Xpotify in order to apply proxy settings.",
                 RequestedTheme = ElementTheme.Dark,
                 IsPrimaryButtonEnabled = true,
                 PrimaryButtonText = "Restart Now",
