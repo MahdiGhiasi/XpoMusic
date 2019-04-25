@@ -10,9 +10,13 @@ namespace ModernSpotifyUWP.Helpers
     public static class WhatsNewHelper
     {
         const string latestWhatsNewVersionKey = "LatestWhatsNewVersion";
+        public static readonly bool testMode = false;
 
         public static bool ShouldShowWhatsNew()
         {
+            if (testMode)
+                return true;
+
             if (!ApplicationData.Current.LocalSettings.Values.ContainsKey(latestWhatsNewVersionKey))
             {
                 MarkThisWhatsNewAsRead();
@@ -39,7 +43,7 @@ namespace ModernSpotifyUWP.Helpers
                 return new List<string>();
 
             List<string> output = GetWhatsNewContentId();
-           
+
             MarkThisWhatsNewAsRead();
 
             return output;
@@ -49,8 +53,9 @@ namespace ModernSpotifyUWP.Helpers
         {
             Version prevVersion = new Version(0, 0, 0, 0);
 
-            if (ApplicationData.Current.LocalSettings.Values.ContainsKey(latestWhatsNewVersionKey))
-                Version.TryParse(ApplicationData.Current.LocalSettings.Values[latestWhatsNewVersionKey].ToString(), out prevVersion);
+            if (!testMode)
+                if (ApplicationData.Current.LocalSettings.Values.ContainsKey(latestWhatsNewVersionKey))
+                    Version.TryParse(ApplicationData.Current.LocalSettings.Values[latestWhatsNewVersionKey].ToString(), out prevVersion);
 
             List<string> output = new List<string>();
 

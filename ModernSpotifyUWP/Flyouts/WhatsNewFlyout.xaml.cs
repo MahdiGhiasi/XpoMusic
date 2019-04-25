@@ -39,7 +39,11 @@ namespace ModernSpotifyUWP.Flyouts
                     sp.Visibility = Visibility.Collapsed;
             }
 
-            VersionText.Text = PackageHelper.GetAppVersionString();
+            if (WhatsNewHelper.testMode)
+                VersionText.Text = "Next";
+            else
+                VersionText.Text = PackageHelper.GetAppVersionString();
+
             navigationView.SelectedItem = navigationView.MenuItems.First();
         }
 
