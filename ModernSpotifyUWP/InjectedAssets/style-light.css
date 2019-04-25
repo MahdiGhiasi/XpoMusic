@@ -83,6 +83,10 @@ header.artist-header:after {
     filter: invert(1);
 }
 
+.media-object .media-object-hoverable.playing .cover-art-image, .media-object .media-object-hoverable.playing .daily-mix-decoration, .media-object .media-object-hoverable:focus .cover-art-image, .media-object .media-object-hoverable:focus .daily-mix-decoration, .media-object .media-object-hoverable:hover .cover-art-image, .media-object .media-object-hoverable:hover .daily-mix-decoration {
+    filter: brightness(.6);
+}
+
 /* Error page image */
 #main .dialog img {
     filter: invert(1);
