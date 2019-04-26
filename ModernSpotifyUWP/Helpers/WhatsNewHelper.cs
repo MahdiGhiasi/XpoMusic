@@ -59,7 +59,7 @@ namespace ModernSpotifyUWP.Helpers
 
             List<string> output = new List<string>();
 
-            if (prevVersion < new Version("1.4.1.0"))
+            if (prevVersion < new Version("1.4.2.0"))
                 output.Add("2");
 
             if (prevVersion < new Version("1.1.0.0"))
