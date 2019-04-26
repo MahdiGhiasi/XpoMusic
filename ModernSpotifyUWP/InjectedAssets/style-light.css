@@ -1,5 +1,6 @@
-﻿.cover-art, .artist-header, .view-header, .ConnectBar, .btn-green, .btn-fg-green,
-div[aria-live=polite], .control-button--active {
+﻿img, .cover-art, .artist-header, .view-header, .ConnectBar, .btn-green, .btn-fg-green,
+div[aria-live=polite], .control-button--active, .Root__nav-bar .sessionInfo .avatar,
+.UserWidget__link--is-active span, .AdsContainer__inner {
     filter: invert(1);
 }
 
