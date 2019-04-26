@@ -375,11 +375,7 @@
                         Padding="0,0,0,0"
                         Orientation="Horizontal" 
                         FlowDirection="RightToLeft">
-                <Grid Width="{x:Bind ViewModel.TopBarButtonWidth, Mode=OneWay}"
-                      Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}" />
-                <Grid Width="{x:Bind ViewModel.TopBarButtonWidth, Mode=OneWay}"
-                      Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}" />
-                <Grid Width="{x:Bind ViewModel.TopBarButtonWidth, Mode=OneWay}"
+                <Grid Width="{x:Bind ViewModel.TopBarBehindSystemControlsAreaWidth, Mode=OneWay}"
                       Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}" />
                 <Grid x:Name="topBarButtonSeparator"
                       Width="{x:Bind ViewModel.TopBarButtonWidth, Mode=OneWay}"

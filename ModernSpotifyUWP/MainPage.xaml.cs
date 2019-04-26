@@ -250,6 +250,7 @@ namespace ModernSpotifyUWP
         {
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
+            coreTitleBar.IsVisibleChanged += CoreTitleBar_IsVisibleChanged;
             coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
             Window.Current.SetTitleBar(topBarBackground);
 
@@ -309,6 +310,11 @@ namespace ModernSpotifyUWP
             }
         }
 
+        private void CoreTitleBar_IsVisibleChanged(CoreApplicationViewTitleBar sender, object args)
+        {
+            UpdateTitleBarSize();
+        }
+
         private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
         {
             UpdateTitleBarSize();
@@ -318,8 +324,17 @@ namespace ModernSpotifyUWP
         {
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
 
+            if (!coreTitleBar.IsVisible)
+            {
+                ViewModel.TopBarButtonWidth = 0.0;
+                ViewModel.TopBarButtonHeight = 0.0;
+                return;
+            }
+
+            var isTabletMode = (UIViewSettings.GetForCurrentView().UserInteractionMode == UserInteractionMode.Touch);
+
             ViewModel.TopBarButtonHeight = coreTitleBar.Height;
-            ViewModel.TopBarButtonWidth = coreTitleBar.SystemOverlayRightInset / 4.0;
+            ViewModel.TopBarButtonWidth = coreTitleBar.SystemOverlayRightInset / (isTabletMode ? 2.0 : 4.0);
         }
 
         private async void SetInitialPlaybackState()
