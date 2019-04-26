@@ -1,6 +1,6 @@
 ﻿.cover-art, .artist-header, .view-header, .ConnectBar, .btn-green, .btn-fg-green,
 div[aria-live=polite], .control-button--active, .Root__nav-bar .sessionInfo .avatar,
-.UserWidget__link--is-active span, .AdsContainer__inner {
+.UserWidget__link--is-active span, .AdsContainer__inner, img[src*=profilepic] {
     filter: invert(1);
 }
 
