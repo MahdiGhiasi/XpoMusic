@@ -10,11 +10,15 @@
     xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     xmlns:flyouts="using:ModernSpotifyUWP.Flyouts"
     xmlns:controls="using:ModernSpotifyUWP.Controls"
+    xmlns:vm="using:ModernSpotifyUWP.ViewModels"
     mc:Ignorable="d"
     Loaded="Page_Loaded"
     SizeChanged="Page_SizeChanged"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+    <Page.DataContext>
+        <vm:MainPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
     <Page.Resources>
         <ResourceDictionary>
             <AcrylicBrush x:Name="topBarButtonsAcrylicBrush" BackgroundSource="Backdrop"
@@ -360,7 +364,7 @@
 
         <Grid x:Name="topBar" 
               RequestedTheme="Light"
-              Height="32"
+              Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}" 
               VerticalAlignment="Top"
               HorizontalAlignment="Stretch">
             <Rectangle x:Name="topBarBackground"
@@ -368,14 +372,23 @@
             <StackPanel x:Name="topBarButtonsStackPanel" 
                         HorizontalAlignment="Right"
                         Background="{ThemeResource topBarButtonsAcrylicBrush}"
-                        Padding="138,0,0,0"
+                        Padding="0,0,0,0"
                         Orientation="Horizontal" 
                         FlowDirection="RightToLeft">
-                <Grid x:Name="topBarButtonSeparator" Width="46" Height="32" Visibility="Collapsed"></Grid>
+                <Grid Width="{x:Bind ViewModel.TopBarButtonWidth, Mode=OneWay}"
+                      Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}" />
+                <Grid Width="{x:Bind ViewModel.TopBarButtonWidth, Mode=OneWay}"
+                      Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}" />
+                <Grid Width="{x:Bind ViewModel.TopBarButtonWidth, Mode=OneWay}"
+                      Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}" />
+                <Grid x:Name="topBarButtonSeparator"
+                      Width="{x:Bind ViewModel.TopBarButtonWidth, Mode=OneWay}"
+                      Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}"
+                      Visibility="Collapsed" />
                 <Button x:Name="openLinkFromClipboard"
                         Visibility="Collapsed"
-                        Width="46"
-                        Height="32"
+                        Width="{x:Bind ViewModel.TopBarButtonWidth, Mode=OneWay}"
+                        Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}"
                         Click="OpenLinkFromClipboard_Click"
                         ToolTipService.ToolTip="Open Spotify link from clipboard">
                     <Button.Content>

@@ -250,7 +250,10 @@ namespace ModernSpotifyUWP
         {
             var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
             coreTitleBar.ExtendViewIntoTitleBar = true;
+            coreTitleBar.LayoutMetricsChanged += CoreTitleBar_LayoutMetricsChanged;
             Window.Current.SetTitleBar(topBarBackground);
+
+            UpdateTitleBarSize();
 
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
@@ -304,6 +307,19 @@ namespace ModernSpotifyUWP
                 titleBar.ButtonInactiveForegroundColor = Color.FromArgb(255, 255 - 200, 255 - 200, 255 - 200);
                 titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             }
+        }
+
+        private void CoreTitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+        {
+            UpdateTitleBarSize();
+        }
+
+        private void UpdateTitleBarSize()
+        {
+            var coreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+
+            ViewModel.TopBarButtonHeight = coreTitleBar.Height;
+            ViewModel.TopBarButtonWidth = coreTitleBar.SystemOverlayRightInset / 4.0;
         }
 
         private async void SetInitialPlaybackState()
