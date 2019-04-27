@@ -40,7 +40,7 @@ function searchForHTag(selector) {
 	candidates = document.querySelectorAll(".Root__main-view " + selector);
 	for (var i = 0; i < candidates.length; i++) {
 		s = candidates[i].innerText;
-		if (s.length > 0 && s.length < 50) {
+		if (s.length > 0 && s.length < 80) {
 			return s;
 		}
 	}
