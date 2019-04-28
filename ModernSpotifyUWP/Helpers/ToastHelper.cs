@@ -37,7 +37,6 @@ namespace ModernSpotifyUWP.Helpers
 
         public static void SendReopenAppToast()
         {
-#if DEBUG
             // template to load for showing Toast Notification
             var xmlToastTemplate = "<toast launch=\"action=reopenApp\">" +
                                      "<visual>" +
@@ -55,7 +54,6 @@ namespace ModernSpotifyUWP.Helpers
             var toastNotification = new Windows.UI.Notifications.ToastNotification(xmlDocument);
             var notification = Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier();
             notification.Show(toastNotification);
-#endif
         }
     }
 }
