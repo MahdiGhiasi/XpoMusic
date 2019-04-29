@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ModernSpotifyUWP.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -39,6 +40,7 @@ namespace ModernSpotifyUWP
         {
             CopyTextToClipboard(bitcoinWalletAddress);
 
+            AnalyticsHelper.Log("donate", "copyToClipboard", "bitcoin");
             bitcoinAddressCopiedCheckMark.Visibility = Visibility.Visible;
             await Task.Delay(TimeSpan.FromSeconds(3));
             bitcoinAddressCopiedCheckMark.Visibility = Visibility.Collapsed;
@@ -48,6 +50,7 @@ namespace ModernSpotifyUWP
         {
             CopyTextToClipboard(ethereumWalletAddress);
 
+            AnalyticsHelper.Log("donate", "copyToClipboard", "ethereum");
             ethereumAddressCopiedCheckMark.Visibility = Visibility.Visible;
             await Task.Delay(TimeSpan.FromSeconds(3));
             ethereumAddressCopiedCheckMark.Visibility = Visibility.Collapsed;
