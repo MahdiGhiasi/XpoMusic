@@ -32,7 +32,8 @@
                                    VerticalAlignment="Top" />
                         </Grid>
                         <StackPanel Grid.Column="1">
-                            <TextBlock Text="Xpotify"
+                            <TextBlock x:Name="appNameText"
+                                       Text="Xpotify"
                                        FontSize="24"
                                        FontWeight="Light"
                                        Margin="0,0,0,4"

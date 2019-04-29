@@ -47,6 +47,7 @@ namespace ModernSpotifyUWP
                 whiteLogo.Visibility = Visibility.Collapsed;
             }
 
+            appNameText.Text = PackageHelper.GetAppNameString();
             appVersionText.Text = PackageHelper.GetAppVersionString();
         }
 

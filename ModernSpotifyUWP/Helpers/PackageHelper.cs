@@ -20,6 +20,11 @@ namespace ModernSpotifyUWP.Helpers
             return string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
         }
 
+        public static string GetAppNameString()
+        {
+            return Package.Current.DisplayName;
+        }
+
         public static Version GetAppVersion()
         {
             return Version.Parse(GetAppVersionString());
