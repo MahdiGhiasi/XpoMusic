@@ -668,6 +668,8 @@ namespace ModernSpotifyUWP
                 compactOverlayView = new CompactOverlayView();
                 compactOverlayView.ExitCompactOverlayRequested += CompactOverlayView_ExitCompactOverlayRequested;
                 mainGrid.Children.Add(compactOverlayView);
+
+                Window.Current.SetTitleBar(compactOverlayView.MainBackgroundControl);
             }
         }
 
@@ -685,6 +687,8 @@ namespace ModernSpotifyUWP
 
             compactOverlayView.PrepareToExit();
             compactOverlayView = null;
+
+            Window.Current.SetTitleBar(topBarBackground);
 
             AnalyticsHelper.Log("mainEvent", "compactOverlayClosed");
         }

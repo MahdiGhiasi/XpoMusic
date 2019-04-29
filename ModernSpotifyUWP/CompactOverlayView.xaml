@@ -332,10 +332,13 @@
                 </Grid.Background>
             </Grid>
         </Grid>
-        <Grid Background="#77000000">
+        <Grid Background="#77000000" x:Name="mainBackgroundGrid">
+        </Grid>
+        <Grid>
             <ProgressRing x:Name="nextTrackLoadingProgressRing" 
                           IsActive="{x:Bind ViewModel.ProgressRingActive, Mode=OneWay}"
                           Foreground="White"
+                          IsHitTestVisible="False"
                           Margin="0,0,0,54"
                           Width="20"
                           Height="20" />
@@ -354,6 +357,7 @@
                                               Background="Transparent" 
                                               Opacity="{x:Bind ViewModel.AlbumArtContainerOpacity, Mode=TwoWay}"
                                               Visibility="Collapsed"
+                                              IsHitTestVisible="False"
                                               HorizontalAlignment="Center">
                         <Grid x:Name="albumArt" 
                               ToolTipService.ToolTip="{x:Bind ViewModel.AlbumName, Mode=OneWay}"
@@ -386,12 +390,14 @@
                                Text="{x:Bind ViewModel.SongName, Mode=OneWay}"
                                Margin="8,16,8,0"
                                Visibility="Visible"
+                               IsHitTestVisible="False"
                                TextAlignment="Center"
                                FontWeight="SemiBold" />
                     <TextBlock x:Name="artistName"
                                Text="{x:Bind ViewModel.ArtistName, Mode=OneWay}"
                                Margin="8,4,8,20"
                                Visibility="Collapsed"
+                               IsHitTestVisible="False"
                                TextAlignment="Center"
                                FontWeight="Normal" />
                 </StackPanel>
@@ -446,6 +452,7 @@
                          Foreground="#77ffffff" />
             <Image Source="ms-appx-web:///Assets/xpotify-white.png"
                    Opacity="0.5"
+                   IsHitTestVisible="False"
                    Width="20"
                    Height="20" 
                    Margin="4,0,0,8"

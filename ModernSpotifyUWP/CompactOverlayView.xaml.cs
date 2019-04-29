@@ -29,6 +29,8 @@ namespace ModernSpotifyUWP
 
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
+        public FrameworkElement MainBackgroundControl => this.mainBackgroundGrid;
+
         private DispatcherTimer timer;
         private string currentSongId;
 
