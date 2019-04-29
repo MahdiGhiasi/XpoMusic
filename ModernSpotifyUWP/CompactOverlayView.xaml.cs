@@ -167,16 +167,24 @@ namespace ModernSpotifyUWP
             try
             {
                 ViewModel.IsPlaying = false;
+                ViewModel.PlayPauseButtonEnabled = false;
                 timer.Stop();
+
+                // This delay is a workaround for PlayPauseButtonEnabled to
+                // update the newly appeared UI. Otherwize it appears after
+                // running PlaybackActionHelper.Play().
+                await Task.Delay(100);
 
                 if (await PlaybackActionHelper.Pause())
                 {
-                    await Task.Delay(500);
+                    await Task.Delay(1000);
                     await PlayStatusTracker.RefreshPlayStatus();
+                    ViewModel.PlayPauseButtonEnabled = true;
                 }
                 else
                 {
                     ViewModel.IsPlaying = true;
+                    ViewModel.PlayPauseButtonEnabled = true;
 
                     await PlayStatusTracker.RefreshPlayStatus();
                 }
@@ -187,6 +195,7 @@ namespace ModernSpotifyUWP
             }
             finally
             {
+                ViewModel.PlayPauseButtonEnabled = true;
                 if (!timer.IsEnabled)
                     timer.Start();
             }
@@ -197,16 +206,24 @@ namespace ModernSpotifyUWP
             try
             {
                 ViewModel.IsPlaying = true;
+                ViewModel.PlayPauseButtonEnabled = false;
                 timer.Stop();
+
+                // This delay is a workaround for PlayPauseButtonEnabled to
+                // update the newly appeared UI. Otherwize it appears after
+                // running PlaybackActionHelper.Play().
+                await Task.Delay(100);
 
                 if (await PlaybackActionHelper.Play())
                 {
-                    await Task.Delay(500);
+                    await Task.Delay(1000);
                     await PlayStatusTracker.RefreshPlayStatus();
+                    ViewModel.PlayPauseButtonEnabled = true;
                 }
                 else
                 {
                     ViewModel.IsPlaying = false;
+                    ViewModel.PlayPauseButtonEnabled = true;
 
                     await PlayStatusTracker.RefreshPlayStatus();
                 }
@@ -217,6 +234,7 @@ namespace ModernSpotifyUWP
             }
             finally
             {
+                ViewModel.PlayPauseButtonEnabled = true;
                 if (!timer.IsEnabled)
                     timer.Start();
             }

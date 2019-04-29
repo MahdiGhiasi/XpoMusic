@@ -220,6 +220,21 @@ namespace ModernSpotifyUWP.ViewModels
             }
         }
 
+
+        private bool playPauseButtonEnabled = true;
+        public bool PlayPauseButtonEnabled
+        {
+            get
+            {
+                return playPauseButtonEnabled;
+            }
+            set
+            {
+                playPauseButtonEnabled = value;
+                FirePropertyChangedEvent(nameof(PlayPauseButtonEnabled));
+            }
+        }
+
         private double albumArtContainerOpacity = 0.0;
         public double AlbumArtContainerOpacity
         {

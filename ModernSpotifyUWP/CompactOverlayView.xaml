@@ -416,6 +416,7 @@
                     </Button>
                     <Button Style="{StaticResource CircleButton}" 
                             Visibility="{x:Bind ViewModel.PlayButtonVisibility, Mode=OneWay}"
+                            IsEnabled="{x:Bind ViewModel.PlayPauseButtonEnabled, Mode=OneWay}"
                             Width="54"
                             Height="54"
                             Margin="4,0,4,0"
@@ -426,6 +427,7 @@
                     </Button>
                     <Button Style="{StaticResource CircleButton}" 
                             Visibility="{x:Bind ViewModel.PauseButtonVisibility, Mode=OneWay}"
+                            IsEnabled="{x:Bind ViewModel.PlayPauseButtonEnabled, Mode=OneWay}"
                             Width="54"
                             Height="54"
                             Margin="4,0,4,0"
