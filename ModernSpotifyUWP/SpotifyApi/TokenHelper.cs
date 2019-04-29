@@ -1,4 +1,5 @@
-﻿using Plugin.SecureStorage;
+﻿using ModernSpotifyUWP.Helpers;
+using Plugin.SecureStorage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,8 +63,16 @@ namespace ModernSpotifyUWP.SpotifyApi
 
         public static bool HasTokens()
         {
-            return CrossSecureStorage.Current.HasKey(accessTokenKey)
-                && CrossSecureStorage.Current.HasKey(refreshTokenKey);
+            try
+            {
+                return CrossSecureStorage.Current.HasKey(accessTokenKey)
+                    && CrossSecureStorage.Current.HasKey(refreshTokenKey);
+            }
+            catch (Exception ex)
+            {
+                AnalyticsHelper.Log("hasTokensException", ex.Message, ex.ToString());
+                return false;
+            }
         }
 
     }
