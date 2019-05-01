@@ -96,6 +96,10 @@ body {
     .backbutton {
         padding-left: 30px;
     }
+
+    .Root__nav-bar .sessionInfo .UserWidget__user-link {
+        display: none;
+    }
 }
 
 .backbutton span {
