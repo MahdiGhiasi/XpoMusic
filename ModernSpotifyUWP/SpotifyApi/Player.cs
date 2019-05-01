@@ -54,15 +54,24 @@ namespace ModernSpotifyUWP.SpotifyApi
 
             if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
+                logger.Info("ResumePlaying api returned NotFound.");
+
                 var resultText = await result.Content.ReadAsStringAsync();
                 if (resultText.Contains("NO_ACTIVE_DEVICE"))
                 {
+                    logger.Info("ResumePlaying api content included NO_ACTIVE_DEVICE. The complete text was:\n" + resultText);
+                    logger.Info("Will try to mark current device as active.");
+
                     var devices = await GetDevices();
                     var thisDevice = devices.devices.FirstOrDefault(x => x.name.Contains("Edge") && x.name.Contains("Web"));
 
                     if (thisDevice != null)
                     {
+                        logger.Info("Guessed " + thisDevice.name + " to be the current device. Will try to transfer playback to it.");
                         var transferResult = await TransferPlayback(thisDevice.id, ensurePlayback: true);
+
+                        logger.Info("Transfer playback to " + thisDevice.name + " " + (transferResult ? "succeded." : "failed."));
+
                         return transferResult;
                     }
                 }
