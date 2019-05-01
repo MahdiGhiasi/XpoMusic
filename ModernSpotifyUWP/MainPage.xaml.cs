@@ -161,7 +161,7 @@ namespace ModernSpotifyUWP
             Window.Current.CoreWindow.Activated += Window_Activated;
 
             // Update app constants from server
-            AppConstants.Instance.Update();
+            XpotifyApi.AppConstantsApi.UpdateAppConstants();
 
             // Play silent sound to avoid suspending the app when it's minimized.
             silentMediaPlayer.Play();

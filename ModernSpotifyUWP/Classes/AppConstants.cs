@@ -44,41 +44,5 @@ namespace ModernSpotifyUWP.Classes
                 return TimeSpan.FromMilliseconds(PlayStatePollIntervalMilliseconds);
             }
         }
-
-        private string UpdateUri
-        {
-            get
-            {
-                var endpoint = "https://ghiasi.net/xpotify/constants";
-                var version = PackageHelper.GetAppVersion().ToString(3);
-                var fileName = "constants.json";
-                var query = "?date=" + DateTime.Now.ToString("yyyyMMddHHmmss");
-
-                return $"{endpoint}/{version}/{fileName}{query}";
-            }
-        }
-
-        public async void Update()
-        {
-            try
-            {
-                using (var client = new HttpClient())
-                {
-                    var response = await client.GetAsync(UpdateUri);
-                    if (response.IsSuccessStatusCode == false)
-                    {
-                        logger.Warn($"AppConstants update failed because request failed with status code {response.StatusCode}.");
-                        return;
-                    }
-
-                    var result = await response.Content.ReadAsStringAsync();
-                    JsonConvert.PopulateObject(result, this);
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Warn("AppConstants update failed: " + ex.ToString());
-            }
-        }
     }
 }
