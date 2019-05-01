@@ -94,12 +94,12 @@ body.setAttribute('data-scriptinjection', 1);
 body.ondrop = drop;
 body.ondragover = allowDrop;
 
-// Inject style.css
-var customStyleLink = document.createElement('link');
-customStyleLink.rel = 'stylesheet';
-customStyleLink.type = 'text/css';
-customStyleLink.href = 'ms-appx-web:///InjectedAssets/style.css';
-document.getElementsByTagName('head')[0].appendChild(customStyleLink);
+// Inject css
+var css = '{{CSSBASE64CONTENT}}';
+var style = document.createElement('style');
+document.getElementsByTagName('head')[0].appendChild(style);
+style.type = 'text/css';
+style.appendChild(document.createTextNode(atob(css)));
 
 // Inject back button
 var backButtonDiv = document.createElement('div');

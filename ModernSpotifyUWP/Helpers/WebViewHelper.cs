@@ -48,7 +48,10 @@ namespace ModernSpotifyUWP.Helpers
 
             if (injected != "1")
             {
-                var script = File.ReadAllText("InjectedAssets/initScript.js");
+                var script = await AssetManager.LoadAssetString("initScript.js");
+                var styleCss = await AssetManager.LoadAssetString("style.css");
+                script = script.Replace("{{CSSBASE64CONTENT}}", Convert.ToBase64String(Encoding.UTF8.GetBytes(styleCss)));
+
                 await mainWebView.InvokeScriptAsync("eval", new string[] { script });
             }
         }
@@ -60,14 +63,17 @@ namespace ModernSpotifyUWP.Helpers
 
             if (injected != "1")
             {
-                var script = File.ReadAllText("InjectedAssets/initLightTheme.js");
+                var script = await AssetManager.LoadAssetString("initLightTheme.js");
+                var styleCss = await AssetManager.LoadAssetString("style-light.css");
+                script = script.Replace("{{CSSBASE64CONTENT}}", Convert.ToBase64String(Encoding.UTF8.GetBytes(styleCss)));
+
                 await mainWebView.InvokeScriptAsync("eval", new string[] { script });
             }
         }
 
         public static async Task<bool> CheckLoggedIn()
         {
-            var script = File.ReadAllText("InjectedAssets/isLoggedInCheck.js");
+            var script = await AssetManager.LoadAssetString("isLoggedInCheck.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result != "0");
@@ -75,7 +81,7 @@ namespace ModernSpotifyUWP.Helpers
 
         public static async Task<bool> TryPushingFacebookLoginButton()
         {
-            var script = File.ReadAllText("InjectedAssets/clickOnFacebookLogin.js");
+            var script = await AssetManager.LoadAssetString("clickOnFacebookLogin.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -126,7 +132,7 @@ namespace ModernSpotifyUWP.Helpers
 
         public static async Task<string> GetPageTitle()
         {
-            var findPageTitleScript = File.ReadAllText("InjectedAssets/findPageTitle.js");
+            var findPageTitleScript = await AssetManager.LoadAssetString("findPageTitle.js");
             var pageTitle = await mainWebView.InvokeScriptAsync("eval", new string[] { findPageTitleScript });
 
             return pageTitle;
@@ -138,7 +144,7 @@ namespace ModernSpotifyUWP.Helpers
 
             if (currentUrl.ToLower().StartsWith(SpotifyPwaUrlBeginsWith.ToLower()))
             {
-                var script = File.ReadAllText("InjectedAssets/navigateToPage.js")
+                var script = await AssetManager.LoadAssetString("navigateToPage.js")
                     + $"navigateToPage('{url.Replace("'", "\\'")}');";
 
                 await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -151,7 +157,7 @@ namespace ModernSpotifyUWP.Helpers
 
         public static async Task<string> GetCurrentPlaying()
         {
-            var script = File.ReadAllText("InjectedAssets/checkCurrentPlaying.js");
+            var script = await AssetManager.LoadAssetString("checkCurrentPlaying.js");
             var currentPlaying = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return currentPlaying;
@@ -159,7 +165,7 @@ namespace ModernSpotifyUWP.Helpers
 
         public static async Task<string> GetCurrentSongPlayTime()
         {
-            var script = File.ReadAllText("InjectedAssets/checkCurrentSongPlayTime.js");
+            var script = await AssetManager.LoadAssetString("checkCurrentSongPlayTime.js");
             var currentPlayTime = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return currentPlayTime;
@@ -167,7 +173,7 @@ namespace ModernSpotifyUWP.Helpers
 
         public static async Task<string> ClearPlaybackLocalStorage()
         {
-            var script = File.ReadAllText("InjectedAssets/clearPlaybackLocalStorage.js");
+            var script = await AssetManager.LoadAssetString("clearPlaybackLocalStorage.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return result;
@@ -175,7 +181,7 @@ namespace ModernSpotifyUWP.Helpers
 
         public static async Task<bool> Play()
         {
-            var script = File.ReadAllText("InjectedAssets/actionPlay.js");
+            var script = await AssetManager.LoadAssetString("actionPlay.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -183,7 +189,7 @@ namespace ModernSpotifyUWP.Helpers
 
         public static async Task<bool> Pause()
         {
-            var script = File.ReadAllText("InjectedAssets/actionPause.js");
+            var script = await AssetManager.LoadAssetString("actionPause.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -191,7 +197,7 @@ namespace ModernSpotifyUWP.Helpers
 
         public static async Task<bool> NextTrack()
         {
-            var script = File.ReadAllText("InjectedAssets/actionNextTrack.js");
+            var script = await AssetManager.LoadAssetString("actionNextTrack.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -199,7 +205,7 @@ namespace ModernSpotifyUWP.Helpers
 
         public static async Task<bool> PreviousTrack()
         {
-            var script = File.ReadAllText("InjectedAssets/actionPrevTrack.js");
+            var script = await AssetManager.LoadAssetString("actionPrevTrack.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");

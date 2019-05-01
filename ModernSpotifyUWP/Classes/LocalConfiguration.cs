@@ -168,6 +168,21 @@ namespace ModernSpotifyUWP.Classes
             SetConfiguration("DeveloperMessageShownIds", string.Join(';', ids.ToArray()));
         }
 
+        public static int LatestAssetUpdateVersion
+        {
+            get
+            {
+                if (int.TryParse(GetConfiguration("LatestAssetUpdateVersion"), out int latestVersion))
+                    return latestVersion;
+
+                return 0;
+            }
+            set
+            {
+                SetConfiguration("LatestAssetUpdateVersion", value.ToString());
+            }
+        }
+
         private static string GetConfiguration(string key)
         {
             var completeKey = "LocalConfiguration_" + key;

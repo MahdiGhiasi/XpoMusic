@@ -152,6 +152,7 @@
     <Compile Include="Flyouts\WhatsNewFlyout.xaml.cs">
       <DependentUpon>WhatsNewFlyout.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AssetManager.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\CropBitmap.cs" />
     <Compile Include="Helpers\DeveloperMessageHelper.cs" />
@@ -169,7 +170,10 @@
     <Compile Include="Helpers\ToastHelper.cs" />
     <Compile Include="Helpers\UnauthorizedHelper.cs" />
     <Compile Include="XpotifyApi\AppConstantsApi.cs" />
+    <Compile Include="XpotifyApi\AssetUpdatesApi.cs" />
     <Compile Include="XpotifyApi\DeveloperMessageApi.cs" />
+    <Compile Include="XpotifyApi\Model\AssetPackage.cs" />
+    <Compile Include="XpotifyApi\Model\AssetPackageInfo.cs" />
     <Compile Include="XpotifyApi\Model\DeveloperMessage.cs" />
     <Compile Include="XpotifyApi\Model\DeveloperMessageCollection.cs" />
     <Content Include="Assets\Logo\contrast-black\Square44x44Logo.altform-unplated_targetsize-24.png" />

@@ -165,6 +165,9 @@ namespace ModernSpotifyUWP
             // Update app constants from server
             XpotifyApi.AppConstantsApi.UpdateAppConstants();
 
+            // Update assets from server
+            AssetManager.UpdateAssets();
+
             // Play silent sound to avoid suspending the app when it's minimized.
             silentMediaPlayer.Play();
 
