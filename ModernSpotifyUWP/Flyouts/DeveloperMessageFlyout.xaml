@@ -1,0 +1,59 @@
+﻿<UserControl
+    x:Class="ModernSpotifyUWP.Flyouts.DeveloperMessageFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ModernSpotifyUWP.Flyouts"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    RequestedTheme="Dark"
+    d:DesignHeight="250"
+    d:DesignWidth="400">
+
+    <Grid Background="{ThemeResource NavigationViewExpandedPaneBackground}"
+          BorderBrush="#aaa"
+          BorderThickness="1">
+        <controls:NavigationView x:Name="navigationView" 
+                                 PaneDisplayMode="Top" 
+                                 IsSettingsVisible="False" 
+                                 IsBackEnabled="True"
+                                 BackRequested="NavigationView_BackRequested">
+            <controls:NavigationView.MenuItems>
+                <controls:NavigationViewItem Content="A Message from Developer" />
+            </controls:NavigationView.MenuItems>
+            <Grid>
+                <ScrollViewer>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition MinHeight="32" Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Padding="12">
+                            <StackPanel>
+                                <TextBlock x:Name="messageTitle" 
+                                           Text="Message Title"
+                                           TextWrapping="Wrap"
+                                           FontSize="16"
+                                           FontWeight="Bold"/>
+                                <TextBlock x:Name="messageDate" 
+                                           Text="just now"
+                                           TextWrapping="Wrap"
+                                           FontSize="12"
+                                           Opacity="0.7"
+                                           Margin="0,2,0,0"/>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Row="1" Padding="12,4,12,12">
+                            <StackPanel>
+                                <TextBlock x:Name="messageContent" 
+                                           TextWrapping="Wrap"
+                                           Text="Message Content" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </controls:NavigationView>
+    </Grid>
+</UserControl>

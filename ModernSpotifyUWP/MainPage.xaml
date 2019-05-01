@@ -256,6 +256,11 @@
                 <Grid.RenderTransform>
                     <TranslateTransform />
                 </Grid.RenderTransform>
+                <flyouts:DeveloperMessageFlyout x:Name="developerMessageFlyout"
+                                                Visibility="Collapsed"
+                                                Width="400"
+                                                MaxHeight="300"
+                                                FlyoutCloseRequest="DeveloperMessageFlyout_FlyoutCloseRequest" />
                 <flyouts:WhatsNewFlyout x:Name="whatsNewFlyout"
                                         Visibility="Collapsed"
                                         Width="400"

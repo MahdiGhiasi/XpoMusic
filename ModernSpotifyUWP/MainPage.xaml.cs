@@ -3,6 +3,7 @@ using ModernSpotifyUWP.Classes;
 using ModernSpotifyUWP.Classes.Model;
 using ModernSpotifyUWP.Helpers;
 using ModernSpotifyUWP.SpotifyApi;
+using ModernSpotifyUWP.XpotifyApi.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,7 @@ namespace ModernSpotifyUWP
         private bool isWebViewGoingBack = false;
         private string webViewPreviousUri = "";
         private bool shouldShowWhatsNew = false;
+        private DeveloperMessage developerMessage = null;
 
         public MainPage()
         {
@@ -213,6 +215,8 @@ namespace ModernSpotifyUWP
             
             if (LocalConfiguration.Theme == Theme.Light)
                 splashScreenToLightStoryboard.Begin();
+
+            developerMessage = await DeveloperMessageHelper.GetNextDeveloperMessage();
         }
 
         private void Window_Activated(object sender, WindowActivatedEventArgs e)
@@ -571,6 +575,13 @@ namespace ModernSpotifyUWP
                 {
                     OpenWhatsNew();
                 }
+                else if (developerMessage != null)
+                {
+                    // Don't show developer message now if what's new is being shown.
+                    // It'll be shown after user closes the what's new flyout.
+                    OpenDeveloperMessage(developerMessage);
+                    developerMessage = null;
+                }
             }
 
             if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
@@ -760,14 +771,39 @@ namespace ModernSpotifyUWP
             whatsNewFlyout.InitFlyout();
             whatsNewFlyout.Visibility = Visibility.Visible;
             VisualStateManager.GoToState(this, "OverlayScreen", false);
+
+            AnalyticsHelper.Log("flyoutShow", "whatsNew", PackageHelper.GetAppVersionString());
+        }
+
+        private async void OpenDeveloperMessage(DeveloperMessage message)
+        {
+            await Task.Delay(700);
+
+            developerMessageFlyout.InitFlyout(message);
+            developerMessageFlyout.Visibility = Visibility.Visible;
+            VisualStateManager.GoToState(this, "OverlayScreen", false);
+
+            AnalyticsHelper.Log("flyoutShow", "developerMessage", message.id);
         }
 
         private void WhatsNewFlyout_FlyoutCloseRequest(object sender, EventArgs e)
         {
             CloseOverlays();
+
+            // If there's a new developer message available, show it now.
+            if (developerMessage != null)
+            {
+                OpenDeveloperMessage(developerMessage);
+                developerMessage = null;
+            }
         }
 
         private void SettingsFlyout_FlyoutCloseRequest(object sender, EventArgs e)
+        {
+            CloseOverlays();
+        }
+
+        private void DeveloperMessageFlyout_FlyoutCloseRequest(object sender, EventArgs e)
         {
             CloseOverlays();
         }

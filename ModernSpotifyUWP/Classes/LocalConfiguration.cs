@@ -1,4 +1,5 @@
 ﻿using ModernSpotifyUWP.Classes.Model;
+using ModernSpotifyUWP.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,8 @@ namespace ModernSpotifyUWP.Classes
 {
     public static class LocalConfiguration
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         private static readonly Size compactOverlayDefaultSize = new Size(300, 300);
 
         public static Size CompactOverlaySize
@@ -135,6 +138,35 @@ namespace ModernSpotifyUWP.Classes
             }
         }
 
+        public static string[] DeveloperMessageShownIds
+        {
+            get
+            {
+                try
+                {
+                    var ids = GetConfiguration("DeveloperMessageShownIds");
+
+                    if (string.IsNullOrEmpty(ids))
+                        return new string[] { };
+
+                    return ids.Split(';');
+                }
+                catch (Exception ex)
+                {
+                    logger.Warn("DeveloperMessageShownIds failed: " + ex.ToString());
+                    AnalyticsHelper.Log("exception-DeveloperMessageShownIds", ex.Message, ex.ToString());
+                    return new string[] { };
+                }
+            }
+        }
+
+        public static void AddIdToDeveloperMessageShownIds(string id)
+        {
+            var ids = DeveloperMessageShownIds.ToList();
+            ids.Add(id);
+
+            SetConfiguration("DeveloperMessageShownIds", string.Join(';', ids.ToArray()));
+        }
 
         private static string GetConfiguration(string key)
         {

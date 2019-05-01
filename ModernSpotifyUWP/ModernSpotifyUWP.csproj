@@ -142,6 +142,9 @@
     <Compile Include="DonatePage.xaml.cs">
       <DependentUpon>DonatePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Flyouts\DeveloperMessageFlyout.xaml.cs">
+      <DependentUpon>DeveloperMessageFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Flyouts\IFlyout.cs" />
     <Compile Include="Flyouts\SettingsFlyout.xaml.cs">
       <DependentUpon>SettingsFlyout.xaml</DependentUpon>
@@ -151,6 +154,7 @@
     </Compile>
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\CropBitmap.cs" />
+    <Compile Include="Helpers\DeveloperMessageHelper.cs" />
     <Compile Include="Helpers\ImageSaveHelper.cs" />
     <Compile Include="Classes\LocalConfiguration.cs" />
     <Compile Include="Helpers\LanguageHelper.cs" />
@@ -165,6 +169,9 @@
     <Compile Include="Helpers\ToastHelper.cs" />
     <Compile Include="Helpers\UnauthorizedHelper.cs" />
     <Compile Include="XpotifyApi\AppConstantsApi.cs" />
+    <Compile Include="XpotifyApi\DeveloperMessageApi.cs" />
+    <Compile Include="XpotifyApi\Model\DeveloperMessage.cs" />
+    <Compile Include="XpotifyApi\Model\DeveloperMessageCollection.cs" />
     <Content Include="Assets\Logo\contrast-black\Square44x44Logo.altform-unplated_targetsize-24.png" />
     <Content Include="Assets\Logo\contrast-standard\Square44x44Logo.altform-unplated_targetsize-24.png" />
     <Content Include="Assets\Logo\contrast-white\Square44x44Logo.altform-unplated_targetsize-24.png" />
@@ -374,6 +381,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DonatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Flyouts\DeveloperMessageFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
