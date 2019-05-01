@@ -27,25 +27,30 @@ namespace ModernSpotifyUWP.SpotifyApi
 
         public async Task<bool> NextTrack()
         {
-            AnalyticsHelper.Log("api", "me/player/next");
-
             var result = await SendRequestWithTokenAsync("https://api.spotify.com/v1/me/player/next", HttpMethod.Post);
+
+            if (result.IsSuccessStatusCode == false)
+                AnalyticsHelper.Log("api", "me/player/next::" + result.StatusCode.ToString());
+
             return (result.StatusCode == System.Net.HttpStatusCode.NoContent);
         }
 
         public async Task<bool> PreviousTrack()
         {
-            AnalyticsHelper.Log("api", "me/player/previous");
-
             var result = await SendRequestWithTokenAsync("https://api.spotify.com/v1/me/player/previous", HttpMethod.Post);
+
+            if (result.IsSuccessStatusCode == false)
+                AnalyticsHelper.Log("api", "me/player/previous::" + result.StatusCode.ToString());
+
             return (result.StatusCode == System.Net.HttpStatusCode.NoContent);
         }
 
         public async Task<bool> ResumePlaying()
         {
-            AnalyticsHelper.Log("api", "me/player/play");
-
             var result = await SendRequestWithTokenAsync("https://api.spotify.com/v1/me/player/play", HttpMethod.Put);
+
+            if (result.IsSuccessStatusCode == false)
+                AnalyticsHelper.Log("api", "me/player/play::" + result.StatusCode.ToString());
 
             if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
@@ -68,40 +73,47 @@ namespace ModernSpotifyUWP.SpotifyApi
 
         public async Task<bool> Pause()
         {
-            AnalyticsHelper.Log("api", "me/player/pause");
-
             var result = await SendRequestWithTokenAsync("https://api.spotify.com/v1/me/player/pause", HttpMethod.Put);
+
+            if (result.IsSuccessStatusCode == false)
+                AnalyticsHelper.Log("api", "me/player/pause::" + result.StatusCode.ToString());
+
             return (result.StatusCode == System.Net.HttpStatusCode.NoContent);
         }
 
         public async Task<Devices> GetDevices()
         {
-            AnalyticsHelper.Log("api", "me/player/getdevices");
-
             var result = await SendRequestWithTokenAsync("https://api.spotify.com/v1/me/player/devices", HttpMethod.Get);
             var resultString = await result.Content.ReadAsStringAsync();
+
+            if (result.IsSuccessStatusCode == false)
+                AnalyticsHelper.Log("api", "me/player/getdevices::" + result.StatusCode.ToString());
 
             return JsonConvert.DeserializeObject<Devices>(resultString);
         }
 
         public async Task<bool> TransferPlayback(string deviceId, bool ensurePlayback)
         {
-            AnalyticsHelper.Log("api", "me/player:transferplayback");
-
             var ensurePlaybackString = ensurePlayback ? "true" : "false";
             var data = $"{{\"device_ids\":[\"{deviceId}\"], \"play\": \"{ensurePlaybackString}\"}}";
 
             var result = await SendJsonRequestWithTokenAsync("https://api.spotify.com/v1/me/player", HttpMethod.Put, data);
+
+            if (result.IsSuccessStatusCode == false)
+                AnalyticsHelper.Log("api", "me/player:transferplayback::" + result.StatusCode.ToString());
+
             return (result.StatusCode == System.Net.HttpStatusCode.NoContent);
         }
 
         public async Task<bool> SetVolume(string deviceId, double volume)
         {
-            AnalyticsHelper.Log("api", "me/player:setvolume");
-
             var volume_percent = (int)Math.Round(volume * 100.0);
 
             var result = await SendRequestWithTokenAsync($"https://api.spotify.com/v1/me/player/volume?volume_percent={volume_percent}&device_id={deviceId}", HttpMethod.Put);
+
+            if (result.IsSuccessStatusCode == false)
+                AnalyticsHelper.Log("api", "me/player:setvolume::" + result.StatusCode.ToString());
+
             return (result.StatusCode == System.Net.HttpStatusCode.NoContent);
         }
     }

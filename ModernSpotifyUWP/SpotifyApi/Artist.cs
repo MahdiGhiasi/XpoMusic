@@ -13,10 +13,11 @@ namespace ModernSpotifyUWP.SpotifyApi
     {
         public async Task<Model.Artist> GetArtist(string artistId)
         {
-            AnalyticsHelper.Log("api", "getartist");
-
             var result = await SendRequestWithTokenAsync($"https://api.spotify.com/v1/artists/{artistId}", HttpMethod.Get);
             var resultString = await result.Content.ReadAsStringAsync();
+
+            if (result.IsSuccessStatusCode == false)
+                AnalyticsHelper.Log("api", "getartist::" + result.StatusCode.ToString());
 
             return JsonConvert.DeserializeObject<Model.Artist>(resultString);
         }
