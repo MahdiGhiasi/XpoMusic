@@ -49,6 +49,16 @@ namespace ModernSpotifyUWP
 
             appNameText.Text = PackageHelper.GetAppNameString();
             appVersionText.Text = PackageHelper.GetAppVersionString();
+
+            if (LocalConfiguration.LatestAssetUpdateVersion == 0)
+            {
+                assetUpdatePackSection.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                assetUpdatePackSection.Visibility = Visibility.Visible;
+                assetUpdatePackText.Text = LocalConfiguration.LatestAssetUpdateVersion.ToString();
+            }
         }
 
         private async void RateAndReviewButton_Click(object sender, RoutedEventArgs e)

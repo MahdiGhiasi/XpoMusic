@@ -55,6 +55,18 @@
                                            FontWeight="Light"
                                            FontSize="12" />
                             </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0" x:Name="assetUpdatePackSection">
+                                <TextBlock Text="Script update version:"
+                                           Opacity="0.6"
+                                           FontWeight="Light"
+                                           FontSize="12" />
+                                <TextBlock x:Name="assetUpdatePackText"
+                                           Margin="2,0,0,0"
+                                           Text="0"
+                                           Opacity="0.6"
+                                           FontWeight="Light"
+                                           FontSize="12" />
+                            </StackPanel>
                         </StackPanel>
                     </Grid>
 
