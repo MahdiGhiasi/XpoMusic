@@ -1,4 +1,5 @@
 ﻿using ModernSpotifyUWP.Helpers;
+using ModernSpotifyUWP.XpotifyApi;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,26 @@ namespace ModernSpotifyUWP.Classes
                     return TimeSpan.FromMilliseconds(PlayStatePollIntervalMillisecondsWithCompactOverlayOpen);
 
                 return TimeSpan.FromMilliseconds(PlayStatePollIntervalMilliseconds);
+            }
+        }
+
+        public static async void Update()
+        {
+            try
+            {
+                var updateString = await AppConstantsApi.GetAppConstantsString();
+
+                if (string.IsNullOrWhiteSpace(updateString))
+                {
+                    logger.Info("No AppConstants update available.");
+                    return;
+                }
+
+                JsonConvert.PopulateObject(updateString, Instance);
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("AppConstants.Update failed: " + ex.ToString());
             }
         }
     }

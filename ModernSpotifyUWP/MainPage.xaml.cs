@@ -163,7 +163,7 @@ namespace ModernSpotifyUWP
             Window.Current.CoreWindow.Activated += Window_Activated;
 
             // Update app constants from server
-            XpotifyApi.AppConstantsApi.UpdateAppConstants();
+            AppConstants.Update();
 
             // Update assets from server
             AssetManager.UpdateAssets();

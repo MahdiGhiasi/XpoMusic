@@ -26,7 +26,7 @@ namespace ModernSpotifyUWP.XpotifyApi
             }
         }
 
-        public static async void UpdateAppConstants()
+        public static async Task<string> GetAppConstantsString()
         {
             try
             {
@@ -36,16 +36,17 @@ namespace ModernSpotifyUWP.XpotifyApi
                     if (response.IsSuccessStatusCode == false)
                     {
                         logger.Warn($"UpdateAppConstants failed because request failed with status code {response.StatusCode}.");
-                        return;
+                        return null;
                     }
 
                     var result = await response.Content.ReadAsStringAsync();
-                    JsonConvert.PopulateObject(result, Classes.AppConstants.Instance);
+                    return result;
                 }
             }
             catch (Exception ex)
             {
                 logger.Warn("UpdateAppConstants failed: " + ex.ToString());
+                return null;
             }
         }
     }
