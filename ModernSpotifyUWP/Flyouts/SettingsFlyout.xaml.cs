@@ -51,11 +51,22 @@ namespace ModernSpotifyUWP.Flyouts
 
         private void NavigationView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
-            FrameNavigationOptions navOptions = new FrameNavigationOptions
-            {                 
-                IsNavigationStackEnabled = false,
-                TransitionInfoOverride = new EntranceNavigationTransitionInfo(),
-            };
+            FrameNavigationOptions navOptions = null;
+            try
+            {
+                // There's an exception happening for a small subset of users on the 
+                // contructor of FrameNavigationOptions. Here is the exception message:
+                //  << System.Runtime.InteropServices.COMException (0x80040154): Class not registered (Exception from HRESULT: 0x80040154) >>
+                // The cause for this is unknown. But as it's not an important thing,
+                // we can just ignore the exception and continue navigation without 
+                // a FrameNavigationOptions object for those users.
+                navOptions = new FrameNavigationOptions
+                {
+                    IsNavigationStackEnabled = false,
+                    TransitionInfoOverride = new EntranceNavigationTransitionInfo(),
+                };
+            }
+            catch { }
 
             if (args.SelectedItem == settingsMenuItem)
             {
