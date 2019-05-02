@@ -99,6 +99,7 @@ namespace ModernSpotifyUWP.Helpers
                 assetFolders.Add(defaultFolder);
 
                 logger.Info("Asset folders:\n" + string.Join('\n', assetFolders.Select(x => x.Path)));
+                logger.Info("LatestAssetUpdateVersion: " + LocalConfiguration.LatestAssetUpdateVersion);
             }
             finally
             {
