@@ -210,5 +210,13 @@ namespace ModernSpotifyUWP.Helpers
 
             return (result == "1");
         }
+
+        internal static async Task<bool> IsPlayingOnThisApp()
+        {
+            var script = await AssetManager.LoadAssetString("isPlayingOnThisApp.js");
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+
+            return (result == "1");
+        }
     }
 }

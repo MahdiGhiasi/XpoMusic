@@ -420,48 +420,56 @@ namespace ModernSpotifyUWP
                 return;
 
             try
-            {                 
-                var currentPlayTime = await WebViewHelper.GetCurrentSongPlayTime();
-
-                if (currentPlayTime == "0:00" 
-                    && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds > 5000
-                    && PlayStatusTracker.LastPlayStatus.IsPlaying)
+            {
+                var isPlayingOnThisApp = await WebViewHelper.IsPlayingOnThisApp();
+                if (isPlayingOnThisApp)
                 {
-                    if (stuckDetectCounter < 2)
+                    var currentPlayTime = await WebViewHelper.GetCurrentSongPlayTime();
+
+                    if (currentPlayTime == "0:00"
+                        && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds > 5000
+                        && PlayStatusTracker.LastPlayStatus.IsPlaying)
                     {
-                        stuckDetectCounter++;
+                        if (stuckDetectCounter < 2)
+                        {
+                            stuckDetectCounter++;
+                        }
+                        else
+                        {
+                            stuckDetectCounter = 0;
+                            logger.Warn("Playback seems to have stuck.");
+
+                            var result = false;
+
+                            if ((DateTime.UtcNow - lastStuckFixApiCall) > TimeSpan.FromMinutes(1))
+                            {
+                                lastStuckFixApiCall = DateTime.UtcNow;
+
+                                var player = new Player();
+                                result = await player.PreviousTrack();
+                            }
+
+                            if (result)
+                            {
+                                AnalyticsHelper.Log("playbackStuck", "1");
+                                ToastHelper.SendDebugToast("PlaybackStuck1", "PrevTrack issued.");
+                                logger.Info("playbackStuck1");
+                            }
+                            else
+                            {
+                                await WebViewHelper.NextTrack();
+                                await Task.Delay(1500);
+                                await WebViewHelper.PreviousTrack();
+
+                                AnalyticsHelper.Log("playbackStuck", "2");
+                                ToastHelper.SendDebugToast("PlaybackStuck2", "NextAndPrevTrack issued.");
+                                logger.Info("playbackStuck2");
+                            }
+                        }
                     }
                     else
                     {
                         stuckDetectCounter = 0;
-                        logger.Warn("Playback seems to have stuck.");
-
-                        var result = false;
-
-                        if ((DateTime.UtcNow - lastStuckFixApiCall) > TimeSpan.FromMinutes(1))
-                        {
-                            lastStuckFixApiCall = DateTime.UtcNow;
-
-                            var player = new Player();
-                            result = await player.PreviousTrack();
-                        }
-
-                        if (result)
-                        {
-                            AnalyticsHelper.Log("playbackStuck", "1");
-                            ToastHelper.SendDebugToast("PlaybackStuck1", "PrevTrack issued.");
-                            logger.Info("playbackStuck1");
-                        }
-                        else
-                        {
-                            await WebViewHelper.NextTrack();
-                            await Task.Delay(1500);
-                            await WebViewHelper.PreviousTrack();
-
-                            AnalyticsHelper.Log("playbackStuck", "2");
-                            ToastHelper.SendDebugToast("PlaybackStuck2", "NextAndPrevTrack issued.");
-                            logger.Info("playbackStuck2");
-                        }
                     }
                 }
                 else

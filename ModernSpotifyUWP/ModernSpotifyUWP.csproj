@@ -361,6 +361,7 @@
     <Content Include="Assets\Media\silent.wav" />
     <Content Include="InjectedAssets\initLightTheme.js" />
     <Content Include="InjectedAssets\isLoggedInCheck.js" />
+    <Content Include="InjectedAssets\isPlayingOnThisApp.js" />
     <Content Include="InjectedAssets\navigateToPage.js" />
     <Content Include="InjectedAssets\initScript.js" />
     <Content Include="InjectedAssets\style-light.css" />
