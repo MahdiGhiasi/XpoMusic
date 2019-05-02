@@ -460,6 +460,8 @@ namespace ModernSpotifyUWP
                                 await WebViewHelper.NextTrack();
                                 await Task.Delay(1500);
                                 await WebViewHelper.PreviousTrack();
+                                await Task.Delay(1500);
+                                await WebViewHelper.PreviousTrack();
 
                                 AnalyticsHelper.Log("playbackStuck", "2");
                                 ToastHelper.SendDebugToast("PlaybackStuck2", "NextAndPrevTrack issued.");
