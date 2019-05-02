@@ -40,6 +40,7 @@ namespace ModernSpotifyUWP.Helpers
                     await Task.Run(() => archive.ExtractToDirectory(destinationFolder.Path, overwriteFiles: true));
                 }
 
+                LocalConfiguration.LatestAppVersionOnAssetUpdate = PackageHelper.GetAppVersion();
                 LocalConfiguration.LatestAssetUpdateVersion = package.AssetPackageInfo.version;
                 logger.Info($"Asset update version {package.AssetPackageInfo.version} downloaded and extracted.");
 
@@ -87,13 +88,26 @@ namespace ModernSpotifyUWP.Helpers
                 var parentFolder = await GetAssetUpdateParentFolder();
                 var folders = await parentFolder.GetFoldersAsync();
 
-                assetFolders = folders.OrderByDescending(x =>
+                if (LocalConfiguration.LatestAppVersionOnAssetUpdate < PackageHelper.GetAppVersion())
                 {
-                    if (int.TryParse(x.DisplayName, out int result))
-                        return result;
+                    logger.Info($"LatestAppVersionOnAssetUpdate is {LocalConfiguration.LatestAppVersionOnAssetUpdate}, but current app version is {PackageHelper.GetAppVersion()}. Will delete all old asset updates.");
 
-                    return 0;
-                }).ToList();
+                    foreach (var folder in folders)
+                        await folder.DeleteAsync(StorageDeleteOption.PermanentDelete);
+
+                    LocalConfiguration.LatestAssetUpdateVersion = 0;
+                    assetFolders = new List<StorageFolder>();
+                }
+                else
+                {
+                    assetFolders = folders.OrderByDescending(x =>
+                    {
+                        if (int.TryParse(x.DisplayName, out int result))
+                            return result;
+
+                        return 0;
+                    }).ToList();
+                }
 
                 var defaultFolder = await Windows.Application­Model.Package.Current.InstalledLocation.GetFolderAsync("InjectedAssets");
                 assetFolders.Add(defaultFolder);

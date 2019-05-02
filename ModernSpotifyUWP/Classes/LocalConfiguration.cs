@@ -183,6 +183,21 @@ namespace ModernSpotifyUWP.Classes
             }
         }
 
+        public static Version LatestAppVersionOnAssetUpdate
+        {
+            get
+            {
+                if (Version.TryParse(GetConfiguration("LatestAppVersionOnAssetUpdate"), out Version latestVersion))
+                    return latestVersion;
+
+                return PackageHelper.GetAppVersion();
+            }
+            set
+            {
+                SetConfiguration("LatestAppVersionOnAssetUpdate", value.ToString());
+            }
+        }
+
         private static string GetConfiguration(string key)
         {
             var completeKey = "LocalConfiguration_" + key;
