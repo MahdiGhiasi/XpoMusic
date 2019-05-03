@@ -51,36 +51,19 @@ namespace ModernSpotifyUWP.Flyouts
 
         private void NavigationView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
-            FrameNavigationOptions navOptions = null;
-            try
-            {
-                // There's an exception happening for a small subset of users on the 
-                // contructor of FrameNavigationOptions. Here is the exception message:
-                //  << System.Runtime.InteropServices.COMException (0x80040154): Class not registered (Exception from HRESULT: 0x80040154) >>
-                // The cause for this is unknown. But as it's not an important thing,
-                // we can just ignore the exception and continue navigation without 
-                // a FrameNavigationOptions object for those users.
-                navOptions = new FrameNavigationOptions
-                {
-                    IsNavigationStackEnabled = false,
-                    TransitionInfoOverride = new EntranceNavigationTransitionInfo(),
-                };
-            }
-            catch { }
-
             if (args.SelectedItem == settingsMenuItem)
             {
-                contentFrame.NavigateToType(typeof(SettingsPage), null, navOptions);
+                contentFrame.Navigate(typeof(SettingsPage), null, new EntranceNavigationTransitionInfo());
                 AnalyticsHelper.PageView("SettingsPage");
             }
             else if (args.SelectedItem == aboutMenuItem)
             {
-                contentFrame.NavigateToType(typeof(AboutPage), null, navOptions);
+                contentFrame.Navigate(typeof(AboutPage), null, new EntranceNavigationTransitionInfo());
                 AnalyticsHelper.PageView("AboutPage");
             }
             else if (args.SelectedItem == donateMenuItem)
             {
-                contentFrame.NavigateToType(typeof(DonatePage), null, navOptions);
+                contentFrame.Navigate(typeof(DonatePage), null, new EntranceNavigationTransitionInfo());
                 AnalyticsHelper.PageView("DonatePage");
             }
         }
