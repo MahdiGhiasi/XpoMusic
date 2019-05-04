@@ -1,12 +1,24 @@
 
-html {
+.whole-page-overlay {
     /*
-        Content color is inverted, and then WebView is inverted again in XAML,
-        so it has dark scrollbar theme instead of light.
+        'filter' becomes blurry in Edge when height > ~1100px, but backdrop-filter is fine.
+        So we use an overlay with backdrop-filter instead of filter on html itself when height
+        is 1100px or bigger.
+        But we'll keep using filter on html for smaller sizes, as it provides better rendering
+        in time of loading the page.
     */
-    filter: invert(1);
-    /* 
 
+    -webkit-backdrop-filter: invert(1);
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+html {
+    /* 
         Color of the bounce effect of page when using touch or touchpad.
         This color should be the inverted of the desired color, because of
         the filter declared above.
@@ -14,19 +26,22 @@ html {
     background-color: #E7E7E7; /* invert(#E7E7E7) = #181818 */
 }
 
-body {
-    background-color: #181818;
+@media (max-height: 1100px) {
+    html {
+        /*
+            Content color is inverted, and then WebView is inverted again in XAML,
+            so it has dark scrollbar theme instead of light.
+        */
+        filter: invert(1);
+    }
+
+    .whole-page-overlay {
+        -webkit-backdrop-filter: initial;
+    }
 }
 
-@media (min-height: 1100px) {
-    html {
-        /* 
-            The contents become pixelated when the height is too much on Edge.
-            Adding blur(0) does not make it crystal clear as it should, but it's
-            still better than not having that.
-        */
-        filter: invert(1) blur(0);
-    }
+body {
+    background-color: #181818;
 }
 
 .Root__nav-bar {

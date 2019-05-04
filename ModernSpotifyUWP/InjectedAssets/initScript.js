@@ -101,6 +101,11 @@ document.getElementsByTagName('head')[0].appendChild(style);
 style.type = 'text/css';
 style.appendChild(document.createTextNode(atob(css)));
 
+// Inject page overlay
+var overlayDiv = document.createElement('div');
+overlayDiv.classList.add("whole-page-overlay");
+body.appendChild(overlayDiv);
+
 // Inject back button
 var backButtonDiv = document.createElement('div');
 backButtonDiv.classList.add("backButtonContainer");
