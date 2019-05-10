@@ -62,6 +62,7 @@ body {
     /* Don't show scrollbar when not necessary */
     overflow-y: auto;
 }
+
 .Root__nav-bar {
     background-color: rgba(0, 0, 0, 0.2) !important;
     -webkit-backdrop-filter: blur(20px);
@@ -89,6 +90,11 @@ body {
 .AdsContainer {
     background-color: rgba(24, 24, 24, 0.7);
     -webkit-backdrop-filter: blur(30px);
+}
+
+.cover-art {
+    /* Fixed a bug where some images show up as inverted in Edge. */
+    filter: invert(0);
 }
 
 .NavBar__download-item {
