@@ -38,6 +38,17 @@ html {
     .whole-page-overlay {
         -webkit-backdrop-filter: initial;
     }
+
+    .main-view-container__content, .main-view-container__content > section, .main-view-container__content > div {
+        /*
+            Fix for new scrollbar theme: We invert the color of the element with scrollbar, as well as its immediate child, so
+            the content is not inverted but the scrollbar is.
+            
+            Note: We don't do this for pages with height more than 1100px, because of Edge pixelation bug.
+            This is a compromise, on too tall displays scrollbar color is not correct but at least page is not pixelated.
+        */
+        filter: invert(1);
+    }
 }
 
 body {
