@@ -11,7 +11,7 @@ function injectBackButton(backButtonDiv) {
 }
 
 function injectNavbarDownButton(button) {
-    var navbar = document.querySelectorAll(".Root__nav-bar");
+    var navbar = document.querySelectorAll(".NavBarFooter");
     var sessionInfo = document.querySelectorAll(".sessionInfo");
     if (navbar.length === 0 || sessionInfo.length === 0) {
         setTimeout(function () {
