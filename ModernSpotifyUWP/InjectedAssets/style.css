@@ -47,6 +47,8 @@ body {
 .Root__nav-bar {
     background-color: rgba(0, 0, 0, 0.2) !important;
     -webkit-backdrop-filter: blur(20px);
+
+    overflow: hidden;
 }
 
 .Root__main-view .contentSpacing {
@@ -212,6 +214,14 @@ body {
         width: 22px;
         min-width: 22px;
     }
+
+    .Root__main-view {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100%;
+    }
+
+    
 }
 
 @media (max-width: 640px) {
@@ -291,9 +301,21 @@ body {
             .now-playing-bar__right__inner .volume-bar .control-button {
                 margin-right: 2px;
             }
+
+    .contentSpacing {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
 }
 
-@media (max-width: 630px) {
+
+@media (max-width: 870px) and (min-width: 771px) {
+    .TrackListHeader {
+        width: 400px;
+    }
+}
+
+@media (max-width: 770px) {
     .Root__main-view .TrackListHeader {
         display: block;
     }
