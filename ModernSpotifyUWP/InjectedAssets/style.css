@@ -44,6 +44,13 @@ body {
     background-color: #181818;
 }
 
+.main-view-container__content {
+    /* Auto hide new scrollbar */
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+    /* Don't show scrollbar when not necessary */
+    overflow-y: auto;
+}
 .Root__nav-bar {
     background-color: rgba(0, 0, 0, 0.2) !important;
     -webkit-backdrop-filter: blur(20px);
