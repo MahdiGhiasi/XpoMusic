@@ -187,6 +187,7 @@ setTimeout(function () {
 }, 1000);
 
 window.addEventListener("resize", onResize, true);  
+setInterval(onResize, 2000); // Sometimes an OnResize is necessary when users goes to a new page.
 
 if (errors.length > 0)
     throw errors;
