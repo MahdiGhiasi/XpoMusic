@@ -53,6 +53,9 @@ html {
 
 body {
     background-color: #181818;
+
+    /* Disable overscrolling navbar and now playing bar */
+    overflow-y: hidden;
 }
 
 .main-view-container__content {
