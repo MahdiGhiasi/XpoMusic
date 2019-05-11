@@ -25,8 +25,9 @@ namespace ModernSpotifyUWP.XpotifyApi
                 var version = PackageHelper.GetAppVersion().ToString(3);
                 var fileName = "assetPackageInfo.json";
                 var query = "?date=" + DateTime.Now.ToString("yyyyMMddHHmmss");
+                var proSuffix = PackageHelper.IsProVersion ? "pro" : "";
 
-                return $"{endpoint}/{version}/{fileName}{query}";
+                return $"{endpoint}/{version}{proSuffix}/{fileName}{query}";
             }
         }
 

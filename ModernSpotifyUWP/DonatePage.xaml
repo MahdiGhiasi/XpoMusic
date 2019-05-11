@@ -8,9 +8,25 @@
     mc:Ignorable="d"
     Background="Transparent">
 
-    <Grid>
+    <ScrollViewer>
         <StackPanel Margin="16,4,16,0">
-            <TextBlock Text="You can support the development of Xpotify by donating to one of the addresses below."
+            <TextBlock x:Name="runningProVersion"
+                       Margin="0,8,0,16"
+                       FontWeight="Bold"
+                       Foreground="ForestGreen"
+                       Text="You are running Xpotify Pro. Thanks for your support!"
+                       TextWrapping="Wrap" />
+            <TextBlock Margin="0,8,0,0"
+                       Text="You can support the development of Xpotify by purchasing Xpotify Pro from the Store."
+                       TextWrapping="Wrap" />
+            <HyperlinkButton Click="GetXpotifyPro_Click" 
+                             Content="Get Xpotify Pro from Microsoft Store" />
+            <TextBlock
+                Margin="0,8,0,32"
+                Opacity="0.5"
+                Text="The free version of Xpotify does not have any limitations; but you can buy Xpotify Pro to support the development of the app."
+                TextWrapping="Wrap" />
+            <TextBlock Text="You can also support the development of Xpotify by donating to one of the addresses below."
                        Margin="0,8,0,0"
                        TextWrapping="Wrap"/>
             <TextBlock Text="Bitcoin:"
@@ -48,5 +64,5 @@
                                  HorizontalAlignment="Right" />
             </StackPanel>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </Page>

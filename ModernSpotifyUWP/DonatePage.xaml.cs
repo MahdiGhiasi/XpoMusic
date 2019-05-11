@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -20,13 +21,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace ModernSpotifyUWP
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class DonatePage : Page
     {
-        private string bitcoinWalletAddress = "38TmLnUjix9NiPpiFoKV7qAjNeqaSi1EJH";
-        private string ethereumWalletAddress = "0x8c8d6a7f0c4e2da49bf9e249fdb349ffde884a00";
+        private readonly string bitcoinWalletAddress = "38TmLnUjix9NiPpiFoKV7qAjNeqaSi1EJH";
+        private readonly string ethereumWalletAddress = "0x8c8d6a7f0c4e2da49bf9e249fdb349ffde884a00";
+        private readonly Uri proStoreUri = new Uri("ms-windows-store://pdp/?productid=9PC9VV8KTXPL");
 
         public DonatePage()
         {
@@ -34,6 +33,8 @@ namespace ModernSpotifyUWP
 
             bitcoinWallet.Text = bitcoinWalletAddress;
             ethereumWallet.Text = ethereumWalletAddress;
+
+            runningProVersion.Visibility = PackageHelper.IsProVersion ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private async void CopyBitcoinAddressToClipboard_Click(object sender, RoutedEventArgs e)
@@ -62,6 +63,12 @@ namespace ModernSpotifyUWP
             dataPackage.SetText(text);
             Clipboard.SetContent(dataPackage);
             Clipboard.Flush();
+        }
+
+        private async void GetXpotifyPro_Click(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(proStoreUri);
+            AnalyticsHelper.Log("donate", "getXpotifyPro");
         }
     }
 }

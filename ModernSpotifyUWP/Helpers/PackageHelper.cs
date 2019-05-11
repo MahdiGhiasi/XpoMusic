@@ -11,6 +11,8 @@ namespace ModernSpotifyUWP.Helpers
 {
     public static class PackageHelper
     {
+        private static readonly string proPackageName = "36835MahdiGhiasi.XpotifyPro";
+
         public static string GetAppVersionString()
         {
             Package package = Package.Current;
@@ -35,5 +37,7 @@ namespace ModernSpotifyUWP.Helpers
             ToastHelper.SendReopenAppToast();
             Application.Current.Exit();
         }
+
+        public static bool IsProVersion => Package.Current.Id.FamilyName.Contains(proPackageName);
     }
 }
