@@ -56,6 +56,9 @@ body {
 
     /* Disable overscrolling navbar and now playing bar */
     overflow-y: hidden;
+
+    /* Disable zooming by pinch on touch screen or presicion touchpad */
+    -ms-content-zooming: none;
 }
 
 .main-view-container__content {
