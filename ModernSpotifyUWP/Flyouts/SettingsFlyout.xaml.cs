@@ -39,9 +39,9 @@ namespace ModernSpotifyUWP.Flyouts
                 RequestedTheme = ElementTheme.Light;
         }
 
-        public void InitFlyout()
+        public void InitFlyout(int tabId)
         {
-            navigationView.SelectedItem = navigationView.MenuItems.First();
+            navigationView.SelectedItem = navigationView.MenuItems[tabId];
         }
 
         private void NavigationView_BackRequested(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewBackRequestedEventArgs args)

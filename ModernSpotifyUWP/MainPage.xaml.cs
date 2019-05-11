@@ -633,7 +633,17 @@ namespace ModernSpotifyUWP
             else if (e.Uri.ToString().EndsWith("#xpotifysettings"))
             {
                 e.Cancel = true;
-                OpenSettings();
+                OpenSettings(0);
+            }
+            else if (e.Uri.ToString().EndsWith("#xpotifyabout"))
+            {
+                e.Cancel = true;
+                OpenSettings(1);
+            }
+            else if (e.Uri.ToString().EndsWith("#xpotifydonate"))
+            {
+                e.Cancel = true;
+                OpenSettings(2);
             }
             else if (e.Uri.ToString().EndsWith("#xpotifypintostart"))
             {
@@ -770,9 +780,9 @@ namespace ModernSpotifyUWP
             }
         }
 
-        private void OpenSettings()
+        private void OpenSettings(int tabId)
         {
-            settingsFlyout.InitFlyout();
+            settingsFlyout.InitFlyout(tabId);
             settingsFlyout.Visibility = Visibility.Visible;
             VisualStateManager.GoToState(this, "OverlayScreen", false);
         }
