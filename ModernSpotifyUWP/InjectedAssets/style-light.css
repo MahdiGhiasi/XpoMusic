@@ -1,4 +1,38 @@
-﻿.cover-art, .artist-header, .view-header, .ConnectBar, .btn-green, .btn-fg-green,
+﻿.whole-page-overlay {
+    /*
+        'filter' becomes blurry in Edge when height > ~1100px, but backdrop-filter is fine.
+        So we use an overlay with backdrop-filter instead of filter on html itself when height
+        is 1100px or bigger.
+        But we'll keep using filter on html for smaller sizes, as it provides better rendering
+        in time of loading the page.
+    */
+    -webkit-backdrop-filter: invert(1);
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+@media (max-height: 1100px) {
+    html {
+        filter: invert(1);
+    }
+
+    .whole-page-overlay {
+        -webkit-backdrop-filter: initial;
+    }
+}
+
+html {
+    /* 
+        Color of the bounce effect of page when using touch or touchpad.
+    */
+    background-color: #E7E7E7;
+}
+
+.cover-art, .artist-header, .view-header, .ConnectBar, .btn-green, .btn-fg-green,
 div[aria-live=polite], .control-button--active, .Root__nav-bar .sessionInfo .avatar,
 .UserWidget__link--is-active span, .AdsContainer__inner, img[src*=profilepic] {
     filter: invert(1);

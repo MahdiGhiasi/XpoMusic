@@ -605,10 +605,9 @@ namespace ModernSpotifyUWP
             if (e.Uri.ToString().ToLower().Contains(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
             {
                 await WebViewHelper.InjectInitScript();
-                if (LocalConfiguration.Theme == Theme.Dark)
-                    mainWebViewInvertFilter.Visibility = Visibility.Visible;
-                else
+                if (LocalConfiguration.Theme == Theme.Light)
                     await WebViewHelper.InjectLightThemeScript();
+
                 SetInitialPlaybackState();
             }
 
@@ -672,9 +671,6 @@ namespace ModernSpotifyUWP
                     VisualStateManager.GoToState(this, "SplashScreen", false);
                 }
             }
-
-            if (!e.Uri.ToString().ToLower().StartsWith(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
-                mainWebViewInvertFilter.Visibility = Visibility.Collapsed;
 
             if (e.Uri.ToString().StartsWith(Authorization.FacebookLoginFinishRedirectUri))
             {

@@ -230,11 +230,7 @@
                  FrameNavigationStarting="MainWebView_FrameNavigationStarting"
                  NavigationFailed="MainWebView_NavigationFailed"
                  LoadCompleted="MainWebView_LoadCompleted" />
-        <Grid x:Name="mainWebViewInvertFilter" Visibility="Collapsed" IsHitTestVisible="False">
-            <Grid.Background>
-                <media:BackdropInvertBrush />
-            </Grid.Background>
-        </Grid>
+        
         <ProgressRing x:Name="mainProgressRing"
                       Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                       Width="60"
