@@ -54,6 +54,7 @@ namespace ModernSpotifyUWP
         private string webViewPreviousUri = "";
         private bool shouldShowWhatsNew = false;
         private DeveloperMessage developerMessage = null;
+        private AutoPlayAction autoPlayAction = AutoPlayAction.None;
 
         public MainPage()
         {
@@ -123,6 +124,16 @@ namespace ModernSpotifyUWP
                     var urlDecoder = new WwwFormUrlDecoder(parameter);
                     var pageUrl = urlDecoder.GetFirstValueByName("pageUrl");
 
+                    var autoplayEntry = urlDecoder.FirstOrDefault(x => x.Name == "autoplay");
+                    if (autoplayEntry != null)
+                    {
+                        autoPlayAction = autoplayEntry.Value == "track" ? AutoPlayAction.Track : AutoPlayAction.Playlist;
+                    }
+                    else
+                    {
+                        autoPlayAction = AutoPlayAction.None;
+                    }
+
                     destinationUrl = pageUrl;
                 }
                 catch (Exception ex)
@@ -146,7 +157,15 @@ namespace ModernSpotifyUWP
                 var urlDecoder = new WwwFormUrlDecoder(parameter);
                 var pageUrl = urlDecoder.GetFirstValueByName("pageUrl");
 
+                var autoplayEntry = urlDecoder.FirstOrDefault(x => x.Name == "autoplay");
+                AutoPlayAction action = AutoPlayAction.None;
+                if (autoplayEntry != null)
+                {
+                    action = autoplayEntry.Value == "track" ? AutoPlayAction.Track : AutoPlayAction.Playlist;
+                }
+
                 await WebViewHelper.NavigateToSpotifyUrl(pageUrl);
+                await WebViewHelper.AutoPlay(action);
 
                 return;
             }
@@ -609,6 +628,12 @@ namespace ModernSpotifyUWP
                     await WebViewHelper.InjectLightThemeScript();
 
                 SetInitialPlaybackState();
+
+                if (autoPlayAction != AutoPlayAction.None)
+                {
+                    await WebViewHelper.AutoPlay(autoPlayAction);
+                    autoPlayAction = AutoPlayAction.None;
+                }
             }
 
             if (!await WebViewHelper.CheckLoggedIn())

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -95,9 +96,11 @@ namespace ModernSpotifyUWP
             Frame rootFrame = InitRootFrame(e.PreviousExecutionState);
 
             // Handle toast activation
-            if (e is ToastNotificationActivatedEventArgs)
+            if (e.Kind == ActivationKind.ToastNotification)
             {
                 var toastActivationArgs = e as ToastNotificationActivatedEventArgs;
+
+                logger.Info($"ToastActivation with argument '{toastActivationArgs.Argument}'.");
 
                 // Parse the query string (using QueryString.NET)
                 var args = new WwwFormUrlDecoder(toastActivationArgs.Argument);
@@ -109,17 +112,52 @@ namespace ModernSpotifyUWP
                     case "reopenApp":
                         if (rootFrame.Content == null)
                         {
-
                             rootFrame.Navigate(typeof(MainPage), null, new SuppressNavigationTransitionInfo());
                         }
                         break;
                 }
+            }
+            else if (e.Kind == ActivationKind.Protocol)
+            {
+                var args = e as ProtocolActivatedEventArgs;
+                var uri = args.Uri.ToString();
+                var currentMainPage = (rootFrame.Content as MainPage);
 
-                // If we're loading the app for the first time, place the main page on
-                // the back stack so that user can go back after they've been
-                // navigated to the specific page
-                if (rootFrame.BackStack.Count == 0)
-                    rootFrame.BackStack.Add(new PageStackEntry(typeof(MainPage), null, null));
+                logger.Info($"ProtocolActivation with uri '{uri}'.");
+
+                var targetPwaUri = SpotifyShareUriHelper.GetPwaUri(uri);
+
+                if (string.IsNullOrWhiteSpace(targetPwaUri))
+                {
+                    // Invalid uri, will launch default page
+
+                    if (currentMainPage == null)
+                    {
+                        // if MainPage is not opened, navigate to MainPage with the necessary argument
+                        rootFrame.Navigate(typeof(MainPage), null, new SuppressNavigationTransitionInfo());
+                    }
+                }
+                else
+                {
+                    var argument = "pageUrl=" + WebUtility.UrlEncode(targetPwaUri);
+
+                    if (uri.ToLower().StartsWith("spotify:nl:"))
+                    {
+                        var autoplay = targetPwaUri.ToLower().Contains("/track/") ? "track" : "playlist";
+                        argument += "&autoplay=" + autoplay;
+                    }
+
+                    if (currentMainPage == null)
+                    {
+                        // if MainPage is not opened, navigate to MainPage with the necessary argument
+                        rootFrame.Navigate(typeof(MainPage), argument);
+                    }
+                    else
+                    {
+                        // if MainPage is opened already, send a signal to it so it can navigate to the new url.
+                        currentMainPage.NavigateToSecondaryTile(argument);
+                    }
+                }
             }
 
             // TODO: Handle other types of activation

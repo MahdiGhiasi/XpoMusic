@@ -155,6 +155,12 @@ namespace ModernSpotifyUWP.Helpers
             }
         }
 
+        internal static async Task AutoPlay(AutoPlayAction action)
+        {
+            var script = await AssetManager.LoadAssetString(action == AutoPlayAction.Track ? "autoplayTrack.js" : "autoplayPlaylist.js");
+            var currentPlaying = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+        }
+
         public static async Task<string> GetCurrentPlaying()
         {
             var script = await AssetManager.LoadAssetString("checkCurrentPlaying.js");

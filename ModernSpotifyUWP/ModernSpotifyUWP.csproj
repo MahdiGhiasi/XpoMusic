@@ -132,6 +132,7 @@
     <Compile Include="Classes\AppConstants.cs" />
     <Compile Include="Classes\Converters\ThemeToStringConverter.cs" />
     <Compile Include="Classes\Converters\LanguageToStringConverter.cs" />
+    <Compile Include="Classes\Model\AutoPlayAction.cs" />
     <Compile Include="Classes\Model\Language.cs" />
     <Compile Include="Classes\Model\LocalStoragePlayback.cs" />
     <Compile Include="Classes\Model\Theme.cs" />
@@ -333,6 +334,8 @@
     <Content Include="Assets\Logo\SplashScreen.scale-400.png" />
     <Content Include="InjectedAssets\actionPlay.js" />
     <Content Include="InjectedAssets\actionPrevTrack.js" />
+    <Content Include="InjectedAssets\autoplayPlaylist.js" />
+    <Content Include="InjectedAssets\autoplayTrack.js" />
     <Content Include="InjectedAssets\checkCurrentPlaying.js" />
     <Content Include="InjectedAssets\checkCurrentSongPlayTime.js" />
     <Content Include="InjectedAssets\clearPlaybackLocalStorage.js" />
