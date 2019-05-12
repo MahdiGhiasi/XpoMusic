@@ -63,6 +63,7 @@ body {
 }
 
 .now-playing-bar-container {
+    border: 0;
     background-color: rgba(40, 40, 40, 0.7);
     -webkit-backdrop-filter: blur(30px);
 }
