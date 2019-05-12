@@ -623,11 +623,12 @@ namespace ModernSpotifyUWP
 
             if (e.Uri.ToString().ToLower().Contains(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
             {
-                await WebViewHelper.InjectInitScript();
+                var justInjected = await WebViewHelper.InjectInitScript();
                 if (LocalConfiguration.Theme == Theme.Light)
                     await WebViewHelper.InjectLightThemeScript();
 
-                SetInitialPlaybackState();
+                if (justInjected)
+                    SetInitialPlaybackState();
 
                 if (autoPlayAction != AutoPlayAction.None)
                 {

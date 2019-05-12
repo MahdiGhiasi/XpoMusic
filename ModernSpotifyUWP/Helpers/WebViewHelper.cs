@@ -41,7 +41,8 @@ namespace ModernSpotifyUWP.Helpers
             mainWebView.NavigateWithHttpRequestMessage(request);
         }
 
-        public static async Task InjectInitScript()
+        /// <returns>true if just injected the script, false if it was already injected.</returns>
+        public static async Task<bool> InjectInitScript()
         {
             var checkIfInjected = "((document.getElementsByTagName('body')[0].getAttribute('data-scriptinjection') == null) ? '0' : '1');";
             var injected = await mainWebView.InvokeScriptAsync("eval", new string[] { checkIfInjected });
@@ -53,10 +54,15 @@ namespace ModernSpotifyUWP.Helpers
                 script = script.Replace("{{CSSBASE64CONTENT}}", Convert.ToBase64String(Encoding.UTF8.GetBytes(styleCss)));
 
                 await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+
+                return true;
             }
+
+            return false;
         }
 
-        public static async Task InjectLightThemeScript()
+        /// <returns>true if just injected the script, false if it was already injected.</returns>
+        public static async Task<bool> InjectLightThemeScript()
         {
             var checkIfInjected = "((document.getElementsByTagName('body')[0].getAttribute('data-scriptinjection-lighttheme') == null) ? '0' : '1');";
             var injected = await mainWebView.InvokeScriptAsync("eval", new string[] { checkIfInjected });
@@ -68,7 +74,11 @@ namespace ModernSpotifyUWP.Helpers
                 script = script.Replace("{{CSSBASE64CONTENT}}", Convert.ToBase64String(Encoding.UTF8.GetBytes(styleCss)));
 
                 await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+
+                return true;
             }
+
+            return false;
         }
 
         public static async Task<bool> CheckLoggedIn()
