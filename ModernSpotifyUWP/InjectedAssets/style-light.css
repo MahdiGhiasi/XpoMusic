@@ -100,7 +100,7 @@ header.artist-header:after {
 }
 
 .now-playing-bar-container {
-    background-color: rgba(30, 33, 40, 0.8);
+    background-color: rgba(30, 33, 40, 0.75);
 }
 
 .react-contextmenu.react-contextmenu--visible {
