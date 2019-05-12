@@ -31,7 +31,7 @@ namespace ModernSpotifyUWP.Helpers
                 case Theme.Dark:
                     return "Dark";
                 case Theme.Light:
-                    return "Light (Experimental)";
+                    return "Light";
                 default:
                     return "???";
             }
