@@ -44,7 +44,13 @@ body {
     overflow: hidden;
 }
 
+.Root__main-view {
+    /* Fluent blur behind now playing bar */
+    margin-bottom: -90px;
+}
+
 .Root__main-view .contentSpacing {
+    margin-bottom: 90px !important;
     padding-top: 20px !important;
 }
 
