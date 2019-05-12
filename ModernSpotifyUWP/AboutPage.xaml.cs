@@ -36,7 +36,7 @@ namespace ModernSpotifyUWP
         {
             this.InitializeComponent();
 
-            if (LocalConfiguration.Theme == Classes.Model.Theme.Dark)
+            if (ThemeHelper.GetCurrentTheme() == Classes.Model.Theme.Dark)
             {
                 coloredLogo.Visibility = Visibility.Collapsed;
                 whiteLogo.Visibility = Visibility.Visible;

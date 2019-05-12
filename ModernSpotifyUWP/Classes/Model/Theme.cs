@@ -10,5 +10,6 @@ namespace ModernSpotifyUWP.Classes.Model
     {
         Dark,
         Light,
+        System,
     }
 }

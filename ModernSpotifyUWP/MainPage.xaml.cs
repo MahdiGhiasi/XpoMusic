@@ -235,7 +235,7 @@ namespace ModernSpotifyUWP
             AnalyticsHelper.PageView("MainPage");
             AnalyticsHelper.Log("mainEvent", "appOpened", SystemInformation.OperatingSystemVersion.ToString());
             
-            if (LocalConfiguration.Theme == Theme.Light)
+            if (ThemeHelper.GetCurrentTheme() == Theme.Light)
                 splashScreenToLightStoryboard.Begin();
 
             developerMessage = await DeveloperMessageHelper.GetNextDeveloperMessage();
@@ -284,7 +284,7 @@ namespace ModernSpotifyUWP
 
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
-            if (LocalConfiguration.Theme == Theme.Dark)
+            if (ThemeHelper.GetCurrentTheme() == Theme.Dark)
             {
                 // Top bar buttons background color
                 topBarButtonsAcrylicBrush.TintColor = Colors.Black;
@@ -624,7 +624,7 @@ namespace ModernSpotifyUWP
             if (e.Uri.ToString().ToLower().Contains(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
             {
                 var justInjected = await WebViewHelper.InjectInitScript();
-                if (LocalConfiguration.Theme == Theme.Light)
+                if (ThemeHelper.GetCurrentTheme() == Theme.Light)
                     await WebViewHelper.InjectLightThemeScript();
 
                 if (justInjected)

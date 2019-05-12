@@ -1,9 +1,11 @@
-﻿using ModernSpotifyUWP.Classes.Model;
+﻿using ModernSpotifyUWP.Classes;
+using ModernSpotifyUWP.Classes.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 
 namespace ModernSpotifyUWP.Helpers
 {
@@ -32,9 +34,19 @@ namespace ModernSpotifyUWP.Helpers
                     return "Dark";
                 case Theme.Light:
                     return "Light";
+                case Theme.System:
+                    return "Use my Windows mode";
                 default:
                     return "???";
             }
+        }
+
+        internal static Theme GetCurrentTheme()
+        {
+            if (LocalConfiguration.Theme != Theme.System)
+                return LocalConfiguration.Theme;
+
+            return (Application.Current.RequestedTheme == ApplicationTheme.Dark) ? Theme.Dark : Theme.Light;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ModernSpotifyUWP.Classes;
+using ModernSpotifyUWP.Helpers;
 using ModernSpotifyUWP.XpotifyApi.Model;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace ModernSpotifyUWP.Flyouts
         {
             this.InitializeComponent();
 
-            if (LocalConfiguration.Theme == Classes.Model.Theme.Dark)
+            if (ThemeHelper.GetCurrentTheme() == Classes.Model.Theme.Dark)
                 RequestedTheme = ElementTheme.Dark;
             else
                 RequestedTheme = ElementTheme.Light;
