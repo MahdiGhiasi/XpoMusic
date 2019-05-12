@@ -35,7 +35,7 @@ namespace ModernSpotifyUWP.Helpers
                 case Theme.Light:
                     return "Light";
                 case Theme.System:
-                    return "Use my Windows mode";
+                    return "Follow Windows app theme";
                 default:
                     return "???";
             }
