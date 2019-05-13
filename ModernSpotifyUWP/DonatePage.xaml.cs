@@ -25,7 +25,6 @@ namespace ModernSpotifyUWP
     {
         private readonly string bitcoinWalletAddress = "38TmLnUjix9NiPpiFoKV7qAjNeqaSi1EJH";
         private readonly string ethereumWalletAddress = "0x8c8d6a7f0c4e2da49bf9e249fdb349ffde884a00";
-        private readonly Uri proStoreUri = new Uri("ms-windows-store://pdp/?productid=9PC9VV8KTXPL");
 
         public DonatePage()
         {
@@ -67,7 +66,7 @@ namespace ModernSpotifyUWP
 
         private async void GetXpotifyPro_Click(object sender, RoutedEventArgs e)
         {
-            await Launcher.LaunchUriAsync(proStoreUri);
+            await Launcher.LaunchUriAsync(PackageHelper.ProStoreUri);
             AnalyticsHelper.Log("donate", "getXpotifyPro");
         }
     }

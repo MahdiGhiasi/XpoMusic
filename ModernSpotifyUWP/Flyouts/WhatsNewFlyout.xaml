@@ -8,7 +8,7 @@
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     RequestedTheme="Dark"
-    d:DesignHeight="450"
+    d:DesignHeight="550"
     d:DesignWidth="400">
 
     <Grid Background="{ThemeResource NavigationViewExpandedPaneBackground}"
@@ -42,6 +42,52 @@
                         </Grid>
                         <Grid Grid.Row="1" Padding="14,8,14,14">
                             <StackPanel x:Name="Content">
+                                <StackPanel Tag="3" Margin="0,0,0,24" Visibility="Visible">
+                                    <TextBlock Text="&#8226; Cortana can now play songs on Xpotify"
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,8"
+                                               TextWrapping="Wrap" />
+                                    <RichTextBlock Margin="16,0,0,0" 
+                                                   IsTextSelectionEnabled="False">
+                                        <Paragraph>
+                                            <Run>If you ask Cortana to play artists, albums, playlists and songs on Spotify, it'll be played on Xpotify.</Run>
+                                        </Paragraph>
+                                        <Paragraph Margin="0,8,0,0">
+                                            <Run>You will need to connect your Spotify account to Cortana in Cortana's Notebook.</Run>
+                                        </Paragraph>
+                                    </RichTextBlock>
+                                    <RichTextBlock Margin="16,8,0,0" 
+                                                   Opacity="0.7"
+                                                   IsTextSelectionEnabled="False">
+                                        <Paragraph>
+                                            <Run>Note: If the Spotify official app is installed on your PC as well, you may see a prompt asking which app to use. You can select Xpotify as the default app for handling spotify links there.</Run>
+                                        </Paragraph>
+                                    </RichTextBlock>
+
+                                    <TextBlock Text="&#8226; Follow Windows app theme"
+                                               FontWeight="SemiBold"
+                                               Margin="0,16,0,0"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="Xpotify can now follow app theme set in system settings as well."
+                                               Margin="16,4,0,0"
+                                               Opacity="0.7"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="&#8226; Fixed an issue where some playlists didn't have proper picture when pinned to Start."
+                                               FontWeight="SemiBold"
+                                               Margin="0,12,0,0"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="&#8226; Support the development of Xpotify by purchasing Xpotify Pro"
+                                               FontWeight="SemiBold"
+                                               Margin="0,12,0,0"
+                                               TextWrapping="Wrap" />
+                                    <TextBlock Text="Xpotify does not have any limitations compared to Xpotify Pro, but you can buy Xpotify Pro to support the development of the app."
+                                               Margin="16,4,0,0"
+                                               Opacity="0.7"
+                                               TextWrapping="Wrap" />
+                                    <HyperlinkButton Margin="16,0,0,0" 
+                                                     Click="GetXpotifyPro_Click"
+                                                     Content="Get Xpotify Pro from the Store" />
+                                </StackPanel>
                                 <StackPanel Tag="2" Margin="0,0,0,24" Visibility="Visible">
                                     <TextBlock Text="&#8226; Open shared spotify links in Xpotify"
                                                FontWeight="SemiBold"

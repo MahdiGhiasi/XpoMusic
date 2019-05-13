@@ -12,6 +12,7 @@ namespace ModernSpotifyUWP.Helpers
     public static class PackageHelper
     {
         private static readonly string proPackageName = "36835MahdiGhiasi.XpotifyPro";
+        internal static readonly Uri ProStoreUri = new Uri("ms-windows-store://pdp/?productid=9PC9VV8KTXPL");
 
         public static string GetAppVersionString()
         {

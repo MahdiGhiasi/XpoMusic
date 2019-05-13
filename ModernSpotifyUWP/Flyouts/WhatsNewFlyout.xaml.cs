@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -79,6 +80,12 @@ namespace ModernSpotifyUWP.Flyouts
 #if !DEBUG
             //App.Tracker.Send(HitBuilder.CreateCustomEvent("What's new", "Show", DeviceInfo.ApplicationVersionString).Build());
 #endif
+        }
+
+        private async void GetXpotifyPro_Click(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(PackageHelper.ProStoreUri);
+            AnalyticsHelper.Log("whatsNew", "getXpotifyPro");
         }
     }
 }

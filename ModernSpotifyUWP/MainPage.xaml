@@ -260,7 +260,7 @@
                 <flyouts:WhatsNewFlyout x:Name="whatsNewFlyout"
                                         Visibility="Collapsed"
                                         Width="400"
-                                        MaxHeight="450"
+                                        MaxHeight="550"
                                         FlyoutCloseRequest="WhatsNewFlyout_FlyoutCloseRequest" />
                 <flyouts:SettingsFlyout x:Name="settingsFlyout"
                                         Visibility="Collapsed"
