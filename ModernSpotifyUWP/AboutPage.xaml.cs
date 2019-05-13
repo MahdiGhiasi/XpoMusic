@@ -94,7 +94,7 @@ namespace ModernSpotifyUWP
             }
 
             emailMessage.To.Add(new EmailRecipient(supportEmailAddress));
-            emailMessage.Subject = $"Xpotify v{PackageHelper.GetAppVersionString()}";
+            emailMessage.Subject = $"{PackageHelper.GetAppNameString()} v{PackageHelper.GetAppVersionString()}";
             if (logFileReference != null)
             {
                 emailMessage.Attachments.Add(new EmailAttachment("xpotify-email.log", logFileReference));
