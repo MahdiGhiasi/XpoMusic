@@ -14,5 +14,5 @@ function tryPlay(remainingCount) {
     }, 500);
 }
 
-tryPlay(20);
+tryPlay(26);
 
