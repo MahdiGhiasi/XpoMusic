@@ -198,6 +198,21 @@ namespace ModernSpotifyUWP.Classes
             }
         }
 
+        public static bool OpenInMiniViewByCortana
+        {
+            get
+            {
+                var config = GetConfiguration("OpenInMiniViewByCortana");
+                if (config == null)
+                    return true;
+                return config == "1";
+            }
+            set
+            {
+                SetConfiguration("OpenInMiniViewByCortana", value ? "1" : "0");
+            }
+        }
+
         private static string GetConfiguration(string key)
         {
             var completeKey = "LocalConfiguration_" + key;

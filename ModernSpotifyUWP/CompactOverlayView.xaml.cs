@@ -64,6 +64,11 @@ namespace ModernSpotifyUWP
             timer.Start();
         }
 
+        public void ActivateProgressRing()
+        {
+            ViewModel.ProgressRingActive = true;
+        }
+
         private async void Timer_Tick(object sender, object e)
         {
             try

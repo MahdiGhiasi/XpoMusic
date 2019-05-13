@@ -64,6 +64,12 @@
                     <HyperlinkButton Content="Restart Xpotify"
                              Visibility="{x:Bind ViewModel.LanguageRestartNeededNoticeVisibility, Mode=OneWay}"
                              Click="RestartApp_Click"/>
+                    <ToggleSwitch Header="Open Xpotify in mini view when launched by Cortana" 
+                                  Margin="0,24,0,0"
+                                  IsOn="{x:Bind ViewModel.OpenInMiniViewByCortana, Mode=TwoWay}" />
+                    <TextBlock Margin="0,4,0,0" Opacity="0.5" TextWrapping="Wrap">
+                        State of the app won't be changed if it's already opened before Cortana's request.
+                    </TextBlock>
                     <controls:ProxyConfiguration Margin="0,24,0,0" />
                 </StackPanel>
             </StackPanel>

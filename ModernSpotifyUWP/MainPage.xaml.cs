@@ -134,6 +134,12 @@ namespace ModernSpotifyUWP
                         autoPlayAction = AutoPlayAction.None;
                     }
 
+                    var sourceEntry = urlDecoder.FirstOrDefault(x => x.Name == "source");
+                    if (sourceEntry != null && sourceEntry.Value == "cortana" && LocalConfiguration.OpenInMiniViewByCortana)
+                    {
+                        OpenCompactOverlayForAutoPlay();
+                    }
+
                     destinationUrl = pageUrl;
                 }
                 catch (Exception ex)
@@ -145,27 +151,37 @@ namespace ModernSpotifyUWP
             return "https://open.spotify.com/static/offline.html?redirectUrl=" + System.Net.WebUtility.UrlEncode(destinationUrl);
         }
 
-        public async void NavigateToSecondaryTile(string parameter)
+        private async void OpenCompactOverlayForAutoPlay()
+        {
+            await GoToCompactOverlayMode();
+            compactOverlayView.ActivateProgressRing();
+        }
+
+        public void NavigateToSecondaryTile(string parameter)
+        {
+            // Launched from a secondary tile
+            if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+                CloseCompactOverlay();
+
+            NavigateWithConfig(parameter);
+        }
+
+        public async void NavigateWithConfig(string parameter)
         {
             try
             {
-                // Launched from a secondary tile
-
-                if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
-                    CloseCompactOverlay();
-
                 var urlDecoder = new WwwFormUrlDecoder(parameter);
                 var pageUrl = urlDecoder.GetFirstValueByName("pageUrl");
+
+                await WebViewHelper.NavigateToSpotifyUrl(pageUrl);
 
                 var autoplayEntry = urlDecoder.FirstOrDefault(x => x.Name == "autoplay");
                 AutoPlayAction action = AutoPlayAction.None;
                 if (autoplayEntry != null)
-                {
                     action = autoplayEntry.Value == "track" ? AutoPlayAction.Track : AutoPlayAction.Playlist;
-                }
 
-                await WebViewHelper.NavigateToSpotifyUrl(pageUrl);
-                await WebViewHelper.AutoPlay(action);
+                if (action != AutoPlayAction.None)
+                    await WebViewHelper.AutoPlay(action);
 
                 return;
             }

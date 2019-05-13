@@ -89,5 +89,20 @@ namespace ModernSpotifyUWP.ViewModels
                 FirePropertyChangedEvent(nameof(ThemeRestartNeededNoticeVisibility));
             }
         }
+
+        public bool OpenInMiniViewByCortana
+        {
+            get
+            {
+                return LocalConfiguration.OpenInMiniViewByCortana;
+            }
+            set
+            {
+                LocalConfiguration.OpenInMiniViewByCortana = value;
+                FirePropertyChangedEvent(nameof(OpenInMiniViewByCortana));
+                AnalyticsHelper.Log("settingChange", "openInMiniViewByCortana", value.ToString());
+            }
+        }
+
     }
 }

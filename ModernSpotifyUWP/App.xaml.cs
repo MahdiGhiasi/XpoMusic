@@ -145,6 +145,7 @@ namespace ModernSpotifyUWP
                     {
                         var autoplay = targetPwaUri.ToLower().Contains("/track/") ? "track" : "playlist";
                         argument += "&autoplay=" + autoplay;
+                        argument += "&source=cortana";
                     }
 
                     if (currentMainPage == null)
@@ -155,7 +156,7 @@ namespace ModernSpotifyUWP
                     else
                     {
                         // if MainPage is opened already, send a signal to it so it can navigate to the new url.
-                        currentMainPage.NavigateToSecondaryTile(argument);
+                        currentMainPage.NavigateWithConfig(argument);
                     }
                 }
             }
