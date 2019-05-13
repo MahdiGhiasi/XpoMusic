@@ -21,7 +21,7 @@ namespace ModernSpotifyUWP.Helpers
                 output.Add((Theme)item);
             }
 
-            output = output.OrderBy(x => GetThemeName(x)).ToList();
+            output = output.OrderBy(x => (int)x).ToList();
 
             return output;
         }
