@@ -31,7 +31,7 @@
                        TextWrapping="Wrap"/>
             <TextBlock Text="Bitcoin:"
                        FontWeight="Bold"
-                       Margin="0,32,0,0" />
+                       Margin="0,16,0,0" />
             <TextBlock x:Name="bitcoinWallet" 
                        Text="xxx"
                        IsTextSelectionEnabled="True"
@@ -48,7 +48,7 @@
             </StackPanel>
             <TextBlock Text="Ethereum:"
                        FontWeight="Bold"
-                       Margin="0,16,0,0" />
+                       Margin="0,8,0,0" />
             <TextBlock x:Name="ethereumWallet" 
                        Text="xxx"
                        IsTextSelectionEnabled="True"
