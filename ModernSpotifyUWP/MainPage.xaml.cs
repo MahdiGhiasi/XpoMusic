@@ -648,7 +648,7 @@ namespace ModernSpotifyUWP
 
                 if (autoPlayAction != AutoPlayAction.None)
                 {
-                    await WebViewHelper.AutoPlay(autoPlayAction);
+                    AutoPlayOnStartup(autoPlayAction);
                     autoPlayAction = AutoPlayAction.None;
                 }
             }
@@ -658,6 +658,13 @@ namespace ModernSpotifyUWP
                 Authorize("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F", clearExisting: true);
                 AnalyticsHelper.Log("mainEvent", "notLoggedIn");
             }
+        }
+
+        private async void AutoPlayOnStartup(AutoPlayAction autoPlayAction)
+        {
+            await Task.Delay(TimeSpan.FromSeconds(1));
+            logger.Info("AutoPlay " + autoPlayAction);
+            await WebViewHelper.AutoPlay(autoPlayAction);
         }
 
         private async void MainWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs e)
