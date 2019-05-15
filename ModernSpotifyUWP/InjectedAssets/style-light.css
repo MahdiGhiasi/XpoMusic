@@ -127,6 +127,22 @@ header.artist-header:after {
     filter: brightness(.6);
 }
 
+.Root__main-view {
+    /* Fixed a bug where search page can appear dark in tall pages in Edge. */
+    filter: invert(0);
+}
+
+.Search__content nav ul li a {
+    /* Fixed a bug in search page content header in white theme in Edge. */
+    color: white !important;
+}
+
+    .Search__content nav ul li a::before {
+        /* Fixed a bug in search page content header in white theme in Edge. */
+        background-color: #e246ab !important;
+    }
+
+
 /* Error page image */
 #main .dialog img {
     filter: invert(1);
