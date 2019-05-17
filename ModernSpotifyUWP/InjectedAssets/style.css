@@ -210,6 +210,38 @@ div[aria-live=polite] button {
     margin-top: -1px;
 }
 
+/* Recently played items */
+@media (max-height:760px) {
+    .recently-played__item-5 {
+        display: none;
+    }
+}
+
+@media (max-height:726px) {
+    .recently-played__item-4 {
+        display: none;
+    }
+}
+
+@media (max-height:677px) {
+    .recently-played__item-3 {
+        display: none;
+    }
+}
+
+@media (max-height:633px) {
+    .recently-played__item-2 {
+        display: none;
+    }
+}
+
+@media (max-height:590px) {
+    .recently-played {
+        display: none;
+    }
+}
+
+
 /* Making UI usable for width < 720px, as UWP needs to support 500px+ */
 body {
     min-width: 500px;
