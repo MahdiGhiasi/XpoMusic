@@ -242,6 +242,12 @@ div[aria-live=polite] button {
     }
 }
 
+@media (max-height:660px) {
+    .Rootlist__playlists {
+        display: none;
+    }
+}
+
 
 /* Making UI usable for width < 720px, as UWP needs to support 500px+ */
 body {
