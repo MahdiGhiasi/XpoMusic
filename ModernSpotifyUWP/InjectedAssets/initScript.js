@@ -169,9 +169,20 @@ try {
     var settingsButton = document.createElement('div');
     settingsButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#xpotifysettings">'
         + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE115;</span></div>'
-        + '<span class="navbar-link__text">Xpotify settings</span></div></a></div>';
+        + '<span class="navbar-link__text">Settings</span></div></a></div>';
+    var aboutButton = document.createElement('div');
+    aboutButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#xpotifyabout">'
+        + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE946;</span></div>'
+        + '<span class="navbar-link__text">About</span></div></a></div>';
+    var donateButton = document.createElement('div');
+    donateButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#xpotifydonate">'
+        + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE719;</span></div>'
+        + '<span class="navbar-link__text">Donate</span></div></a></div>';
     injectNavbarDownButton(pinToStartButton);
     injectNavbarDownButton(settingsButton);
+    //injectNavbarDownButton(aboutButton);
+    if (!isProVersion)
+        injectNavbarDownButton(donateButton);
 }
 catch (ex) {
     errors += "injectNavBarFooterFailed,";
