@@ -1,0 +1,368 @@
+<html>
+    <head>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            .gridview-header {
+                cursor: pointer;
+                width: 100%;
+                font-size: 24px;
+                font-weight: 700;
+                margin-bottom: 16px;
+                padding: 8px 16px;
+            }
+
+            .gridview-header:hover {
+                background: rgba(0, 0, 0, 0.07);
+            }
+            
+            .gridview-group {
+                display: block;
+                overflow: hidden;
+            }
+
+            .gridview-item {
+                margin-left: 8px;
+                margin-right: 8px;
+                margin-bottom: 32px;
+                width: 216px;
+                height: 250px;
+                float: left;
+                text-align: center;
+                cursor: pointer;
+                overflow: hidden;
+            }
+
+            .gridview-item-image {
+                background-size: cover;
+                width: 200px;
+                height: 200px;
+                transition: filter ease-out 0.1s;
+            }
+
+            .artist-image {
+                border-radius: 100px;
+            }
+
+            .gridview-item-image:hover {
+                filter: brightness(0.5);
+            }
+
+            .gridview-item-text {
+                padding-top: 8px;
+            }
+
+            .gridview-jumplist {
+                display: none;
+            }
+                
+            .gridview-jumplist-enabled .gridview-jumplist {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .gridview-jumplist-itemcontainer {
+                width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+                overflow: hidden;
+            }
+            
+            .gridview-jumplist-item {
+                margin: 4px;
+                padding: 20px;
+                font-size: 24px;
+                font-weight: 700;
+                cursor: pointer;
+                display: block;
+                float: left;
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+            }
+            
+            .gridview-jumplist-item:hover {
+                background: rgba(0, 0, 0, 0.07);
+            }
+
+            .gridview-container {
+                transition: filter ease-out 0.3s, opacity ease-out 0.2s;
+            }
+
+            .gridview-jumplist-enabled .gridview-container {
+                filter: blur(30px);
+                opacity: 0.5;
+            }
+        </style>
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $(document).on('click', '.gridview-header', function() {
+                    $(".gridview").addClass("gridview-jumplist-enabled");
+                });
+
+                $(document).on('click', '.gridview-jumplist-item', function() {
+                    $(".gridview").removeClass("gridview-jumplist-enabled");
+                    window.location.hash = $(this).attr("data-navigationdest");
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div class="gridview">
+            <div class="gridview-container">
+                <div class="gridview-header">
+                    <a name="A"></a>A
+                </div>
+                <div class="gridview-group">
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>  
+                </div>
+
+                <div class="gridview-header">
+                    <a name="B"></a>B
+                </div>
+                <div class="gridview-group">
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody
+                        </div>
+                    </div>
+                    <div class="gridview-item">
+                        <div class="gridview-item-image artist-image" style="background-image:url(https://i.scdn.co/image/865f24753e5e4f40a383bf24a9cdda598a4559a8);">
+                        </div>
+                        <div class="gridview-item-text">
+                            Somebody Somebody SomebodySomebodySomebody SomebodySomebody Somebody  Somebody
+                        </div>
+                    </div>
+                        
+                </div>
+            </div>
+            <div class="gridview-jumplist">
+                <div class="gridview-jumplist-itemcontainer">
+                    <div class="gridview-jumplist-item" data-navigationdest="dot">...</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="A">A</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="B">B</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">C</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">D</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">E</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">F</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">G</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">H</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">I</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">J</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">K</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">L</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">M</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">N</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">O</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">P</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">Q</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">R</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">S</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">T</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">U</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">V</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">W</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">X</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">Y</div>
+                    <div class="gridview-jumplist-item" data-navigationdest="">Z</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
