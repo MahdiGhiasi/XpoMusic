@@ -5,7 +5,12 @@ function onResize() {
          *  I couldn't fix the width of the new track list for Edge (Works fine in Chrome but not in Edge),
          *  so I use a javascript workaround for that.
          */
-        document.querySelectorAll(".main-view-container__content")[0].style.width = (window.innerWidth - document.querySelectorAll(".Root__nav-bar")[0].offsetWidth) + "px";
+        var contentDiv = document.querySelectorAll(".main-view-container__content");
+        if (contentDiv.length === 0) {
+            contentDiv = document.querySelectorAll(".main-view-container__scroll-node");
+        }
+
+        contentDiv[0].style.width = (window.innerWidth - document.querySelectorAll(".Root__nav-bar")[0].offsetWidth) + "px";
     }
     catch (ex) {
         console.log("resize event failed");

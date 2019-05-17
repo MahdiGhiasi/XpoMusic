@@ -7,7 +7,8 @@ html {
 }
 
 @media (max-height: 1100px) {
-    .main-view-container__content, .main-view-container__content > section, .main-view-container__content > div {
+    .main-view-container__content, .main-view-container__content > section, .main-view-container__content > div,
+    .main-view-container__scroll-node, .main-view-container__scroll-node-child {
         /*
             Fix for new scrollbar theme: We invert the color of the element with scrollbar, as well as its immediate child, so
             the content is not inverted but the scrollbar is.
@@ -29,7 +30,7 @@ body {
     -ms-content-zooming: none;
 }
 
-.main-view-container__content {
+.main-view-container__content, .main-view-container__scroll-node {
     /* Auto hide new scrollbar */
     -ms-overflow-style: -ms-autohiding-scrollbar;
 
