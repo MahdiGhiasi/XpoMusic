@@ -1,4 +1,6 @@
 ﻿
+var isProVersion = false;
+
 function onResize() {
     try {
         /* 
@@ -123,6 +125,17 @@ try {
 }
 catch (ex) {
     errors += "injectCssFailed,";
+}
+
+// Inject page title
+try {
+    var titleDiv = document.createElement('div');
+    titleDiv.classList.add("xpotifyWindowTitle");
+    titleDiv.innerText = isProVersion ? "Xpotify Pro" : "Xpotify";
+    body.appendChild(titleDiv);
+}
+catch (ex) {
+    errors += "injectTitleFailed,";
 }
 
 // Inject page overlay

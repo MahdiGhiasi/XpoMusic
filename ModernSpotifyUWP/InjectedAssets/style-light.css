@@ -142,6 +142,11 @@ header.artist-header:after {
         background-color: #e246ab !important;
     }
 
+/* Window title */
+.xpotifyWindowTitle {
+    font-weight: 300;
+}
+
 
 /* Error page image */
 #main .dialog img {

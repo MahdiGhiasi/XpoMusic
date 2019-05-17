@@ -104,6 +104,7 @@ body {
 
 .backButtonContainer {
     transition: opacity linear .2s;
+    margin-top: 16px;
 }
 
 .backButtonContainer-disabled {
@@ -174,6 +175,17 @@ body {
     }
 }
 
+/* Window title */
+.xpotifyWindowTitle {
+    position: fixed;
+    font-family: Segoe UI;
+    font-weight: 400;
+    padding-top: 8px;
+    padding-left: 12px;
+    color: white;
+    font-size: 12px;
+    pointer-events: none;
+}
 
 /* By [artistName] padding */
 .TrackListHeader__entity-by {
