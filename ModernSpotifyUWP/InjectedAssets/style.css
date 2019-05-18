@@ -36,13 +36,25 @@ body {
 
     /* Don't show scrollbar when not necessary */
     overflow-y: auto;
+
+    /* Acrylic behind navbar in artist page */
+    margin-left: -230px;
+    padding-left: 230px;
 }
 
 .Root__nav-bar {
     background-color: rgba(0, 0, 0, 0.2) !important;
     -webkit-backdrop-filter: blur(20px);
-
+    
+    position: relative;
     overflow: hidden;
+    z-index: 1;
+}
+
+.navBar {
+    position: absolute;
+    bottom: 0;
+    top: 0;
 }
 
 .Root__main-view {
