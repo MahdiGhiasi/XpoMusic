@@ -204,6 +204,7 @@ body {
     color: white;
     font-size: 12px;
     pointer-events: none;
+    z-index: 100;
 }
 
 /* By [artistName] padding */
