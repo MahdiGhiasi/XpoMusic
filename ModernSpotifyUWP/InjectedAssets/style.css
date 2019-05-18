@@ -194,6 +194,16 @@ body {
     }
 }
 
+/* Playlist list on navbar scrollbar color fix */
+.Rootlist__playlists-scroll-node {
+    filter: invert(1);
+}
+
+    .Rootlist__playlists-scroll-node li {
+        filter: invert(1);
+    }
+
+
 /* Window title */
 .xpotifyWindowTitle {
     position: fixed;
