@@ -67,6 +67,12 @@ body {
     padding-top: 20px !important;
 }
 
+.Root__main-view .row .contentSpacing {
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+}
+
+
 .Root__main-view .Search .contentSpacing {
     margin-bottom: 0px !important;
     padding-top: 20px !important;
