@@ -57,10 +57,23 @@ body {
     top: 0;
 }
 
-.Root__main-view {
-    /* Fluent blur behind now playing bar */
+/* Fluent blur behind now playing bar */
+.main-view-container {   
     margin-bottom: -90px;
 }
+
+.main-view-container__scroll-node {
+    padding-bottom: 90px;
+}
+
+.Root__main-view--has-ads .main-view-container {
+    margin-bottom: -190px;
+}
+
+.Root__main-view--has-ads .main-view-container__scroll-node {
+    padding-bottom: 190px;
+}
+/* END Fluent blur behind now playing bar */
 
 .Root__main-view .contentSpacing {
     margin-bottom: 90px !important;
@@ -92,10 +105,13 @@ body {
     -webkit-backdrop-filter: blur(30px);
 }
 
-.AdsContainer {
+.Root__ads-container {
     background-color: rgba(24, 24, 24, 0.7);
     -webkit-backdrop-filter: blur(30px);
-    margin-bottom: 90px;
+}
+
+.AdsContainer {
+    background-color: transparent;
     overflow: hidden;
 }
 
@@ -143,7 +159,7 @@ body {
 
 @media (max-width: 720px) {
     .backbutton {
-        padding-left: 30px;
+        padding-left: 26px;
     }
 
     .Root__nav-bar .sessionInfo .UserWidget__user-link {
