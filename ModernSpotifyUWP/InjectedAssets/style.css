@@ -96,6 +96,7 @@ body {
     background-color: rgba(24, 24, 24, 0.7);
     -webkit-backdrop-filter: blur(30px);
     margin-bottom: 90px;
+    overflow: hidden;
 }
 
 .cover-art {
@@ -440,5 +441,16 @@ body {
     }
 }
 
+
+@media screen and (max-width: 720px) {
+    .navBar-item--with-icon-left .navBar-link-text-with-icon-wrapper,
+    .navBar-item--with-icon-right .navBar-link-text-with-icon-wrapper {
+        justify-content: initial;
+    }
+
+    .Rootlist__playlists {
+        display: none;
+    }
+}
 
 /* End of making UI usable for width < 720px, as UWP needs to support 500px+ */

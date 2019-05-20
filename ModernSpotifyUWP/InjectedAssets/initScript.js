@@ -14,6 +14,11 @@ function onResize() {
 
         // 230px is added because it's added in css as well, for acrylic behind artist page.
         contentDiv[0].style.width = 230 + (window.innerWidth - document.querySelectorAll(".Root__nav-bar")[0].offsetWidth) + "px";
+
+
+        var adContainerDiv = document.querySelectorAll(".AdsContainer");
+        if (adContainerDiv.length > 0)
+            adContainerDiv[0].style.width = (window.innerWidth - document.querySelectorAll(".Root__nav-bar")[0].offsetWidth) + "px";
     }
     catch (ex) {
         console.log("resize event failed");
