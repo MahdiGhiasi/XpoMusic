@@ -135,6 +135,7 @@
     <Compile Include="Classes\Model\AutoPlayAction.cs" />
     <Compile Include="Classes\Model\Language.cs" />
     <Compile Include="Classes\Model\LocalStoragePlayback.cs" />
+    <Compile Include="Classes\Model\LyricsViewer\CurrentPlayingSongInfo.cs" />
     <Compile Include="Classes\Model\Theme.cs" />
     <Compile Include="Classes\PlayStatusTracker.cs" />
     <Compile Include="Controls\ProxyConfiguration.xaml.cs">
@@ -159,6 +160,7 @@
     <Compile Include="Helpers\DeveloperMessageHelper.cs" />
     <Compile Include="Helpers\ImageSaveHelper.cs" />
     <Compile Include="Classes\LocalConfiguration.cs" />
+    <Compile Include="Helpers\Integration\LyricsViewerIntegrationHelper.cs" />
     <Compile Include="Helpers\LanguageHelper.cs" />
     <Compile Include="Helpers\PackageHelper.cs" />
     <Compile Include="Helpers\PlaybackActionHelper.cs" />

@@ -2,6 +2,7 @@
 using ModernSpotifyUWP.Classes;
 using ModernSpotifyUWP.Classes.Model;
 using ModernSpotifyUWP.Helpers;
+using ModernSpotifyUWP.Helpers.Integration;
 using ModernSpotifyUWP.SpotifyApi;
 using ModernSpotifyUWP.XpotifyApi.Model;
 using Newtonsoft.Json;
@@ -255,6 +256,8 @@ namespace ModernSpotifyUWP
                 splashScreenToLightStoryboard.Begin();
 
             developerMessage = await DeveloperMessageHelper.GetNextDeveloperMessage();
+
+            LyricsViewerIntegrationHelper.InitIntegration();
         }
 
         private void Window_Activated(object sender, WindowActivatedEventArgs e)
