@@ -19,7 +19,7 @@ namespace ModernSpotifyUWP.Helpers
     <visual>
 
         <binding template='TileMedium' hint-textStacking='center'>
-            <image src='{artistPhoto}' placement='background' hint-overlay='40'/>
+            <image src='{artistPhoto}' placement='background' hint-overlay='30'/>
             <group>
                 <subgroup>
                     <text hint-style='base' hint-align='center' hint-wrap='true'>{songName}</text>
@@ -29,7 +29,7 @@ namespace ModernSpotifyUWP.Helpers
         </binding>
 
         <binding template='TileWide' hint-textStacking='center' >
-            <image src='{artistPhoto}' placement='background' hint-overlay='40'/>
+            <image src='{artistPhoto}' placement='background' hint-overlay='30'/>
             <group>
                 <subgroup hint-textStacking='center' hint-weight='90'>
                     <text hint-style='base' hint-align='center' hint-wrap='true'>{songName}</text>
@@ -40,7 +40,7 @@ namespace ModernSpotifyUWP.Helpers
         </binding>
 
         <binding template='TileLarge' hint-textStacking='center'>
-            <image src='{artistPhoto}' placement='background' hint-overlay='40'/>
+            <image src='{artistPhoto}' placement='background' hint-overlay='30'/>
             <group>
                 <subgroup hint-weight='2'/>
                 <subgroup hint-weight='3'>
