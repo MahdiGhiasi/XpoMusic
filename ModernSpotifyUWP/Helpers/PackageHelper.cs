@@ -11,6 +11,8 @@ namespace ModernSpotifyUWP.Helpers
 {
     public static class PackageHelper
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         private static readonly string proPackageName = "36835MahdiGhiasi.XpotifyPro";
         internal static readonly Uri ProStoreUri = new Uri("ms-windows-store://pdp/?productid=9PC9VV8KTXPL");
 
@@ -36,6 +38,11 @@ namespace ModernSpotifyUWP.Helpers
         public static void RestartApp()
         {
             ToastHelper.SendReopenAppToast();
+
+            LiveTileHelper.ClearLiveTile();
+            logger.Info("Cleared live tile on RestartApp().");
+
+            logger.Info("RestartApp() will close the app now.");
             Application.Current.Exit();
         }
 

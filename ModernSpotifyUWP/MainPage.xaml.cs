@@ -258,6 +258,7 @@ namespace ModernSpotifyUWP
             developerMessage = await DeveloperMessageHelper.GetNextDeveloperMessage();
 
             LyricsViewerIntegrationHelper.InitIntegration();
+            LiveTileHelper.InitLiveTileUpdates();
         }
 
         private void Window_Activated(object sender, WindowActivatedEventArgs e)

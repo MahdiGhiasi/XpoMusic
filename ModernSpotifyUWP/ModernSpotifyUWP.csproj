@@ -162,6 +162,7 @@
     <Compile Include="Classes\LocalConfiguration.cs" />
     <Compile Include="Helpers\Integration\LyricsViewerIntegrationHelper.cs" />
     <Compile Include="Helpers\LanguageHelper.cs" />
+    <Compile Include="Helpers\LiveTileHelper.cs" />
     <Compile Include="Helpers\PackageHelper.cs" />
     <Compile Include="Helpers\PlaybackActionHelper.cs" />
     <Compile Include="Helpers\ProxyHelper.cs" />
@@ -182,6 +183,7 @@
     <Content Include="Assets\Logo\contrast-black\Square44x44Logo.altform-unplated_targetsize-24.png" />
     <Content Include="Assets\Logo\contrast-standard\Square44x44Logo.altform-unplated_targetsize-24.png" />
     <Content Include="Assets\Logo\contrast-white\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\TransparentSquare.png" />
     <Content Include="Assets\xpotify-white.png" />
     <Content Include="Assets\xpotify.png" />
     <Content Include="InjectedAssets\actionNextTrack.js" />
