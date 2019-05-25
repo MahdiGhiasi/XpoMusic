@@ -22,14 +22,9 @@ namespace ModernSpotifyUWP.Helpers.Integration
         private static AppServiceConnection connection = null;
         private static bool connectionActive = false;
 
-        private static CurrentPlayingSongInfo lastSongSent = null;
-
         private static async Task SendPlaybackToLyricsViewer(CurrentPlayingSongInfo currentSong)
         {
             if (!isLyricsViewerInstalled)
-                return;
-
-            if (currentSong.Equals(lastSongSent))
                 return;
 
             if (connection == null || !connectionActive)
@@ -65,8 +60,6 @@ namespace ModernSpotifyUWP.Helpers.Integration
                 { "data", JsonConvert.SerializeObject(currentSong) },
             };
             var result = await connection.SendMessageAsync(vs);
-
-            lastSongSent = currentSong;
 
             logger.Info($"Sent currentPlayingSongInfo to LyricsViewer. Result was '{result.Status}' and response was: {JsonConvert.SerializeObject(result.Message)}");
         }
