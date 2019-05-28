@@ -62,7 +62,8 @@ body {
     margin-bottom: -90px;
 }
 
-.main-view-container__scroll-node {
+.main-view-container__scroll-node,
+.main-view-container__scroll-node-child {
     padding-bottom: 90px;
 }
 
@@ -70,7 +71,8 @@ body {
     margin-bottom: -190px;
 }
 
-.Root__main-view--has-ads .main-view-container__scroll-node {
+.Root__main-view--has-ads .main-view-container__scroll-node,
+.Root__main-view--has-ads .main-view-container__scroll-node-child {
     padding-bottom: 190px;
 }
 /* END Fluent blur behind now playing bar */
