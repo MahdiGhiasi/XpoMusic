@@ -26,6 +26,7 @@ namespace ModernSpotifyUWP.Helpers
                     <text hint-style='caption' hint-align='center'>{artistName}</text>
                 </subgroup>
             </group>
+            <image src='{albumPhoto}' placement='peek'/>
         </binding>
 
         <binding template='TileWide' hint-textStacking='center' >
@@ -37,6 +38,7 @@ namespace ModernSpotifyUWP.Helpers
                     <text hint-style='captionSubtle' hint-align='center'>{albumName}</text>
                 </subgroup>
             </group>
+            <image src='{albumPhoto}' placement='peek'/>
         </binding>
 
         <binding template='TileLarge' hint-textStacking='center'>
