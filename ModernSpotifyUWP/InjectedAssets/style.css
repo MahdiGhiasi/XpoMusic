@@ -161,7 +161,7 @@ body {
 
 @media (max-width: 720px) {
     .backbutton {
-        padding-left: 26px;
+        padding-left: 30px;
     }
 
     .Root__nav-bar .sessionInfo .UserWidget__user-link {
@@ -365,7 +365,34 @@ body {
         width: 100%;
     }
 
-    
+    .Root__nav-bar {
+        width: 80px;
+    }
+
+        .Root__nav-bar .navBar-item .navbar-link__text {
+            display: none;
+        }
+
+    [dir=ltr] .SearchInputBox {
+        left: 80px;
+    }
+
+    .navBar-link {
+        padding: 0 30px;
+    }
+
+    .navBar-item--with-icon-left .navBar-link-text-with-icon-wrapper,
+    .navBar-item--with-icon-right .navBar-link-text-with-icon-wrapper {
+        justify-content: initial;
+    }
+
+    .recently-played {
+        display: none;
+    }
+
+    .Rootlist__playlists {
+        display: none;
+    }
 }
 
 @media (max-width: 640px) {
@@ -490,18 +517,6 @@ body {
         margin-right: auto;
         max-width: 320px;
         justify-content: center;
-    }
-}
-
-
-@media screen and (max-width: 720px) {
-    .navBar-item--with-icon-left .navBar-link-text-with-icon-wrapper,
-    .navBar-item--with-icon-right .navBar-link-text-with-icon-wrapper {
-        justify-content: initial;
-    }
-
-    .Rootlist__playlists {
-        display: none;
     }
 }
 
