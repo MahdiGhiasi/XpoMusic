@@ -25,6 +25,15 @@ function onResize() {
     }
 }
 
+function canGoBack() {
+    return window.location.hash !== "#xpotifyInitialPage";
+}
+
+function goBack() {
+    if (canGoBack()) {
+        window.history.go(-1);
+    }
+}
 
 function injectBackButton(backButtonDiv) {
     var navbarHeader = document.getElementsByClassName('navBar-header');
@@ -160,11 +169,7 @@ try {
     backButtonDiv.classList.add("backButtonContainer");
     backButtonDiv.classList.add("backButtonContainer-disabled");
     backButtonDiv.innerHTML = "<a class='backbutton'><span>&#xE72B;</span></a>";
-    backButtonDiv.onclick = function () {
-        if (window.location.hash !== "#xpotifyInitialPage") {
-            window.history.go(-1);
-        }
-    };
+    backButtonDiv.onclick = goBack;
     injectBackButton(backButtonDiv);
 }
 catch (ex) {
@@ -218,10 +223,10 @@ setTimeout(function () {
     window.location.hash = "xpotifyInitialPage";
 
     setInterval(function () {
-        if (window.location.hash === "#xpotifyInitialPage") {
-            backButtonDiv.classList.add("backButtonContainer-disabled");
-        } else {
+        if (canGoBack()) {
             backButtonDiv.classList.remove("backButtonContainer-disabled");
+        } else {
+            backButtonDiv.classList.add("backButtonContainer-disabled");
         }
     }, 500);
 }, 1000);
