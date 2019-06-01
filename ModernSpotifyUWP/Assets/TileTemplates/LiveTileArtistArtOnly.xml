@@ -1,33 +1,40 @@
 ﻿<tile>
-    <visual branding="nameAndLogo">
+  <visual branding="nameAndLogo">
 
-        <binding template='TileMedium' hint-textStacking='center'>
-            <image src='{artistPhoto}' placement='background' hint-overlay='30'/>
-            <group>
-                <subgroup>
-                    <text hint-style='base' hint-align='center' hint-wrap='true'>{songName}</text>
-                    <text hint-style='caption' hint-align='center'>{artistName}</text>
-                </subgroup>
-            </group>
-        </binding>
+    <binding template='TileMedium' hint-textStacking='center'>
+      <image src='{artistPhoto}' placement='background' hint-overlay='30'/>
+      <group>
+        <subgroup>
+          <text hint-style='base' hint-align='center' hint-wrap='true'>{songName}</text>
+          <text hint-style='caption' hint-align='center'>{artistName}</text>
+        </subgroup>
+      </group>
+    </binding>
 
-        <binding template='TileWide' hint-textStacking='center' >
-            <image src='{artistPhoto}' placement='background' hint-overlay='30'/>
-            <group>
-                <subgroup hint-textStacking='center' hint-weight='90'>
-                    <text hint-style='base' hint-align='center' hint-wrap='true'>{songName}</text>
-                    <text hint-style='caption' hint-align='center'>{artistName}</text>
-                    <text hint-style='captionSubtle' hint-align='center'>{albumName}</text>
-                </subgroup>
-            </group>
-        </binding>
+    <binding template='TileWide' hint-textStacking='center' >
+      <image src='{artistPhoto}' placement='background' hint-overlay='30'/>
+      <group>
+        <subgroup hint-textStacking='center' hint-weight='90'>
+          <text hint-style='base' hint-align='center' hint-wrap='true'>{songName}</text>
+          <text hint-style='caption' hint-align='center'>{artistName}</text>
+          <text hint-style='captionSubtle' hint-align='center'>{albumName}</text>
+        </subgroup>
+      </group>
+    </binding>
 
-        <binding template='TileLarge' hint-textStacking='center'>
-            <image src='{artistPhoto}' placement='background' hint-overlay='30'/>
-            <text hint-style='subtitle' hint-align='center' hint-wrap='true'>{songName}</text>
-            <text hint-style='body' hint-align='center'>{artistName}</text>
-            <text hint-style='captionSubtle' hint-align='center'>{albumName}</text>
-        </binding>
+    <binding template='TileLarge' hint-textStacking='center'>
+      <image src='{artistPhoto}' placement='background' hint-overlay='30'/>
+      <text hint-style='subtitle' hint-align='center' hint-wrap='true'>{songName}</text>
+      <group>
+        <subgroup hint-weight='15'/>
+        <subgroup hint-weight='1'>
+          <image src='ms-appx:///Assets/TransparentSquare.png' />
+        </subgroup>
+        <subgroup hint-weight='15'/>
+      </group>
+      <text hint-style='body' hint-align='center'>{artistName}</text>
+      <text hint-style='captionSubtle' hint-align='center'>{albumName}</text>
+    </binding>
 
-    </visual>
+  </visual>
 </tile>
