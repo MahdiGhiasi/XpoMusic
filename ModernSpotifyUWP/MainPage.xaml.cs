@@ -645,6 +645,22 @@ namespace ModernSpotifyUWP
                 return;
             }
 
+            if (e.Uri.ToString().ToLower().Contains(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
+            {
+                var justInjected = await WebViewHelper.InjectInitScript();
+                if (ThemeHelper.GetCurrentTheme() == Theme.Light)
+                    await WebViewHelper.InjectLightThemeScript();
+
+                if (justInjected)
+                    SetInitialPlaybackState();
+
+                if (autoPlayAction != AutoPlayAction.None)
+                {
+                    AutoPlayOnStartup(autoPlayAction);
+                    autoPlayAction = AutoPlayAction.None;
+                }
+            }
+
             var currentStateName = VisualStateManager.GetVisualStateGroups(mainGrid).FirstOrDefault().CurrentState.Name;
             if (currentStateName == "SplashScreen" || currentStateName == "LoadFailedScreen") {
 
@@ -669,22 +685,6 @@ namespace ModernSpotifyUWP
             if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
             {
                 FinalizeAuthorization(e.Uri.ToString());
-            }
-
-            if (e.Uri.ToString().ToLower().Contains(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
-            {
-                var justInjected = await WebViewHelper.InjectInitScript();
-                if (ThemeHelper.GetCurrentTheme() == Theme.Light)
-                    await WebViewHelper.InjectLightThemeScript();
-
-                if (justInjected)
-                    SetInitialPlaybackState();
-
-                if (autoPlayAction != AutoPlayAction.None)
-                {
-                    AutoPlayOnStartup(autoPlayAction);
-                    autoPlayAction = AutoPlayAction.None;
-                }
             }
 
             if (!await WebViewHelper.CheckLoggedIn())
