@@ -16,6 +16,7 @@ namespace ModernSpotifyUWP.ViewModels
         {
             Themes = ThemeHelper.GetThemes();
             Languages = LanguageHelper.GetLanguages();
+            LiveTileDesigns = LiveTileHelper.GetLiveTileDesigns().ToList();
         }
 
         public List<Language> Languages { get; set; }
@@ -104,5 +105,26 @@ namespace ModernSpotifyUWP.ViewModels
             }
         }
 
+        public List<LiveTileHelper.LiveTileDesign> LiveTileDesigns { get; set; }
+
+        private LiveTileHelper.LiveTileDesign selectedLiveTileDesign = LocalConfiguration.LiveTileDesign;
+        public LiveTileHelper.LiveTileDesign SelectedLiveTileDesign
+        {
+            get
+            {
+                return selectedLiveTileDesign;
+            }
+            set
+            {
+                if (selectedLiveTileDesign == value)
+                    return;
+
+                selectedLiveTileDesign = value;
+                FirePropertyChangedEvent(nameof(SelectedLiveTileDesign));
+                LocalConfiguration.LiveTileDesign = value;
+                LiveTileHelper.UpdateLiveTile();
+                AnalyticsHelper.Log("settingChange", "liveTileDesign", value.ToString());
+            }
+        }
     }
 }

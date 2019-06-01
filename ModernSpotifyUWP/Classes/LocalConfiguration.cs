@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Storage;
+using static ModernSpotifyUWP.Helpers.LiveTileHelper;
 using static ModernSpotifyUWP.Helpers.ProxyHelper;
 
 namespace ModernSpotifyUWP.Classes
@@ -137,6 +138,22 @@ namespace ModernSpotifyUWP.Classes
                 SetConfiguration("Theme", ((int)value).ToString());
             }
         }
+
+        public static LiveTileDesign LiveTileDesign
+        {
+            get
+            {
+                if (!int.TryParse(GetConfiguration("LiveTileDesign"), out int type))
+                    type = (int)LiveTileDesign.AlbumAndArtistArt;
+
+                return (LiveTileDesign)type;
+            }
+            set
+            {
+                SetConfiguration("LiveTileDesign", ((int)value).ToString());
+            }
+        }
+
 
         public static string[] DeveloperMessageShownIds
         {

@@ -129,7 +129,17 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Content Include="Assets\TileTemplates\LiveTileArtistArtOnly.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Assets\TileTemplates\LiveTileAlbumArtOnly.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Assets\TileTemplates\LiveTileAlbumAndArtistArt.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Compile Include="Classes\AppConstants.cs" />
+    <Compile Include="Classes\Converters\LiveTileDesignToStringConverter.cs" />
     <Compile Include="Classes\Converters\ThemeToStringConverter.cs" />
     <Compile Include="Classes\Converters\LanguageToStringConverter.cs" />
     <Compile Include="Classes\Model\AutoPlayAction.cs" />

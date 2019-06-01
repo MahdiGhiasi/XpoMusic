@@ -15,6 +15,7 @@
         <ResourceDictionary>
             <converters:LanguageToStringConverter x:Key="LanguageToStringConverter" />
             <converters:ThemeToStringConverter x:Key="ThemeToStringConverter" />
+            <converters:LiveTileDesignToStringConverter x:Key="LiveTileDesignToStringConverter" />
         </ResourceDictionary>
     </Page.Resources>
     <Page.DataContext>
@@ -44,7 +45,24 @@
                     <HyperlinkButton Content="Restart Xpotify"
                              Visibility="{x:Bind ViewModel.ThemeRestartNeededNoticeVisibility, Mode=OneWay}"
                              Click="RestartApp_Click"/>
-                    
+
+                    <TextBlock Text="Live tile preference:" Margin="0,24,0,0" />
+                    <ComboBox ItemsSource="{x:Bind ViewModel.LiveTileDesigns, Mode=OneWay}"
+                              SelectedItem="{x:Bind ViewModel.SelectedLiveTileDesign, Mode=TwoWay}"
+                              Margin="0,8,0,0" 
+                              Width="240">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource LiveTileDesignToStringConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Opacity="0.5" 
+                               Margin="0,4,8,0"
+                               TextWrapping="Wrap">
+                        Live tile is shown when Xpotify is opened and you're listening to music.
+                    </TextBlock>
+
                     <TextBlock Text="Interface language:" Margin="0,24,0,0" />
                     <ComboBox ItemsSource="{x:Bind ViewModel.Languages, Mode=OneWay}"
                               SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}"
