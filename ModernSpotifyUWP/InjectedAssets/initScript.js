@@ -159,7 +159,12 @@ try {
     var backButtonDiv = document.createElement('div');
     backButtonDiv.classList.add("backButtonContainer");
     backButtonDiv.classList.add("backButtonContainer-disabled");
-    backButtonDiv.innerHTML = "<a class='backbutton' href='#xpotifygoback'><span>&#xE72B;</span></a>";
+    backButtonDiv.innerHTML = "<a class='backbutton'><span>&#xE72B;</span></a>";
+    backButtonDiv.onclick = function () {
+        if (window.location.hash !== "#xpotifyInitialPage") {
+            window.history.go(-1);
+        }
+    };
     injectBackButton(backButtonDiv);
 }
 catch (ex) {

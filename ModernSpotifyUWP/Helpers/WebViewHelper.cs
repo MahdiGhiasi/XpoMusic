@@ -97,19 +97,20 @@ namespace ModernSpotifyUWP.Helpers
             return (result == "1");
         }
 
-        public static async Task GoBack()
+        public static async Task<bool> GoBackIfPossible()
         {
-            //var len = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.history.length.toString()" });
-            //logger.Info("Len: " + len);
-            //var curLocation = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.location.href" });
-            //logger.Info("curLocation: " + curLocation);
+            var script = await AssetManager.LoadAssetString("goBackIfPossible.js");
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
-            await mainWebView.InvokeScriptAsync("eval", new string[] { "window.history.go(-1);" });
+            return (result == "1");
+        }
 
-            //var len2 = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.history.length.toString()" });
-            //logger.Info("Len2: " + len2);
-            //var curLocation2 = await mainWebView.InvokeScriptAsync("eval", new string[] { "window.location.href" });
-            //logger.Info("curLocation2: " + curLocation2);
+        public static async Task<bool> IsBackPossible()
+        {
+            var script = await AssetManager.LoadAssetString("isBackPossible.js");
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+
+            return (result == "1");
         }
 
         public static void ClearCookies()

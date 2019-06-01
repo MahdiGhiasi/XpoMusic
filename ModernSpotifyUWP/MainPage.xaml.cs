@@ -19,6 +19,7 @@ using Windows.Foundation.Collections;
 using Windows.Media;
 using Windows.Media.Core;
 using Windows.Media.Playback;
+using Windows.System;
 using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
@@ -46,16 +47,16 @@ namespace ModernSpotifyUWP
         MediaPlayer silentMediaPlayer;
         private CompactOverlayView compactOverlayView;
         private Uri loadFailedUrl;
-        private DispatcherTimer playCheckTimer, stuckDetectTimer, clipboardCheckTimer;
+        private DispatcherTimer webViewCheckTimer, stuckDetectTimer, clipboardCheckTimer;
         private string prevCurrentPlaying;
         private LocalStoragePlayback initialPlaybackState = null;
         private int stuckDetectCounter = 0;
         private DateTime lastStuckFixApiCall;
-        private bool isWebViewGoingBack = false;
         private string webViewPreviousUri = "";
         private bool shouldShowWhatsNew = false;
         private DeveloperMessage developerMessage = null;
         private AutoPlayAction autoPlayAction = AutoPlayAction.None;
+        private bool webViewBackEnabled = false;
 
         public MainPage()
         {
@@ -198,6 +199,8 @@ namespace ModernSpotifyUWP
             ApplicationView.GetForCurrentView().SetPreferredMinSize(LocalConfiguration.WindowMinSize);
             Window.Current.CoreWindow.Activated += Window_Activated;
 
+            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
+
             // Update app constants from server
             AppConstants.Update();
 
@@ -228,12 +231,12 @@ namespace ModernSpotifyUWP
                 shouldShowWhatsNew = true;
             }
 
-            playCheckTimer = new DispatcherTimer
+            webViewCheckTimer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1),
             };
-            playCheckTimer.Tick += PlayCheckTimer_Tick;
-            playCheckTimer.Start();
+            webViewCheckTimer.Tick += WebViewCheckTimer_Tick;
+            webViewCheckTimer.Start();
 
             clipboardCheckTimer = new DispatcherTimer
             {
@@ -259,6 +262,24 @@ namespace ModernSpotifyUWP
 
             LyricsViewerIntegrationHelper.InitIntegration();
             LiveTileHelper.InitLiveTileUpdates();
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().BackRequested -= App_BackRequested;
+
+            base.OnNavigatingFrom(e);
+        }
+
+        private async void App_BackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (webViewBackEnabled)
+            {
+                e.Handled = true;
+
+                var result = await WebViewHelper.GoBackIfPossible();
+                logger.Info($"GoBackIfPossible() result = {result}");
+            }
         }
 
         private void Window_Activated(object sender, WindowActivatedEventArgs e)
@@ -420,7 +441,7 @@ namespace ModernSpotifyUWP
             }
         }
 
-        private async void PlayCheckTimer_Tick(object sender, object e)
+        private async void WebViewCheckTimer_Tick(object sender, object e)
         {
             // Ignore if not logged in
             if (!TokenHelper.HasTokens())
@@ -440,6 +461,15 @@ namespace ModernSpotifyUWP
             catch (Exception ex)
             {
                 logger.Warn("checkCurrentPlaying failed: " + ex.ToString());
+            }
+
+            try
+            {
+                webViewBackEnabled = await WebViewHelper.IsBackPossible();
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("checkBackButtonEnable failed: " + ex.ToString());
             }
         }
 
@@ -675,14 +705,7 @@ namespace ModernSpotifyUWP
         {
             logger.Info("Page: " + e.Uri.ToString());
 
-            if (e.Uri.ToString().EndsWith("#xpotifygoback"))
-            {
-                e.Cancel = true;
-                isWebViewGoingBack = true;
-
-                await WebViewHelper.GoBack();
-            }
-            else if (e.Uri.ToString().EndsWith("#xpotifysettings"))
+            if (e.Uri.ToString().EndsWith("#xpotifysettings"))
             {
                 e.Cancel = true;
                 OpenSettings(0);
@@ -714,13 +737,12 @@ namespace ModernSpotifyUWP
             else if (e.Uri.ToString().EndsWith("#xpotifyInitialPage"))
             {
             }
-            else if (!isWebViewGoingBack)
+            else
             {
                 if (!webViewPreviousUri.ToLower().StartsWith(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower())
                     || !e.Uri.ToString().ToLower().StartsWith(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
                 {
-                    // Open splash screen, unless #xpotifygoback is happening or
-                    // both new and old uris are in open.spotify.com itself.
+                    // Open splash screen, unless both new and old uris are in open.spotify.com itself.
                     VisualStateManager.GoToState(this, "SplashScreen", false);
                 }
             }
@@ -731,7 +753,6 @@ namespace ModernSpotifyUWP
                 LocalConfiguration.IsLoggedInByFacebook = true;
             }
 
-            isWebViewGoingBack = false;
             webViewPreviousUri = e.Uri.ToString();
         }
 
