@@ -60,8 +60,12 @@
                     <TextBlock Opacity="0.5" 
                                Margin="0,4,8,0"
                                TextWrapping="Wrap">
-                        Live tile is shown when Xpotify is opened and you're listening to music.
+                        Live tile will show up on Xpotify tile when you're listening to music.
                     </TextBlock>
+                    <HyperlinkButton Visibility="{x:Bind ViewModel.PinToStartLinkVisibility, Mode=OneWay}"
+                                     Click="PinTileToStart_Click">
+                        Pin Xpotify to Start
+                    </HyperlinkButton>
 
                     <TextBlock Text="Interface language:" Margin="0,24,0,0" />
                     <ComboBox ItemsSource="{x:Bind ViewModel.Languages, Mode=OneWay}"

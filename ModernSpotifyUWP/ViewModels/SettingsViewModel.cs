@@ -17,6 +17,14 @@ namespace ModernSpotifyUWP.ViewModels
             Themes = ThemeHelper.GetThemes();
             Languages = LanguageHelper.GetLanguages();
             LiveTileDesigns = LiveTileHelper.GetLiveTileDesigns().ToList();
+
+            CheckPrimaryTileStatus();
+        }
+
+        public async void CheckPrimaryTileStatus()
+        {
+            PinToStartLinkVisibility = (await LiveTileHelper.CanPinToStart() &&
+                !await LiveTileHelper.IsPinnedToStart()) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public List<Language> Languages { get; set; }
@@ -124,6 +132,20 @@ namespace ModernSpotifyUWP.ViewModels
                 LocalConfiguration.LiveTileDesign = value;
                 LiveTileHelper.UpdateLiveTile();
                 AnalyticsHelper.Log("settingChange", "liveTileDesign", value.ToString());
+            }
+        }
+
+        private Visibility pinToStartLinkVisibility = Visibility.Collapsed;
+        public Visibility PinToStartLinkVisibility
+        {
+            get
+            {
+                return pinToStartLinkVisibility;
+            }
+            set
+            {
+                pinToStartLinkVisibility = value;
+                FirePropertyChangedEvent(nameof(PinToStartLinkVisibility));
             }
         }
     }

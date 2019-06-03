@@ -6,9 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
+using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 
 namespace ModernSpotifyUWP.Helpers
@@ -125,6 +127,28 @@ namespace ModernSpotifyUWP.Helpers
         {
             lastTileUpdateHash = null;
             tileUpdater.Clear();
+        }
+
+        internal static async Task<bool> IsPinnedToStart()
+        {
+            AppListEntry entry = (await Package.Current.GetAppListEntriesAsync())[0];
+            bool isPinned = await StartScreenManager.GetDefault().ContainsAppListEntryAsync(entry);
+
+            return isPinned;
+        }
+
+        internal static async Task<bool> CanPinToStart()
+        {
+            AppListEntry entry = (await Package.Current.GetAppListEntriesAsync())[0];
+            bool isSupported = StartScreenManager.GetDefault().SupportsAppListEntry(entry);
+
+            return isSupported;
+        }
+
+        internal static async Task PinToStart()
+        {
+            AppListEntry entry = (await Package.Current.GetAppListEntriesAsync())[0];
+            bool isPinned = await StartScreenManager.GetDefault().RequestAddAppListEntryAsync(entry);
         }
     }
 }

@@ -32,5 +32,11 @@ namespace ModernSpotifyUWP
         {
             PackageHelper.RestartApp();
         }
+
+        private async void PinTileToStart_Click(object sender, RoutedEventArgs e)
+        {
+            await LiveTileHelper.PinToStart();
+            ViewModel.CheckPrimaryTileStatus();
+        }
     }
 }
