@@ -30,10 +30,10 @@ namespace ModernSpotifyUWP.Classes
         private AppConstants() { }
 
         [JsonProperty]
-        public int PlayStatePollIntervalMilliseconds { get; private set; } = 20000;
+        public int PlayStatePollIntervalMilliseconds { get; private set; } = 10000;
 
         [JsonProperty]
-        public int PlayStatePollIntervalMillisecondsWithCompactOverlayOpen { get; private set; } = 10000;
+        public int PlayStatePollIntervalMillisecondsWithCompactOverlayOpen { get; private set; } = 8000;
 
         public TimeSpan PlayStatePollInterval
         {
