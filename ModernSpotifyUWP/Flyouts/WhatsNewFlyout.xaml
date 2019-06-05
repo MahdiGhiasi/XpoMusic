@@ -2,23 +2,25 @@
     x:Class="ModernSpotifyUWP.Flyouts.WhatsNewFlyout"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ModernSpotifyUWP.Flyouts"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d"
-    RequestedTheme="Dark"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:ModernSpotifyUWP.Flyouts"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="550"
-    d:DesignWidth="400">
+    d:DesignWidth="400"
+    RequestedTheme="Dark"
+    mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource NavigationViewExpandedPaneBackground}"
-          BorderBrush="#aaa"
-          BorderThickness="1">
-        <controls:NavigationView x:Name="navigationView" 
-                                 PaneDisplayMode="Top" 
-                                 IsSettingsVisible="False" 
-                                 IsBackEnabled="True"
-                                 BackRequested="NavigationView_BackRequested">
+    <Grid
+        Background="{ThemeResource NavigationViewExpandedPaneBackground}"
+        BorderBrush="#aaa"
+        BorderThickness="1">
+        <controls:NavigationView
+            x:Name="navigationView"
+            BackRequested="NavigationView_BackRequested"
+            IsBackEnabled="True"
+            IsSettingsVisible="False"
+            PaneDisplayMode="Top">
             <controls:NavigationView.MenuItems>
                 <controls:NavigationViewItem Content="What's new" />
             </controls:NavigationView.MenuItems>
@@ -26,29 +28,58 @@
                 <ScrollViewer>
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition MinHeight="32" Height="Auto" />
+                            <RowDefinition Height="Auto" MinHeight="32" />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <Grid Grid.Row="0" x:Name="Header">
+                        <Grid x:Name="Header" Grid.Row="0">
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Xpotify v"
-                                           FontWeight="Bold"
-                                           Margin="10,10,0,0"/>
-                                <TextBlock x:Name="VersionText" 
-                                           Text="x.y.z"
-                                           FontWeight="Bold"
-                                           Margin="0,10,0,0"/>
+                                <TextBlock
+                                    Margin="10,10,0,0"
+                                    FontWeight="Bold"
+                                    Text="Xpotify v" />
+                                <TextBlock
+                                    x:Name="VersionText"
+                                    Margin="0,10,0,0"
+                                    FontWeight="Bold"
+                                    Text="x.y.z" />
                             </StackPanel>
                         </Grid>
                         <Grid Grid.Row="1" Padding="14,8,14,14">
                             <StackPanel x:Name="Content">
-                                <StackPanel Tag="3" Margin="0,0,0,24" Visibility="Visible">
-                                    <TextBlock Text="&#8226; Cortana can now play songs on Xpotify"
-                                               FontWeight="SemiBold"
-                                               Margin="0,0,0,8"
-                                               TextWrapping="Wrap" />
-                                    <RichTextBlock Margin="16,0,0,0" 
-                                                   IsTextSelectionEnabled="False">
+                                <StackPanel
+                                    Margin="0,0,0,24"
+                                    Tag="4"
+                                    Visibility="Visible">
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; See the currently playing music on Xpotify live tile!"
+                                        TextWrapping="Wrap" />
+                                    <RichTextBlock
+                                        Margin="16,0,0,0"
+                                        IsTextSelectionEnabled="False"
+                                        Opacity="0.7">
+                                        <Paragraph>
+                                            <Run>You can also customize the live tile from Settings.</Run>
+                                        </Paragraph>
+                                    </RichTextBlock>
+
+                                    <TextBlock
+                                        Margin="0,16,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Tablet mode improvements"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                                <StackPanel
+                                    Margin="0,0,0,24"
+                                    Tag="3"
+                                    Visibility="Visible">
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Cortana can now play songs on Xpotify"
+                                        TextWrapping="Wrap" />
+                                    <RichTextBlock Margin="16,0,0,0" IsTextSelectionEnabled="False">
                                         <Paragraph>
                                             <Run>If you ask Cortana to play artists, albums, playlists and songs on Spotify, it'll be played on Xpotify.</Run>
                                         </Paragraph>
@@ -56,45 +87,55 @@
                                             <Run>You will need to connect your Spotify account to Cortana in Cortana's Notebook.</Run>
                                         </Paragraph>
                                     </RichTextBlock>
-                                    <RichTextBlock Margin="16,8,0,0" 
-                                                   Opacity="0.7"
-                                                   IsTextSelectionEnabled="False">
+                                    <RichTextBlock
+                                        Margin="16,8,0,0"
+                                        IsTextSelectionEnabled="False"
+                                        Opacity="0.7">
                                         <Paragraph>
                                             <Run>Note: If the Spotify official app is installed on your PC as well, you may see a prompt asking which app to use. You can select Xpotify as the default app for handling spotify links there.</Run>
                                         </Paragraph>
                                     </RichTextBlock>
 
-                                    <TextBlock Text="&#8226; Follow Windows app theme"
-                                               FontWeight="SemiBold"
-                                               Margin="0,16,0,0"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Text="Xpotify can now follow app theme set in system settings as well."
-                                               Margin="16,4,0,0"
-                                               Opacity="0.7"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Text="&#8226; Fixed an issue where some playlists didn't have proper picture when pinned to Start."
-                                               FontWeight="SemiBold"
-                                               Margin="0,12,0,0"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Text="&#8226; Support the development of Xpotify by purchasing Xpotify Pro"
-                                               FontWeight="SemiBold"
-                                               Margin="0,12,0,0"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Text="Xpotify does not have any limitations compared to Xpotify Pro, but you can buy Xpotify Pro to support the development of the app."
-                                               Margin="16,4,0,0"
-                                               Opacity="0.7"
-                                               TextWrapping="Wrap" />
-                                    <HyperlinkButton Margin="16,0,0,0" 
-                                                     Click="GetXpotifyPro_Click"
-                                                     Content="Get Xpotify Pro from the Store" />
+                                    <TextBlock
+                                        Margin="0,16,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Follow Windows app theme"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="16,4,0,0"
+                                        Opacity="0.7"
+                                        Text="Xpotify can now follow app theme set in system settings as well."
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Fixed an issue where some playlists didn't have proper picture when pinned to Start."
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Support the development of Xpotify by purchasing Xpotify Pro"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="16,4,0,0"
+                                        Opacity="0.7"
+                                        Text="Xpotify does not have any limitations compared to Xpotify Pro, but you can buy Xpotify Pro to support the development of the app."
+                                        TextWrapping="Wrap" />
+                                    <HyperlinkButton
+                                        Margin="16,0,0,0"
+                                        Click="GetXpotifyPro_Click"
+                                        Content="Get Xpotify Pro from the Store" />
                                 </StackPanel>
-                                <StackPanel Tag="2" Margin="0,0,0,24" Visibility="Visible">
-                                    <TextBlock Text="&#8226; Open shared spotify links in Xpotify"
-                                               FontWeight="SemiBold"
-                                               Margin="0,0,0,8"
-                                               TextWrapping="Wrap" />
-                                    <RichTextBlock Margin="16,0,0,0" 
-                                                   IsTextSelectionEnabled="False">
+                                <StackPanel
+                                    Margin="0,0,0,24"
+                                    Tag="2"
+                                    Visibility="Visible">
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Open shared spotify links in Xpotify"
+                                        TextWrapping="Wrap" />
+                                    <RichTextBlock Margin="16,0,0,0" IsTextSelectionEnabled="False">
                                         <Paragraph>
                                             <Run>Links starting with</Run>
                                             <Run FontStyle="Italic" FontWeight="SemiBold">spotify:</Run>
@@ -103,13 +144,18 @@
                                             <Run>can be opened easily in Xpotify.</Run>
                                         </Paragraph>
                                     </RichTextBlock>
-                                    <RichTextBlock Margin="16,8,0,0" 
-                                                   Opacity="0.7"
-                                                   IsTextSelectionEnabled="False">
+                                    <RichTextBlock
+                                        Margin="16,8,0,0"
+                                        IsTextSelectionEnabled="False"
+                                        Opacity="0.7">
                                         <Paragraph>
                                             <Run>&#8226; Copy the link to clipboard and click on</Run>
                                             <InlineUIContainer>
-                                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE78B;" RenderTransformOrigin="0.5, 0.5" Margin="0,0,0,-5">
+                                                <FontIcon
+                                                    Margin="0,0,0,-5"
+                                                    FontFamily="Segoe MDL2 Assets"
+                                                    Glyph="&#xE78B;"
+                                                    RenderTransformOrigin="0.5, 0.5">
                                                     <FontIcon.RenderTransform>
                                                         <RotateTransform Angle="180" />
                                                     </FontIcon.RenderTransform>
@@ -122,40 +168,51 @@
                                         </Paragraph>
                                     </RichTextBlock>
 
-                                    <TextBlock Text="&#8226; Light theme"
-                                               FontWeight="SemiBold"
-                                               Margin="0,16,0,0"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Text="Xpotify now supports a light theme as well as the default dark theme."
-                                               Margin="16,4,0,0"
-                                               Opacity="0.7"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Text="&#8226; Fluent design improvements"
-                                               FontWeight="SemiBold"
-                                               Margin="0,12,0,0"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Text="&#8226; Custom proxy server setting support"
-                                               FontWeight="SemiBold"
-                                               Margin="0,12,0,0"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Text="&#8226; Custom language setting support"
-                                               FontWeight="SemiBold"
-                                               Margin="0,12,0,0"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Text="&#8226; Bugfixes and improvements"
-                                               FontWeight="SemiBold"
-                                               Margin="0,12,0,0"
-                                               TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,16,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Light theme"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="16,4,0,0"
+                                        Opacity="0.7"
+                                        Text="Xpotify now supports a light theme as well as the default dark theme."
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Fluent design improvements"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Custom proxy server setting support"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Custom language setting support"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,12,0,0"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Bugfixes and improvements"
+                                        TextWrapping="Wrap" />
                                 </StackPanel>
-                                <StackPanel Tag="1" Margin="0,0,0,24" Visibility="Visible">
-                                    <TextBlock Text="&#8226; Dark themed scrollbar"
-                                               FontWeight="SemiBold"
-                                               Margin="0,0,0,8"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Text="The scrollbar is now dark to match the app theme!"
-                                               Margin="16,0,0,0"
-                                               Opacity="0.7"
-                                               TextWrapping="Wrap" />
+                                <StackPanel
+                                    Margin="0,0,0,24"
+                                    Tag="1"
+                                    Visibility="Visible">
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Dark themed scrollbar"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="16,0,0,0"
+                                        Opacity="0.7"
+                                        Text="The scrollbar is now dark to match the app theme!"
+                                        TextWrapping="Wrap" />
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
