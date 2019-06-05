@@ -262,6 +262,7 @@ namespace ModernSpotifyUWP
 
             LyricsViewerIntegrationHelper.InitIntegration();
             LiveTileHelper.InitLiveTileUpdates();
+            JumpListHelper.DeleteRecentJumplistEntries();
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
