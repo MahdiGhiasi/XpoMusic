@@ -324,6 +324,11 @@ h1 {
     font-weight: var(--glue-font-weight-black) !important;
 }
 
+.artist-header h1.medium {
+    font-size: 48px !important;
+    font-weight: var(--glue-font-weight-black) !important;
+}
+
 .view-header__header-title--xxxl {
     font-size: 48px !important;
     font-weight: var(--glue-font-weight-black) !important;
