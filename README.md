@@ -5,9 +5,9 @@ A modern Spotify experience for Windows 10
 
 ## How to build
 
-Create a file named `Secrets.cs` in the `ModernSpotifyUWP/` directory, and put the following content into it:
+Create a file named `Secrets.cs` in the `Xpotify/` directory, and put the following content into it:
 
-    namespace ModernSpotifyUWP
+    namespace Xpotify
     {
         internal static class Secrets
         {
