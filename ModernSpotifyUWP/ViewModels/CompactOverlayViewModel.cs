@@ -7,7 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace ModernSpotifyUWP.ViewModels
+namespace Xpotify.ViewModels
 {
     public class CompactOverlayViewModel : ViewModelBase
     {

@@ -1,6 +1,6 @@
-﻿using ModernSpotifyUWP.Classes;
-using ModernSpotifyUWP.Classes.Model;
-using ModernSpotifyUWP.Helpers;
+﻿using Xpotify.Classes;
+using Xpotify.Classes.Model;
+using Xpotify.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
-namespace ModernSpotifyUWP.ViewModels
+namespace Xpotify.ViewModels
 {
     public class SettingsViewModel : ViewModelBase
     {

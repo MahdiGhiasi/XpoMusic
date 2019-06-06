@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ModernSpotifyUWP.Classes.Model;
+using Xpotify.Classes.Model;
 
-namespace ModernSpotifyUWP.Helpers
+namespace Xpotify.Helpers
 {
     public static class LanguageHelper
     {

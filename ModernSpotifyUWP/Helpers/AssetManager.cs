@@ -1,5 +1,5 @@
-﻿using ModernSpotifyUWP.Classes;
-using ModernSpotifyUWP.XpotifyApi;
+﻿using Xpotify.Classes;
+using Xpotify.XpotifyApi;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace ModernSpotifyUWP.Helpers
+namespace Xpotify.Helpers
 {
     public static class AssetManager
     {

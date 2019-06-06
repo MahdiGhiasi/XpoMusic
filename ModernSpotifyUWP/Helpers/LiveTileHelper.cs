@@ -1,4 +1,4 @@
-﻿using ModernSpotifyUWP.Classes;
+﻿using Xpotify.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ using Windows.UI.Notifications;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 
-namespace ModernSpotifyUWP.Helpers
+namespace Xpotify.Helpers
 {
     public static class LiveTileHelper
     {

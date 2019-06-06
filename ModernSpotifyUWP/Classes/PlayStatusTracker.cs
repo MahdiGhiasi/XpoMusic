@@ -1,5 +1,5 @@
-﻿using ModernSpotifyUWP.Helpers;
-using ModernSpotifyUWP.SpotifyApi;
+﻿using Xpotify.Helpers;
+using Xpotify.SpotifyApi;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,7 +10,7 @@ using Windows.Media;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 
-namespace ModernSpotifyUWP.Classes
+namespace Xpotify.Classes
 {
     public static class PlayStatusTracker
     {

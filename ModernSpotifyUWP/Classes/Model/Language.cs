@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModernSpotifyUWP.Classes.Model
+namespace Xpotify.Classes.Model
 {
     public enum Language
     {

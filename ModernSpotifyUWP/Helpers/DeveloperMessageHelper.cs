@@ -1,13 +1,13 @@
-﻿using ModernSpotifyUWP.Classes;
-using ModernSpotifyUWP.XpotifyApi;
-using ModernSpotifyUWP.XpotifyApi.Model;
+﻿using Xpotify.Classes;
+using Xpotify.XpotifyApi;
+using Xpotify.XpotifyApi.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModernSpotifyUWP.Helpers
+namespace Xpotify.Helpers
 {
     public static class DeveloperMessageHelper
     {

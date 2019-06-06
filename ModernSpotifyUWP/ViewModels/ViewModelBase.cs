@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModernSpotifyUWP.ViewModels
+namespace Xpotify.ViewModels
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

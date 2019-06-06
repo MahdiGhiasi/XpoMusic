@@ -1,5 +1,5 @@
-﻿using ModernSpotifyUWP.Classes.Model;
-using ModernSpotifyUWP.Helpers;
+﻿using Xpotify.Classes.Model;
+using Xpotify.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
 
-namespace ModernSpotifyUWP.Classes.Converters
+namespace Xpotify.Classes.Converters
 {
     public class ThemeToStringConverter : IValueConverter
     {

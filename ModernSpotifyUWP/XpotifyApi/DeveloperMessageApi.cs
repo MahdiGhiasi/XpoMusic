@@ -1,5 +1,5 @@
-﻿using ModernSpotifyUWP.Helpers;
-using ModernSpotifyUWP.XpotifyApi.Model;
+﻿using Xpotify.Helpers;
+using Xpotify.XpotifyApi.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModernSpotifyUWP.XpotifyApi
+namespace Xpotify.XpotifyApi
 {
     public static class DeveloperMessageApi
     {

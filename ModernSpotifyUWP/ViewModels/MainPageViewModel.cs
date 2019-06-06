@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 
-namespace ModernSpotifyUWP.ViewModels
+namespace Xpotify.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {

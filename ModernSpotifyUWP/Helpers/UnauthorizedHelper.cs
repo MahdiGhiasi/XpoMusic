@@ -1,4 +1,4 @@
-﻿using ModernSpotifyUWP.SpotifyApi;
+﻿using Xpotify.SpotifyApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ModernSpotifyUWP.Helpers
+namespace Xpotify.Helpers
 {
     public static class UnauthorizedHelper
     {

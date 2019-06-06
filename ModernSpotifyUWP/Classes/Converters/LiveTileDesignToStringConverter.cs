@@ -1,14 +1,14 @@
-﻿using ModernSpotifyUWP.Classes.Model;
-using ModernSpotifyUWP.Helpers;
+﻿using Xpotify.Classes.Model;
+using Xpotify.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
-using static ModernSpotifyUWP.Helpers.LiveTileHelper;
+using static Xpotify.Helpers.LiveTileHelper;
 
-namespace ModernSpotifyUWP.Classes.Converters
+namespace Xpotify.Classes.Converters
 {
     public class LiveTileDesignToStringConverter : IValueConverter
     {

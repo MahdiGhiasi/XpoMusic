@@ -1,5 +1,5 @@
-﻿using ModernSpotifyUWP.Classes;
-using ModernSpotifyUWP.Classes.Model;
+﻿using Xpotify.Classes;
+using Xpotify.Classes.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
-namespace ModernSpotifyUWP.Helpers
+namespace Xpotify.Helpers
 {
     public static class ThemeHelper
     {

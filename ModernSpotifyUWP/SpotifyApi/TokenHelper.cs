@@ -1,4 +1,4 @@
-﻿using ModernSpotifyUWP.Helpers;
+﻿using Xpotify.Helpers;
 using Plugin.SecureStorage;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModernSpotifyUWP.SpotifyApi
+namespace Xpotify.SpotifyApi
 {
     public static class TokenHelper
     {

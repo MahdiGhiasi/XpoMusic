@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModernSpotifyUWP.SpotifyApi.Model
+namespace Xpotify.SpotifyApi.Model
 {
     public class Device
     {

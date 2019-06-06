@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModernSpotifyUWP.XpotifyApi.Model
+namespace Xpotify.XpotifyApi.Model
 {
     public class DeveloperMessageCollection
     {

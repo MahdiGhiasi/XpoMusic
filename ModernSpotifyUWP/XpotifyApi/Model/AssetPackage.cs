@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace ModernSpotifyUWP.XpotifyApi.Model
+namespace Xpotify.XpotifyApi.Model
 {
     public class AssetPackage
     {

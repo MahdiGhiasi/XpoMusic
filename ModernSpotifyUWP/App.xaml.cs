@@ -1,4 +1,4 @@
-﻿using ModernSpotifyUWP.Helpers;
+﻿using Xpotify.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -20,7 +20,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
-namespace ModernSpotifyUWP
+namespace Xpotify
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

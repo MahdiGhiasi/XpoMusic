@@ -1,5 +1,5 @@
-﻿using ModernSpotifyUWP.Classes;
-using ModernSpotifyUWP.Classes.Model;
+﻿using Xpotify.Classes;
+using Xpotify.Classes.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 
-namespace ModernSpotifyUWP.Helpers
+namespace Xpotify.Helpers
 {
     public static class WebViewHelper
     {

@@ -1,6 +1,6 @@
-﻿using ModernSpotifyUWP.Classes;
-using ModernSpotifyUWP.Helpers;
-using ModernSpotifyUWP.XpotifyApi.Model;
+﻿using Xpotify.Classes;
+using Xpotify.Helpers;
+using Xpotify.XpotifyApi.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace ModernSpotifyUWP.Flyouts
+namespace Xpotify.Flyouts
 {
     public sealed partial class DeveloperMessageFlyout : UserControl, IFlyout<EventArgs>
     {

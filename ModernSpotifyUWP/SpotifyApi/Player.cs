@@ -1,5 +1,5 @@
-﻿using ModernSpotifyUWP.Helpers;
-using ModernSpotifyUWP.SpotifyApi.Model;
+﻿using Xpotify.Helpers;
+using Xpotify.SpotifyApi.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModernSpotifyUWP.SpotifyApi
+namespace Xpotify.SpotifyApi
 {
     public class Player : ApiBase
     {

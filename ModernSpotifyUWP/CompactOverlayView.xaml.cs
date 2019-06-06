@@ -1,7 +1,7 @@
-﻿using ModernSpotifyUWP.Classes;
-using ModernSpotifyUWP.Helpers;
-using ModernSpotifyUWP.SpotifyApi;
-using ModernSpotifyUWP.ViewModels;
+﻿using Xpotify.Classes;
+using Xpotify.Helpers;
+using Xpotify.SpotifyApi;
+using Xpotify.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +21,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace ModernSpotifyUWP
+namespace Xpotify
 {
     public sealed partial class CompactOverlayView : UserControl
     {

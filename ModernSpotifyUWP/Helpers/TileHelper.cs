@@ -1,4 +1,4 @@
-﻿using ModernSpotifyUWP.Classes;
+﻿using Xpotify.Classes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ using Windows.Storage;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace ModernSpotifyUWP.Helpers
+namespace Xpotify.Helpers
 {
     public static class TileHelper
     {

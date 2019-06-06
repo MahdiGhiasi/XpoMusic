@@ -1,5 +1,5 @@
-﻿using ModernSpotifyUWP.Helpers;
-using ModernSpotifyUWP.XpotifyApi;
+﻿using Xpotify.Helpers;
+using Xpotify.XpotifyApi;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 
-namespace ModernSpotifyUWP.Classes
+namespace Xpotify.Classes
 {
     public class AppConstants
     {

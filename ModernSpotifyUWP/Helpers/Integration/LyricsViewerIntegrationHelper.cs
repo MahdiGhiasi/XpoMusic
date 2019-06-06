@@ -1,5 +1,5 @@
-﻿using ModernSpotifyUWP.Classes;
-using ModernSpotifyUWP.Classes.Model.LyricsViewer;
+﻿using Xpotify.Classes;
+using Xpotify.Classes.Model.LyricsViewer;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;
 
-namespace ModernSpotifyUWP.Helpers.Integration
+namespace Xpotify.Helpers.Integration
 {
     public static class LyricsViewerIntegrationHelper
     {

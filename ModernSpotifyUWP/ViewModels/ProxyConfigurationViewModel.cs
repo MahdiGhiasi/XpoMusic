@@ -1,5 +1,5 @@
-﻿using ModernSpotifyUWP.Classes;
-using ModernSpotifyUWP.Helpers;
+﻿using Xpotify.Classes;
+using Xpotify.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
-namespace ModernSpotifyUWP.ViewModels
+namespace Xpotify.ViewModels
 {
     public class ProxyConfigurationViewModel : ViewModelBase
     {

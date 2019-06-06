@@ -1,4 +1,4 @@
-﻿namespace ModernSpotifyUWP.SpotifyApi.Model
+﻿namespace Xpotify.SpotifyApi.Model
 {
     public class Artist
     {
