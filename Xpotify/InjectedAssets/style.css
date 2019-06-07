@@ -28,6 +28,9 @@ body {
 
     /* Disable zooming by pinch on touch screen or presicion touchpad */
     -ms-content-zooming: none;
+
+    /* Disable text selection */
+    -webkit-user-select: none;
 }
 
 .main-view-container__content, .main-view-container__scroll-node {
