@@ -356,7 +356,6 @@ h1 {
     .Root__main-view nav ul li a:before {
         content: "";
         height: 2px;
-        background-color: transparent;
         position: absolute;
         display: block;
         left: 10px;
@@ -364,8 +363,9 @@ h1 {
         bottom: -4px;
         width: unset;
         margin: 0;
+        opacity: 0;
         transform: translateY(-6px);
-        transition: background-color .2s ease-out .1s, transform .2s ease-out .1s;
+        transition: opacity .2s ease-out .1s, transform .2s ease-out .1s;
     }
 
 .EYVkZXmTImKH4iH48N7Uj._1-aXXBO8bQU1WTFY-7B0m-:before {
@@ -375,6 +375,7 @@ h1 {
     width: unset;
     margin: 0;
     transform: translateY(0);
+    opacity: 1;
 }
 
 .Root__main-view nav ul {
