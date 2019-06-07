@@ -382,6 +382,11 @@ h1 {
     text-align: left !important;
 }
 
+.Root__main-view .Search__content nav ul,
+.Root__main-view .artist-header nav ul {
+    margin-left: 16px;
+}
+
 @media (min-width: 1100px) {
     .asideButton {
         position: absolute;
