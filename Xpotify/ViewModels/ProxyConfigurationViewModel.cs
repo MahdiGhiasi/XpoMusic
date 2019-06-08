@@ -69,7 +69,7 @@ namespace Xpotify.ViewModels
             {
                 if (value != ProxyAddress)
                 {
-                    LocalConfiguration.CustomProxyAddress = value;
+                    proxyAddress = value;
                     FirePropertyChangedEvent(nameof(ProxyAddress));
                 }
             }
