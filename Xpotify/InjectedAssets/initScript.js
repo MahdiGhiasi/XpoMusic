@@ -281,6 +281,13 @@ try {
     setTimeout(function () {
         addXpotifyClassToBackground(12);
     }, 250);
+
+    // Sometimes the PWA changes the background element on loading, causing the 
+    // background class to be removed. We'll do this again after a few seconds 
+    // to make sure that does not happen.
+    setTimeout(function () {
+        addXpotifyClassToBackground(0);
+    }, 4000);
 }
 catch (ex) {
     errors += "findBackgroundDivFailed,";
