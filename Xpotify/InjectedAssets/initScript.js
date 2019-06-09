@@ -69,6 +69,24 @@ function injectNowPlayingRightButton(button) {
     }
 }
 
+function addXpotifyClassToBackground(retryCount) {
+    if (retryCount < 0)
+        return;
+
+    var rootElement = document.querySelectorAll(".Root__top-container");
+    if (rootElement.length === 0) {
+        setTimeout(function () {
+            addXpotifyClassToBackground(retryCount - 1);
+        }, 250);
+    } else if (rootElement[0].previousSibling.style.backgroundImage === "") {
+        setTimeout(function () {
+            addXpotifyClassToBackground(retryCount - 1);
+        }, 250);
+    } else {
+        rootElement[0].previousSibling.classList.add('xpotifyBackground');
+    }
+}
+
 function allowDrop(event) {
     event.preventDefault();
 }
@@ -256,6 +274,16 @@ try {
 }
 catch (ex) {
     errors += "injectCompactOverlayFailed,";
+}
+
+// Find and add necessary class to background div
+try {
+    setTimeout(function () {
+        addXpotifyClassToBackground(12);
+    }, 250);
+}
+catch (ex) {
+    errors += "findBackgroundDivFailed,";
 }
 
 
