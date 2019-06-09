@@ -106,8 +106,12 @@ body {
 
 .now-playing-bar-container {
     border: 0;
-    background-color: rgba(40, 40, 40, 0.7);
+    background-color: rgba(40, 40, 40, 0.6);
     -webkit-backdrop-filter: blur(30px);
+}
+
+.now-playing-bar {
+    transition: background-color ease-in-out 2s;
 }
 
 .Root__ads-container {
