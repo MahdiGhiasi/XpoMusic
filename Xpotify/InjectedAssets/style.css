@@ -212,7 +212,7 @@ body {
 }
 
 .btn {
-    font-size: 13px;
+    font-size: 14px;
     font-family: Segoe UI;
     text-transform: lowercase;
     letter-spacing: unset;
@@ -235,7 +235,7 @@ body {
     border: 0;
     border: 1px solid #505050;
     border-radius: 0;
-    background-color: rgba(20, 20, 20, 0.7);
+    background-color: rgba(30, 30, 30, 0.7);
 }
 
     .react-contextmenu.react-contextmenu--visible {
