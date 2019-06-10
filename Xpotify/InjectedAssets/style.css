@@ -227,7 +227,7 @@ body {
 }
 
 .btn.btn-transparent:not(.disabled):hover {
-    opacity: 0.8;
+    opacity: 0.7;
 }
 
 /* Context menu */
