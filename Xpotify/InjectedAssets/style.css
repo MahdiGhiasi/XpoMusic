@@ -340,6 +340,10 @@ h1 {
     font-size: 48px !important;
     font-weight: var(--glue-font-weight-black) !important;
 }
+
+.TrackListHeader__entity-name h2 {
+    font-weight: 300;
+}
 /* End font style changes */
 
 /* Pivot tab style */
