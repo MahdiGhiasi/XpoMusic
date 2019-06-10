@@ -220,6 +220,25 @@ body {
     }
 }
 
+.btn {
+    font-size: 13px;
+    font-family: Segoe UI;
+    text-transform: lowercase;
+    letter-spacing: unset;
+}
+
+.btn:first-letter {
+    text-transform: uppercase;
+}
+
+.btn:not(.disabled):hover {
+    transform: scale(1);
+}
+
+.btn.btn-transparent:not(.disabled):hover {
+    opacity: 0.8;
+}
+
 /* Playlist list on navbar scrollbar color fix */
 .Rootlist__playlists-scroll-node {
     filter: invert(1);
