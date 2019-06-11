@@ -270,6 +270,7 @@ body {
     animation: animation-entrance-fade-in-60 0.4s ease forwards;
 }
 
+/* Pivot item animation */
 .Root__main-view nav ul li {
     opacity: 0;
 }
@@ -310,10 +311,175 @@ body {
         animation: animation-entrance-pivot-item 0.4s ease .55s forwards;
     }
 
+/* Tracklist item animation */
+.tracklist > div:nth-child(1) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0s forwards;
+}
+
+.tracklist > div:nth-child(2) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.03s forwards;
+}
+
+.tracklist > div:nth-child(3) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.06s forwards;
+}
+
+.tracklist > div:nth-child(4) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.09s forwards;
+}
+
+.tracklist > div:nth-child(5) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.12s forwards;
+}
+
+.tracklist > div:nth-child(6) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.15s forwards;
+}
+
+.tracklist > div:nth-child(7) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.18s forwards;
+}
+
+.tracklist > div:nth-child(8) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.21s forwards;
+}
+
+.tracklist > div:nth-child(9) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.24s forwards;
+}
+
+.tracklist > div:nth-child(10) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.27s forwards;
+}
+
+.tracklist > div:nth-child(11) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.30s forwards;
+}
+
+.tracklist > div:nth-child(12) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.32s forwards;
+}
+
+.tracklist > div:nth-child(13) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.34s forwards;
+}
+
+.tracklist > div:nth-child(14) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.36s forwards;
+}
+
+.tracklist > div:nth-child(15) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.38s forwards;
+}
+
+.tracklist > div:nth-child(16) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.40s forwards;
+}
+
+.tracklist > div:nth-child(17) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.42s forwards;
+}
+
+.tracklist > div:nth-child(18) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.44s forwards;
+}
+
+.tracklist > div:nth-child(19) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.46s forwards;
+}
+
+.tracklist > div:nth-child(20) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.48s forwards;
+}
+
+.tracklist > div:nth-child(21) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.50s forwards;
+}
+
+.tracklist > div:nth-child(22) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.52s forwards;
+}
+
+.tracklist > div:nth-child(23) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.54s forwards;
+}
+
+.tracklist > div:nth-child(24) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.56s forwards;
+}
+
+.tracklist > div:nth-child(25) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.58s forwards;
+}
+
+.tracklist > div:nth-child(26) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.60s forwards;
+}
+
+.tracklist > div:nth-child(27) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.62s forwards;
+}
+
+.tracklist > div:nth-child(28) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.64s forwards;
+}
+
+.tracklist > div:nth-child(29) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.66s forwards;
+}
+
+.tracklist > div:nth-child(30) .tracklist-row {
+    opacity: 0;
+    animation: animation-entrance-tracklist-item 0.4s ease 0.68s forwards;
+}
+
+
+/* Keyframes */
 @keyframes animation-entrance-pivot-item {
     0% {
         opacity: 0;
         transform: translateX(-16px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes animation-entrance-tracklist-item {
+    0% {
+        opacity: 0;
+        transform: translateX(-24px);
     }
 
     100% {
