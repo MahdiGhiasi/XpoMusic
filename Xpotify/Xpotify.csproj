@@ -17,12 +17,12 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>ModernSpotifyUWP_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>Xpotify_StoreKey.pfx</PackageCertificateKeyFile>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>F2814F4A28A32D09D750647762D0F20DBE2E7BE9</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>184210D91298B470060D82EF00968C2CE43DB4CF</PackageCertificateThumbprint>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
   </PropertyGroup>
@@ -372,8 +372,7 @@
     <AppxManifest Include="Package.debug.appxmanifest" Condition="'$(Configuration)'=='Debug'">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="ModernSpotifyUWP_StoreKey.pfx" />
-    <None Include="ModernSpotifyUWP_TemporaryKey.pfx" />
+    <None Include="Xpotify_StoreKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Media\silent.wav" />
