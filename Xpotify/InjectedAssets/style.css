@@ -255,9 +255,8 @@ body {
 /* End context menu */
 
 /* Tab/page change entrance animation */
-.content,
+.HeaderedGrid__header,
 .container-fluid,
-.tracklist-row,
 .search-history {
     animation: animation-entrance-content 0.4s ease;
 }
