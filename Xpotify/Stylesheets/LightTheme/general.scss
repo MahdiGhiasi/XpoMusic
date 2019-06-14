@@ -41,6 +41,7 @@ html {
     filter: hue-rotate(180deg);
 }
 
+
 .cover-art, .artist-header, .view-header, .ConnectBar, .btn-green, .btn-fg-green,
 div[aria-live=polite], .control-button--active, .Root__nav-bar .sessionInfo .avatar,
 .UserWidget__link--is-active span, .AdsContainer__inner, img[src*=profilepic],
@@ -54,10 +55,6 @@ img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
     filter: invert(1);
 }
 
-.artist-header .btn-green {
-    filter: invert(0);
-}
-
 .navBar-link--active:after, .RecentlyPlayedWidget__link--active:after {
     background-color: #1DB954;
     filter: invert(1);
@@ -67,65 +64,8 @@ img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
     filter: invert(1);
 }
 
-    .Root__main-view nav a {
-        color: black !important;
-    }
-
-.Root__main-view .artist-header nav {
-    filter: invert(0);
-    z-index: 2;
-}
-
-    .Root__main-view .artist-header nav a {
-        color: black !important;
-    }
-
-header.artist-header:after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    bottom: 0;
-    left: 0;
-    pointer-events: none;
-    width: 100%;
-    height: 160px;
-    background: linear-gradient( to bottom, rgba(231, 231, 231, 0) 0%, rgba(231, 231, 231, 0.013) 8.1%, rgba(231, 231, 231, 0.049) 15.5%, rgba(231, 231, 231, 0.104) 22.5%, rgba(231, 231, 231, 0.175) 29%, rgba(231, 231, 231, 0.259) 35.3%, rgba(231, 231, 231, 0.352) 41.2%, rgba(231, 231, 231, 0.45) 47.1%, rgba(231, 231, 231, 0.55) 52.9%, rgba(231, 231, 231, 0.648) 58.8%, rgba(231, 231, 231, 0.741) 64.7%, rgba(231, 231, 231, 0.825) 71%, rgba(231, 231, 231, 0.896) 77.5%, rgba(231, 231, 231, 0.951) 84.5%, rgba(231, 231, 231, 0.987) 91.9%, rgba(231, 231, 231, 1) 100% );
-}
-
-.view-header:after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    bottom: 0;
-    left: 0;
-    pointer-events: none;
-    width: 100%;
-    height: 250px;
-    background: linear-gradient( to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.013) 8.1%, rgba(255, 255, 255, 0.049) 15.5%, rgba(255, 255, 255, 0.104) 22.5%, rgba(255, 255, 255, 0.175) 29%, rgba(255, 255, 255, 0.259) 35.3%, rgba(255, 255, 255, 0.352) 41.2%, rgba(255, 255, 255, 0.45) 47.1%, rgba(255, 255, 255, 0.55) 52.9%, rgba(255, 255, 255, 0.648) 58.8%, rgba(255, 255, 255, 0.741) 64.7%, rgba(255, 255, 255, 0.825) 71%, rgba(255, 255, 255, 0.896) 77.5%, rgba(255, 255, 255, 0.951) 84.5%, rgba(255, 255, 255, 0.987) 91.9%, rgba(255, 255, 255, 1) 100% );
-}
-
-.Root__nav-bar {
-    background-color: rgba(40, 40, 40, 0.6) !important;
-    -webkit-backdrop-filter: blur(20px);
-}
-
-.now-playing-bar-container {
-    background-color: rgba(30, 33, 40, 0.65);
-}
-
-.react-contextmenu.react-contextmenu--visible {
-    /* Context menu shadow should be dark in light mode as well */
-    box-shadow: 0 0 28px 4px rgba(255,255,255,0.2) !important;
-}
-
-.progress-bar .progress-bar__fg {
-    transition-duration: 0s;
-    background-color: #b3b3b3;
-}
-
-.progress-bar--is-active .progress-bar__fg {
-    background-color: #1db954;
-    filter: invert(1);
+.Root__main-view nav a {
+    color: black !important;
 }
 
 .media-object .media-object-hoverable.playing .cover-art-image,
@@ -147,16 +87,10 @@ header.artist-header:after {
     color: white !important;
 }
 
-    .Search__content nav ul li a::before {
-        /* Fixed a bug in search page content header in white theme in Edge. */
-        background-color: #e246ab !important;
-    }
-
-/* Window title */
-.xpotifyWindowTitle {
-    font-weight: 300;
+.Search__content nav ul li a::before {
+    /* Fixed a bug in search page content header in white theme in Edge. */
+    background-color: #e246ab !important;
 }
-
 
 /* Error page image */
 #main .dialog img {

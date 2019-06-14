@@ -378,13 +378,35 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <None Include="InjectedAssets\style-dark.css" />
     <Content Include="InjectedAssets\style-dark.min.css" />
+    <None Include="InjectedAssets\style-light.css" />
     <Content Include="InjectedAssets\style-light.min.css" />
     <Content Include="Scripts\DarkTheme\tsconfig.json" />
     <Content Include="Scripts\LightTheme\tsconfig.json" />
-    <None Include="Stylesheets\dark.scss" />
-    <None Include="Stylesheets\light.scss" />
-    <None Include="Stylesheets\common.scss" />
+    <None Include="Stylesheets\Common\adsContainer.scss" />
+    <None Include="Stylesheets\Common\Animation\pageEntrance.scss" />
+    <None Include="Stylesheets\Common\Animation\pivotEntrance.scss" />
+    <None Include="Stylesheets\Common\Animation\tracklistEntrance.scss" />
+    <None Include="Stylesheets\Common\backButton.scss" />
+    <None Include="Stylesheets\Common\contextMenu.scss" />
+    <None Include="Stylesheets\Common\fontStyle.scss" />
+    <None Include="Stylesheets\Common\general.scss" />
+    <None Include="Stylesheets\Common\navBar.scss" />
+    <None Include="Stylesheets\Common\nowPlayingBar.scss" />
+    <None Include="Stylesheets\Common\pivotTabStyle.scss" />
+    <None Include="Stylesheets\Common\smallWidthWindow.scss" />
+    <None Include="Stylesheets\Common\windowTitle.scss" />
+    <None Include="Stylesheets\DarkTheme\dark.scss" />
+    <None Include="Stylesheets\LightTheme\artistPage.scss" />
+    <None Include="Stylesheets\LightTheme\contextMenu.scss" />
+    <None Include="Stylesheets\LightTheme\general.scss" />
+    <None Include="Stylesheets\LightTheme\light.scss" />
+    <None Include="Stylesheets\Common\common.scss" />
+    <None Include="Stylesheets\LightTheme\navBar.scss" />
+    <None Include="Stylesheets\LightTheme\nowPlayingBar.scss" />
+    <None Include="Stylesheets\LightTheme\progressBar.scss" />
+    <None Include="Stylesheets\LightTheme\windowTitle.scss" />
     <None Include="Xpotify_StoreKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -396,7 +418,6 @@
     <Content Include="InjectedAssets\isPlayingOnThisApp.js" />
     <Content Include="InjectedAssets\navigateToPage.js" />
     <Content Include="InjectedAssets\initScript.js" />
-    <Content Include="InjectedAssets\style.css" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -1,0 +1,51 @@
+﻿
+.Root__nav-bar {
+    background-color: rgba(0, 0, 0, 0.2) !important;
+    -webkit-backdrop-filter: blur(20px);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.navBar {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+}
+
+.main-view-container__content, .main-view-container__scroll-node {
+    /* Acrylic behind navbar in artist page */
+    margin-left: -230px;
+    padding-left: 230px;
+}
+
+.navBar-header {
+    margin-bottom: 12px;
+}
+
+@media (max-width: 720px) {
+    .Root__nav-bar .sessionInfo .UserWidget__user-link {
+        display: none;
+    }
+}
+
+.navBar-logo--size-large {
+    display: none;
+}
+
+.navBar-logo--size-small {
+    display: none;
+}
+
+
+@media (max-width: 720px) {
+    .navBar ul {
+        margin-bottom: 40px;
+    }
+}
+
+@media (max-height: 560px) {
+    .navBar ul {
+        margin-bottom: 10px;
+    }
+}

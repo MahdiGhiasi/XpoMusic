@@ -1,0 +1,4 @@
+﻿.react-contextmenu.react-contextmenu--visible {
+    /* Context menu shadow should be dark in light mode as well */
+    box-shadow: 0 0 28px 4px rgba(255,255,255,0.2) !important;
+}

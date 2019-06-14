@@ -1,0 +1,60 @@
+﻿/* Pivot tab style */
+
+.Root__main-view nav ul li a {
+    font-family: Segoe UI !important;
+    font-weight: 400 !important;
+    font-size: 16px !important;
+    letter-spacing: normal !important;
+    text-transform: lowercase !important;
+    margin: 10px 2px !important;
+}
+
+.Root__main-view nav ul li a::first-letter {
+    text-transform: uppercase !important;
+}
+
+.Root__main-view nav ul li a:before {
+    content: "";
+    height: 2px;
+    position: absolute;
+    display: block;
+    left: 10px;
+    right: 10px;
+    bottom: -4px;
+    width: unset;
+    margin: 0;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity .2s ease-out .1s, transform .2s ease-out .1s;
+}
+
+.EYVkZXmTImKH4iH48N7Uj._1-aXXBO8bQU1WTFY-7B0m-:before {
+    left: 10px;
+    right: 10px;
+    bottom: -4px;
+    width: unset;
+    margin: 0;
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.Root__main-view nav ul {
+    text-align: left !important;
+}
+
+.Root__main-view .Search__content nav ul,
+.Root__main-view .artist-header nav ul {
+    margin-left: 16px;
+}
+
+@media (min-width: 1100px) {
+    .asideButton {
+        position: absolute;
+        right: 0;
+        top: 8px;
+    }
+
+    .Root__main-view nav ul {
+        margin-right: 150px !important;
+    }
+}

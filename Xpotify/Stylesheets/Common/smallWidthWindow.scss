@@ -1,0 +1,188 @@
+﻿/* Making UI usable for width < 720px, as UWP needs to support 500px+ */
+body {
+    min-width: 500px;
+}
+
+.now-playing-bar-container {
+    min-width: 500px;
+}
+
+@media (max-width: 720px) {
+    .now-playing-bar__center .player-controls__buttons {
+        width: 180px;
+    }
+
+    .now-playing-bar__center .playback-bar {
+        width: 214px;
+    }
+
+    .now-playing-bar__left .track-info {
+        margin-right: 4px;
+        margin-left: 8px;
+    }
+
+    .now-playing-bar__left .control-button {
+        width: 22px;
+        min-width: 22px;
+    }
+
+    .Root__main-view {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        width: 100%;
+    }
+
+    .Root__nav-bar {
+        width: 80px;
+    }
+
+    .Root__nav-bar .navBar-item .navbar-link__text {
+        display: none;
+    }
+
+    [dir=ltr] .SearchInputBox {
+        left: 80px;
+    }
+
+    .navBar-link {
+        padding: 0 30px;
+    }
+
+    .navBar-item--with-icon-left .navBar-link-text-with-icon-wrapper,
+    .navBar-item--with-icon-right .navBar-link-text-with-icon-wrapper {
+        justify-content: initial;
+    }
+
+    .recently-played {
+        display: none;
+    }
+
+    .Rootlist__playlists {
+        display: none;
+    }
+}
+
+@media (max-width: 640px) {
+    .now-playing-bar__left {
+        width: 45%;
+    }
+
+    .now-playing-bar__center {
+        width: 50%;
+    }
+
+    .now-playing-bar__right {
+        width: 90px;
+        min-width: 90px;
+    }
+
+    .now-playing-bar__right__inner {
+        width: 90px;
+        min-width: 90px;
+    }
+
+    .now-playing-bar__right__inner .ExtraControls {
+        flex-wrap: wrap;
+        margin-top: 4px;
+    }
+
+    .now-playing-bar__right__inner .control-button {
+        width: 22px;
+        min-width: 22px;
+        margin-right: 2px;
+        margin-left: 2px;
+    }
+
+    .now-playing-bar__right__inner .volume-bar {
+        width: 81px;
+        margin-top: 4px;
+    }
+
+    .now-playing-bar__right__inner .CompactOverlayButton {
+        margin-right: 6px;
+    }
+
+    .now-playing-bar__right__inner .ExtraControls__connect-device-picker .connect-device-list-container {
+        right: 0;
+        bottom: 72px;
+    }
+
+    .now-playing-bar__right__inner .ExtraControls__connect-device-picker .connect-device-list-container:before {
+        width: 0;
+        height: 0;
+        bottom: 0;
+    }
+
+    .HeaderedGrid__header h1 {
+        font-size: 30px;
+    }
+
+    .HeaderedGrid__header .ResponsiveViewMoreButton {
+        padding-top: 6px;
+    }
+}
+
+@media (max-width: 820px) {
+    header.artist-header h1.large {
+        font-size: 48px !important;
+    }
+}
+
+@media (max-width: 550px) {
+    .now-playing-bar__right {
+        width: 80px;
+        min-width: 80px;
+    }
+
+    .now-playing-bar__right__inner {
+        width: 80px;
+        min-width: 80px;
+    }
+
+    .now-playing-bar__right__inner .control-button {
+        width: 22px;
+        min-width: 22px;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+
+    .now-playing-bar__right__inner .volume-bar {
+        width: 69px;
+    }
+
+    .now-playing-bar__right__inner .volume-bar .control-button {
+        margin-right: 2px;
+    }
+
+    .contentSpacing {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
+}
+
+
+@media (max-width: 870px) and (min-width: 771px) {
+    .TrackListHeader {
+        width: 400px;
+    }
+}
+
+@media (max-width: 770px) {
+    .Root__main-view .TrackListHeader {
+        display: block;
+    }
+
+    .Root__main-view .TrackListHeader__body {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        width: 320px;
+    }
+
+    .Root__main-view .TrackListHeader__children {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 320px;
+        justify-content: center;
+    }
+}

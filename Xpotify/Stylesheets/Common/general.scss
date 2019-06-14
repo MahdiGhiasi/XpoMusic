@@ -1,0 +1,165 @@
+﻿
+html {
+    /* 
+        Color of the bounce effect of page when using touch or touchpad.
+    */
+    background-color: #181818;
+}
+
+@media (max-height: 1100px) {
+    .main-view-container__content, .main-view-container__content > section, .main-view-container__content > div,
+    .main-view-container__scroll-node, .main-view-container__scroll-node-child {
+        /*
+            Fix for new scrollbar theme: We invert the color of the element with scrollbar, as well as its immediate child, so
+            the content is not inverted but the scrollbar is.
+            
+            Note: We don't do this for pages with height more than 1100px, because of Edge pixelation bug.
+            This is a compromise, on too tall displays scrollbar color is not correct but at least page is not pixelated.
+        */
+        filter: invert(1);
+    }
+}
+
+body {
+    background-color: #181818;
+
+    /* Disable overscrolling navbar and now playing bar */
+    overflow-y: hidden;
+
+    /* Disable zooming by pinch on touch screen or presicion touchpad */
+    -ms-content-zooming: none;
+
+    /* Disable text selection */
+    -webkit-user-select: none;
+}
+
+.main-view-container__content, .main-view-container__scroll-node {
+    /* Auto hide new scrollbar */
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+
+    /* Don't show scrollbar when not necessary */
+    overflow-y: auto;
+}
+
+.Root__main-view .contentSpacing {
+    margin-bottom: 90px !important;
+    padding-top: 20px !important;
+}
+
+.Root__main-view .row .contentSpacing {
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+}
+
+
+.Root__main-view .Search .contentSpacing {
+    margin-bottom: 0px !important;
+    padding-top: 20px !important;
+}
+
+.Root__main-view .view-header {
+    margin-top: -20px;
+}
+
+.cover-art {
+    /* Fixed a bug where some images show up as inverted in Edge. */
+    filter: invert(0);
+}
+
+.NavBar__download-item {
+    display: none;
+}
+
+.segoe-icon {
+    font-size: 16px;
+}
+
+@media (max-width: 720px) {
+    .segoe-icon {
+        font-size: 18px;
+    }
+}
+
+.btn {
+    font-size: 14px;
+    font-family: Segoe UI;
+    text-transform: lowercase;
+    letter-spacing: unset;
+}
+
+.btn:first-letter {
+    text-transform: uppercase;
+}
+
+.btn:not(.disabled):hover {
+    transform: scale(1);
+}
+
+.btn.btn-transparent:not(.disabled):hover {
+    opacity: 0.7;
+}
+
+/* Playlist list on navbar scrollbar color fix */
+.Rootlist__playlists-scroll-node {
+    filter: invert(1);
+}
+
+    .Rootlist__playlists-scroll-node li {
+        filter: invert(1);
+    }
+
+/* By [artistName] padding */
+.TrackListHeader__entity-by {
+    margin-right: 4px;
+}
+
+/* Move top info banners, so they don't get covered up via window close button */
+div[aria-live=polite] {
+    height: auto;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-right: 150px;
+}
+
+/* Remove the X button on the top info banners */
+div[aria-live=polite] button {
+    display: none;
+}
+
+/* Recently played items */
+@media (max-height:760px) {
+    .recently-played__item-5 {
+        display: none;
+    }
+}
+
+@media (max-height:726px) {
+    .recently-played__item-4 {
+        display: none;
+    }
+}
+
+@media (max-height:677px) {
+    .recently-played__item-3 {
+        display: none;
+    }
+}
+
+@media (max-height:633px) {
+    .recently-played__item-2 {
+        display: none;
+    }
+}
+
+@media (max-height:590px) {
+    .recently-played {
+        display: none;
+    }
+}
+
+@media (max-height:660px) {
+    .Rootlist__playlists {
+        display: none;
+    }
+}
+

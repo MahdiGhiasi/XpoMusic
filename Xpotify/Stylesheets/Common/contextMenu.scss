@@ -1,0 +1,22 @@
+﻿/* Context menu */
+.react-contextmenu {
+    border: 0;
+    border: 1px solid #505050;
+    border-radius: 0;
+    background-color: rgba(30, 30, 30, 0.7);
+}
+
+.react-contextmenu.react-contextmenu--visible {
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 0 20px 4px rgba(0,0,0,0.25);
+}
+
+.react-contextmenu-item {
+    color: #eeeeee;
+    opacity: 0;
+    transition: opacity ease-out .15s;
+}
+
+.react-contextmenu.react-contextmenu--visible .react-contextmenu-item {
+    opacity: 1;
+}

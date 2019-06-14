@@ -1,0 +1,49 @@
+﻿/* Tab/page change entrance animation */
+
+.HeaderedGrid__header,
+.container-fluid,
+.search-history {
+    animation: animation-entrance-content 0.4s ease;
+}
+
+.asideButton {
+    animation: animation-entrance-fade-in 0.4s ease;
+}
+
+.TrackListHeader__entity-long-description {
+    animation: animation-entrance-fade-in-60 0.4s ease forwards;
+}
+
+
+/* Keyframes */
+@keyframes animation-entrance-fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes animation-entrance-fade-in-60 {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: .6;
+    }
+}
+
+@keyframes animation-entrance-content {
+    0%, 25% {
+        opacity: 0;
+        transform: translateY(32px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

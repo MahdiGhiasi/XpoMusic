@@ -1,0 +1,9 @@
+﻿.progress-bar .progress-bar__fg {
+    transition-duration: 0s;
+    background-color: #b3b3b3;
+}
+
+.progress-bar--is-active .progress-bar__fg {
+    background-color: #1db954;
+    filter: invert(1);
+}

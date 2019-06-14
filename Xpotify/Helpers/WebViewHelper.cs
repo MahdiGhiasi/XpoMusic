@@ -50,7 +50,7 @@ namespace Xpotify.Helpers
             if (injected != "1")
             {
                 var script = await AssetManager.LoadAssetString("initScript.js");
-                var styleCss = await AssetManager.LoadAssetString("style.css");
+                var styleCss = await AssetManager.LoadAssetString("style-dark.min.css");
                 script = script.Replace("{{CSSBASE64CONTENT}}", Convert.ToBase64String(Encoding.UTF8.GetBytes(styleCss)));
 
                 await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -70,7 +70,7 @@ namespace Xpotify.Helpers
             if (injected != "1")
             {
                 var script = await AssetManager.LoadAssetString("initLightTheme.js");
-                var styleCss = await AssetManager.LoadAssetString("style-light.css");
+                var styleCss = await AssetManager.LoadAssetString("style-light.min.css");
                 script = script.Replace("{{CSSBASE64CONTENT}}", Convert.ToBase64String(Encoding.UTF8.GetBytes(styleCss)));
 
                 await mainWebView.InvokeScriptAsync("eval", new string[] { script });

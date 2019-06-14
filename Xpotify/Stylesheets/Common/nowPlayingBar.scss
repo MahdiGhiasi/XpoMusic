@@ -1,0 +1,38 @@
+﻿
+.Root__now-playing-bar {
+    background-color: transparent;
+}
+
+.now-playing-bar-container {
+    border: 0;
+    background-color: rgba(40, 40, 40, 0.6);
+    -webkit-backdrop-filter: blur(30px);
+}
+
+.now-playing-bar {
+    transition: background-color ease-in-out 2s;
+}
+
+.now-playing-bar__right__inner .CompactOverlayButton {
+    margin-top: -1px;
+}
+
+/* Fluent blur behind now playing bar */
+.main-view-container {
+    margin-bottom: -90px;
+}
+
+.main-view-container__scroll-node,
+.main-view-container__scroll-node-child {
+    padding-bottom: 90px;
+}
+
+.Root__main-view--has-ads .main-view-container {
+    margin-bottom: -190px;
+}
+
+.Root__main-view--has-ads .main-view-container__scroll-node,
+.Root__main-view--has-ads .main-view-container__scroll-node-child {
+    padding-bottom: 190px;
+}
+/* END Fluent blur behind now playing bar */

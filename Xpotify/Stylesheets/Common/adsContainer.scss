@@ -1,0 +1,20 @@
+﻿
+.Root__ads-container {
+    background-color: rgba(24, 24, 24, 0.7);
+    -webkit-backdrop-filter: blur(30px);
+}
+
+.AdsContainer {
+    background-color: transparent;
+    overflow: hidden;
+}
+
+.now-playing-bar__right {
+    padding-right: 8px;
+}
+
+@media (min-width: 721px) {
+    .now-playing-bar__right__inner {
+        width: 200px;
+    }
+}

@@ -1,0 +1,42 @@
+﻿/* Font style changes */
+
+body {
+    --glue-font-weight-normal: 400;
+    --glue-font-weight-bold: 500;
+    --glue-font-weight-black: 700;
+    -webkit-font-smoothing: antialiased;
+    font-family: Segoe UI,spotify-circular,spotify-circular-cyrillic,spotify-circular-arabic,spotify-circular-hebrew,Helvetica Neue,Helvetica,Arial,Hiragino Kaku Gothic Pro,Meiryo,MS Gothic,sans-serif;
+}
+
+h1 {
+    font-family: Segoe UI !important;
+    font-weight: 100 !important;
+    font-size: 32px !important;
+}
+
+.navBar-item {
+    font-weight: var(--glue-font-weight-normal);
+}
+
+.ResponsiveViewMoreButton {
+    margin-top: 10px;
+}
+
+.artist-header h1.large {
+    font-size: 72px !important;
+    font-weight: var(--glue-font-weight-black) !important;
+}
+
+.artist-header h1.medium {
+    font-size: 48px !important;
+    font-weight: var(--glue-font-weight-black) !important;
+}
+
+.view-header__header-title--xxxl {
+    font-size: 48px !important;
+    font-weight: var(--glue-font-weight-black) !important;
+}
+
+.TrackListHeader__entity-name h2 {
+    font-weight: 300;
+}

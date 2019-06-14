@@ -1,0 +1,67 @@
+﻿/* Pivot item animation */
+
+.Root__main-view nav ul li {
+    opacity: 0;
+}
+
+.Root__main-view nav ul li:nth-child(1) {
+    animation: animation-entrance-pivot-item 0.4s ease forwards;
+}
+
+.Root__main-view nav ul li:nth-child(2) {
+    animation: animation-entrance-pivot-item 0.4s ease .05s forwards;
+}
+
+.Root__main-view nav ul li:nth-child(3) {
+    animation: animation-entrance-pivot-item 0.4s ease .1s forwards;
+}
+
+.Root__main-view nav ul li:nth-child(4) {
+    animation: animation-entrance-pivot-item 0.4s ease .15s forwards;
+}
+
+.Root__main-view nav ul li:nth-child(5) {
+    animation: animation-entrance-pivot-item 0.4s ease .2s forwards;
+}
+
+.Root__main-view nav ul li:nth-child(6) {
+    animation: animation-entrance-pivot-item 0.4s ease .25s forwards;
+}
+
+.Root__main-view nav ul li:nth-child(7) {
+    animation: animation-entrance-pivot-item 0.4s ease .3s forwards;
+}
+
+.Root__main-view nav ul li:nth-child(8) {
+    animation: animation-entrance-pivot-item 0.4s ease .35s forwards;
+}
+
+.Root__main-view nav ul li:nth-child(9) {
+    animation: animation-entrance-pivot-item 0.4s ease .4s forwards;
+}
+
+.Root__main-view nav ul li:nth-child(10) {
+    animation: animation-entrance-pivot-item 0.4s ease .45s forwards;
+}
+
+.Root__main-view nav ul li:nth-child(11) {
+    animation: animation-entrance-pivot-item 0.4s ease .5s forwards;
+}
+
+.Root__main-view nav ul li:nth-child(12) {
+    animation: animation-entrance-pivot-item 0.4s ease .55s forwards;
+}
+
+
+/* Keyframes */
+@keyframes animation-entrance-pivot-item {
+    0% {
+        opacity: 0;
+        transform: translateX(-16px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
