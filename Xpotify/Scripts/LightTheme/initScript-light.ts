@@ -1,6 +1,15 @@
-﻿namespace InitScript {
+﻿/// <reference path="../Common/initScript-common.ts" />
+/// <reference path="pageOverlay.ts" />
 
-    Common.init();
+namespace InitScript {
 
-    console.log("damn۲21444");
+    document.getElementsByTagName('body')[0].setAttribute('data-xpotifyTheme', 'light');
+
+    var errors = "";
+
+    errors += Common.init();
+    errors += Light.PageOverlay.createPageOverlay();
+
+    if (errors.length > 0)
+        throw errors;
 }

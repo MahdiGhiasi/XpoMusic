@@ -1,6 +1,13 @@
-﻿namespace InitScript {
+﻿/// <reference path="../Common/initScript-common.ts" />
 
-    Common.init();
+namespace InitScript {
 
-    console.log("dark999");
+    document.getElementsByTagName('body')[0].setAttribute('data-xpotifyTheme', 'dark');
+
+    var errors = "";
+
+    errors += Common.init();
+
+    if (errors.length > 0)
+        throw errors;
 }

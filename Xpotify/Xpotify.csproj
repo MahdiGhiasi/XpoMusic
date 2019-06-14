@@ -184,6 +184,13 @@
     <Compile Include="Helpers\TileHelper.cs" />
     <Compile Include="Helpers\ToastHelper.cs" />
     <Compile Include="Helpers\UnauthorizedHelper.cs" />
+    <TypeScriptCompile Include="Scripts\Common\browserHistory.ts" />
+    <TypeScriptCompile Include="Scripts\Common\color.ts" />
+    <TypeScriptCompile Include="Scripts\Common\dragDrop.ts" />
+    <TypeScriptCompile Include="Scripts\Common\vibrant.ts" />
+    <TypeScriptCompile Include="Scripts\Common\resize.ts" />
+    <TypeScriptCompile Include="Scripts\Common\uriHelper.ts" />
+    <TypeScriptCompile Include="Scripts\Common\uiElementModifier.ts" />
     <Compile Include="XpotifyApi\AppConstantsApi.cs" />
     <Compile Include="XpotifyApi\AssetUpdatesApi.cs" />
     <Compile Include="XpotifyApi\DeveloperMessageApi.cs" />
@@ -366,6 +373,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="InjectedAssets\init-dark.js" />
     <Content Include="InjectedAssets\init-light.js" />
+    <TypeScriptCompile Include="Scripts\LightTheme\pageOverlay.ts" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" Condition="'$(Configuration)'=='Release'">
@@ -412,12 +420,10 @@
   <ItemGroup>
     <Content Include="Assets\Media\silent.wav" />
     <Content Include="InjectedAssets\goBackIfPossible.js" />
-    <Content Include="InjectedAssets\initLightTheme.js" />
     <Content Include="InjectedAssets\isBackPossible.js" />
     <Content Include="InjectedAssets\isLoggedInCheck.js" />
     <Content Include="InjectedAssets\isPlayingOnThisApp.js" />
     <Content Include="InjectedAssets\navigateToPage.js" />
-    <Content Include="InjectedAssets\initScript.js" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -514,6 +520,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Common\initScript-common.ts" />
+    <TypeScriptCompile Include="Scripts\Common\uiInjector.ts" />
     <TypeScriptCompile Include="Scripts\DarkTheme\initScript-dark.ts" />
     <TypeScriptCompile Include="Scripts\LightTheme\initScript-light.ts" />
   </ItemGroup>

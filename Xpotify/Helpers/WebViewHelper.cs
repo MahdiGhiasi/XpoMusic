@@ -42,36 +42,18 @@ namespace Xpotify.Helpers
         }
 
         /// <returns>true if just injected the script, false if it was already injected.</returns>
-        public static async Task<bool> InjectInitScript()
+        public static async Task<bool> InjectInitScript(bool lightTheme)
         {
             var checkIfInjected = "((document.getElementsByTagName('body')[0].getAttribute('data-scriptinjection') == null) ? '0' : '1');";
             var injected = await mainWebView.InvokeScriptAsync("eval", new string[] { checkIfInjected });
 
             if (injected != "1")
             {
-                var script = await AssetManager.LoadAssetString("initScript.js");
-                var styleCss = await AssetManager.LoadAssetString("style-dark.min.css");
-                script = script.Replace("{{CSSBASE64CONTENT}}", Convert.ToBase64String(Encoding.UTF8.GetBytes(styleCss)));
-
-                await mainWebView.InvokeScriptAsync("eval", new string[] { script });
-
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <returns>true if just injected the script, false if it was already injected.</returns>
-        public static async Task<bool> InjectLightThemeScript()
-        {
-            var checkIfInjected = "((document.getElementsByTagName('body')[0].getAttribute('data-scriptinjection-lighttheme') == null) ? '0' : '1');";
-            var injected = await mainWebView.InvokeScriptAsync("eval", new string[] { checkIfInjected });
-
-            if (injected != "1")
-            {
-                var script = await AssetManager.LoadAssetString("initLightTheme.js");
-                var styleCss = await AssetManager.LoadAssetString("style-light.min.css");
-                script = script.Replace("{{CSSBASE64CONTENT}}", Convert.ToBase64String(Encoding.UTF8.GetBytes(styleCss)));
+                var script = await AssetManager.LoadAssetString(lightTheme ? "init-light.js" : "init-dark.js");
+                var styleCss = await AssetManager.LoadAssetString(lightTheme ? "style-light.min.css" : "style-dark.min.css");
+                script = script
+                    .Replace("{{XPOTIFYCSSBASE64CONTENT}}", Convert.ToBase64String(Encoding.UTF8.GetBytes(styleCss)))
+                    .Replace("{{XPOTIFYISPROVERSION}}", PackageHelper.IsProVersion ? "1" : "0");
 
                 await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 

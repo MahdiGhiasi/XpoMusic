@@ -648,10 +648,7 @@ namespace Xpotify
 
             if (e.Uri.ToString().ToLower().Contains(WebViewHelper.SpotifyPwaUrlBeginsWith.ToLower()))
             {
-                var justInjected = await WebViewHelper.InjectInitScript();
-                if (ThemeHelper.GetCurrentTheme() == Theme.Light)
-                    await WebViewHelper.InjectLightThemeScript();
-
+                var justInjected = await WebViewHelper.InjectInitScript(ThemeHelper.GetCurrentTheme() == Theme.Light);
                 if (justInjected)
                     SetInitialPlaybackState();
 
