@@ -264,3 +264,14 @@ __pycache__/
 
 Secrets.cs
 
+# Generated css files
+Xpotify/InjectedAssets/style-dark.css
+Xpotify/InjectedAssets/style-dark.min.css
+Xpotify/InjectedAssets/style-light.css
+Xpotify/InjectedAssets/style-light.min.css
+
+#Generated js files
+Xpotify/InjectedAssets/init-dark.js
+Xpotify/InjectedAssets/init-dark.js.map
+Xpotify/InjectedAssets/init-light.js
+Xpotify/InjectedAssets/init-light.js.map

@@ -1,0 +1,12 @@
+﻿[
+  {
+    "outputFile": "InjectedAssets/style-light.css",
+    "inputFile": "Stylesheets/LightTheme/light.scss",
+    "includeInProject": true
+  },
+  {
+    "outputFile": "InjectedAssets/style-dark.css",
+    "inputFile": "Stylesheets/DarkTheme/dark.scss",
+    "includeInProject": true
+  }
+]

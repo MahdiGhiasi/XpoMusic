@@ -1,0 +1,16 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "module": "system",
+    "outFile": "../../InjectedAssets/init-light.js",
+    "target": "es3"
+  },
+  "include": [
+    "*.ts",
+    "../Common/*.ts"
+  ]
+}

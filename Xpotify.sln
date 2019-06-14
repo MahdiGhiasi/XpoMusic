@@ -7,16 +7,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xpotify", "Xpotify\Xpotify.
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
 		Debug|ARM64 = Debug|ARM64
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|ARM = Release|ARM
 		Release|ARM64 = Release|ARM64
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CF732FD1-9200-423A-8BB6-1685B598A3DC}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{CF732FD1-9200-423A-8BB6-1685B598A3DC}.Debug|ARM.ActiveCfg = Debug|ARM
 		{CF732FD1-9200-423A-8BB6-1685B598A3DC}.Debug|ARM.Build.0 = Debug|ARM
 		{CF732FD1-9200-423A-8BB6-1685B598A3DC}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -29,6 +32,7 @@ Global
 		{CF732FD1-9200-423A-8BB6-1685B598A3DC}.Debug|x86.ActiveCfg = Debug|x86
 		{CF732FD1-9200-423A-8BB6-1685B598A3DC}.Debug|x86.Build.0 = Debug|x86
 		{CF732FD1-9200-423A-8BB6-1685B598A3DC}.Debug|x86.Deploy.0 = Debug|x86
+		{CF732FD1-9200-423A-8BB6-1685B598A3DC}.Release|Any CPU.ActiveCfg = Release|x86
 		{CF732FD1-9200-423A-8BB6-1685B598A3DC}.Release|ARM.ActiveCfg = Release|ARM
 		{CF732FD1-9200-423A-8BB6-1685B598A3DC}.Release|ARM.Build.0 = Release|ARM
 		{CF732FD1-9200-423A-8BB6-1685B598A3DC}.Release|ARM.Deploy.0 = Release|ARM
