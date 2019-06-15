@@ -33,7 +33,7 @@
                 catch (ex2) {
                     console.log(ex2);
                 }
-            }, 500);
+            }, 400);
         }
         catch (ex) {
             console.log(ex);
