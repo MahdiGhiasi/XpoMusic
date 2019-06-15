@@ -99,4 +99,41 @@ namespace InitScript.Common.UiElementModifier {
         }
         return "";
     }
+
+    export function createTrackListAddRemoveButtons() {
+        try {
+            var tracks = document.querySelectorAll(".tracklist .tracklist-row");
+            for (var i = 0; i < tracks.length; i++) {
+                if (tracks[i].getAttribute("data-xpotify-addremovebuttonsadded") !== null) {
+                    continue;
+                }
+
+                tracks[i].setAttribute("data-xpotify-addremovebuttonsadded", "1");
+
+                var addSongDiv = document.createElement('button');
+                addSongDiv.classList.add("tracklist-middle-align");
+                addSongDiv.classList.add("control-button");
+                addSongDiv.classList.add("spoticon-add-16");
+                addSongDiv.classList.add("trackListAddRemoveSongButton");
+                addSongDiv.style.display = "none";
+                addSongDiv.setAttribute("title", "Add to your library");
+
+                var removeSongDiv = document.createElement('div');
+                removeSongDiv.classList.add("control-button");
+                removeSongDiv.classList.add("spoticon-added-16");
+                removeSongDiv.classList.add("control-button--active");
+                removeSongDiv.classList.add("trackListAddRemoveSongButton");
+                removeSongDiv.style.display = "none";
+                removeSongDiv.setAttribute("title", "Remove from your library");
+
+                var destContainer = tracks[i].querySelectorAll('.tracklist-col-duration')[0];
+                var destSibling = destContainer.querySelectorAll('.tracklist-duration')[0];
+
+                destContainer.insertBefore(addSongDiv, destSibling);
+                destContainer.insertBefore(removeSongDiv, destSibling);
+            }
+        } catch (ex) {
+            console.log(ex);
+        }
+    }
 }

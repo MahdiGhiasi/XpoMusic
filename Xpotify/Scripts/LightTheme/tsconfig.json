@@ -7,11 +7,10 @@
     "sourceMap": true,
     "module": "system",
     "outFile": "../../InjectedAssets/init-light.js",
-    "target": "es3"
+    "target": "es6"
   },
   "include": [
     "*.ts",
-    "../Common/*.ts",
-    "../Common/Lib/*.ts"
+    "../Common/*.ts"
   ]
 }

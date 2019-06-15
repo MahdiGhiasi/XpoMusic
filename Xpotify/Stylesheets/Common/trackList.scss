@@ -1,0 +1,30 @@
+﻿
+.tracklist-top-align {
+    /* No top align, will always be middle aligned. */
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-top: 0;
+}
+
+.tracklist-col-duration {
+    width: 7em;
+}
+
+.trackListAddRemoveSongButton {
+    float: left;
+    height: auto;
+    width: auto;
+    padding: 8px;
+}
+
+.trackListAddRemoveSongButton:hover {
+    opacity: 0.8;
+}
+
+.trackListRemoveSongButton {
+
+}
+
+

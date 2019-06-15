@@ -28,6 +28,7 @@ namespace InitScript.Common {
         errors += initNowPlayingBarCheck();
         setInitialPageHash();
         initOnResizeCheck();
+        initPeriodicPageCheck();
         StartupAnimation.init();
 
         return errors;
@@ -104,5 +105,20 @@ namespace InitScript.Common {
     function initOnResizeCheck() {
         window.addEventListener("resize", Resize.onResize, true);
         setInterval(Resize.onResize, 5000); // Sometimes an OnResize is necessary when users goes to a new page.
+    }
+
+    function periodicPageCheck() {
+        try {
+            if (document.querySelectorAll(".tracklist").length > 0) {
+                UiElementModifier.createTrackListAddRemoveButtons();
+            }
+        }
+        catch (ex) {
+            console.log(ex);
+        }
+    }
+
+    function initPeriodicPageCheck() {
+        setInterval(periodicPageCheck, 2000);
     }
 }
