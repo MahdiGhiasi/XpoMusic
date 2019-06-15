@@ -28,6 +28,7 @@ namespace InitScript.Common {
         errors += UiElementModifier.createBackButton();
         errors += UiElementModifier.createNavBarButtons();
         errors += UiElementModifier.createCompactOverlayButton();
+        errors += UiElementModifier.addNowPlayingButton();
         errors += UiElementModifier.addBackgroundClass();
         errors += initNowPlayingBarCheck();
         setInitialPageHash();

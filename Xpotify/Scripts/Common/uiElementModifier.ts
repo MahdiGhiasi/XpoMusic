@@ -80,6 +80,23 @@ namespace InitScript.Common.UiElementModifier {
         return "";
     }
 
+    export function addNowPlayingButton() {
+        try {
+            var nowPlayingButton = document.createElement('div');
+            nowPlayingButton.innerHTML = '<li class="navBar-group"><div class="GlueDropTarget">'
+                + '<div class="navBar-item navBar-item--with-icon-left nowPlaying-navBar-item nowPlaying-navBar-item-disabled">'
+                + '<a class="link-subtle navBar-link ellipsis-one-line" aria-label="Now Playing" href="#nowPlaying"><div class="navBar-link-text-with-icon-wrapper">'
+                + '<div class="icon NavBar__icon nowPlaying-icon"></div>'
+                + '<span class="navbar-link__text">Now Playing</span></div></a></div></div></li>';
+            UiInjector.injectNowPlayingNavBarButton(nowPlayingButton);
+        }
+        catch (ex) {
+            return "addNowPlayingButtonFailed,";
+        }
+        return "";
+        
+    }
+
     export function addBackgroundClass() {
         // Find and add necessary class to background div
         try {
