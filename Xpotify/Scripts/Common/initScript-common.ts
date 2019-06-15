@@ -4,6 +4,7 @@
 /// <reference path="color.ts" />
 /// <reference path="browserHistory.ts" />
 /// <reference path="resize.ts" />
+/// <reference path="startupAnimation.ts" />
 
 namespace InitScript.Common {
 
@@ -25,9 +26,9 @@ namespace InitScript.Common {
         errors += UiElementModifier.createCompactOverlayButton();
         errors += UiElementModifier.addBackgroundClass();
         errors += initNowPlayingBarCheck();
-
         setInitialPageHash();
         initOnResizeCheck();
+        StartupAnimation.init();
 
         return errors;
     }

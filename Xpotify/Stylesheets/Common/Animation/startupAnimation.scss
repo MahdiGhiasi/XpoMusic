@@ -1,0 +1,64 @@
+﻿.now-playing-bar__left .now-playing {
+    opacity: 0;
+    animation: animation-entrance-now-playing-item 0.4s ease forwards;
+}
+
+.playback-bar {
+    opacity: 0;
+    animation: animation-entrance-now-playing-item 0.4s ease 0.7s forwards;
+}
+
+.player-controls__buttons > .control-button:nth-child(1),
+.player-controls__buttons > .react-contextmenu-wrapper:nth-child(1) {
+    opacity: 0;
+    animation: animation-entrance-now-playing-item 0.4s ease 0.6s forwards;
+}
+.player-controls__buttons > .control-button:nth-child(2),
+.player-controls__buttons > .react-contextmenu-wrapper:nth-child(2) {
+    opacity: 0;
+    animation: animation-entrance-now-playing-item 0.4s ease 0.65s forwards;
+}
+.player-controls__buttons > .control-button:nth-child(3),
+.player-controls__buttons > .react-contextmenu-wrapper:nth-child(3) {
+    opacity: 0;
+    animation: animation-entrance-now-playing-item 0.4s ease 0.7s forwards;
+}
+.player-controls__buttons > .control-button:nth-child(4),
+.player-controls__buttons > .react-contextmenu-wrapper:nth-child(4) {
+    opacity: 0;
+    animation: animation-entrance-now-playing-item 0.4s ease 0.75s forwards;
+}
+.player-controls__buttons > .control-button:nth-child(5),
+.player-controls__buttons > .react-contextmenu-wrapper:nth-child(5) {
+    opacity: 0;
+    animation: animation-entrance-now-playing-item 0.4s ease 0.8s forwards;
+}
+
+.now-playing-bar__right .ExtraControls div:nth-child(1) {
+    opacity: 0;
+    animation: animation-entrance-now-playing-item 0.4s ease 0.9s forwards;
+}
+.now-playing-bar__right .ExtraControls div:nth-child(2) {
+    opacity: 0;
+    animation: animation-entrance-now-playing-item 0.4s ease 0.95s forwards;
+}
+.now-playing-bar__right .ExtraControls div:nth-child(3) {
+    opacity: 0;
+    animation: animation-entrance-now-playing-item 0.4s ease 1.0s forwards;
+}
+.now-playing-bar__right .ExtraControls div:nth-child(4) {
+    opacity: 0;
+    animation: animation-entrance-now-playing-item 0.4s ease 1.05s forwards;
+}
+/* Keyframes */
+@keyframes animation-entrance-now-playing-item {
+    0% {
+        opacity: 0;
+        transform: translateX(-12px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

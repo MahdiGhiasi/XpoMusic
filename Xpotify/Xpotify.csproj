@@ -187,6 +187,7 @@
     <TypeScriptCompile Include="Scripts\Common\browserHistory.ts" />
     <TypeScriptCompile Include="Scripts\Common\color.ts" />
     <TypeScriptCompile Include="Scripts\Common\dragDrop.ts" />
+    <TypeScriptCompile Include="Scripts\Common\startupAnimation.ts" />
     <TypeScriptCompile Include="Scripts\Common\vibrant.ts" />
     <TypeScriptCompile Include="Scripts\Common\resize.ts" />
     <TypeScriptCompile Include="Scripts\Common\uriHelper.ts" />
@@ -395,6 +396,7 @@
     <None Include="Stylesheets\Common\adsContainer.scss" />
     <None Include="Stylesheets\Common\Animation\pageEntrance.scss" />
     <None Include="Stylesheets\Common\Animation\pivotEntrance.scss" />
+    <None Include="Stylesheets\Common\Animation\startupAnimation.scss" />
     <None Include="Stylesheets\Common\Animation\tracklistEntrance.scss" />
     <None Include="Stylesheets\Common\backButton.scss" />
     <None Include="Stylesheets\Common\contextMenu.scss" />
