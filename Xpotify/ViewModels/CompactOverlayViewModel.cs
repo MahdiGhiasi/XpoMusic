@@ -6,11 +6,31 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using static Xpotify.NowPlayingView;
 
 namespace Xpotify.ViewModels
 {
-    public class CompactOverlayViewModel : ViewModelBase
+    public class NowPlayingViewModel : ViewModelBase
     {
+        private NowPlayingViewMode viewMode;
+        public NowPlayingViewMode ViewMode
+        {
+            get
+            {
+                return viewMode;
+            }
+            set
+            {
+                viewMode = value;
+                FirePropertyChangedEvent(nameof(ViewMode));
+                FirePropertyChangedEvent(nameof(IsCompactOverlayViewMode));
+                FirePropertyChangedEvent(nameof(IsNormalViewMode));
+            }
+        }
+
+        public bool IsCompactOverlayViewMode => ViewMode == NowPlayingViewMode.CompactOverlay;
+        public bool IsNormalViewMode => ViewMode == NowPlayingViewMode.Normal;
+
         private string artistName;
         public string ArtistName
         {

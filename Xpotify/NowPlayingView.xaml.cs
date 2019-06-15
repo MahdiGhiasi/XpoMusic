@@ -19,17 +19,31 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace Xpotify
 {
-    public sealed partial class CompactOverlayView : UserControl
+    public sealed partial class NowPlayingView : UserControl
     {
-        public event EventHandler ExitCompactOverlayRequested;
-
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        public event EventHandler<Action> ActionRequested;
 
         public FrameworkElement MainBackgroundControl => this.mainBackgroundGrid;
+
+        public NowPlayingViewMode ViewMode { get; }
+
+        public enum NowPlayingViewMode
+        {
+            Normal,
+            CompactOverlay,
+        }
+
+        public enum Action
+        {
+            Back,
+            FullScreen,
+            PlayQueue,
+            MiniView,
+        }
+
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         private DispatcherTimer timer;
         private string currentSongId;
@@ -52,7 +66,7 @@ namespace Xpotify
         private DateTime spinnerShowTime = DateTime.MaxValue;
         private readonly TimeSpan maximumSpinnerShowTime = TimeSpan.FromSeconds(7);
 
-        public CompactOverlayView()
+        public NowPlayingView(NowPlayingViewMode viewMode)
         {
             this.InitializeComponent();
 
@@ -62,6 +76,8 @@ namespace Xpotify
             };
             timer.Tick += Timer_Tick;
             timer.Start();
+
+            ViewModel.ViewMode = viewMode;
         }
 
         public void ActivateProgressRing()
@@ -162,9 +178,9 @@ namespace Xpotify
             timer.Stop();
         }
 
-        private void CloseCompactOverlayButton_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            ExitCompactOverlayRequested?.Invoke(this, new EventArgs());
+            ActionRequested?.Invoke(this, Action.Back);
         }
 
         private async void PauseButton_Tapped(object sender, TappedRoutedEventArgs e)
@@ -349,6 +365,21 @@ namespace Xpotify
             {
                 logger.Warn("Loaded event failed: " + ex.ToString());
             }
+        }
+
+        private void FullScreenButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ActionRequested?.Invoke(this, Action.FullScreen);
+        }
+
+        private void MiniViewButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ActionRequested?.Invoke(this, Action.MiniView);
+        }
+
+        private void ShowNowPlayingListButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            ActionRequested?.Invoke(this, Action.PlayQueue);
         }
     }
 }

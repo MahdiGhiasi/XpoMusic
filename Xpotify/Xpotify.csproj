@@ -140,6 +140,7 @@
     </Content>
     <Compile Include="Classes\AppConstants.cs" />
     <Compile Include="Classes\Converters\LiveTileDesignToStringConverter.cs" />
+    <Compile Include="Classes\Converters\MillisecondsToMinSecConverter.cs" />
     <Compile Include="Classes\Converters\ThemeToStringConverter.cs" />
     <Compile Include="Classes\Converters\LanguageToStringConverter.cs" />
     <Compile Include="Classes\Model\AutoPlayAction.cs" />
@@ -368,8 +369,8 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CompactOverlayView.xaml.cs">
-      <DependentUpon>CompactOverlayView.xaml</DependentUpon>
+    <Compile Include="NowPlayingView.xaml.cs">
+      <DependentUpon>NowPlayingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="InjectedAssets\init-dark.js" />
@@ -467,7 +468,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CompactOverlayView.xaml">
+    <Page Include="NowPlayingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

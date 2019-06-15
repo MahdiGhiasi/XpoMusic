@@ -45,7 +45,7 @@ namespace Xpotify
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         MediaPlayer silentMediaPlayer;
-        private CompactOverlayView compactOverlayView;
+        private NowPlayingView nowPlayingView;
         private Uri loadFailedUrl;
         private DispatcherTimer webViewCheckTimer, stuckDetectTimer, clipboardCheckTimer;
         private string prevCurrentPlaying;
@@ -156,7 +156,7 @@ namespace Xpotify
         private async void OpenCompactOverlayForAutoPlay()
         {
             await GoToCompactOverlayMode();
-            compactOverlayView.ActivateProgressRing();
+            nowPlayingView.ActivateProgressRing();
         }
 
         public void NavigateToSecondaryTile(string parameter)
@@ -323,10 +323,13 @@ namespace Xpotify
             Window.Current.SetTitleBar(topBarBackground);
 
             UpdateTitleBarSize();
+            UpdateTitleBarColors(ThemeHelper.GetCurrentTheme());
+        }
 
+        private void UpdateTitleBarColors(Theme theme)
+        {
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-
-            if (ThemeHelper.GetCurrentTheme() == Theme.Dark)
+            if (theme == Theme.Dark)
             {
                 // Top bar buttons background color
                 topBarButtonsAcrylicBrush.TintColor = Colors.Black;
@@ -582,12 +585,12 @@ namespace Xpotify
                             break;
                         case SystemMediaTransportControlsButton.Next:
                             if (await PlaybackActionHelper.NextTrack())
-                                compactOverlayView?.PlayChangeTrackAnimation(reverse: false);
+                                nowPlayingView?.PlayChangeTrackAnimation(reverse: false);
 
                             break;
                         case SystemMediaTransportControlsButton.Previous:
                             if (await PlaybackActionHelper.PreviousTrack())
-                                compactOverlayView?.PlayChangeTrackAnimation(reverse: true);
+                                nowPlayingView?.PlayChangeTrackAnimation(reverse: true);
 
                             // Necessary for progress bar update, in case 'previous' command goes to 
                             // the beginning of the same track.
@@ -767,30 +770,38 @@ namespace Xpotify
 
             if (modeSwitched)
             {
-                compactOverlayView = new CompactOverlayView();
-                compactOverlayView.ExitCompactOverlayRequested += CompactOverlayView_ExitCompactOverlayRequested;
-                mainGrid.Children.Add(compactOverlayView);
+                nowPlayingView = new NowPlayingView(NowPlayingView.NowPlayingViewMode.CompactOverlay);
+                nowPlayingView.ActionRequested += CompactOverlayView_ActionRequested;
+                mainGrid.Children.Add(nowPlayingView);
 
-                Window.Current.SetTitleBar(compactOverlayView.MainBackgroundControl);
+                Window.Current.SetTitleBar(nowPlayingView.MainBackgroundControl);
+                UpdateTitleBarColors(Theme.Dark);
+                mainWebView.Visibility = Visibility.Collapsed;
             }
         }
 
-        private void CompactOverlayView_ExitCompactOverlayRequested(object sender, EventArgs e)
+        private void CompactOverlayView_ActionRequested(object sender, NowPlayingView.Action e)
         {
-            CloseCompactOverlay();
+            if (e == NowPlayingView.Action.Back)
+            {
+                CloseCompactOverlay();
+            }
         }
 
         private async void CloseCompactOverlay()
         {
+            mainWebView.Visibility = Visibility.Visible;
+
             await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
 
-            compactOverlayView.ExitCompactOverlayRequested -= CompactOverlayView_ExitCompactOverlayRequested;
-            mainGrid.Children.Remove(compactOverlayView);
+            nowPlayingView.ActionRequested -= CompactOverlayView_ActionRequested;
+            mainGrid.Children.Remove(nowPlayingView);
 
-            compactOverlayView.PrepareToExit();
-            compactOverlayView = null;
+            nowPlayingView.PrepareToExit();
+            nowPlayingView = null;
 
             Window.Current.SetTitleBar(topBarBackground);
+            UpdateTitleBarColors(ThemeHelper.GetCurrentTheme());
 
             AnalyticsHelper.Log("mainEvent", "compactOverlayClosed");
         }
