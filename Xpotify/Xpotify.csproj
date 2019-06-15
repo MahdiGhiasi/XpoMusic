@@ -388,6 +388,7 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <None Include="InjectedAssets\style-dark.css" />
+    <Content Include="InjectedAssets\seekPlayback.js" />
     <Content Include="InjectedAssets\style-dark.min.css" />
     <None Include="InjectedAssets\style-light.css" />
     <Content Include="InjectedAssets\style-light.min.css" />
