@@ -8,48 +8,21 @@
     animation: animation-entrance-now-playing-item 0.4s ease 0.7s forwards;
 }
 
-.player-controls__buttons > .control-button:nth-child(1),
-.player-controls__buttons > .react-contextmenu-wrapper:nth-child(1) {
-    opacity: 0;
-    animation: animation-entrance-now-playing-item 0.4s ease 0.6s forwards;
-}
-.player-controls__buttons > .control-button:nth-child(2),
-.player-controls__buttons > .react-contextmenu-wrapper:nth-child(2) {
-    opacity: 0;
-    animation: animation-entrance-now-playing-item 0.4s ease 0.65s forwards;
-}
-.player-controls__buttons > .control-button:nth-child(3),
-.player-controls__buttons > .react-contextmenu-wrapper:nth-child(3) {
-    opacity: 0;
-    animation: animation-entrance-now-playing-item 0.4s ease 0.7s forwards;
-}
-.player-controls__buttons > .control-button:nth-child(4),
-.player-controls__buttons > .react-contextmenu-wrapper:nth-child(4) {
-    opacity: 0;
-    animation: animation-entrance-now-playing-item 0.4s ease 0.75s forwards;
-}
-.player-controls__buttons > .control-button:nth-child(5),
-.player-controls__buttons > .react-contextmenu-wrapper:nth-child(5) {
-    opacity: 0;
-    animation: animation-entrance-now-playing-item 0.4s ease 0.8s forwards;
+@for $i from 1 through 5 {
+    .player-controls__buttons > .control-button:nth-child(#{$i}),
+    .player-controls__buttons > .react-contextmenu-wrapper:nth-child(#{$i}) {
+        opacity: 0;
+        animation: animation-entrance-now-playing-item 0.4s ease #{0.6 + ($i - 1) * 0.05}s forwards;
+    }
 }
 
-.now-playing-bar__right .ExtraControls > div:nth-child(1) {
-    opacity: 0;
-    animation: animation-entrance-now-playing-item 0.4s ease 0.9s forwards;
+@for $i from 1 through 4 {
+    .now-playing-bar__right .ExtraControls > div:nth-child(#{$i}) {
+        opacity: 0;
+        animation: animation-entrance-now-playing-item 0.4s ease #{0.9 + ($i - 1) * 0.05}s forwards;
+    }
 }
-.now-playing-bar__right .ExtraControls > div:nth-child(2) {
-    opacity: 0;
-    animation: animation-entrance-now-playing-item 0.4s ease 0.95s forwards;
-}
-.now-playing-bar__right .ExtraControls > div:nth-child(3) {
-    opacity: 0;
-    animation: animation-entrance-now-playing-item 0.4s ease 1.0s forwards;
-}
-.now-playing-bar__right .ExtraControls > div:nth-child(4) {
-    opacity: 0;
-    animation: animation-entrance-now-playing-item 0.4s ease 1.05s forwards;
-}
+
 /* Keyframes */
 @keyframes animation-entrance-now-playing-item {
     0% {

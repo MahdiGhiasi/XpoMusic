@@ -1,39 +1,21 @@
-﻿.Root__nav-bar .navBar ul li:nth-child(1) {
-    opacity: 0;
-    animation: animation-entrance-nav-bar-item 0.4s ease 0.5s forwards;
+﻿@for $i from 1 through 3 {
+    .Root__nav-bar .navBar ul li:nth-child(#{$i}) {
+        opacity: 0;
+        animation: animation-entrance-nav-bar-item 0.4s ease #{0.5 + ($i - 1) * 0.05}s forwards;
+    }
 }
-.Root__nav-bar .navBar ul li:nth-child(2) {
-    opacity: 0;
-    animation: animation-entrance-nav-bar-item 0.4s ease 0.55s forwards;
-}
-.Root__nav-bar .navBar ul li:nth-child(3) {
-    opacity: 0;
-    animation: animation-entrance-nav-bar-item 0.4s ease 0.6s forwards;
-}
+
 .Root__nav-bar .navBar .recently-played,
 .Root__nav-bar .navBar .Rootlist {
     opacity: 0;
     animation: animation-entrance-nav-bar-item 0.4s ease 0.75s forwards;
 }
-.NavBarFooter > div:nth-child(1) {
-    opacity: 0;
-    animation: animation-entrance-nav-bar-item 0.4s ease 0.85s forwards;
-}
-.NavBarFooter > div:nth-child(2) {
-    opacity: 0;
-    animation: animation-entrance-nav-bar-item 0.4s ease 0.9s forwards;
-}
-.NavBarFooter > div:nth-child(3) {
-    opacity: 0;
-    animation: animation-entrance-nav-bar-item 0.4s ease 0.95s forwards;
-}
-.NavBarFooter > div:nth-child(4) {
-    opacity: 0;
-    animation: animation-entrance-nav-bar-item 0.4s ease 1.0s forwards;
-}
-.NavBarFooter > div:nth-child(5) {
-    opacity: 0;
-    animation: animation-entrance-nav-bar-item 0.4s ease 1.05s forwards;
+
+@for $i from 1 through 5 {
+    .NavBarFooter > div:nth-child(#{$i}) {
+        opacity: 0;
+        animation: animation-entrance-nav-bar-item 0.4s ease #{0.85 + ($i - 1) * 0.05}s forwards;
+    }
 }
 
 /* Keyframes */
