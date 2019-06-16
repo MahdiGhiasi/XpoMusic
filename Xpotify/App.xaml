@@ -6,11 +6,12 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <XamlControlsResources  xmlns="using:Microsoft.UI.Xaml.Controls"/>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls"/>
                 <ResourceDictionary Source="Styles/TopBarDarkButtonStyle.xaml" />
                 <ResourceDictionary Source="Styles/TopBarLightButtonStyle.xaml" />
                 <ResourceDictionary Source="Styles/CircleButtonStyle.xaml" />
                 <ResourceDictionary Source="Styles/MinimalButtonStyle.xaml" />
+                <ResourceDictionary Source="Styles/WhiteSliderStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

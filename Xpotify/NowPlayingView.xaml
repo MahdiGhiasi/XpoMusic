@@ -311,7 +311,8 @@
                     <TextBlock Grid.Column="0" 
                                 Text="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay, Converter={StaticResource MillisecondsToMinSecConverter}}"
                                 VerticalAlignment="Center" />
-                    <Slider Grid.Column="1"
+                    <Slider Style="{StaticResource WhiteSliderStyle}" 
+                            Grid.Column="1"
                             ThumbToolTipValueConverter="{StaticResource MillisecondsToMinSecConverter}"
                             Value="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay}"
                             Maximum="{x:Bind ViewModel.ProgressBarMaximum, Mode=OneWay}"
