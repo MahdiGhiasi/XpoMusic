@@ -122,6 +122,7 @@
                         <Setter Target="artistName.(RelativePanel.Below)" Value="" />
                         <Setter Target="albumArtContainer.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="False" />
                         <Setter Target="albumArtContainer.Margin" Value="24,0,12,0" />
+                        <Setter Target="smallOptionsButton.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -174,6 +175,7 @@
                         <Setter Target="showNowPlayingListButton.Visibility" Value="Collapsed" />
                         <Setter Target="miniViewButton.Visibility" Value="Collapsed" />
                         <Setter Target="fullScreenButton.Visibility" Value="Collapsed" />
+                        <Setter Target="backButton.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -181,6 +183,7 @@
                         <StateTrigger IsActive="{x:Bind ViewModel.IsNormalViewMode, Mode=OneWay}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
+                        <Setter Target="miniViewBackButton.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -414,6 +417,14 @@
                                 ToolTipService.ToolTip="Full screen">
                             <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE740;" />
                         </Button>
+                        <Button x:Name="optionsButton" 
+                                Style="{StaticResource CircleButtonStyle}" 
+                                Width="40"
+                                Height="40"
+                                Margin="4,0,0,0"
+                                Background="Transparent">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE10C;" />
+                        </Button>
                     </StackPanel>
                 </Grid>
                 <StackPanel x:Name="smallButtonsContainer" 
@@ -476,20 +487,45 @@
                    Margin="4,0,0,8"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Bottom"/>
-            <Button Style="{StaticResource MinimalButtonStyle}"
-                    Width="40"
-                    Height="40"
-                    Margin="8,8,0,0"
-                    Background="Transparent"
+            <Button x:Name="miniViewBackButton" 
+                    Style="{StaticResource TopBarDarkButtonStyle}"
+                    Width="46"
+                    Height="32"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
+                    Background="Transparent"
                     ToolTipService.ToolTip="Back"
                     Click="BackButton_Click">
                 <FontIcon FontFamily="Segoe MDL2 Assets" 
-                            VerticalAlignment="Top"
-                            HorizontalAlignment="Left"
-                            FontSize="20" 
-                            Glyph="&#xE0A6;" />
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Left"
+                          Foreground="#ddd"
+                          FontSize="14" 
+                          Glyph="&#xE0A6;" />
+            </Button>
+            <Button x:Name="backButton" 
+                    Style="{StaticResource MinimalButtonStyle}"
+                    Width="40"
+                    Height="40"
+                    Margin="8,8,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    ToolTipService.ToolTip="Back"
+                    Click="BackButton_Click">
+                <FontIcon FontFamily="Segoe MDL2 Assets" 
+                          VerticalAlignment="Top"
+                          HorizontalAlignment="Left"
+                          Glyph="&#xE0A6;" />
+            </Button>
+            <Button x:Name="smallOptionsButton" 
+                    Style="{StaticResource MinimalButtonStyle}" 
+                    Width="40"
+                    Height="40"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Background="Transparent">
+                <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="18" Glyph="&#xE10C;" />
             </Button>
         </Grid>
     </Grid>
