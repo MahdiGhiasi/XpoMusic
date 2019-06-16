@@ -292,11 +292,13 @@
                         <Setter Target="smallButtonsContainer.Visibility" Value="Collapsed" />
                         <Setter Target="largeButtonsContainer.Visibility" Value="Visible" />
                         <Setter Target="musicSliderContainer.Visibility" Value="Visible" />
+                        <Setter Target="songName.FontSize" Value="22" />
                         <Setter Target="songName.(RelativePanel.RightOf)" Value="albumArtContainer" />
                         <Setter Target="songName.(RelativePanel.Above)" Value="artistName" />
                         <Setter Target="songName.(RelativePanel.AlignLeftWithPanel)" Value="False" />
                         <Setter Target="songName.(RelativePanel.AlignRightWithPanel)" Value="False" />
                         <Setter Target="songName.(RelativePanel.Below)" Value="" />
+                        <Setter Target="artistName.FontSize" Value="18" />
                         <Setter Target="artistName.(RelativePanel.RightOf)" Value="albumArtContainer" />
                         <Setter Target="artistName.(RelativePanel.AlignBottomWith)" Value="albumArtContainer" />
                         <Setter Target="artistName.(RelativePanel.AlignLeftWithPanel)" Value="False" />
@@ -333,6 +335,17 @@
                         <Setter Target="nextTrackLoadingProgressRing.Margin" Value="0,0,0,60" />
                         <Setter Target="nextTrackLoadingProgressRing.Width" Value="32" />
                         <Setter Target="nextTrackLoadingProgressRing.Height" Value="32" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="450" MinWindowHeight="290" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="artistAndAlbumSeparator.Visibility" Value="Visible" />
+                        <Setter Target="albumName.Visibility" Value="Visible" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -453,6 +466,20 @@
                                IsHitTestVisible="False"
                                TextAlignment="Center"
                                FontWeight="Normal" />
+                    <TextBlock x:Name="artistAndAlbumSeparator" 
+                               Visibility="Collapsed"
+                               Text="&#x2022;"
+                               FontSize="18"
+                               Margin="0,4,0,0"
+                               RelativePanel.RightOf="artistName"
+                               RelativePanel.AlignTopWith="artistName"/>
+                    <TextBlock x:Name="albumName" 
+                               Visibility="Collapsed"
+                               Text="{x:Bind ViewModel.AlbumName, Mode=OneWay}"
+                               Margin="8,4,4,0"
+                               FontSize="18"
+                               RelativePanel.RightOf="artistAndAlbumSeparator"
+                               RelativePanel.AlignTopWith="artistAndAlbumSeparator"/>
                 </RelativePanel>
                 <Grid x:Name="musicSliderContainer"
                       Visibility="Collapsed"
