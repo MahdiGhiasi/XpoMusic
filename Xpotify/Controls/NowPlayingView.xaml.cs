@@ -215,8 +215,7 @@ namespace Xpotify.Controls
 
         private void SetTopBar()
         {
-            if (ViewMode == NowPlayingViewMode.CompactOverlay)
-                Window.Current.SetTitleBar(titleBarArea);
+            Window.Current.SetTitleBar(titleBarArea);
         }
 
         private void OnViewClosed()

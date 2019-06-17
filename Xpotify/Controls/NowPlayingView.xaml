@@ -96,6 +96,45 @@
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="800" MinWindowHeight="600" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="artistName.Visibility" Value="Visible" />
+                        <Setter Target="albumArtContainer.Visibility" Value="Visible" />
+                        <Setter Target="contentPanel.VerticalAlignment" Value="Bottom" />
+                        <Setter Target="contentPanel.Margin" Value="0,0,0,60" />
+                        <Setter Target="musicSliderContainer.Margin" Value="36,12,36,0" />
+                        <Setter Target="largeButtonsContainer.Margin" Value="36,4,36,0" />
+                        <Setter Target="progressBar.Visibility" Value="Collapsed" />
+                        <Setter Target="smallButtonsContainer.Visibility" Value="Collapsed" />
+                        <Setter Target="largeButtonsContainer.Visibility" Value="Visible" />
+                        <Setter Target="musicSliderContainer.Visibility" Value="Visible" />
+                        <Setter Target="songName.FontSize" Value="28" />
+                        <Setter Target="songName.FontWeight" Value="Bold" />
+                        <Setter Target="songName.(RelativePanel.RightOf)" Value="albumArtContainer" />
+                        <Setter Target="songName.(RelativePanel.Above)" Value="artistName" />
+                        <Setter Target="songName.(RelativePanel.AlignLeftWithPanel)" Value="False" />
+                        <Setter Target="songName.(RelativePanel.AlignRightWithPanel)" Value="False" />
+                        <Setter Target="songName.(RelativePanel.Below)" Value="" />
+                        <Setter Target="albumArt.Width" Value="150" />
+                        <Setter Target="albumArt.Height" Value="150" />
+                        <Setter Target="albumName.FontSize" Value="22" />
+                        <Setter Target="artistAndAlbumSeparator.FontSize" Value="22" />
+                        <Setter Target="artistName.FontSize" Value="22" />
+                        <Setter Target="artistName.Margin" Value="8,4,8,40" />
+                        <Setter Target="artistName.(RelativePanel.RightOf)" Value="albumArtContainer" />
+                        <Setter Target="artistName.(RelativePanel.AlignBottomWith)" Value="albumArtContainer" />
+                        <Setter Target="artistName.(RelativePanel.AlignLeftWithPanel)" Value="False" />
+                        <Setter Target="artistName.(RelativePanel.AlignRightWithPanel)" Value="False" />
+                        <Setter Target="artistName.(RelativePanel.Below)" Value="" />
+                        <Setter Target="albumArtContainer.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="False" />
+                        <Setter Target="albumArtContainer.Margin" Value="36,0,12,0" />
+                        <Setter Target="smallOptionsButton.Visibility" Value="Collapsed" />
+                        <Setter Target="xpotifyLogo.Margin" Value="6,0,0,6" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="400" MinWindowHeight="290" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
@@ -123,6 +162,7 @@
                         <Setter Target="albumArtContainer.(RelativePanel.AlignHorizontalCenterWithPanel)" Value="False" />
                         <Setter Target="albumArtContainer.Margin" Value="24,0,12,0" />
                         <Setter Target="smallOptionsButton.Visibility" Value="Collapsed" />
+                        <Setter Target="xpotifyLogo.Margin" Value="6,0,0,6" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -323,12 +363,12 @@
                 </Grid>
                 <Grid x:Name="largeButtonsContainer" 
                       Visibility="Collapsed"
-                      Margin="0,4,0,0"
+                      Margin="24,4,24,0"
                       RelativePanel.AlignLeftWithPanel="True"
                       RelativePanel.AlignRightWithPanel="True"
                       RelativePanel.Below="musicSliderContainer">
                     <StackPanel Orientation="Horizontal"
-                                Margin="24,0,0,0"
+                                Margin="0,0,0,0"
                                 HorizontalAlignment="Left">
                         <Button Style="{StaticResource CircleButtonStyle}" 
                                 IsEnabled="{x:Bind ViewModel.PrevButtonEnabled, Mode=OneWay}"
@@ -374,7 +414,7 @@
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
-                                Margin="0,0,24,0"
+                                Margin="0,0,0,0"
                                 HorizontalAlignment="Right">
                         <Button x:Name="showNowPlayingListButton" 
                                 Style="{StaticResource CircleButtonStyle}" 
@@ -480,7 +520,8 @@
                          Value="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay}"
                          Maximum="{x:Bind ViewModel.ProgressBarMaximum, Mode=OneWay}"
                          Foreground="#77ffffff" />
-            <Image Source="ms-appx-web:///Assets/xpotify-white.png"
+            <Image x:Name="xpotifyLogo" 
+                   Source="ms-appx-web:///Assets/xpotify-white.png"
                    Opacity="0.5"
                    IsHitTestVisible="False"
                    Width="20"
@@ -513,7 +554,7 @@
                     Style="{StaticResource MinimalButtonStyle}"
                     Width="40"
                     Height="40"
-                    Margin="8,8,0,0"
+                    Margin="12,12,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Background="Transparent"
