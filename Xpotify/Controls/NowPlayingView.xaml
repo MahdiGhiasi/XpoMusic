@@ -18,6 +18,7 @@
     PointerPressed="UserControl_PointerPressed"
     PointerMoved="UserControl_PointerMoved"
     PointerReleased="UserControl_PointerReleased"
+    PointerExited="UserControl_PointerExited"
     d:DesignHeight="400"
     d:DesignWidth="400">
 

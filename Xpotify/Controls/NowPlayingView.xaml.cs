@@ -463,7 +463,7 @@ namespace Xpotify.Controls
         #region Swipe Gesture
 
         const double _minimumDeltaXForSwipe = 20.0;
-        Point? pressStartPoint = null;
+        Point? pressStartPoint = null, lastPoint = null;
         private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             pressStartPoint = e.GetCurrentPoint(null).Position;
@@ -471,17 +471,24 @@ namespace Xpotify.Controls
 
         private void UserControl_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
-            if (pressStartPoint.HasValue)
-            {
-                var deltaX = e.GetCurrentPoint(null).Position.X - pressStartPoint.Value.X;
+            if (!pressStartPoint.HasValue)
+                return;
 
-                swipeTranslateTransform.X = deltaX;
-            }
+            lastPoint = e.GetCurrentPoint(null).Position;
+            swipeTranslateTransform.X = lastPoint.Value.X - pressStartPoint.Value.X;
         }
 
-        private async void UserControl_PointerReleased(object sender, PointerRoutedEventArgs e)
+        private void UserControl_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
-            var deltaX = e.GetCurrentPoint(null).Position.X - pressStartPoint.Value.X;
+            if (!pressStartPoint.HasValue)
+                return;
+
+            SwipeFinished(e.GetCurrentPoint(null).Position.X);
+        }
+
+        private async void SwipeFinished(double finalX)
+        {
+            var deltaX = finalX - pressStartPoint.Value.X;
             pressStartPoint = null;
 
             if (Math.Abs(deltaX) > _minimumDeltaXForSwipe)
@@ -495,6 +502,16 @@ namespace Xpotify.Controls
             {
                 swipeTranslateTransform.X = 0;
             }
+        }
+
+        private void UserControl_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (!pressStartPoint.HasValue)
+                return;
+            if (!lastPoint.HasValue)
+                return;
+
+            SwipeFinished(lastPoint.Value.X);
         }
         #endregion
     }
