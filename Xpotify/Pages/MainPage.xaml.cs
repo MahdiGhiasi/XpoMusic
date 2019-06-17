@@ -28,8 +28,9 @@ namespace Xpotify.Pages
         MediaPlayer silentMediaPlayer;
         private bool shouldShowWhatsNew = false;
         private DeveloperMessage developerMessage = null;
-
         private bool isNowPlayingEnabled = false;
+
+        private readonly string _playQueueUri = "https://open.spotify.com/queue";
 
         public MainPage()
         {
@@ -244,7 +245,7 @@ namespace Xpotify.Pages
             }
         }
 
-        private void NowPlaying_ActionRequested(object sender, NowPlayingView.Action e)
+        private async void NowPlaying_ActionRequested(object sender, NowPlayingView.Action e)
         {
             if ((sender as NowPlayingView).ViewMode == NowPlayingView.NowPlayingViewMode.CompactOverlay)
             {
@@ -257,6 +258,11 @@ namespace Xpotify.Pages
             {
                 if (e == NowPlayingView.Action.Back)
                 {
+                    CloseNowPlaying();
+                }
+                else if (e == NowPlayingView.Action.PlayQueue)
+                {
+                    await xpotifyWebView.Controller.NavigateToSpotifyUrl(_playQueueUri);
                     CloseNowPlaying();
                 }
             }
