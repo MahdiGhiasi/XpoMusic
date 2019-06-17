@@ -222,7 +222,7 @@
     <Content Include="Assets\xpotify.png" />
     <Content Include="InjectedAssets\actionNextTrack.js" />
     <Content Include="InjectedAssets\actionPause.js" />
-    <Compile Include="Classes\WebViewHelper.cs" />
+    <Compile Include="Classes\WebViewController.cs" />
     <Compile Include="Secrets.cs" />
     <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
