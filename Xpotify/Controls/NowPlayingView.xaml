@@ -250,6 +250,16 @@
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="backButton.Margin" Value="14,40,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
         <Grid Background="White">
@@ -582,7 +592,7 @@
                     Style="{StaticResource MinimalButtonStyle}"
                     Width="40"
                     Height="40"
-                    Margin="12,12,0,0"
+                    Margin="20,40,0,0"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
                     Background="Transparent"
