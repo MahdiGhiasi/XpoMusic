@@ -25,7 +25,6 @@ namespace Xpotify.Controls
         {
             Back,
             PlayQueue,
-            MiniView,
         }
 
         private enum AnimationState
@@ -109,6 +108,8 @@ namespace Xpotify.Controls
 
         private DispatcherTimer timer;
         private string currentSongId = "";
+
+        private bool isCompactOverlayFromNowPlaying = false;
 
         public NowPlayingView()
         {
@@ -232,13 +233,25 @@ namespace Xpotify.Controls
             await PlayStatusTracker.RefreshPlayStatus();
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private async void BackButton_Click(object sender, RoutedEventArgs e)
         {
             var view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode)
             {
                 AnalyticsHelper.PageView("NowPlaying");
                 view.ExitFullScreenMode();
+                return;
+            }
+
+            if (isCompactOverlayFromNowPlaying)
+            {
+                await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
+
+                isCompactOverlayFromNowPlaying = false;
+                ViewMode = NowPlayingViewMode.Normal;
+
+                AnalyticsHelper.PageView("NowPlaying");
+
                 return;
             }
 
@@ -463,9 +476,20 @@ namespace Xpotify.Controls
             }
         }
 
-        private void MiniViewButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void MiniViewButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ActionRequested?.Invoke(this, Action.MiniView);
+            var viewMode = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
+            viewMode.ViewSizePreference = ViewSizePreference.Custom;
+            viewMode.CustomSize = LocalConfiguration.CompactOverlaySize;
+
+            var modeSwitched = await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.CompactOverlay, viewMode);
+
+            if (modeSwitched)
+            {
+                ViewMode = NowPlayingViewMode.CompactOverlay;
+                isCompactOverlayFromNowPlaying = true;
+                AnalyticsHelper.PageView("CompactOverlay");
+            }
         }
 
         private void ShowNowPlayingListButton_Tapped(object sender, TappedRoutedEventArgs e)
