@@ -272,11 +272,14 @@ namespace Xpotify.Pages
             AnalyticsHelper.PageView("MainPage");
         }
 
-        private void CloseNowPlaying()
+        private async void CloseNowPlaying()
         {
             nowPlaying.ActionRequested -= NowPlaying_ActionRequested;
-            VisualStateManager.GoToState(this, "MainScreen", false);
             topBar.InitTitleBar();
+
+            VisualStateManager.GoToState(this, "NowPlayingClosing", false);
+            await Task.Delay(200);
+            VisualStateManager.GoToState(this, "MainScreen", false);
 
             AnalyticsHelper.PageView("MainPage");
         }

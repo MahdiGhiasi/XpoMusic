@@ -136,8 +136,35 @@
                         </ObjectAnimationUsingKeyFrames>
 
                         <DoubleAnimation Storyboard.TargetName="nowPlaying" 
-                                 Storyboard.TargetProperty="Opacity"
-                                 Duration="0:0:0.3" From="0" To="1">
+                                         Storyboard.TargetProperty="Opacity"
+                                         Duration="0:0:0.3" From="0" To="1">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="NowPlayingClosing">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashScreen"
+                                                       Storyboard.TargetProperty="SplashState">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Closed" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="topBar"
+                                                       Storyboard.TargetProperty="ShowExtraButtons">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="nowPlaying"
+                                                       Storyboard.TargetProperty="IsOpen">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="False" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <DoubleAnimation Storyboard.TargetName="nowPlaying" 
+                                         Storyboard.TargetProperty="Opacity"
+                                         Duration="0:0:0.2" From="1" To="0">
                             <DoubleAnimation.EasingFunction>
                                 <ExponentialEase EasingMode="EaseOut" />
                             </DoubleAnimation.EasingFunction>
