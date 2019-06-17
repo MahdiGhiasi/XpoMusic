@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -23,7 +24,6 @@ namespace Xpotify.Controls
         public enum Action
         {
             Back,
-            FullScreen,
             PlayQueue,
             MiniView,
         }
@@ -234,6 +234,14 @@ namespace Xpotify.Controls
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
+            var view = ApplicationView.GetForCurrentView();
+            if (view.IsFullScreenMode)
+            {
+                AnalyticsHelper.PageView("NowPlaying");
+                view.ExitFullScreenMode();
+                return;
+            }
+
             ActionRequested?.Invoke(this, Action.Back);
         }
 
@@ -442,7 +450,17 @@ namespace Xpotify.Controls
 
         private void FullScreenButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ActionRequested?.Invoke(this, Action.FullScreen);
+            var view = ApplicationView.GetForCurrentView();
+            if (view.IsFullScreenMode)
+            {
+                AnalyticsHelper.PageView("NowPlaying");
+                view.ExitFullScreenMode();
+            }
+            else
+            {
+                AnalyticsHelper.PageView("NowPlayingFullScreen");
+                view.TryEnterFullScreenMode();
+            }
         }
 
         private void MiniViewButton_Tapped(object sender, TappedRoutedEventArgs e)
