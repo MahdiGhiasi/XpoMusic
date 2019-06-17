@@ -209,12 +209,21 @@ namespace Xpotify.Pages
             }
         }
         
+        private void GoToNowPlayingMode()
+        {
+            VisualStateManager.GoToState(this, "NowPlaying", false);
+            nowPlaying.ActionRequested += NowPlaying_ActionRequested;
+            topBar.UpdateTitleBarColors(Theme.Dark);
+
+            AnalyticsHelper.PageView("NowPlaying");
+            AnalyticsHelper.Log("mainEvent", "nowPlayingOpened");
+        }
+
         private async Task GoToCompactOverlayMode()
         {
             if (!ApplicationView.GetForCurrentView().IsViewModeSupported(ApplicationViewMode.CompactOverlay))
                 return;
 
-            nowPlaying.ViewMode = NowPlayingView.NowPlayingViewMode.CompactOverlay;
             VisualStateManager.GoToState(this, "CompactOverlay", false);
 
             var viewMode = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
@@ -227,6 +236,9 @@ namespace Xpotify.Pages
             {
                 nowPlaying.ActionRequested += NowPlaying_ActionRequested;
                 topBar.UpdateTitleBarColors(Theme.Dark);
+
+                AnalyticsHelper.PageView("CompactOverlay");
+                AnalyticsHelper.Log("mainEvent", "compactOverlayOpened");
             }
             else
             {
@@ -236,9 +248,19 @@ namespace Xpotify.Pages
 
         private void NowPlaying_ActionRequested(object sender, NowPlayingView.Action e)
         {
-            if (e == NowPlayingView.Action.Back)
+            if ((sender as NowPlayingView).ViewMode == NowPlayingView.NowPlayingViewMode.CompactOverlay)
             {
-                CloseCompactOverlay();
+                if (e == NowPlayingView.Action.Back)
+                {
+                    CloseCompactOverlay();
+                }
+            }
+            else
+            {
+                if (e == NowPlayingView.Action.Back)
+                {
+                    CloseNowPlaying();
+                }
             }
         }
 
@@ -249,7 +271,18 @@ namespace Xpotify.Pages
             VisualStateManager.GoToState(this, "MainScreen", false);
             topBar.InitTitleBar();
 
+            AnalyticsHelper.PageView("MainPage");
             AnalyticsHelper.Log("mainEvent", "compactOverlayClosed");
+        }
+
+        private void CloseNowPlaying()
+        {
+            nowPlaying.ActionRequested -= NowPlaying_ActionRequested;
+            VisualStateManager.GoToState(this, "MainScreen", false);
+            topBar.InitTitleBar();
+
+            AnalyticsHelper.PageView("MainPage");
+            AnalyticsHelper.Log("mainEvent", "nowPlayingClosed");
         }
 
         private void XpotifyWebView_PageLoaded(object sender, EventArgs e)
@@ -354,6 +387,8 @@ namespace Xpotify.Pages
                         await GoToCompactOverlayMode();
                     break;
                 case XpotifyWebApp.XpotifyWebAppActionRequest.GoToNowPlaying:
+                    if (isNowPlayingEnabled)
+                        GoToNowPlayingMode();
                     break;
                 case XpotifyWebApp.XpotifyWebAppActionRequest.ShowSplashScreen:
                     VisualStateManager.GoToState(this, "SplashScreen", false);

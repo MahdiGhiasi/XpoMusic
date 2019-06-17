@@ -216,12 +216,17 @@ namespace Xpotify.Controls
                 await PinPageToStart();
                 AnalyticsHelper.Log("mainEvent", "pinToStart");
             }
-            else if (e.Uri.ToString().EndsWith("#xpotifycompactoverlay"))
+            else if (e.Uri.ToString().EndsWith("#xpotifyCompactOverlay"))
             {
                 e.Cancel = true;
 
                 ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.GoToCompactOverlay);
-                AnalyticsHelper.Log("mainEvent", "compactOverlayOpened");
+            }
+            else if (e.Uri.ToString().EndsWith("#xpotifyNowPlaying"))
+            {
+                e.Cancel = true;
+
+                ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.GoToNowPlaying);
             }
             else if (e.Uri.ToString().EndsWith("#xpotifyInitialPage"))
             {

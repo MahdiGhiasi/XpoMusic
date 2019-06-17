@@ -86,15 +86,62 @@
                                                        Storyboard.TargetProperty="ViewMode">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="CompactOverlay" />
                         </ObjectAnimationUsingKeyFrames>
+                        
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="nowPlaying"
                                                        Storyboard.TargetProperty="IsOpen">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpotifyWebView"
+                                                       Storyboard.TargetProperty="IsOpen">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="False" />
+                        </ObjectAnimationUsingKeyFrames>
+                        
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="topBar"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="NowPlaying">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashScreen"
+                                                       Storyboard.TargetProperty="SplashState">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Closed" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="topBar"
+                                                       Storyboard.TargetProperty="ShowExtraButtons">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="nowPlaying"
+                                                       Storyboard.TargetProperty="ViewMode">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Normal" />
+                        </ObjectAnimationUsingKeyFrames>
+                        
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="nowPlaying"
+                                                       Storyboard.TargetProperty="IsOpen">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpotifyWebView"
+                                                       Storyboard.TargetProperty="IsOpen">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="False" />
                         </ObjectAnimationUsingKeyFrames>
 
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="topBar"
                                                        Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed" />
                         </ObjectAnimationUsingKeyFrames>
+
+                        <DoubleAnimation Storyboard.TargetName="nowPlaying" 
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0:0:0.3" From="0" To="1">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
                     </Storyboard>
                 </VisualState>
             </VisualStateGroup>
