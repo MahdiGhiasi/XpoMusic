@@ -135,12 +135,16 @@ div[aria-live=polite] button {
     transition: opacity ease-out .2s;
 }
 
+.nowPlaying-navBar-item {
+    transition: opacity .3s ease-out;
+}
+
 .nowPlaying-navBar-item:hover .nowPlaying-icon {
     opacity: 1;
 }
 
 .nowPlaying-navBar-item-disabled {
-    opacity: 0.3;
+    opacity: 0.35;
 }
 
 .nowPlaying-navBar-item-disabled .navBar-link {

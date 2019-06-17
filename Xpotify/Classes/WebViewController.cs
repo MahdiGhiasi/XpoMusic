@@ -79,6 +79,12 @@ namespace Xpotify.Helpers
             return (result == "1");
         }
 
+        public async Task EnableNowPlaying()
+        {
+            var script = await AssetManager.LoadAssetString("enableNowPlaying.js");
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+        }
+
         public async Task<bool> GoBackIfPossible()
         {
             var script = await AssetManager.LoadAssetString("goBackIfPossible.js");

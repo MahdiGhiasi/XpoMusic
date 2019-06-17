@@ -29,6 +29,8 @@ namespace Xpotify.Pages
         private bool shouldShowWhatsNew = false;
         private DeveloperMessage developerMessage = null;
 
+        private bool isNowPlayingEnabled = false;
+
         public MainPage()
         {
             ProxyHelper.ApplyProxySettings();
@@ -255,6 +257,9 @@ namespace Xpotify.Pages
             VisualStateManager.GoToState(this, "MainScreenQuick", false);
 
             OnWebViewLoadCompleted();
+
+            isNowPlayingEnabled = false;
+            PlayStatusTracker.LastPlayStatus.Updated -= LastPlayStatus_Updated;
         }
 
         private void XpotifyWebView_WebAppLoaded(object sender, EventArgs e)
@@ -262,6 +267,11 @@ namespace Xpotify.Pages
             VisualStateManager.GoToState(this, "MainScreen", false);
 
             OnWebViewLoadCompleted();
+
+            if (!isNowPlayingEnabled)
+            {
+                EnableNowPlayingWhenReady();
+            }
         }
 
         private void OnWebViewLoadCompleted()
@@ -279,6 +289,53 @@ namespace Xpotify.Pages
             }
         }
 
+        private async void EnableNowPlayingWhenReady()
+        {
+            try
+            {
+                PlayStatusTracker.LastPlayStatus.Updated += LastPlayStatus_Updated;
+                var result = await EnableNowPlayingIfReady();
+
+                if (result)
+                    PlayStatusTracker.LastPlayStatus.Updated -= LastPlayStatus_Updated;
+
+                logger.Info($"EnableNowPlaying (initial) result = {result}");
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("EnableNowPlaying (initial) failed: " + ex.ToString());
+            }
+        }
+
+        private async void LastPlayStatus_Updated(object sender, EventArgs e)
+        {
+            try
+            {
+                var result = await EnableNowPlayingIfReady();
+
+                logger.Info($"EnableNowPlaying (event) result = {result}");
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("EnableNowPlaying (event) failed: " + ex.ToString());
+            }
+        }
+
+        private async Task<bool> EnableNowPlayingIfReady()
+        {
+            var nowPlayingShouldBeEnabled = !string.IsNullOrWhiteSpace(PlayStatusTracker.LastPlayStatus.SongId);
+
+            if (!isNowPlayingEnabled && nowPlayingShouldBeEnabled)
+            {
+                PlayStatusTracker.LastPlayStatus.Updated -= LastPlayStatus_Updated;
+                await xpotifyWebView.Controller.EnableNowPlaying();
+                isNowPlayingEnabled = true;
+                return true;
+            }
+
+            return false;
+        }
+
         private async void XpotifyWebView_ActionRequested(object sender, XpotifyWebApp.XpotifyWebAppActionRequest request)
         {
             switch (request)
@@ -293,7 +350,8 @@ namespace Xpotify.Pages
                     flyoutContainer.OpenDonate();
                     break;
                 case XpotifyWebApp.XpotifyWebAppActionRequest.GoToCompactOverlay:
-                    await GoToCompactOverlayMode();
+                    if (isNowPlayingEnabled)
+                        await GoToCompactOverlayMode();
                     break;
                 case XpotifyWebApp.XpotifyWebAppActionRequest.GoToNowPlaying:
                     break;

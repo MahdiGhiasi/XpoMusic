@@ -378,6 +378,7 @@
     <Content Include="InjectedAssets\checkCurrentSongPlayTime.js" />
     <Content Include="InjectedAssets\clearPlaybackLocalStorage.js" />
     <Content Include="InjectedAssets\clickOnFacebookLogin.js" />
+    <Content Include="InjectedAssets\enableNowPlaying.js" />
     <Content Include="InjectedAssets\findPageTitle.js" />
     <Compile Include="Helpers\WhatsNewHelper.cs" />
     <Compile Include="Pages\MainPage.xaml.cs">

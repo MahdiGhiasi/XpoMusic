@@ -66,7 +66,8 @@ namespace InitScript.Common.UiElementModifier {
         // Inject compact overlay button to now playing bar
         try {
             var compactOverlayButton = document.createElement('div');
-            compactOverlayButton.className = "CompactOverlayButton";
+            compactOverlayButton.classList.add("CompactOverlayButton");
+            compactOverlayButton.classList.add("CompactOverlayButton-disabled");
             compactOverlayButton.innerHTML = '<a style="border-bottom: 0px;" href="#xpotifycompactoverlay"><button title="Mini view" class="control-button">'
                 + '<div style="font-family: Segoe MDL2 Assets; position:relative; cursor: default;">'
                 + '<div style="left: 6px; top: -3px; font-size: 19px; position: absolute;">&#xE7FB;</div>'
