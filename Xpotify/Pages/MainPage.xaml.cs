@@ -216,7 +216,6 @@ namespace Xpotify.Pages
             topBar.UpdateTitleBarColors(Theme.Dark);
 
             AnalyticsHelper.PageView("NowPlaying");
-            AnalyticsHelper.Log("mainEvent", "nowPlayingOpened");
         }
 
         private async Task GoToCompactOverlayMode()
@@ -238,7 +237,6 @@ namespace Xpotify.Pages
                 topBar.UpdateTitleBarColors(Theme.Dark);
 
                 AnalyticsHelper.PageView("CompactOverlay");
-                AnalyticsHelper.Log("mainEvent", "compactOverlayOpened");
             }
             else
             {
@@ -272,7 +270,6 @@ namespace Xpotify.Pages
             topBar.InitTitleBar();
 
             AnalyticsHelper.PageView("MainPage");
-            AnalyticsHelper.Log("mainEvent", "compactOverlayClosed");
         }
 
         private void CloseNowPlaying()
@@ -282,7 +279,6 @@ namespace Xpotify.Pages
             topBar.InitTitleBar();
 
             AnalyticsHelper.PageView("MainPage");
-            AnalyticsHelper.Log("mainEvent", "nowPlayingClosed");
         }
 
         private void XpotifyWebView_PageLoaded(object sender, EventArgs e)
