@@ -12,25 +12,25 @@ using Windows.Web.Http.Filters;
 
 namespace Xpotify.Helpers
 {
-    public static class WebViewHelper
+    public class WebViewController
     {
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         public const string SpotifyPwaUrlBeginsWith = "https://open.spotify.com";
 
-        private static WebView mainWebView;
+        private WebView mainWebView;
 
-        public static void Init(WebView webView)
+        public WebViewController(WebView webView)
         {
             mainWebView = webView;
         }
 
-        public static void Navigate(Uri targetUri)
+        public void Navigate(Uri targetUri)
         {
             Navigate(targetUri, LocalConfiguration.Language); 
         }
 
-        private static void Navigate(Uri targetUri, Language language)
+        private void Navigate(Uri targetUri, Language language)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, targetUri);
 
@@ -42,7 +42,7 @@ namespace Xpotify.Helpers
         }
 
         /// <returns>true if just injected the script, false if it was already injected.</returns>
-        public static async Task<bool> InjectInitScript(bool lightTheme)
+        public async Task<bool> InjectInitScript(bool lightTheme)
         {
             var checkIfInjected = "((document.getElementsByTagName('body')[0].getAttribute('data-scriptinjection') == null) ? '0' : '1');";
             var injected = await mainWebView.InvokeScriptAsync("eval", new string[] { checkIfInjected });
@@ -63,7 +63,7 @@ namespace Xpotify.Helpers
             return false;
         }
 
-        public static async Task<bool> CheckLoggedIn()
+        public async Task<bool> CheckLoggedIn()
         {
             var script = await AssetManager.LoadAssetString("isLoggedInCheck.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -71,7 +71,7 @@ namespace Xpotify.Helpers
             return (result != "0");
         }
 
-        public static async Task<bool> TryPushingFacebookLoginButton()
+        public async Task<bool> TryPushingFacebookLoginButton()
         {
             var script = await AssetManager.LoadAssetString("clickOnFacebookLogin.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -79,7 +79,7 @@ namespace Xpotify.Helpers
             return (result == "1");
         }
 
-        public static async Task<bool> GoBackIfPossible()
+        public async Task<bool> GoBackIfPossible()
         {
             var script = await AssetManager.LoadAssetString("goBackIfPossible.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -87,7 +87,7 @@ namespace Xpotify.Helpers
             return (result == "1");
         }
 
-        public static async Task<bool> IsBackPossible()
+        public async Task<bool> IsBackPossible()
         {
             var script = await AssetManager.LoadAssetString("isBackPossible.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -95,7 +95,7 @@ namespace Xpotify.Helpers
             return (result == "1");
         }
 
-        public static void ClearCookies()
+        public void ClearCookies()
         {
             // WebView.ClearTemporaryWebDataAsync() causes cookies (that will be added later) to not 
             // be saved upon app exit during current session. It seems to be a bug. 
@@ -109,7 +109,7 @@ namespace Xpotify.Helpers
             ClearCookies(new Uri("https://www.facebook.com"));
         }
 
-        private static void ClearCookies(Uri uri)
+        private void ClearCookies(Uri uri)
         {
             HttpBaseProtocolFilter baseFilter = new HttpBaseProtocolFilter();
             foreach (var cookie in baseFilter.CookieManager.GetCookies(uri))
@@ -118,12 +118,12 @@ namespace Xpotify.Helpers
             }
         }
 
-        public static async Task<string> GetPageUrl()
+        public async Task<string> GetPageUrl()
         {
             return await mainWebView.InvokeScriptAsync("eval", new string[] { "window.location.href" });
         }
 
-        public static async Task<string> GetPageTitle()
+        public async Task<string> GetPageTitle()
         {
             var findPageTitleScript = await AssetManager.LoadAssetString("findPageTitle.js");
             var pageTitle = await mainWebView.InvokeScriptAsync("eval", new string[] { findPageTitleScript });
@@ -131,7 +131,7 @@ namespace Xpotify.Helpers
             return pageTitle;
         }
 
-        public static async Task NavigateToSpotifyUrl(string url)
+        public async Task NavigateToSpotifyUrl(string url)
         {
             var currentUrl = await mainWebView.InvokeScriptAsync("eval", new String[] { "document.location.href;" });
 
@@ -148,13 +148,13 @@ namespace Xpotify.Helpers
             }
         }
 
-        internal static async Task AutoPlay(AutoPlayAction action)
+        internal async Task AutoPlay(AutoPlayAction action)
         {
             var script = await AssetManager.LoadAssetString(action == AutoPlayAction.Track ? "autoplayTrack.js" : "autoplayPlaylist.js");
             var currentPlaying = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
         }
 
-        public static async Task<string> GetCurrentPlaying()
+        public async Task<string> GetCurrentPlaying()
         {
             var script = await AssetManager.LoadAssetString("checkCurrentPlaying.js");
             var currentPlaying = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -162,7 +162,7 @@ namespace Xpotify.Helpers
             return currentPlaying;
         }
 
-        public static async Task<string> GetCurrentSongPlayTime()
+        public async Task<string> GetCurrentSongPlayTime()
         {
             var script = await AssetManager.LoadAssetString("checkCurrentSongPlayTime.js");
             var currentPlayTime = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -170,7 +170,7 @@ namespace Xpotify.Helpers
             return currentPlayTime;
         }
 
-        public static async Task<string> ClearPlaybackLocalStorage()
+        public async Task<string> ClearPlaybackLocalStorage()
         {
             var script = await AssetManager.LoadAssetString("clearPlaybackLocalStorage.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -178,7 +178,7 @@ namespace Xpotify.Helpers
             return result;
         }
 
-        public static async Task<bool> Play()
+        public async Task<bool> Play()
         {
             var script = await AssetManager.LoadAssetString("actionPlay.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -186,7 +186,7 @@ namespace Xpotify.Helpers
             return (result == "1");
         }
 
-        public static async Task<bool> Pause()
+        public async Task<bool> Pause()
         {
             var script = await AssetManager.LoadAssetString("actionPause.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -194,7 +194,7 @@ namespace Xpotify.Helpers
             return (result == "1");
         }
 
-        public static async Task<bool> NextTrack()
+        public async Task<bool> NextTrack()
         {
             var script = await AssetManager.LoadAssetString("actionNextTrack.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -202,7 +202,7 @@ namespace Xpotify.Helpers
             return (result == "1");
         }
 
-        public static async Task<bool> PreviousTrack()
+        public async Task<bool> PreviousTrack()
         {
             var script = await AssetManager.LoadAssetString("actionPrevTrack.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -210,7 +210,7 @@ namespace Xpotify.Helpers
             return (result == "1");
         }
 
-        internal static async Task<bool> IsPlayingOnThisApp()
+        internal async Task<bool> IsPlayingOnThisApp()
         {
             var script = await AssetManager.LoadAssetString("isPlayingOnThisApp.js");
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });

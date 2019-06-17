@@ -10,9 +10,16 @@ namespace Xpotify.Helpers
 {
     public static class PlaybackActionHelper
     {
+        private static WebViewController _controller;
+
+        public static void SetController(WebViewController controller)
+        {
+            _controller = controller;
+        }
+
         public static async Task<bool> Play()
         {
-            if (await WebViewHelper.Play())
+            if (await _controller.Play())
             {
                 await Task.Delay(100);
                 return true;
@@ -23,7 +30,7 @@ namespace Xpotify.Helpers
 
         public static async Task<bool> Pause()
         {
-            if (await WebViewHelper.Pause())
+            if (await _controller.Pause())
             {
                 await Task.Delay(100);
                 return true;
@@ -38,7 +45,7 @@ namespace Xpotify.Helpers
             // so the user get the feeling that their command was received.
             PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds = 0;
 
-            if (await WebViewHelper.NextTrack())
+            if (await _controller.NextTrack())
             {
                 await Task.Delay(100);
                 return true;
@@ -53,7 +60,7 @@ namespace Xpotify.Helpers
             // so the user get the feeling that their command was received.
             PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds = 0;
 
-            if (await WebViewHelper.PreviousTrack())
+            if (await _controller.PreviousTrack())
             {
                 await Task.Delay(100);
                 return true;

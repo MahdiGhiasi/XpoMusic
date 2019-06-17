@@ -1,0 +1,96 @@
+﻿<UserControl
+    x:Class="Xpotify.Controls.FlyoutContainer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Xpotify.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:flyouts="using:Xpotify.Flyouts"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"  
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors" 
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid x:Name="overlay" Background="#00FFFFFF" Visibility="Collapsed">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="OverlayClosed">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="overlay" 
+                                 Storyboard.TargetProperty="(UIElement.Opacity)"
+                                 Duration="0:0:0.25" From="1" To="0">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="flyoutContainer" 
+                                 Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                 Duration="0:0:0.25" From="0" To="-50">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="overlay"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.25" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="OverlayVisible">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="overlay" 
+                                         Storyboard.TargetProperty="(UIElement.Opacity)"
+                                         Duration="0:0:0.3" From="0" To="1">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="flyoutContainer" 
+                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.Y)"
+                                         Duration="0:0:0.3" From="50" To="0">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="overlay"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="Visible" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
+        <Grid>
+            <interactivity:Interaction.Behaviors>
+                <behaviors:Blur x:Name="blurBehavior" 
+                                Value="24" 
+                                Duration="0" 
+                                Delay="0" 
+                                AutomaticallyStart="True"/>
+            </interactivity:Interaction.Behaviors>
+        </Grid>
+        <Grid x:Name="flyoutContainer" Margin="0,40,0,40">
+            <Grid.RenderTransform>
+                <TranslateTransform />
+            </Grid.RenderTransform>
+            <flyouts:DeveloperMessageFlyout x:Name="developerMessageFlyout"
+                                            Visibility="Collapsed"
+                                            Width="400"
+                                            MaxHeight="300"
+                                            FlyoutCloseRequest="DeveloperMessageFlyout_FlyoutCloseRequest" />
+            <flyouts:WhatsNewFlyout x:Name="whatsNewFlyout"
+                                    Visibility="Collapsed"
+                                    Width="400"
+                                    MaxHeight="250"
+                                    FlyoutCloseRequest="WhatsNewFlyout_FlyoutCloseRequest" />
+            <flyouts:SettingsFlyout x:Name="settingsFlyout"
+                                    Visibility="Collapsed"
+                                    MaxHeight="470"
+                                    FlyoutCloseRequest="SettingsFlyout_FlyoutCloseRequest" />
+        </Grid>
+    </Grid>
+</UserControl>

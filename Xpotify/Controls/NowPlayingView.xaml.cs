@@ -1,34 +1,18 @@
 ﻿using Xpotify.Classes;
 using Xpotify.Helpers;
-using Xpotify.SpotifyApi;
-using Xpotify.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 
-namespace Xpotify
+namespace Xpotify.Controls
 {
     public sealed partial class NowPlayingView : UserControl
     {
-        public event EventHandler<Action> ActionRequested;
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public FrameworkElement MainBackgroundControl => this.mainBackgroundGrid;
-
-        public NowPlayingViewMode ViewMode { get; }
-
+        #region Enums
         public enum NowPlayingViewMode
         {
             Normal,
@@ -43,10 +27,73 @@ namespace Xpotify
             MiniView,
         }
 
-        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+        private enum AnimationState
+        {
+            None,
+            HiddenToRightSide,
+            HiddenToLeftSide,
+        }
+        #endregion
 
-        private DispatcherTimer timer;
-        private string currentSongId;
+        public event EventHandler<Action> ActionRequested;
+
+        public FrameworkElement MainBackgroundControl => this.mainBackgroundGrid;
+
+        #region Custom Properties
+        public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(
+            "IsOpen", typeof(bool), typeof(NowPlayingView), new PropertyMetadata(defaultValue: false,
+                propertyChangedCallback: new PropertyChangedCallback(OnIsOpenPropertyChanged)));
+
+        public bool IsOpen
+        {
+            get => (bool)GetValue(IsOpenProperty);
+            set
+            {
+                if (IsOpen != value)
+                    SetValue(IsOpenProperty, value);
+
+                if (IsOpen && !timer.IsEnabled)
+                {
+                    SetTopBar();
+                    TryUpdate();
+                    timer.Start();
+                }
+                else if (!IsOpen && timer.IsEnabled)
+                {
+                    OnViewClosed();
+                    timer.Stop();
+                }
+
+                mainGrid.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
+        private static void OnIsOpenPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as NowPlayingView).IsOpen = (bool)e.NewValue;
+        }
+
+        public static readonly DependencyProperty ViewModeProperty = DependencyProperty.Register(
+            "ViewMode", typeof(NowPlayingViewMode), typeof(NowPlayingView), new PropertyMetadata(defaultValue: NowPlayingViewMode.Normal,
+                propertyChangedCallback: new PropertyChangedCallback(OnViewModePropertyChanged)));
+
+        public NowPlayingViewMode ViewMode
+        {
+            get => (NowPlayingViewMode)GetValue(ViewModeProperty);
+            set
+            {
+                if (ViewMode != value)
+                    SetValue(ViewModeProperty, value);
+
+                ViewModel.ViewMode = value;
+            }
+        }
+
+        private static void OnViewModePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            (d as NowPlayingView).ViewMode = (NowPlayingViewMode)e.NewValue;
+        }
+        #endregion
 
         /// <summary>
         /// If this variable is set, track change animation will run in reverse direction as a song change is detected.
@@ -55,18 +102,15 @@ namespace Xpotify
         /// </summary>
         private bool prevTrackCommandIssued = false;
 
-        private enum AnimationState
-        {
-            None,
-            HiddenToRightSide,
-            HiddenToLeftSide,
-        }
         private AnimationState animationState = AnimationState.None;
 
         private DateTime spinnerShowTime = DateTime.MaxValue;
         private readonly TimeSpan maximumSpinnerShowTime = TimeSpan.FromSeconds(7);
 
-        public NowPlayingView(NowPlayingViewMode viewMode)
+        private DispatcherTimer timer;
+        private string currentSongId = "";
+
+        public NowPlayingView()
         {
             this.InitializeComponent();
 
@@ -76,8 +120,6 @@ namespace Xpotify
             };
             timer.Tick += Timer_Tick;
             timer.Start();
-
-            ViewModel.ViewMode = viewMode;
         }
 
         public void ActivateProgressRing()
@@ -85,7 +127,12 @@ namespace Xpotify
             ViewModel.ProgressRingActive = true;
         }
 
-        private async void Timer_Tick(object sender, object e)
+        private void Timer_Tick(object sender, object e)
+        {
+            TryUpdate();
+        }
+
+        private async void TryUpdate()
         {
             try
             {
@@ -166,16 +213,24 @@ namespace Xpotify
             }
         }
 
+        private void SetTopBar()
+        {
+            if (ViewMode == NowPlayingViewMode.CompactOverlay)
+                Window.Current.SetTitleBar(titleBarArea);
+        }
+
+        private void OnViewClosed()
+        {
+            ViewModel.ArtistArtUri = null;
+            ViewModel.AlbumArtUri = null;
+            animationState = AnimationState.HiddenToLeftSide;
+            currentSongId = "";
+        }
+
         private async void RefreshPlayStatus()
         {
             await Task.Delay(1000);
             await PlayStatusTracker.RefreshPlayStatus();
-        }
-
-        public void PrepareToExit()
-        {
-            timer.Tick -= Timer_Tick;
-            timer.Stop();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -344,13 +399,20 @@ namespace Xpotify
             }
         }
 
+        private Guid lastPrevTrackCommandGuid = Guid.Empty;
         private async void SetPrevTrackCommandIssued()
         {
+            var commandGuid = Guid.NewGuid();
+            lastPrevTrackCommandGuid = commandGuid;
+
             // This is only valid if a change is detected in the next 4 seconds,
             // otherwise, its value is returned to false.
             prevTrackCommandIssued = true;
-
             await Task.Delay(TimeSpan.FromSeconds(4));
+
+            if (lastPrevTrackCommandGuid != commandGuid)
+                return; // A newer prev command has arrived during the last seconds, so we won't invalidate the prevTrackCommandIssued now.
+            
             prevTrackCommandIssued = false;
         }
 

@@ -123,7 +123,20 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AboutPage.xaml.cs">
+    <Compile Include="Controls\FlyoutContainer.xaml.cs">
+      <DependentUpon>FlyoutContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TopBar.xaml.cs">
+      <DependentUpon>TopBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\XpotifyWebApp.xaml.cs">
+      <DependentUpon>XpotifyWebApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\MediaControlsHelper.cs" />
+    <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -152,7 +165,7 @@
     <Compile Include="Controls\ProxyConfiguration.xaml.cs">
       <DependentUpon>ProxyConfiguration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DonatePage.xaml.cs">
+    <Compile Include="Pages\DonatePage.xaml.cs">
       <DependentUpon>DonatePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Flyouts\DeveloperMessageFlyout.xaml.cs">
@@ -193,6 +206,7 @@
     <TypeScriptCompile Include="Scripts\Common\resize.ts" />
     <TypeScriptCompile Include="Scripts\Common\uriHelper.ts" />
     <TypeScriptCompile Include="Scripts\Common\uiElementModifier.ts" />
+    <Compile Include="ViewModels\TopBarViewModel.cs" />
     <Compile Include="XpotifyApi\AppConstantsApi.cs" />
     <Compile Include="XpotifyApi\AssetUpdatesApi.cs" />
     <Compile Include="XpotifyApi\DeveloperMessageApi.cs" />
@@ -208,9 +222,9 @@
     <Content Include="Assets\xpotify.png" />
     <Content Include="InjectedAssets\actionNextTrack.js" />
     <Content Include="InjectedAssets\actionPause.js" />
-    <Compile Include="Helpers\WebViewHelper.cs" />
+    <Compile Include="Classes\WebViewHelper.cs" />
     <Compile Include="Secrets.cs" />
-    <Compile Include="SettingsPage.xaml.cs">
+    <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SpotifyApi\ApiBase.cs" />
@@ -366,10 +380,10 @@
     <Content Include="InjectedAssets\clickOnFacebookLogin.js" />
     <Content Include="InjectedAssets\findPageTitle.js" />
     <Compile Include="Helpers\WhatsNewHelper.cs" />
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="NowPlayingView.xaml.cs">
+    <Compile Include="Controls\NowPlayingView.xaml.cs">
       <DependentUpon>NowPlayingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -440,7 +454,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AboutPage.xaml">
+    <Page Include="Controls\FlyoutContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TopBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\XpotifyWebApp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -448,7 +478,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DonatePage.xaml">
+    <Page Include="Pages\DonatePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -464,15 +494,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="NowPlayingView.xaml">
+    <Page Include="Controls\NowPlayingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingsPage.xaml">
+    <Page Include="Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

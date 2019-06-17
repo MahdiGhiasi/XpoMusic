@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Xpotify.NowPlayingView"
+    x:Class="Xpotify.Controls.NowPlayingView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Xpotify"
@@ -91,7 +91,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid x:Name="mainGrid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <VisualState>
@@ -488,6 +488,11 @@
                    Margin="4,0,0,8"
                    HorizontalAlignment="Left"
                    VerticalAlignment="Bottom"/>
+            <Grid x:Name="titleBarArea"
+                  Background="#01000000"
+                  Height="32"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Top" />
             <Button x:Name="miniViewBackButton" 
                     Style="{StaticResource TopBarDarkButtonStyle}"
                     Width="46"

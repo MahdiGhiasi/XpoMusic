@@ -1,0 +1,100 @@
+﻿<UserControl
+    x:Class="Xpotify.Controls.SplashScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Xpotify.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+
+    <Grid x:Name="splashScreen" Background="#201B1B">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="SplashScreenVisible">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashProgressRing"
+                                                       Storyboard.TargetProperty="IsActive">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="True" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="SplashScreenClosed">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="extendedSplashImage" 
+                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                         BeginTime="0:0:0.5"
+                                         Duration="0:0:0.4" To="3">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="extendedSplashImage" 
+                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                         BeginTime="0:0:0.5"
+                                         Duration="0:0:0.4" To="3">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="splashScreen" 
+                                         Storyboard.TargetProperty="Opacity"
+                                         BeginTime="0:0:0.5"
+                                         Duration="0:0:0.4" To="0">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+                        
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashScreen"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.9" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashProgressRing"
+                                                       Storyboard.TargetProperty="IsActive">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.9" Value="False" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+                <VisualState x:Name="SplashScreenClosedQuick">
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="splashScreen" 
+                                         Storyboard.TargetProperty="Opacity"
+                                         Duration="0:0:0.2" To="0">
+                            <DoubleAnimation.EasingFunction>
+                                <ExponentialEase EasingMode="EaseOut" />
+                            </DoubleAnimation.EasingFunction>
+                        </DoubleAnimation>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashScreen"
+                                                       Storyboard.TargetProperty="Visibility">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="Collapsed" />
+                        </ObjectAnimationUsingKeyFrames>
+
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashProgressRing"
+                                                       Storyboard.TargetProperty="IsActive">
+                            <DiscreteObjectKeyFrame KeyTime="0:0:0.2" Value="False" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Image x:Name="extendedSplashImage" 
+                RenderTransformOrigin="0.5, 0.5"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Width="620"
+                Source="ms-appx:///Assets/Logo/SplashScreen.png">
+            <Image.RenderTransform>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+            </Image.RenderTransform>
+        </Image>
+        <ProgressRing x:Name="splashProgressRing"
+                        Margin="0,380,0,0"
+                        Width="40"
+                        Height="40"
+                        Foreground="White" />
+    </Grid>
+</UserControl>

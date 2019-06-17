@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using static Xpotify.NowPlayingView;
+using static Xpotify.Controls.NowPlayingView;
 
 namespace Xpotify.ViewModels
 {
@@ -94,7 +94,7 @@ namespace Xpotify.ViewModels
                 if (artistArtUri != value)
                 {
                     artistArtUri = value;
-                    artistArt = new BitmapImage(value);
+                    artistArt = (value == null) ? null : new BitmapImage(value);
 
                     FirePropertyChangedEvent(nameof(ArtistArtUri));
                     FirePropertyChangedEvent(nameof(ArtistArt));
@@ -125,7 +125,7 @@ namespace Xpotify.ViewModels
                     AlbumArtContainerOpacity = 0.0;
 
                     albumArtUri = value;
-                    albumArt = new BitmapImage(value);
+                    albumArt = (value == null) ? null : new BitmapImage(value);
 
                     FirePropertyChangedEvent(nameof(AlbumArtUri));
                     FirePropertyChangedEvent(nameof(AlbumArt));
