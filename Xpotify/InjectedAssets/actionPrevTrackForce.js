@@ -17,12 +17,16 @@ function actionPrevTrackForce() {
 
         prevButton[0].click();
 
+        var delay = 300;
+        if (document.querySelectorAll(".ConnectBar").length > 0)
+            delay = 1250;
+
         setTimeout(function () {
             var newCurrentPlaying = getCurrentPlaying();
             if (currentPlaying === newCurrentPlaying) {
                 prevButton[0].click();
             }
-        }, 1000);
+        }, delay);
 
         return "1";
     }
