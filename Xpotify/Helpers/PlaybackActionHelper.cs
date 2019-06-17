@@ -54,13 +54,19 @@ namespace Xpotify.Helpers
             return await (new Player()).NextTrack();
         }
 
-        public static async Task<bool> PreviousTrack()
+        public static async Task<bool> PreviousTrack(bool canGoToBeginningOfCurrentSong = true)
         {
             // Progress bar on CompactOverlay should jump *immediately* to 0,
             // so the user get the feeling that their command was received.
             PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds = 0;
 
-            if (await _controller.PreviousTrack())
+            if (!canGoToBeginningOfCurrentSong && await (new Player()).PreviousTrack())
+            {
+                // Prefer API call when not going to the beginning of the current song
+                return true;
+            }
+
+            if (await _controller.PreviousTrack(canGoToBeginningOfCurrentSong))
             {
                 await Task.Delay(100);
                 return true;

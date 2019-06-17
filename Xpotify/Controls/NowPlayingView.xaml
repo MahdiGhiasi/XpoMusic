@@ -15,6 +15,9 @@
     RequestedTheme="Dark"
     Loaded="UserControl_Loaded"
     SizeChanged="UserControl_SizeChanged"
+    PointerPressed="UserControl_PointerPressed"
+    PointerMoved="UserControl_PointerMoved"
+    PointerReleased="UserControl_PointerReleased"
     d:DesignHeight="400"
     d:DesignWidth="400">
 
@@ -76,6 +79,10 @@
                         <ExponentialEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="swipeTranslateTransform"
+                                 Storyboard.TargetProperty="(TranslateTransform.X)"
+                                 Duration="0:0:0"
+                                 To="0" />
             </Storyboard>
             <Storyboard x:Name="showFromRightStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
@@ -94,6 +101,10 @@
                         <ExponentialEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
+                <DoubleAnimation Storyboard.TargetName="swipeTranslateTransform"
+                                 Storyboard.TargetProperty="(TranslateTransform.X)"
+                                 Duration="0:0:0"
+                                 To="0" />
             </Storyboard>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -271,82 +282,87 @@
                           Height="20" />
 
             <StackPanel x:Name="contentPanel" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                <RelativePanel x:Name="animatedPanel" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                    <RelativePanel.RenderTransform>
-                        <TranslateTransform />
-                    </RelativePanel.RenderTransform>
-                    <controls:DropShadowPanel x:Name="albumArtContainer" 
-                                              RelativePanel.AlignHorizontalCenterWithPanel="True"
-                                              BlurRadius="40.0" 
-                                              ShadowOpacity="1"
-                                              OffsetX="0.0" 
-                                              OffsetY="0.0" 
-                                              Color="#111"
-                                              Background="Transparent" 
-                                              Opacity="{x:Bind ViewModel.AlbumArtContainerOpacity, Mode=TwoWay}"
-                                              Visibility="Collapsed"
-                                              IsHitTestVisible="False">
-                        <Grid x:Name="albumArt" 
-                              ToolTipService.ToolTip="{x:Bind ViewModel.AlbumName, Mode=OneWay}"
-                              Width="100" 
-                              Height="100">
-                            <Grid.Background>
-                                <ImageBrush ImageSource="{x:Bind ViewModel.AlbumArt, Mode=OneWay}"
-                                            Stretch="UniformToFill">
-                                    <interactivity:Interaction.Behaviors>
-                                        <core:EventTriggerBehavior EventName="ImageOpened">
-                                            <media:ControlStoryboardAction ControlStoryboardOption="Play">
-                                                <media:ControlStoryboardAction.Storyboard>
-                                                    <Storyboard>
-                                                        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                                                                                       Storyboard.TargetName="albumArtContainer">
-                                                            <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
-                                                            <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
-                                                        </DoubleAnimationUsingKeyFrames>
-                                                    </Storyboard>
-                                                </media:ControlStoryboardAction.Storyboard>
-                                            </media:ControlStoryboardAction>
-                                        </core:EventTriggerBehavior>
-                                    </interactivity:Interaction.Behaviors>
-                                </ImageBrush>
-                            </Grid.Background>
-                        </Grid>
-                    </controls:DropShadowPanel>
-                    <TextBlock x:Name="songName" 
-                               RelativePanel.AlignLeftWithPanel="True"
-                               RelativePanel.AlignRightWithPanel="True"
-                               RelativePanel.Below="albumArtContainer"
-                               Text="{x:Bind ViewModel.SongName, Mode=OneWay}"
-                               Margin="8,16,8,0"
-                               Visibility="Visible"
-                               IsHitTestVisible="False"
-                               TextAlignment="Center"
-                               FontWeight="SemiBold" />
-                    <TextBlock x:Name="artistName"
-                               RelativePanel.AlignLeftWithPanel="True"
-                               RelativePanel.AlignRightWithPanel="True"
-                               RelativePanel.Below="songName"
-                               Text="{x:Bind ViewModel.ArtistName, Mode=OneWay}"
-                               Margin="8,4,8,20"
-                               Visibility="Collapsed"
-                               IsHitTestVisible="False"
-                               TextAlignment="Center"
-                               FontWeight="Normal" />
-                    <TextBlock x:Name="artistAndAlbumSeparator" 
-                               Visibility="Collapsed"
-                               Text="&#x2022;"
-                               FontSize="18"
-                               Margin="0,4,0,0"
-                               RelativePanel.RightOf="artistName"
-                               RelativePanel.AlignTopWith="artistName"/>
-                    <TextBlock x:Name="albumName" 
-                               Visibility="Collapsed"
-                               Text="{x:Bind ViewModel.AlbumName, Mode=OneWay}"
-                               Margin="8,4,4,0"
-                               FontSize="18"
-                               RelativePanel.RightOf="artistAndAlbumSeparator"
-                               RelativePanel.AlignTopWith="artistAndAlbumSeparator"/>
-                </RelativePanel>
+                <Grid x:Name="animatedPanelContainer">
+                    <Grid.RenderTransform>
+                        <TranslateTransform x:Name="swipeTranslateTransform" />
+                    </Grid.RenderTransform>
+                    <RelativePanel x:Name="animatedPanel">
+                        <RelativePanel.RenderTransform>
+                            <TranslateTransform />
+                        </RelativePanel.RenderTransform>
+                        <controls:DropShadowPanel x:Name="albumArtContainer" 
+                                                  RelativePanel.AlignHorizontalCenterWithPanel="True"
+                                                  BlurRadius="40.0" 
+                                                  ShadowOpacity="1"
+                                                  OffsetX="0.0" 
+                                                  OffsetY="0.0" 
+                                                  Color="#111"
+                                                  Background="Transparent" 
+                                                  Opacity="{x:Bind ViewModel.AlbumArtContainerOpacity, Mode=TwoWay}"
+                                                  Visibility="Collapsed"
+                                                  IsHitTestVisible="False">
+                            <Grid x:Name="albumArt" 
+                                  ToolTipService.ToolTip="{x:Bind ViewModel.AlbumName, Mode=OneWay}"
+                                  Width="100" 
+                                  Height="100">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="{x:Bind ViewModel.AlbumArt, Mode=OneWay}"
+                                                Stretch="UniformToFill">
+                                        <interactivity:Interaction.Behaviors>
+                                            <core:EventTriggerBehavior EventName="ImageOpened">
+                                                <media:ControlStoryboardAction ControlStoryboardOption="Play">
+                                                    <media:ControlStoryboardAction.Storyboard>
+                                                        <Storyboard>
+                                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                                           Storyboard.TargetName="albumArtContainer">
+                                                                <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0"/>
+                                                                <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+                                                            </DoubleAnimationUsingKeyFrames>
+                                                        </Storyboard>
+                                                    </media:ControlStoryboardAction.Storyboard>
+                                                </media:ControlStoryboardAction>
+                                            </core:EventTriggerBehavior>
+                                        </interactivity:Interaction.Behaviors>
+                                    </ImageBrush>
+                                </Grid.Background>
+                            </Grid>
+                        </controls:DropShadowPanel>
+                        <TextBlock x:Name="songName" 
+                                   RelativePanel.AlignLeftWithPanel="True"
+                                   RelativePanel.AlignRightWithPanel="True"
+                                   RelativePanel.Below="albumArtContainer"
+                                   Text="{x:Bind ViewModel.SongName, Mode=OneWay}"
+                                   Margin="8,16,8,0"
+                                   Visibility="Visible"
+                                   IsHitTestVisible="False"
+                                   TextAlignment="Center"
+                                   FontWeight="SemiBold" />
+                        <TextBlock x:Name="artistName"
+                                   RelativePanel.AlignLeftWithPanel="True"
+                                   RelativePanel.AlignRightWithPanel="True"
+                                   RelativePanel.Below="songName"
+                                   Text="{x:Bind ViewModel.ArtistName, Mode=OneWay}"
+                                   Margin="8,4,8,20"
+                                   Visibility="Collapsed"
+                                   IsHitTestVisible="False"
+                                   TextAlignment="Center"
+                                   FontWeight="Normal" />
+                        <TextBlock x:Name="artistAndAlbumSeparator" 
+                                   Visibility="Collapsed"
+                                   Text="&#x2022;"
+                                   FontSize="18"
+                                   Margin="0,4,0,0"
+                                   RelativePanel.RightOf="artistName"
+                                   RelativePanel.AlignTopWith="artistName"/>
+                        <TextBlock x:Name="albumName" 
+                                   Visibility="Collapsed"
+                                   Text="{x:Bind ViewModel.AlbumName, Mode=OneWay}"
+                                   Margin="8,4,4,0"
+                                   FontSize="18"
+                                   RelativePanel.RightOf="artistAndAlbumSeparator"
+                                   RelativePanel.AlignTopWith="artistAndAlbumSeparator"/>
+                    </RelativePanel>
+                </Grid>
                 <Grid x:Name="musicSliderContainer"
                       Visibility="Collapsed"
                       Margin="24,12,24,0">

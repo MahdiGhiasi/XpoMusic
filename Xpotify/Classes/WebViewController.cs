@@ -208,9 +208,14 @@ namespace Xpotify.Helpers
             return (result == "1");
         }
 
-        public async Task<bool> PreviousTrack()
+        public async Task<bool> PreviousTrack(bool canGoToBeginningOfCurrentSong = true)
         {
-            var script = await AssetManager.LoadAssetString("actionPrevTrack.js");
+            string script;
+            if (canGoToBeginningOfCurrentSong)
+                script = await AssetManager.LoadAssetString("actionPrevTrack.js");
+            else
+                script = await AssetManager.LoadAssetString("actionPrevTrackForce.js");
+
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");

@@ -1,10 +1,11 @@
-﻿using Xpotify.Classes;
-using Xpotify.Helpers;
-using System;
+﻿using System;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Xpotify.Classes;
+using Xpotify.Helpers;
 
 namespace Xpotify.Controls
 {
@@ -195,7 +196,7 @@ namespace Xpotify.Controls
                 ViewModel.ProgressRingActive = false;
                 animationState = AnimationState.None;
             }
-            else if ((DateTime.UtcNow - spinnerShowTime) > maximumSpinnerShowTime 
+            else if ((DateTime.UtcNow - spinnerShowTime) > maximumSpinnerShowTime
                 && ViewModel.ProgressRingActive)
             {
                 // Workaround for when prev track gets pushed when no prev track is there,
@@ -316,13 +317,20 @@ namespace Xpotify.Controls
 
         private async void PrevTrackButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            await PrevTrack(canGoToBeginningOfCurrentSong: true);
+        }
+
+        private async Task PrevTrack(bool canGoToBeginningOfCurrentSong)
+        {
             try
             {
-                //HideToRightAnimation();
+                if (!canGoToBeginningOfCurrentSong)
+                    HideToRightAnimation();
 
-                if (!(await PlaybackActionHelper.PreviousTrack()))
+                if (!(await PlaybackActionHelper.PreviousTrack(canGoToBeginningOfCurrentSong)))
                 {
-                    //showFromRightStoryboard.Begin();
+                    if (!canGoToBeginningOfCurrentSong)
+                        showFromRightStoryboard.Begin();
                     animationState = AnimationState.None;
                     ViewModel.ProgressRingActive = false;
                     return;
@@ -341,6 +349,11 @@ namespace Xpotify.Controls
         }
 
         private async void NextTrackButton_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            await NextTrack();
+        }
+
+        private async Task NextTrack()
         {
             try
             {
@@ -410,7 +423,7 @@ namespace Xpotify.Controls
 
             if (lastPrevTrackCommandGuid != commandGuid)
                 return; // A newer prev command has arrived during the last seconds, so we won't invalidate the prevTrackCommandIssued now.
-            
+
             prevTrackCommandIssued = false;
         }
 
@@ -446,5 +459,43 @@ namespace Xpotify.Controls
         {
             ViewModel.StoryboardOffset = e.NewSize.Width;
         }
+
+        #region Swipe Gesture
+
+        const double _minimumDeltaXForSwipe = 20.0;
+        Point? pressStartPoint = null;
+        private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            pressStartPoint = e.GetCurrentPoint(null).Position;
+        }
+
+        private void UserControl_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            if (pressStartPoint.HasValue)
+            {
+                var deltaX = e.GetCurrentPoint(null).Position.X - pressStartPoint.Value.X;
+
+                swipeTranslateTransform.X = deltaX;
+            }
+        }
+
+        private async void UserControl_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            var deltaX = e.GetCurrentPoint(null).Position.X - pressStartPoint.Value.X;
+            pressStartPoint = null;
+
+            if (Math.Abs(deltaX) > _minimumDeltaXForSwipe)
+            {
+                if (deltaX > 0)
+                    await PrevTrack(canGoToBeginningOfCurrentSong: false);
+                else
+                    await NextTrack();
+            }
+            else
+            {
+                swipeTranslateTransform.X = 0;
+            }
+        }
+        #endregion
     }
 }

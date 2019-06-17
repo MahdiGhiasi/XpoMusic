@@ -371,6 +371,7 @@
     <Content Include="Assets\Logo\SplashScreen.scale-200.png" />
     <Content Include="Assets\Logo\SplashScreen.scale-400.png" />
     <Content Include="InjectedAssets\actionPlay.js" />
+    <Content Include="InjectedAssets\actionPrevTrackForce.js" />
     <Content Include="InjectedAssets\actionPrevTrack.js" />
     <Content Include="InjectedAssets\autoplayPlaylist.js" />
     <Content Include="InjectedAssets\autoplayTrack.js" />
