@@ -150,6 +150,8 @@
                         <Setter Target="albumArtContainer.Margin" Value="36,0,12,0" />
                         <Setter Target="smallOptionsButton.Visibility" Value="Collapsed" />
                         <Setter Target="xpotifyLogo.Margin" Value="6,0,0,6" />
+                        <Setter Target="nextTrackLoadingProgressRing.Width" Value="64" />
+                        <Setter Target="nextTrackLoadingProgressRing.Height" Value="64" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -182,6 +184,8 @@
                         <Setter Target="albumArtContainer.Margin" Value="24,0,12,0" />
                         <Setter Target="smallOptionsButton.Visibility" Value="Collapsed" />
                         <Setter Target="xpotifyLogo.Margin" Value="6,0,0,6" />
+                        <Setter Target="nextTrackLoadingProgressRing.Width" Value="48" />
+                        <Setter Target="nextTrackLoadingProgressRing.Height" Value="48" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
