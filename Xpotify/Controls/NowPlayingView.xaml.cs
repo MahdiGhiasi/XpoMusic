@@ -35,10 +35,6 @@ namespace Xpotify.Controls
         }
         #endregion
 
-        public event EventHandler<Action> ActionRequested;
-
-        public FrameworkElement MainBackgroundControl => this.mainBackgroundGrid;
-
         #region Custom Properties
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(
             "IsOpen", typeof(bool), typeof(NowPlayingView), new PropertyMetadata(defaultValue: false,
@@ -94,6 +90,9 @@ namespace Xpotify.Controls
             (d as NowPlayingView).ViewMode = (NowPlayingViewMode)e.NewValue;
         }
         #endregion
+
+        public event EventHandler<Action> ActionRequested;
+        public FrameworkElement MainBackgroundControl => this.mainBackgroundGrid;
 
         /// <summary>
         /// If this variable is set, track change animation will run in reverse direction as a song change is detected.
@@ -441,6 +440,11 @@ namespace Xpotify.Controls
         private void ShowNowPlayingListButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
             ActionRequested?.Invoke(this, Action.PlayQueue);
+        }
+
+        private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ViewModel.StoryboardOffset = e.NewSize.Width;
         }
     }
 }

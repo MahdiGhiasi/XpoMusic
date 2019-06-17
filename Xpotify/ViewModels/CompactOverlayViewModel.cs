@@ -268,5 +268,19 @@ namespace Xpotify.ViewModels
                 FirePropertyChangedEvent(nameof(AlbumArtContainerOpacity));
             }
         }
+
+        double storyboardOffset;
+        public double StoryboardOffset
+        {
+            get => storyboardOffset;
+            set
+            {
+                storyboardOffset = value;
+                FirePropertyChangedEvent(nameof(StoryboardOffset));
+                FirePropertyChangedEvent(nameof(StoryboardOffsetNegative));
+            }
+        }
+
+        public double StoryboardOffsetNegative => -StoryboardOffset;
     }
 }

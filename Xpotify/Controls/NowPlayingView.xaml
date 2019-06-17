@@ -14,6 +14,7 @@
     mc:Ignorable="d"
     RequestedTheme="Dark"
     Loaded="UserControl_Loaded"
+    SizeChanged="UserControl_SizeChanged"
     d:DesignHeight="400"
     d:DesignWidth="400">
 
@@ -27,7 +28,8 @@
             <Storyboard x:Name="hideToLeftStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                 Duration="0:0:0.3" To="-200">
+                                 Duration="0:0:0.3" 
+                                 To="{x:Bind ViewModel.StoryboardOffsetNegative, Mode=OneWay}">
                     <DoubleAnimation.EasingFunction>
                         <ExponentialEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
@@ -43,7 +45,8 @@
             <Storyboard x:Name="hideToRightStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                 Duration="0:0:0.3" To="200">
+                                 Duration="0:0:0.3" 
+                                 To="{x:Bind ViewModel.StoryboardOffset, Mode=OneWay}">
                     <DoubleAnimation.EasingFunction>
                         <ExponentialEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
@@ -59,7 +62,9 @@
             <Storyboard x:Name="showFromLeftStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                 Duration="0:0:0.3" From="-200" To="0">
+                                 Duration="0:0:0.3" 
+                                 From="{x:Bind ViewModel.StoryboardOffsetNegative, Mode=OneWay}" 
+                                 To="0">
                     <DoubleAnimation.EasingFunction>
                         <ExponentialEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
@@ -75,7 +80,9 @@
             <Storyboard x:Name="showFromRightStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                 Duration="0:0:0.3" From="200" To="0">
+                                 Duration="0:0:0.3" 
+                                 From="{x:Bind ViewModel.StoryboardOffset, Mode=OneWay}" 
+                                 To="0">
                     <DoubleAnimation.EasingFunction>
                         <ExponentialEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
