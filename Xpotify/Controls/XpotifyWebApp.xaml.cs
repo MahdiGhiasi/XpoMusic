@@ -166,15 +166,12 @@ namespace Xpotify.Controls
                 }
             }
 
-            if (e.Uri.ToString().ToLower().Contains(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
+            if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
+                FinalizeAuthorization(e.Uri.ToString());
+            else if (e.Uri.ToString().ToLower().Contains(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
                 WebAppLoaded?.Invoke(this, new EventArgs());
             else
                 PageLoaded?.Invoke(this, new EventArgs());
-
-            if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
-            {
-                FinalizeAuthorization(e.Uri.ToString());
-            }
 
             if (!await Controller.CheckLoggedIn())
             {
