@@ -50,6 +50,7 @@ namespace Xpotify.Controls
 
                 if (IsOpen && !timer.IsEnabled)
                 {
+                    HideNameAndAlbumArtQuick();
                     SetTopBar();
                     TryUpdate();
                     timer.Start();
@@ -108,7 +109,7 @@ namespace Xpotify.Controls
 
         private DispatcherTimer timer;
         private string currentSongId = "";
-
+        private bool? currentShowArtistArtState = null;
         private bool isCompactOverlayFromNowPlaying = false;
 
         public NowPlayingView()
@@ -128,7 +129,7 @@ namespace Xpotify.Controls
         private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "ShowArtistArt")
-                ForceUpdate();
+                TryUpdate();
         }
 
         public void ActivateProgressRing()
@@ -145,24 +146,14 @@ namespace Xpotify.Controls
         {
             try
             {
+                if (!IsOpen)
+                    return;
+
                 await Update();
             }
             catch (Exception ex)
             {
                 logger.Warn("Update failed: " + ex.ToString());
-            }
-        }
-
-        private async void ForceUpdate()
-        {
-            try
-            {
-                currentSongId = "";
-                await Update();
-            }
-            catch (Exception ex)
-            {
-                logger.Warn("ForceUpdate failed: " + ex.ToString());
             }
         }
 
@@ -179,9 +170,13 @@ namespace Xpotify.Controls
 
             ViewModel.IsPlaying = PlayStatusTracker.LastPlayStatus.IsPlaying;
 
-            if (currentSongId != PlayStatusTracker.LastPlayStatus.SongId)
+            if (currentSongId != PlayStatusTracker.LastPlayStatus.SongId
+                || currentShowArtistArtState != ViewModel.ShowArtistArt)
             {
                 currentSongId = PlayStatusTracker.LastPlayStatus.SongId;
+                currentShowArtistArtState = ViewModel.ShowArtistArt;
+
+                await Task.Delay(150);
 
                 if (animationState == AnimationState.None)
                 {
@@ -190,13 +185,12 @@ namespace Xpotify.Controls
                         prevTrackCommandIssued = false;
 
                         animationState = AnimationState.HiddenToRightSide;
-                        hideToRightStoryboard.Begin();
-                        await Task.Delay(300);
+                        await hideToRightStoryboard.RunAsync();
                     }
                     else
                     {
-                        hideToLeftStoryboard.Begin();
-                        await Task.Delay(300);
+                        animationState = AnimationState.HiddenToLeftSide;
+                        await hideToLeftStoryboard.RunAsync();
                     }
                 }
 
@@ -253,8 +247,15 @@ namespace Xpotify.Controls
         {
             ViewModel.BackgroundArtUri = null;
             ViewModel.AlbumArtUri = null;
-            animationState = AnimationState.HiddenToLeftSide;
+            HideNameAndAlbumArtQuick();
             currentSongId = "";
+            currentShowArtistArtState = null;
+        }
+
+        private void HideNameAndAlbumArtQuick()
+        {
+            hideQuickStoryboard.Begin();
+            animationState = AnimationState.HiddenToLeftSide;
         }
 
         private async void RefreshPlayStatus()
@@ -275,6 +276,7 @@ namespace Xpotify.Controls
 
             if (isCompactOverlayFromNowPlaying)
             {
+                HideNameAndAlbumArtQuick();
                 await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
 
                 isCompactOverlayFromNowPlaying = false;
@@ -431,21 +433,21 @@ namespace Xpotify.Controls
 
         private async void HideToRightAnimation()
         {
-            hideToRightStoryboard.Begin();
             animationState = AnimationState.HiddenToRightSide;
             spinnerShowTime = DateTime.UtcNow;
 
-            await Task.Delay(300);
+            await hideToRightStoryboard.RunAsync();
+            
             ViewModel.ProgressRingActive = true;
         }
 
         private async void HideToLeftAnimation()
         {
-            hideToLeftStoryboard.Begin();
             animationState = AnimationState.HiddenToLeftSide;
             spinnerShowTime = DateTime.UtcNow;
 
-            await Task.Delay(300);
+            await hideToLeftStoryboard.RunAsync();
+
             ViewModel.ProgressRingActive = true;
         }
 
@@ -516,6 +518,7 @@ namespace Xpotify.Controls
 
             if (modeSwitched)
             {
+                HideNameAndAlbumArtQuick();
                 ViewMode = NowPlayingViewMode.CompactOverlay;
                 isCompactOverlayFromNowPlaying = true;
                 AnalyticsHelper.PageView("CompactOverlay");

@@ -34,52 +34,58 @@
             <Storyboard x:Name="hideToLeftStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                 Duration="0:0:0.3" 
+                                 Duration="0:0:0.4" 
                                  To="{x:Bind ViewModel.StoryboardOffsetNegative, Mode=OneWay}">
                     <DoubleAnimation.EasingFunction>
-                        <ExponentialEase EasingMode="EaseOut" />
+                        <CubicEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="Opacity"
-                                 Duration="0:0:0.3" To="0">
+                                 Duration="0:0:0.4" To="0">
                     <DoubleAnimation.EasingFunction>
-                        <ExponentialEase EasingMode="EaseOut" />
+                        <CubicEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
             </Storyboard>
             <Storyboard x:Name="hideToRightStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                 Duration="0:0:0.3" 
+                                 Duration="0:0:0.4" 
                                  To="{x:Bind ViewModel.StoryboardOffset, Mode=OneWay}">
                     <DoubleAnimation.EasingFunction>
-                        <ExponentialEase EasingMode="EaseOut" />
+                        <CubicEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="Opacity"
-                                 Duration="0:0:0.3" To="0">
+                                 Duration="0:0:0.4" To="0">
                     <DoubleAnimation.EasingFunction>
-                        <ExponentialEase EasingMode="EaseOut" />
+                        <CubicEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
+                </DoubleAnimation>
+            </Storyboard>
+            <Storyboard x:Name="hideQuickStoryboard">
+                <DoubleAnimation Storyboard.TargetName="animatedPanel" 
+                                 Storyboard.TargetProperty="Opacity"
+                                 Duration="0:0:0" To="0">
                 </DoubleAnimation>
             </Storyboard>
             <Storyboard x:Name="showFromLeftStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                 Duration="0:0:0.3" 
+                                 Duration="0:0:0.4" 
                                  From="{x:Bind ViewModel.StoryboardOffsetNegative, Mode=OneWay}" 
                                  To="0">
                     <DoubleAnimation.EasingFunction>
-                        <ExponentialEase EasingMode="EaseOut" />
+                        <CubicEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="Opacity"
-                                 Duration="0:0:0.3" From="0" To="1">
+                                 Duration="0:0:0.4" From="0" To="1">
                     <DoubleAnimation.EasingFunction>
-                        <ExponentialEase EasingMode="EaseOut" />
+                        <CubicEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
                 <DoubleAnimation Storyboard.TargetName="swipeTranslateTransform"
@@ -90,18 +96,18 @@
             <Storyboard x:Name="showFromRightStoryboard">
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                 Duration="0:0:0.3" 
+                                 Duration="0:0:0.4" 
                                  From="{x:Bind ViewModel.StoryboardOffset, Mode=OneWay}" 
                                  To="0">
                     <DoubleAnimation.EasingFunction>
-                        <ExponentialEase EasingMode="EaseOut" />
+                        <CubicEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
                 <DoubleAnimation Storyboard.TargetName="animatedPanel" 
                                  Storyboard.TargetProperty="Opacity"
-                                 Duration="0:0:0.3" From="0" To="1">
+                                 Duration="0:0:0.4" From="0" To="1">
                     <DoubleAnimation.EasingFunction>
-                        <ExponentialEase EasingMode="EaseOut" />
+                        <CubicEase EasingMode="EaseOut" />
                     </DoubleAnimation.EasingFunction>
                 </DoubleAnimation>
                 <DoubleAnimation Storyboard.TargetName="swipeTranslateTransform"

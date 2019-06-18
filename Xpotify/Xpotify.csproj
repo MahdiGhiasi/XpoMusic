@@ -137,6 +137,7 @@
       <DependentUpon>XpotifyWebApp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\MediaControlsHelper.cs" />
+    <Compile Include="Helpers\StoryboardExtensions.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
