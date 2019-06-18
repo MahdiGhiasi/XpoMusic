@@ -294,12 +294,12 @@
                 </Grid.Background>
             </Grid>
         </Grid>
-        <Grid Background="#77000000" x:Name="mainBackgroundGrid">
+        <Grid Background="#66000000" x:Name="mainBackgroundGrid">
         </Grid>
         <Grid x:Name="blurBackground" 
               Visibility="{x:Bind ViewModel.BlurEnabled, Mode=OneWay, ConverterParameter={StaticResource BooleanToVisibilityConverter}}">
             <Grid.Background>
-                <media1:BackdropBlurBrush Amount="40" />
+                <media1:BackdropBlurBrush Amount="30" />
             </Grid.Background>
         </Grid>
         <Grid>
