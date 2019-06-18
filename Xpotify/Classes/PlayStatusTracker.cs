@@ -68,6 +68,12 @@ namespace Xpotify.Classes
             timer.Tick += Timer_Tick;
         }
 
+        public static void Seek(double percentage)
+        {
+            LastPlayStatus.ProgressedMilliseconds = (int)(LastPlayStatus.SongLengthMilliseconds * percentage);
+            LastPlayStatus.InvokeUpdated();
+        }
+
         private static async void Timer_Tick(object sender, object e)
         {
             // Ignore if not logged in

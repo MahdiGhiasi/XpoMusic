@@ -280,6 +280,7 @@ namespace Xpotify.Pages
         {
             try
             {
+                PlayStatusTracker.Seek(percentage);
                 await xpotifyWebView.Controller.Seek(percentage);
             }
             catch (Exception ex)
