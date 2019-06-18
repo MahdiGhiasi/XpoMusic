@@ -1,0 +1,48 @@
+﻿
+.xpotify-indeterminateprogressbar {
+    width: 100%;
+    overflow: hidden;
+    margin-top: 3px;
+    display: none;
+}
+
+.xpotify-indeterminateprogressbar-inner {
+    position: relative;
+    height: 5px;
+}
+
+.xpotify-indeterminateprogressbar-dot-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    transform: translateX(-10%);
+}
+
+.xpotify-indeterminateprogressbar-dot-container > span {
+    display: inline-block;
+    background: #ddd;
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+    margin: 0px;
+    position: absolute;
+    z-index: 101;
+}
+
+@keyframes animation-progressbar {
+    0%, 20% {
+        left: -10%;
+    }
+
+    90%, 100% {
+        left: 110%
+    }
+}
+
+
+@for $i from 1 through 5 {
+    .xpotify-indeterminateprogressbar .xpotify-indeterminateprogressbar-dot-container:nth-child(#{$i}) {
+        animation: animation-progressbar 4.8s cubic-bezier(.03,.78,.86,.21) #{($i + 1) * 0.25}s infinite;
+    }
+}

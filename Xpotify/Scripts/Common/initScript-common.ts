@@ -5,6 +5,7 @@
 /// <reference path="browserHistory.ts" />
 /// <reference path="resize.ts" />
 /// <reference path="startupAnimation.ts" />
+/// <reference path="requestIntercepter.ts" />
 
 namespace InitScript.Common {
 
@@ -25,9 +26,11 @@ namespace InitScript.Common {
         errors += UiElementModifier.createNavBarButtons();
         errors += UiElementModifier.createCompactOverlayButton();
         errors += UiElementModifier.addBackgroundClass();
+        errors += UiElementModifier.addIndeterminateProgressBar();
         errors += initNowPlayingBarCheck();
         setInitialPageHash();
         initOnResizeCheck();
+        RequestIntercepter.startInterceptingFetch();
         StartupAnimation.init();
 
         return errors;

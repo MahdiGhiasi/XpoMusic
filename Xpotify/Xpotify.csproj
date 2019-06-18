@@ -187,6 +187,8 @@
     <TypeScriptCompile Include="Scripts\Common\browserHistory.ts" />
     <TypeScriptCompile Include="Scripts\Common\color.ts" />
     <TypeScriptCompile Include="Scripts\Common\dragDrop.ts" />
+    <TypeScriptCompile Include="Scripts\Common\indeterminateProgressBarHandler.ts" />
+    <TypeScriptCompile Include="Scripts\Common\requestIntercepter.ts" />
     <TypeScriptCompile Include="Scripts\Common\startupAnimation.ts" />
     <TypeScriptCompile Include="Scripts\Common\vibrant.ts" />
     <TypeScriptCompile Include="Scripts\Common\resize.ts" />
@@ -403,6 +405,7 @@
     <None Include="Stylesheets\Common\contextMenu.scss" />
     <None Include="Stylesheets\Common\fontStyle.scss" />
     <None Include="Stylesheets\Common\general.scss" />
+    <None Include="Stylesheets\Common\indeterminateProgressBar.scss" />
     <None Include="Stylesheets\Common\navBar.scss" />
     <None Include="Stylesheets\Common\nowPlayingBar.scss" />
     <None Include="Stylesheets\Common\pivotTabStyle.scss" />

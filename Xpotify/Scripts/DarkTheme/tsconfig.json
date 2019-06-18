@@ -7,7 +7,7 @@
     "sourceMap": true,
     "module": "system",
     "outFile": "../../InjectedAssets/init-dark.js",
-    "target": "es3"
+    "target": "es6"
   },
   "include": [
     "*.ts",
