@@ -207,7 +207,7 @@ namespace Xpotify.Controls
                 var albumArtUrl = await SongImageProvider.GetAlbumArt(PlayStatusTracker.LastPlayStatus.AlbumId);
                 ViewModel.AlbumArtUri = new Uri(albumArtUrl);
 
-                if (LocalConfiguration.NowPlayingShowArtistArt)
+                if (ViewModel.ShowArtistArt)
                 {
                     var artistArtUrl = await SongImageProvider.GetArtistArt(PlayStatusTracker.LastPlayStatus.ArtistId);
                     ViewModel.BackgroundArtUri = new Uri(artistArtUrl);

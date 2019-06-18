@@ -26,6 +26,7 @@ namespace Xpotify.ViewModels
                 FirePropertyChangedEvent(nameof(ViewMode));
                 FirePropertyChangedEvent(nameof(IsCompactOverlayViewMode));
                 FirePropertyChangedEvent(nameof(IsNormalViewMode));
+                FirePropertyChangedEvent(nameof(ShowArtistArt));
             }
         }
 
@@ -286,10 +287,19 @@ namespace Xpotify.ViewModels
 
         public bool ShowArtistArt
         {
-            get => LocalConfiguration.NowPlayingShowArtistArt;
+            get
+            {
+                if (ViewMode == NowPlayingViewMode.CompactOverlay)
+                    return LocalConfiguration.MiniViewShowArtistArt;
+                else
+                    return LocalConfiguration.NowPlayingShowArtistArt;
+            }
             set
             {
-                LocalConfiguration.NowPlayingShowArtistArt = value;
+                if (ViewMode == NowPlayingViewMode.CompactOverlay)
+                    LocalConfiguration.MiniViewShowArtistArt = value;
+                else
+                    LocalConfiguration.NowPlayingShowArtistArt = value;
 
                 FirePropertyChangedEvent(nameof(ShowArtistArt));
             }

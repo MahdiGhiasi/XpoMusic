@@ -245,6 +245,21 @@ namespace Xpotify.Classes
             }
         }
 
+        public static bool MiniViewShowArtistArt
+        {
+            get
+            {
+                var config = GetConfiguration("MiniViewShowArtistArt");
+                if (config == null)
+                    return false;
+                return config == "1";
+            }
+            set
+            {
+                SetConfiguration("MiniViewShowArtistArt", value ? "1" : "0");
+            }
+        }
+
         private static string GetConfiguration(string key)
         {
             var completeKey = "LocalConfiguration_" + key;
