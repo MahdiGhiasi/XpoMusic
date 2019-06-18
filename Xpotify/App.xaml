@@ -12,7 +12,6 @@
                 <ResourceDictionary Source="Styles/TopBarLightButtonStyle.xaml" />
                 <ResourceDictionary Source="Styles/CircleButtonStyle.xaml" />
                 <ResourceDictionary Source="Styles/MinimalButtonStyle.xaml" />
-                <ResourceDictionary Source="Styles/WhiteSliderStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>

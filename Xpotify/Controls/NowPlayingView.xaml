@@ -13,6 +13,7 @@
     xmlns:converters="using:Xpotify.Classes.Converters"
     xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
     xmlns:media1="using:Microsoft.Toolkit.Uwp.UI.Media"
+    xmlns:xpotifycontrols="using:Xpotify.Controls"
     mc:Ignorable="d"
     RequestedTheme="Dark"
     Loaded="UserControl_Loaded"
@@ -403,12 +404,13 @@
                     <TextBlock Grid.Column="0" 
                                 Text="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay, Converter={StaticResource MillisecondsToMinSecConverter}}"
                                 VerticalAlignment="Center" />
-                    <Slider Style="{StaticResource WhiteSliderStyle}" 
-                            Grid.Column="1"
-                            ThumbToolTipValueConverter="{StaticResource MillisecondsToMinSecConverter}"
-                            Value="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay}"
-                            Maximum="{x:Bind ViewModel.ProgressBarMaximum, Mode=OneWay}"
-                            Margin="12,4,12,0"/>
+                    <xpotifycontrols:SliderExtended Grid.Column="1"
+                                                    ContinousUpdateWhileDragging="False"
+                                                    ThumbToolTipValueConverter="{StaticResource MillisecondsToMinSecConverter}"
+                                                    Value2="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay}"
+                                                    Maximum="{x:Bind ViewModel.ProgressBarMaximum, Mode=OneWay}"
+                                                    Margin="12,4,12,0"
+                                                    ValueChangedByUserManipulation="Slider_ValueChangedByUserManipulation"/>
                     <TextBlock Grid.Column="2" 
                                 Text="{x:Bind ViewModel.ProgressBarMaximum, Mode=OneWay, Converter={StaticResource MillisecondsToMinSecConverter}}"
                                 VerticalAlignment="Center" />

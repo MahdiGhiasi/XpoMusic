@@ -127,6 +127,7 @@
     <Compile Include="Controls\FlyoutContainer.xaml.cs">
       <DependentUpon>FlyoutContainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\SliderExtended.cs" />
     <Compile Include="Controls\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -526,9 +527,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Styles\WhiteSliderStyle.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -245,26 +245,46 @@ namespace Xpotify.Pages
             }
         }
 
-        private async void NowPlaying_ActionRequested(object sender, NowPlayingView.Action e)
+        private async void NowPlaying_ActionRequested(object sender, ActionRequestedEventArgs e)
         {
             if ((sender as NowPlayingView).ViewMode == NowPlayingView.NowPlayingViewMode.CompactOverlay)
             {
-                if (e == NowPlayingView.Action.Back)
+                if (e.Action == NowPlayingView.Action.Back)
                 {
                     CloseCompactOverlay();
+                }
+                else if (e.Action == NowPlayingView.Action.Seek)
+                {
+                    SeekMusic((double)e.AdditionalData);
                 }
             }
             else
             {
-                if (e == NowPlayingView.Action.Back)
+                if (e.Action == NowPlayingView.Action.Back)
                 {
                     CloseNowPlaying();
                 }
-                else if (e == NowPlayingView.Action.PlayQueue)
+                else if (e.Action == NowPlayingView.Action.PlayQueue)
                 {
                     await xpotifyWebView.Controller.NavigateToSpotifyUrl(_playQueueUri);
                     CloseNowPlaying();
                 }
+                else if (e.Action == NowPlayingView.Action.Seek)
+                {
+                    SeekMusic((double)e.AdditionalData);
+                }
+            }
+        }
+
+        private async void SeekMusic(double percentage)
+        {
+            try
+            {
+                await xpotifyWebView.Controller.Seek(percentage);
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("SeekMusic failed: " + ex.ToString());
             }
         }
 

@@ -228,5 +228,12 @@ namespace Xpotify.Helpers
 
             return (result == "1");
         }
+
+        internal async Task Seek(double percentage)
+        {
+            var script = await AssetManager.LoadAssetString("seekPlayback.js");
+            script = script.Replace("{{PERCENTAGE}}", percentage.ToString());
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+        }
     }
 }

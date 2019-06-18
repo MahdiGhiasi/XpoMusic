@@ -25,6 +25,7 @@ namespace Xpotify.Controls
         {
             Back,
             PlayQueue,
+            Seek,
         }
 
         private enum AnimationState
@@ -92,7 +93,7 @@ namespace Xpotify.Controls
         }
         #endregion
 
-        public event EventHandler<Action> ActionRequested;
+        public event EventHandler<ActionRequestedEventArgs> ActionRequested;
         public FrameworkElement MainBackgroundControl => this.mainBackgroundGrid;
 
         /// <summary>
@@ -287,7 +288,10 @@ namespace Xpotify.Controls
                 return;
             }
 
-            ActionRequested?.Invoke(this, Action.Back);
+            ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+            {
+                Action = Action.Back,
+            });
         }
 
         private async void PauseButton_Tapped(object sender, TappedRoutedEventArgs e)
@@ -527,12 +531,24 @@ namespace Xpotify.Controls
 
         private void ShowNowPlayingListButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            ActionRequested?.Invoke(this, Action.PlayQueue);
+            ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+            {
+                Action = Action.PlayQueue,
+            });
         }
 
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             ViewModel.StoryboardOffset = e.NewSize.Width;
+        }
+
+        private void Slider_ValueChangedByUserManipulation(object sender, SliderExtendedValueChangedEventArgs e)
+        {
+            ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+            {
+                Action = Action.Seek,
+                AdditionalData = (e.NewValue / ViewModel.ProgressBarMaximum),
+            });
         }
 
         #region Swipe Gesture
@@ -589,5 +605,11 @@ namespace Xpotify.Controls
             SwipeFinished(lastPoint.Value.X);
         }
         #endregion
+    }
+
+    public class ActionRequestedEventArgs
+    {
+        public NowPlayingView.Action Action { get; set; }
+        public object AdditionalData { get; set; }
     }
 }
