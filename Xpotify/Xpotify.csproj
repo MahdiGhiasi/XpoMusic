@@ -123,6 +123,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classes\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Controls\FlyoutContainer.xaml.cs">
       <DependentUpon>FlyoutContainer.xaml</DependentUpon>
     </Compile>

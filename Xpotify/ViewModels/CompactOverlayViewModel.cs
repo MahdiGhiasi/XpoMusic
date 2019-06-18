@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using Xpotify.Classes;
 using static Xpotify.Controls.NowPlayingView;
 
 namespace Xpotify.ViewModels
@@ -82,32 +83,32 @@ namespace Xpotify.ViewModels
             }
         }
 
-        private Uri artistArtUri;
-        public Uri ArtistArtUri
+        private Uri backgroundArtUri;
+        public Uri BackgroundArtUri
         {
             get
             {
-                return artistArtUri;
+                return backgroundArtUri;
             }
             set
             {
-                if (artistArtUri != value)
+                if (backgroundArtUri != value)
                 {
-                    artistArtUri = value;
-                    artistArt = (value == null) ? null : new BitmapImage(value);
+                    backgroundArtUri = value;
+                    backgroundArt = (value == null) ? null : new BitmapImage(value);
 
-                    FirePropertyChangedEvent(nameof(ArtistArtUri));
-                    FirePropertyChangedEvent(nameof(ArtistArt));
+                    FirePropertyChangedEvent(nameof(BackgroundArtUri));
+                    FirePropertyChangedEvent(nameof(BackgroundArt));
                 }
             }
         }
 
-        private ImageSource artistArt;
-        public ImageSource ArtistArt
+        private ImageSource backgroundArt;
+        public ImageSource BackgroundArt
         {
             get
             {
-                return artistArt;
+                return backgroundArt;
             }
         }
 
@@ -282,5 +283,27 @@ namespace Xpotify.ViewModels
         }
 
         public double StoryboardOffsetNegative => -StoryboardOffset;
+
+        public bool ShowArtistArt
+        {
+            get => LocalConfiguration.NowPlayingShowArtistArt;
+            set
+            {
+                LocalConfiguration.NowPlayingShowArtistArt = value;
+
+                FirePropertyChangedEvent(nameof(ShowArtistArt));
+            }
+        }
+
+        private bool blurEnabled = false;
+        public bool BlurEnabled
+        {
+            get => blurEnabled;
+            set
+            {
+                blurEnabled = value;
+                FirePropertyChangedEvent(nameof(BlurEnabled));
+            }
+        }
     }
 }

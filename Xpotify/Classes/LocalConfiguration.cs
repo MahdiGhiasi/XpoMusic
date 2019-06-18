@@ -230,6 +230,21 @@ namespace Xpotify.Classes
             }
         }
 
+        public static bool NowPlayingShowArtistArt
+        {
+            get
+            {
+                var config = GetConfiguration("NowPlayingShowArtistArt");
+                if (config == null)
+                    return true;
+                return config == "1";
+            }
+            set
+            {
+                SetConfiguration("NowPlayingShowArtistArt", value ? "1" : "0");
+            }
+        }
+
         private static string GetConfiguration(string key)
         {
             var completeKey = "LocalConfiguration_" + key;

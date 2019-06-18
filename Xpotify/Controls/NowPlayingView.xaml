@@ -11,6 +11,8 @@
     xmlns:media="using:Microsoft.Xaml.Interactions.Media"
     xmlns:vm="using:Xpotify.ViewModels"
     xmlns:converters="using:Xpotify.Classes.Converters"
+    xmlns:behaviors="using:Microsoft.Toolkit.Uwp.UI.Animations.Behaviors"
+    xmlns:media1="using:Microsoft.Toolkit.Uwp.UI.Media"
     mc:Ignorable="d"
     RequestedTheme="Dark"
     Loaded="UserControl_Loaded"
@@ -263,16 +265,16 @@
         </VisualStateManager.VisualStateGroups>
 
         <Grid Background="White">
-            <Grid x:Name="artistArtContainer">
+            <Grid x:Name="backgroundArtContainer">
                 <Grid.Background>
-                    <ImageBrush ImageSource="{x:Bind ViewModel.ArtistArt, Mode=OneWay}" Stretch="UniformToFill">
+                    <ImageBrush ImageSource="{x:Bind ViewModel.BackgroundArt, Mode=OneWay}" Stretch="UniformToFill">
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="ImageOpened">
                                 <media:ControlStoryboardAction ControlStoryboardOption="Play">
                                     <media:ControlStoryboardAction.Storyboard>
                                         <Storyboard>
                                             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                                                                           Storyboard.TargetName="artistArtContainer">
+                                                                           Storyboard.TargetName="backgroundArtContainer">
                                                 <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                                                 <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
                                             </DoubleAnimationUsingKeyFrames>
@@ -286,6 +288,12 @@
             </Grid>
         </Grid>
         <Grid Background="#77000000" x:Name="mainBackgroundGrid">
+        </Grid>
+        <Grid x:Name="blurBackground" 
+              Visibility="{x:Bind ViewModel.BlurEnabled, Mode=OneWay, ConverterParameter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid.Background>
+                <media1:BackdropBlurBrush Amount="40" />
+            </Grid.Background>
         </Grid>
         <Grid>
             <ProgressRing x:Name="nextTrackLoadingProgressRing" 
@@ -503,6 +511,12 @@
                                 Margin="4,0,0,0"
                                 Background="Transparent">
                             <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE10C;" />
+                            <Button.Flyout>
+                                <MenuFlyout>
+                                    <ToggleMenuFlyoutItem Text="Show artist art" 
+                                                          IsChecked="{x:Bind ViewModel.ShowArtistArt, Mode=TwoWay}"/>
+                                </MenuFlyout>
+                            </Button.Flyout>
                         </Button>
                     </StackPanel>
                 </Grid>
@@ -611,6 +625,12 @@
                     VerticalAlignment="Bottom"
                     Background="Transparent">
                 <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="18" Glyph="&#xE10C;" />
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <ToggleMenuFlyoutItem Text="Show artist art" 
+                                              IsChecked="{x:Bind ViewModel.ShowArtistArt, Mode=TwoWay}"/>
+                    </MenuFlyout>
+                </Button.Flyout>
             </Button>
         </Grid>
     </Grid>

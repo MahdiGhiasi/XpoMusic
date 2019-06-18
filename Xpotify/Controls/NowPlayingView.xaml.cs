@@ -115,12 +115,20 @@ namespace Xpotify.Controls
         {
             this.InitializeComponent();
 
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
+
             timer = new DispatcherTimer
             {
                 Interval = TimeSpan.FromSeconds(1),
             };
             timer.Tick += Timer_Tick;
             timer.Start();
+        }
+
+        private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "ShowArtistArt")
+                ForceUpdate();
         }
 
         public void ActivateProgressRing()
@@ -142,6 +150,19 @@ namespace Xpotify.Controls
             catch (Exception ex)
             {
                 logger.Warn("Update failed: " + ex.ToString());
+            }
+        }
+
+        private async void ForceUpdate()
+        {
+            try
+            {
+                currentSongId = "";
+                await Update();
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("ForceUpdate failed: " + ex.ToString());
             }
         }
 
@@ -183,11 +204,20 @@ namespace Xpotify.Controls
                 ViewModel.AlbumName = PlayStatusTracker.LastPlayStatus.AlbumName;
                 ViewModel.ArtistName = PlayStatusTracker.LastPlayStatus.ArtistName;
 
-                var artistArtUrl = await SongImageProvider.GetArtistArt(PlayStatusTracker.LastPlayStatus.ArtistId);
                 var albumArtUrl = await SongImageProvider.GetAlbumArt(PlayStatusTracker.LastPlayStatus.AlbumId);
-
-                ViewModel.ArtistArtUri = new Uri(artistArtUrl);
                 ViewModel.AlbumArtUri = new Uri(albumArtUrl);
+
+                if (LocalConfiguration.NowPlayingShowArtistArt)
+                {
+                    var artistArtUrl = await SongImageProvider.GetArtistArt(PlayStatusTracker.LastPlayStatus.ArtistId);
+                    ViewModel.BackgroundArtUri = new Uri(artistArtUrl);
+                    ViewModel.BlurEnabled = false;
+                }
+                else
+                {
+                    ViewModel.BackgroundArtUri = new Uri(albumArtUrl);
+                    ViewModel.BlurEnabled = true;
+                }
 
                 if (animationState == AnimationState.HiddenToRightSide)
                     showFromLeftStoryboard.Begin();
@@ -221,7 +251,7 @@ namespace Xpotify.Controls
 
         private void OnViewClosed()
         {
-            ViewModel.ArtistArtUri = null;
+            ViewModel.BackgroundArtUri = null;
             ViewModel.AlbumArtUri = null;
             animationState = AnimationState.HiddenToLeftSide;
             currentSongId = "";

@@ -2,7 +2,8 @@
     x:Class="Xpotify.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Xpotify">
+    xmlns:local="using:Xpotify"
+    xmlns:converters="using:Xpotify.Classes.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,6 +14,7 @@
                 <ResourceDictionary Source="Styles/MinimalButtonStyle.xaml" />
                 <ResourceDictionary Source="Styles/WhiteSliderStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         </ResourceDictionary>
     </Application.Resources>
 
