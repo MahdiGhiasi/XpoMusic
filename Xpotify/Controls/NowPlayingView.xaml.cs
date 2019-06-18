@@ -176,8 +176,6 @@ namespace Xpotify.Controls
                 currentSongId = PlayStatusTracker.LastPlayStatus.SongId;
                 currentShowArtistArtState = ViewModel.ShowArtistArt;
 
-                await Task.Delay(150);
-
                 if (animationState == AnimationState.None)
                 {
                     if (prevTrackCommandIssued)
@@ -212,6 +210,8 @@ namespace Xpotify.Controls
                     ViewModel.BackgroundArtUri = new Uri(albumArtUrl);
                     ViewModel.BlurEnabled = true;
                 }
+
+                await Task.Delay(200);
 
                 if (animationState == AnimationState.HiddenToRightSide)
                     showFromLeftStoryboard.Begin();
