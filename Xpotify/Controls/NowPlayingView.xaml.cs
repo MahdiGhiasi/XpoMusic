@@ -278,6 +278,8 @@ namespace Xpotify.Controls
             if (isCompactOverlayFromNowPlaying)
             {
                 HideNameAndAlbumArtQuick();
+                currentSongId = "";
+
                 await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
 
                 isCompactOverlayFromNowPlaying = false;
@@ -523,6 +525,7 @@ namespace Xpotify.Controls
             if (modeSwitched)
             {
                 HideNameAndAlbumArtQuick();
+                currentSongId = "";
                 ViewMode = NowPlayingViewMode.CompactOverlay;
                 isCompactOverlayFromNowPlaying = true;
                 AnalyticsHelper.PageView("CompactOverlay");
