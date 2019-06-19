@@ -342,5 +342,16 @@ namespace Xpotify.ViewModels
                     return "\uE992";
             }
         }
+
+        private bool isSavedToLibrary = false;
+        public bool IsSavedToLibrary
+        {
+            get => isSavedToLibrary;
+            set
+            {
+                isSavedToLibrary = value;
+                FirePropertyChangedEvent(nameof(IsSavedToLibrary));
+            }
+        }
     }
 }

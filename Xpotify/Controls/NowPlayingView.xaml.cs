@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Input;
 using Xpotify.Classes;
 using Xpotify.Classes.Model;
 using Xpotify.Helpers;
+using Xpotify.SpotifyApi;
 
 namespace Xpotify.Controls
 {
@@ -54,6 +55,7 @@ namespace Xpotify.Controls
 
                 if (IsOpen && !timer.IsEnabled)
                 {
+                    songInfoCache.Clear();
                     HideNameAndAlbumArtQuick();
                     SetTopBar();
                     TryUpdate();
@@ -117,6 +119,8 @@ namespace Xpotify.Controls
         private bool isCompactOverlayFromNowPlaying = false;
         
         private SemaphoreQueue volumeSetSemaphore = new SemaphoreQueue(1, 1);
+
+        private SongExtraInfoStore songInfoCache = new SongExtraInfoStore();
 
         public NowPlayingView()
         {
@@ -243,6 +247,16 @@ namespace Xpotify.Controls
 
                 ViewModel.ProgressRingActive = false;
                 animationState = AnimationState.None;
+            }
+
+            try
+            {
+                var extraInfo = await songInfoCache.GetSongExtraInfo(currentSongId);
+                ViewModel.IsSavedToLibrary = extraInfo.IsSavedToLibrary;
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("GetSongExtraInfo failed: " + ex.ToString());
             }
         }
 
@@ -588,8 +602,33 @@ namespace Xpotify.Controls
             }
         }
 
-        #region Swipe Gesture
+        private async void SaveToYourLibrary_Click(object sender, RoutedEventArgs e)
+        {
+            var extraInfo = await songInfoCache.GetSongExtraInfo(currentSongId);
+            extraInfo.IsSavedToLibrary = true;
+            ViewModel.IsSavedToLibrary = true;
 
+            var library = new Library();
+            var result = await library.SaveTrackToLibrary(currentSongId);
+
+            extraInfo.IsSavedToLibrary = result;
+            ViewModel.IsSavedToLibrary = result;
+        }
+
+        private async void RemoveFromYourLibrary_Click(object sender, RoutedEventArgs e)
+        {
+            var extraInfo = await songInfoCache.GetSongExtraInfo(currentSongId);
+            extraInfo.IsSavedToLibrary = false;
+            ViewModel.IsSavedToLibrary = false;
+
+            var library = new Library();
+            var result = await library.RemoveTrackFromLibrary(currentSongId);
+
+            extraInfo.IsSavedToLibrary = !result;
+            ViewModel.IsSavedToLibrary = !result;
+        }
+
+        #region Swipe Gesture
         const double _minimumDeltaXForSwipe = 20.0;
         Point? pressStartPoint = null, lastPoint = null;
         private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)

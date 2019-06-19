@@ -124,7 +124,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Classes\Model\SongExtraInfo.cs" />
     <Compile Include="Classes\SemaphoreQueue.cs" />
+    <Compile Include="Classes\SongExtraInfoStore.cs" />
     <Compile Include="Controls\FlyoutContainer.xaml.cs">
       <DependentUpon>FlyoutContainer.xaml</DependentUpon>
     </Compile>
@@ -210,6 +212,7 @@
     <TypeScriptCompile Include="Scripts\Common\resize.ts" />
     <TypeScriptCompile Include="Scripts\Common\uriHelper.ts" />
     <TypeScriptCompile Include="Scripts\Common\uiElementModifier.ts" />
+    <Compile Include="SpotifyApi\Library.cs" />
     <Compile Include="ViewModels\TopBarViewModel.cs" />
     <Compile Include="XpotifyApi\AppConstantsApi.cs" />
     <Compile Include="XpotifyApi\AssetUpdatesApi.cs" />

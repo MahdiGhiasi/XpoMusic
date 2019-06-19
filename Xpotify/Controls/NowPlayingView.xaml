@@ -487,6 +487,26 @@
                                 </Flyout>
                             </Button.Flyout>
                         </Button>
+                        <Button Style="{StaticResource CircleButtonStyle}" 
+                                Width="40"
+                                Height="40"
+                                Margin="4,0,4,0"
+                                Click="SaveToYourLibrary_Click"
+                                Background="Transparent" 
+                                Visibility="{x:Bind ViewModel.IsSavedToLibrary, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Reverse}" 
+                                ToolTipService.ToolTip="Save to your liked songs">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xEB51;" />
+                        </Button>
+                        <Button Style="{StaticResource CircleButtonStyle}" 
+                                Width="40"
+                                Height="40"
+                                Margin="4,0,4,0"
+                                Click="RemoveFromYourLibrary_Click"
+                                Background="Transparent" 
+                                Visibility="{x:Bind ViewModel.IsSavedToLibrary, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" 
+                                ToolTipService.ToolTip="Remove from your liked songs">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xEB52;" Foreground="ForestGreen" />
+                        </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"
                                 Margin="0,0,0,0"
@@ -658,6 +678,12 @@
                     <MenuFlyout>
                         <ToggleMenuFlyoutItem Text="Show artist art" 
                                               IsChecked="{x:Bind ViewModel.ShowArtistArt, Mode=TwoWay}"/>
+                        <MenuFlyoutItem Text="Save to your liked songs"
+                                        Visibility="{x:Bind ViewModel.IsSavedToLibrary, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=Reverse}" 
+                                        Click="SaveToYourLibrary_Click" />
+                        <MenuFlyoutItem Text="Remove from your liked songs"
+                                        Visibility="{x:Bind ViewModel.IsSavedToLibrary, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                        Click="RemoveFromYourLibrary_Click" />
                     </MenuFlyout>
                 </Button.Flyout>
             </Button>
