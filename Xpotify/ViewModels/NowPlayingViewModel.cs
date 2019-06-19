@@ -315,5 +315,32 @@ namespace Xpotify.ViewModels
                 FirePropertyChangedEvent(nameof(BlurEnabled));
             }
         }
+
+        public double volume = 50;
+        public double Volume
+        {
+            get => volume;
+            set
+            {
+                volume = value;
+                FirePropertyChangedEvent(nameof(Volume));
+                FirePropertyChangedEvent(nameof(VolumeIconGlyph));
+            }
+        }
+
+        public string VolumeIconGlyph
+        {
+            get
+            {
+                if (Volume > 66)
+                    return "\uE995";
+                else if (Volume > 33)
+                    return "\uE994";
+                else if (Volume > 0)
+                    return "\uE993";
+                else
+                    return "\uE992";
+            }
+        }
     }
 }

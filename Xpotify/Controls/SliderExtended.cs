@@ -96,7 +96,7 @@ namespace Xpotify.Controls
 
         private void SliderExtended_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
         {
-            Debug.WriteLine("MANIP COMPLETED *************************************************");
+            //Debug.WriteLine("MANIP COMPLETED *************************************************");
             isBeingDragged = false;
 
             if (!ContinousUpdateWhileDragging)
@@ -105,21 +105,21 @@ namespace Xpotify.Controls
 
         private void SliderExtended_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
         {
-            Debug.WriteLine("MANIP STARTED *************************************************");
+            //Debug.WriteLine("MANIP STARTED *************************************************");
             isBeingDragged = true;
             draggedInitialValue = Value2;
         }
 
         private void Thumb_DragStarted(object sender, DragStartedEventArgs e)
         {
-            Debug.WriteLine("DRAG START ******************");
+            //Debug.WriteLine("DRAG START ******************");
             isBeingDragged = true;
             draggedInitialValue = Value2;
         }
 
         private void Thumb_DragCompleted(object sender, DragCompletedEventArgs e)
         {
-            Debug.WriteLine("DRAG COMPLETED ******************");
+            //Debug.WriteLine("DRAG COMPLETED ******************");
             isBeingDragged = false;
 
             if (!ContinousUpdateWhileDragging)
@@ -133,7 +133,7 @@ namespace Xpotify.Controls
             if (newValue == valueToSetWithoutNotifying 
                 && DateTime.UtcNow - value2lastSetTime < TimeSpan.FromMilliseconds(10))
             {
-                Debug.WriteLine("NOPE ------------------------------" + (DateTime.UtcNow - value2lastSetTime).ToString());
+                //Debug.WriteLine("NOPE ------------------------------" + (DateTime.UtcNow - value2lastSetTime).ToString());
                 // Don't fire ValueChangedByUserManipulation as this change is done via Value2.
                 return;
             }
@@ -144,7 +144,7 @@ namespace Xpotify.Controls
             if (!ContinousUpdateWhileDragging && isBeingDragged)
                 return;
 
-            Debug.WriteLine("VALUE FUCKING CHANGED ******************");
+            //Debug.WriteLine("VALUE FUCKING CHANGED ******************");
             ValueChangedByUserManipulation?.Invoke(this, new SliderExtendedValueChangedEventArgs
             {
                 OldValue = oldValue,

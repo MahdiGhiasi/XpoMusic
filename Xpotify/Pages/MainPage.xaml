@@ -175,6 +175,8 @@
         </VisualStateManager.VisualStateGroups>
 
         <controls:XpotifyWebApp x:Name="xpotifyWebView"
+                                MinWidth="500"
+                                MinHeight="500"
                                 PageLoaded="XpotifyWebView_PageLoaded"
                                 WebAppLoaded="XpotifyWebView_WebAppLoaded"
                                 ActionRequested="XpotifyWebView_ActionRequested"/>

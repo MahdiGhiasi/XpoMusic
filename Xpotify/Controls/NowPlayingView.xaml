@@ -410,7 +410,7 @@
                                                     Value2="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay}"
                                                     Maximum="{x:Bind ViewModel.ProgressBarMaximum, Mode=OneWay}"
                                                     Margin="12,4,12,0"
-                                                    ValueChangedByUserManipulation="Slider_ValueChangedByUserManipulation"/>
+                                                    ValueChangedByUserManipulation="PlaybackSlider_ValueChangedByUserManipulation"/>
                     <TextBlock Grid.Column="2" 
                                 Text="{x:Bind ViewModel.ProgressBarMaximum, Mode=OneWay, Converter={StaticResource MillisecondsToMinSecConverter}}"
                                 VerticalAlignment="Center" />
@@ -460,11 +460,32 @@
                                 IsEnabled="{x:Bind ViewModel.NextButtonEnabled, Mode=OneWay}"
                                 Width="40"
                                 Height="40"
-                                Margin="4,0,0,0"
+                                Margin="4,0,4,0"
                                 Tapped="NextTrackButton_Tapped"
                                 Background="Transparent" 
                                 ToolTipService.ToolTip="Next track">
                             <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE101;" />
+                        </Button>
+                        <Button Style="{StaticResource CircleButtonStyle}" 
+                                Width="40"
+                                Height="40"
+                                Margin="4,0,4,0"
+                                Background="Transparent" 
+                                ToolTipService.ToolTip="Volume">
+                            <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="{x:Bind ViewModel.VolumeIconGlyph, Mode=OneWay}" />
+                            <Button.Flyout>
+                                <Flyout>
+                                    <Grid Width="140" Height="40">
+                                        <xpotifycontrols:SliderExtended Grid.Column="2" 
+                                                                        VerticalAlignment="Center"
+                                                                        ContinousUpdateWhileDragging="True"
+                                                                        IsThumbToolTipEnabled="True"
+                                                                        Value2="{x:Bind ViewModel.Volume, Mode=TwoWay}"
+                                                                        Maximum="100"
+                                                                        ValueChangedByUserManipulation="VolumeSlider_ValueChangedByUserManipulation"/>
+                                    </Grid>
+                                </Flyout>
+                            </Button.Flyout>
                         </Button>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal"

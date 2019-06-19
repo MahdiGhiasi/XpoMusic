@@ -229,9 +229,16 @@ namespace Xpotify.Helpers
             return (result == "1");
         }
 
-        internal async Task Seek(double percentage)
+        internal async Task SeekPlayback(double percentage)
         {
             var script = await AssetManager.LoadAssetString("seekPlayback.js");
+            script = script.Replace("{{PERCENTAGE}}", percentage.ToString());
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+        }
+
+        internal async Task SeekVolume(double percentage)
+        {
+            var script = await AssetManager.LoadAssetString("seekVolume.js");
             script = script.Replace("{{PERCENTAGE}}", percentage.ToString());
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
         }

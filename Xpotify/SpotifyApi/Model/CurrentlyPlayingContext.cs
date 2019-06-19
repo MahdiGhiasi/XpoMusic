@@ -12,5 +12,6 @@ namespace Xpotify.SpotifyApi.Model
         public bool is_playing;
         public string currently_playing_type;
         public Track item;
+        public Device device;
     }
 }

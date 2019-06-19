@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.ViewManagement;
@@ -6,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Xpotify.Classes;
+using Xpotify.Classes.Model;
 using Xpotify.Helpers;
 
 namespace Xpotify.Controls
@@ -25,7 +27,8 @@ namespace Xpotify.Controls
         {
             Back,
             PlayQueue,
-            Seek,
+            SeekPlayback,
+            SeekVolume,
         }
 
         private enum AnimationState
@@ -112,6 +115,8 @@ namespace Xpotify.Controls
         private string currentSongId = "";
         private bool? currentShowArtistArtState = null;
         private bool isCompactOverlayFromNowPlaying = false;
+        
+        private SemaphoreQueue volumeSetSemaphore = new SemaphoreQueue(1, 1);
 
         public NowPlayingView()
         {
@@ -168,6 +173,8 @@ namespace Xpotify.Controls
 
             ViewModel.ProgressBarMaximum = PlayStatusTracker.LastPlayStatus.SongLengthMilliseconds;
             ViewModel.ProgressBarValue = PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds;
+
+            ViewModel.Volume = PlayStatusTracker.LastPlayStatus.Volume * 100;
 
             ViewModel.IsPlaying = PlayStatusTracker.LastPlayStatus.IsPlaying;
 
@@ -545,13 +552,40 @@ namespace Xpotify.Controls
             ViewModel.StoryboardOffset = e.NewSize.Width;
         }
 
-        private void Slider_ValueChangedByUserManipulation(object sender, SliderExtendedValueChangedEventArgs e)
+        private void PlaybackSlider_ValueChangedByUserManipulation(object sender, SliderExtendedValueChangedEventArgs e)
         {
             ActionRequested?.Invoke(this, new ActionRequestedEventArgs
             {
-                Action = Action.Seek,
+                Action = Action.SeekPlayback,
                 AdditionalData = (e.NewValue / ViewModel.ProgressBarMaximum),
             });
+        }
+
+        private async void VolumeSlider_ValueChangedByUserManipulation(object sender, SliderExtendedValueChangedEventArgs e)
+        {
+            try
+            {
+                await volumeSetSemaphore.WaitAsync();
+
+                // There are new shiny requests waiting, so I'm not needed anymore :(
+                if (volumeSetSemaphore.WaitingCount > 0)
+                    return;
+
+                logger.Info(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ " + e.NewValue);
+
+                ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+                {
+                    Action = Action.SeekVolume,
+                    AdditionalData = e.NewValue / 100.0,
+                });
+
+                // Don't overload the SeekVolume request.
+                await Task.Delay(200);
+            }
+            finally
+            {
+                volumeSetSemaphore.Release();
+            }
         }
 
         #region Swipe Gesture

@@ -253,9 +253,13 @@ namespace Xpotify.Pages
                 {
                     CloseCompactOverlay();
                 }
-                else if (e.Action == NowPlayingView.Action.Seek)
+                else if (e.Action == NowPlayingView.Action.SeekPlayback)
                 {
-                    SeekMusic((double)e.AdditionalData);
+                    SeekPlayback((double)e.AdditionalData);
+                }
+                else if (e.Action == NowPlayingView.Action.SeekVolume)
+                {
+                    SeekVolume((double)e.AdditionalData);
                 }
             }
             else
@@ -269,23 +273,40 @@ namespace Xpotify.Pages
                     await xpotifyWebView.Controller.NavigateToSpotifyUrl(_playQueueUri);
                     CloseNowPlaying();
                 }
-                else if (e.Action == NowPlayingView.Action.Seek)
+                else if (e.Action == NowPlayingView.Action.SeekPlayback)
                 {
-                    SeekMusic((double)e.AdditionalData);
+                    SeekPlayback((double)e.AdditionalData);
+                }
+                else if (e.Action == NowPlayingView.Action.SeekVolume)
+                {
+                    SeekVolume((double)e.AdditionalData);
                 }
             }
         }
 
-        private async void SeekMusic(double percentage)
+        private async void SeekPlayback(double percentage)
         {
             try
             {
-                PlayStatusTracker.Seek(percentage);
-                await xpotifyWebView.Controller.Seek(percentage);
+                PlayStatusTracker.SeekPlayback(percentage);
+                await xpotifyWebView.Controller.SeekPlayback(percentage);
             }
             catch (Exception ex)
             {
-                logger.Warn("SeekMusic failed: " + ex.ToString());
+                logger.Warn("SeekPlayback failed: " + ex.ToString());
+            }
+        }
+
+        private async void SeekVolume(double percentage)
+        {
+            try
+            {
+                PlayStatusTracker.SeekVolume(percentage);
+                await xpotifyWebView.Controller.SeekVolume(percentage);
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("SeekVolume failed: " + ex.ToString());
             }
         }
 
