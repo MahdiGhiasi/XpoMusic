@@ -14,6 +14,6 @@ namespace Xpotify.SpotifyApi.Model
         public bool is_restricted;
         public string name;
         public string type;
-        public int volume_percent;
+        public int? volume_percent;
     }
 }

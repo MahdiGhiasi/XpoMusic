@@ -66,8 +66,9 @@ namespace InitScript.Common.UiElementModifier {
         // Inject compact overlay button to now playing bar
         try {
             var compactOverlayButton = document.createElement('div');
-            compactOverlayButton.className = "CompactOverlayButton";
-            compactOverlayButton.innerHTML = '<a style="border-bottom: 0px;" href="#xpotifycompactoverlay"><button title="Mini view" class="control-button">'
+            compactOverlayButton.classList.add("CompactOverlayButton");
+            compactOverlayButton.classList.add("CompactOverlayButton-disabled");
+            compactOverlayButton.innerHTML = '<a style="border-bottom: 0px;" href="#xpotifyCompactOverlay"><button title="Mini view" class="control-button">'
                 + '<div style="font-family: Segoe MDL2 Assets; position:relative; cursor: default;">'
                 + '<div style="left: 6px; top: -3px; font-size: 19px; position: absolute;">&#xE7FB;</div>'
                 + '<div style="left: 12px; top: -6px; font-size: 9px; position: absolute;">&#xEB9F;</div>'
@@ -78,6 +79,23 @@ namespace InitScript.Common.UiElementModifier {
             return "injectCompactOverlayFailed,";
         }
         return "";
+    }
+
+    export function addNowPlayingButton() {
+        try {
+            var nowPlayingButton = document.createElement('div');
+            nowPlayingButton.innerHTML = '<li class="navBar-group"><div class="GlueDropTarget">'
+                + '<div class="navBar-item navBar-item--with-icon-left nowPlaying-navBar-item nowPlaying-navBar-item-disabled">'
+                + '<a class="link-subtle navBar-link ellipsis-one-line" aria-label="Now Playing" href="#xpotifyNowPlaying"><div class="navBar-link-text-with-icon-wrapper">'
+                + '<div class="icon NavBar__icon nowPlaying-icon"></div>'
+                + '<span class="navbar-link__text">Now Playing</span></div></a></div></div></li>';
+            UiInjector.injectNowPlayingNavBarButton(nowPlayingButton);
+        }
+        catch (ex) {
+            return "addNowPlayingButtonFailed,";
+        }
+        return "";
+        
     }
 
     export function addBackgroundClass() {

@@ -5,6 +5,11 @@
     }
 }
 
+.Root__nav-bar .navBar .recently-played ul li {
+    opacity: 1;
+    animation: none !important;
+}
+
 .Root__nav-bar .navBar .recently-played,
 .Root__nav-bar .navBar .Rootlist {
     opacity: 0;

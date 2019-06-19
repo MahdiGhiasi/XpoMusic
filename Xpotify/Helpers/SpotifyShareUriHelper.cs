@@ -34,7 +34,7 @@ namespace Xpotify.Helpers
                 uriLowerCase = uri.ToLower();
             }
 
-            if (uriLowerCase.StartsWith(WebViewHelper.SpotifyPwaUrlBeginsWith))
+            if (uriLowerCase.StartsWith(WebViewController.SpotifyPwaUrlBeginsWith))
                 return uri;
 
             if (uriLowerCase.StartsWith("spotify:"))

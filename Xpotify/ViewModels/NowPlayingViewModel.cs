@@ -6,11 +6,33 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
+using Xpotify.Classes;
+using static Xpotify.Controls.NowPlayingView;
 
 namespace Xpotify.ViewModels
 {
-    public class CompactOverlayViewModel : ViewModelBase
+    public class NowPlayingViewModel : ViewModelBase
     {
+        private NowPlayingViewMode viewMode;
+        public NowPlayingViewMode ViewMode
+        {
+            get
+            {
+                return viewMode;
+            }
+            set
+            {
+                viewMode = value;
+                FirePropertyChangedEvent(nameof(ViewMode));
+                FirePropertyChangedEvent(nameof(IsCompactOverlayViewMode));
+                FirePropertyChangedEvent(nameof(IsNormalViewMode));
+                FirePropertyChangedEvent(nameof(ShowArtistArt));
+            }
+        }
+
+        public bool IsCompactOverlayViewMode => ViewMode == NowPlayingViewMode.CompactOverlay;
+        public bool IsNormalViewMode => ViewMode == NowPlayingViewMode.Normal;
+
         private string artistName;
         public string ArtistName
         {
@@ -62,32 +84,32 @@ namespace Xpotify.ViewModels
             }
         }
 
-        private Uri artistArtUri;
-        public Uri ArtistArtUri
+        private Uri backgroundArtUri;
+        public Uri BackgroundArtUri
         {
             get
             {
-                return artistArtUri;
+                return backgroundArtUri;
             }
             set
             {
-                if (artistArtUri != value)
+                if (backgroundArtUri != value)
                 {
-                    artistArtUri = value;
-                    artistArt = new BitmapImage(value);
+                    backgroundArtUri = value;
+                    backgroundArt = (value == null) ? null : new BitmapImage(value);
 
-                    FirePropertyChangedEvent(nameof(ArtistArtUri));
-                    FirePropertyChangedEvent(nameof(ArtistArt));
+                    FirePropertyChangedEvent(nameof(BackgroundArtUri));
+                    FirePropertyChangedEvent(nameof(BackgroundArt));
                 }
             }
         }
 
-        private ImageSource artistArt;
-        public ImageSource ArtistArt
+        private ImageSource backgroundArt;
+        public ImageSource BackgroundArt
         {
             get
             {
-                return artistArt;
+                return backgroundArt;
             }
         }
 
@@ -105,7 +127,7 @@ namespace Xpotify.ViewModels
                     AlbumArtContainerOpacity = 0.0;
 
                     albumArtUri = value;
-                    albumArt = new BitmapImage(value);
+                    albumArt = (value == null) ? null : new BitmapImage(value);
 
                     FirePropertyChangedEvent(nameof(AlbumArtUri));
                     FirePropertyChangedEvent(nameof(AlbumArt));
@@ -246,6 +268,89 @@ namespace Xpotify.ViewModels
             {
                 albumArtContainerOpacity = value;
                 FirePropertyChangedEvent(nameof(AlbumArtContainerOpacity));
+            }
+        }
+
+        double storyboardOffset;
+        public double StoryboardOffset
+        {
+            get => storyboardOffset;
+            set
+            {
+                storyboardOffset = value;
+                FirePropertyChangedEvent(nameof(StoryboardOffset));
+                FirePropertyChangedEvent(nameof(StoryboardOffsetNegative));
+            }
+        }
+
+        public double StoryboardOffsetNegative => -StoryboardOffset;
+
+        public bool ShowArtistArt
+        {
+            get
+            {
+                if (ViewMode == NowPlayingViewMode.CompactOverlay)
+                    return LocalConfiguration.MiniViewShowArtistArt;
+                else
+                    return LocalConfiguration.NowPlayingShowArtistArt;
+            }
+            set
+            {
+                if (ViewMode == NowPlayingViewMode.CompactOverlay)
+                    LocalConfiguration.MiniViewShowArtistArt = value;
+                else
+                    LocalConfiguration.NowPlayingShowArtistArt = value;
+
+                FirePropertyChangedEvent(nameof(ShowArtistArt));
+            }
+        }
+
+        private bool blurEnabled = false;
+        public bool BlurEnabled
+        {
+            get => blurEnabled;
+            set
+            {
+                blurEnabled = value;
+                FirePropertyChangedEvent(nameof(BlurEnabled));
+            }
+        }
+
+        public double volume = 50;
+        public double Volume
+        {
+            get => volume;
+            set
+            {
+                volume = value;
+                FirePropertyChangedEvent(nameof(Volume));
+                FirePropertyChangedEvent(nameof(VolumeIconGlyph));
+            }
+        }
+
+        public string VolumeIconGlyph
+        {
+            get
+            {
+                if (Volume > 66)
+                    return "\uE995";
+                else if (Volume > 33)
+                    return "\uE994";
+                else if (Volume > 0)
+                    return "\uE993";
+                else
+                    return "\uE992";
+            }
+        }
+
+        private bool isSavedToLibrary = false;
+        public bool IsSavedToLibrary
+        {
+            get => isSavedToLibrary;
+            set
+            {
+                isSavedToLibrary = value;
+                FirePropertyChangedEvent(nameof(IsSavedToLibrary));
             }
         }
     }

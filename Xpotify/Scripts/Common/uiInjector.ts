@@ -32,4 +32,15 @@
             extraControlsBar[0].prepend(button);
         }
     }
+
+    export function injectNowPlayingNavBarButton(button) {
+        var extraControlsBar = document.querySelectorAll('.Root__top-container .navBar ul');
+        if (extraControlsBar.length === 0) {
+            setTimeout(function () {
+                injectNowPlayingNavBarButton(button);
+            }, 500);
+        } else {
+            extraControlsBar[0].append(button);
+        }
+    }
 }

@@ -123,7 +123,26 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AboutPage.xaml.cs">
+    <Compile Include="Classes\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Classes\Model\SongExtraInfo.cs" />
+    <Compile Include="Classes\SemaphoreQueue.cs" />
+    <Compile Include="Classes\SongExtraInfoStore.cs" />
+    <Compile Include="Controls\FlyoutContainer.xaml.cs">
+      <DependentUpon>FlyoutContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SliderExtended.cs" />
+    <Compile Include="Controls\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TopBar.xaml.cs">
+      <DependentUpon>TopBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\XpotifyWebApp.xaml.cs">
+      <DependentUpon>XpotifyWebApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\MediaControlsHelper.cs" />
+    <Compile Include="Helpers\StoryboardExtensions.cs" />
+    <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -140,6 +159,7 @@
     </Content>
     <Compile Include="Classes\AppConstants.cs" />
     <Compile Include="Classes\Converters\LiveTileDesignToStringConverter.cs" />
+    <Compile Include="Classes\Converters\MillisecondsToMinSecConverter.cs" />
     <Compile Include="Classes\Converters\ThemeToStringConverter.cs" />
     <Compile Include="Classes\Converters\LanguageToStringConverter.cs" />
     <Compile Include="Classes\Model\AutoPlayAction.cs" />
@@ -151,7 +171,7 @@
     <Compile Include="Controls\ProxyConfiguration.xaml.cs">
       <DependentUpon>ProxyConfiguration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DonatePage.xaml.cs">
+    <Compile Include="Pages\DonatePage.xaml.cs">
       <DependentUpon>DonatePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Flyouts\DeveloperMessageFlyout.xaml.cs">
@@ -194,6 +214,8 @@
     <TypeScriptCompile Include="Scripts\Common\resize.ts" />
     <TypeScriptCompile Include="Scripts\Common\uriHelper.ts" />
     <TypeScriptCompile Include="Scripts\Common\uiElementModifier.ts" />
+    <Compile Include="SpotifyApi\Library.cs" />
+    <Compile Include="ViewModels\TopBarViewModel.cs" />
     <Compile Include="XpotifyApi\AppConstantsApi.cs" />
     <Compile Include="XpotifyApi\AssetUpdatesApi.cs" />
     <Compile Include="XpotifyApi\DeveloperMessageApi.cs" />
@@ -209,9 +231,9 @@
     <Content Include="Assets\xpotify.png" />
     <Content Include="InjectedAssets\actionNextTrack.js" />
     <Content Include="InjectedAssets\actionPause.js" />
-    <Compile Include="Helpers\WebViewHelper.cs" />
+    <Compile Include="Classes\WebViewController.cs" />
     <Compile Include="Secrets.cs" />
-    <Compile Include="SettingsPage.xaml.cs">
+    <Compile Include="Pages\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SpotifyApi\ApiBase.cs" />
@@ -230,7 +252,7 @@
     <Compile Include="SpotifyApi\Player.cs" />
     <Compile Include="SpotifyApi\Playlist.cs" />
     <Compile Include="SpotifyApi\TokenHelper.cs" />
-    <Compile Include="ViewModels\CompactOverlayViewModel.cs" />
+    <Compile Include="ViewModels\NowPlayingViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\ProxyConfigurationViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -358,6 +380,7 @@
     <Content Include="Assets\Logo\SplashScreen.scale-200.png" />
     <Content Include="Assets\Logo\SplashScreen.scale-400.png" />
     <Content Include="InjectedAssets\actionPlay.js" />
+    <Content Include="InjectedAssets\actionPrevTrackForce.js" />
     <Content Include="InjectedAssets\actionPrevTrack.js" />
     <Content Include="InjectedAssets\autoplayPlaylist.js" />
     <Content Include="InjectedAssets\autoplayTrack.js" />
@@ -365,13 +388,14 @@
     <Content Include="InjectedAssets\checkCurrentSongPlayTime.js" />
     <Content Include="InjectedAssets\clearPlaybackLocalStorage.js" />
     <Content Include="InjectedAssets\clickOnFacebookLogin.js" />
+    <Content Include="InjectedAssets\enableNowPlaying.js" />
     <Content Include="InjectedAssets\findPageTitle.js" />
     <Compile Include="Helpers\WhatsNewHelper.cs" />
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CompactOverlayView.xaml.cs">
-      <DependentUpon>CompactOverlayView.xaml</DependentUpon>
+    <Compile Include="Controls\NowPlayingView.xaml.cs">
+      <DependentUpon>NowPlayingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="InjectedAssets\init-dark.js" />
@@ -390,6 +414,8 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <None Include="InjectedAssets\style-dark.css" />
+    <Content Include="InjectedAssets\seekVolume.js" />
+    <Content Include="InjectedAssets\seekPlayback.js" />
     <Content Include="InjectedAssets\style-dark.min.css" />
     <None Include="InjectedAssets\style-light.css" />
     <Content Include="InjectedAssets\style-light.min.css" />
@@ -441,7 +467,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AboutPage.xaml">
+    <Page Include="Controls\FlyoutContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\SplashScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TopBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\XpotifyWebApp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -449,7 +491,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="DonatePage.xaml">
+    <Page Include="Pages\DonatePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -465,17 +507,37 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="CompactOverlayView.xaml">
+    <Page Include="Controls\NowPlayingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SettingsPage.xaml">
+    <Page Include="Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\CircleButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\MinimalButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TopBarDarkButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\TopBarLightButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

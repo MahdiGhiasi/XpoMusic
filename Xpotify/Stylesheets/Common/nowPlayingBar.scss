@@ -17,6 +17,18 @@
     margin-top: -1px;
 }
 
+.now-playing-bar__right__inner .CompactOverlayButton a {
+    transition: opacity .3s ease-out;
+}
+
+.now-playing-bar__right__inner .CompactOverlayButton-disabled a {
+    opacity: 0.35;
+}
+
+.now-playing-bar__right__inner .CompactOverlayButton-disabled .control-button:hover {
+    color: #b3b3b3;
+}
+
 /* Fluent blur behind now playing bar */
 .main-view-container {
     margin-bottom: -90px;

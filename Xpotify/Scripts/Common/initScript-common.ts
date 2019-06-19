@@ -14,6 +14,10 @@ namespace InitScript.Common {
         return '{{XPOTIFYISPROVERSION}}' === '1';
     }
 
+    export function isLightTheme(): boolean {
+        return (document.getElementsByTagName('body')[0].getAttribute('data-xpotifyTheme') === 'light');
+    }
+
     export function init() {
         var errors = "";
 
@@ -25,6 +29,7 @@ namespace InitScript.Common {
         errors += UiElementModifier.createBackButton();
         errors += UiElementModifier.createNavBarButtons();
         errors += UiElementModifier.createCompactOverlayButton();
+        errors += UiElementModifier.addNowPlayingButton();
         errors += UiElementModifier.addBackgroundClass();
         errors += UiElementModifier.addIndeterminateProgressBar();
         errors += initNowPlayingBarCheck();
@@ -68,7 +73,7 @@ namespace InitScript.Common {
             
             setInterval(function () {
                 var url = (<HTMLElement>document.querySelectorAll(".Root__now-playing-bar .now-playing .cover-art-image")[0]).style.backgroundImage.slice(5, -2);
-                var lightTheme = (document.getElementsByTagName('body')[0].getAttribute('data-xpotifyTheme') === 'light');
+                var lightTheme = isLightTheme();
 
                 if (window["xpotifyNowPlayingIconUrl"] !== url || window["xpotifyNowPlayingLastSetLightTheme"] !== lightTheme) {
                     window["xpotifyNowPlayingIconUrl"] = url;

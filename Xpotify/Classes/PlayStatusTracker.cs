@@ -31,6 +31,7 @@ namespace Xpotify.Classes
             public static string SongId { get; internal set; }
             public static int SongLengthMilliseconds { get; internal set; }
             public static bool IsPlaying { get; internal set; }
+            public static double Volume { get; internal set; }
 
             private static int progressedMilliseconds;
             private static DateTime progressedMillisecondsSetMoment;
@@ -66,6 +67,18 @@ namespace Xpotify.Classes
                 Interval = TimeSpan.FromSeconds(1),
             };
             timer.Tick += Timer_Tick;
+        }
+
+        public static void SeekPlayback(double percentage)
+        {
+            LastPlayStatus.ProgressedMilliseconds = (int)(LastPlayStatus.SongLengthMilliseconds * percentage);
+            LastPlayStatus.InvokeUpdated();
+        }
+
+        public static void SeekVolume(double percentage)
+        {
+            LastPlayStatus.Volume = percentage;
+            LastPlayStatus.InvokeUpdated();
         }
 
         private static async void Timer_Tick(object sender, object e)
@@ -105,6 +118,7 @@ namespace Xpotify.Classes
                 //    LastPlayStatus.SongId = "";
                 //    LastPlayStatus.SongName = "";
                 //    LastPlayStatus.IsPlaying = false;
+                //    LastPlayStatus.Volume = 0.0;
                 //
                 //    LastPlayStatus.InvokeUpdated();
                 //}
@@ -120,6 +134,7 @@ namespace Xpotify.Classes
                     LastPlayStatus.SongId = current.item.id;
                     LastPlayStatus.SongName = current.item.name;
                     LastPlayStatus.IsPlaying = current.is_playing;
+                    LastPlayStatus.Volume = (current.device.volume_percent ?? 50) / 100.0;
 
                     LastPlayStatus.InvokeUpdated();
                 }

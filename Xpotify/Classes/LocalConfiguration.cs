@@ -230,6 +230,36 @@ namespace Xpotify.Classes
             }
         }
 
+        public static bool NowPlayingShowArtistArt
+        {
+            get
+            {
+                var config = GetConfiguration("NowPlayingShowArtistArt");
+                if (config == null)
+                    return true;
+                return config == "1";
+            }
+            set
+            {
+                SetConfiguration("NowPlayingShowArtistArt", value ? "1" : "0");
+            }
+        }
+
+        public static bool MiniViewShowArtistArt
+        {
+            get
+            {
+                var config = GetConfiguration("MiniViewShowArtistArt");
+                if (config == null)
+                    return false;
+                return config == "1";
+            }
+            set
+            {
+                SetConfiguration("MiniViewShowArtistArt", value ? "1" : "0");
+            }
+        }
+
         private static string GetConfiguration(string key)
         {
             var completeKey = "LocalConfiguration_" + key;
