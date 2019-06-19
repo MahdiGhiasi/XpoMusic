@@ -246,7 +246,7 @@
     <Compile Include="SpotifyApi\Player.cs" />
     <Compile Include="SpotifyApi\Playlist.cs" />
     <Compile Include="SpotifyApi\TokenHelper.cs" />
-    <Compile Include="ViewModels\CompactOverlayViewModel.cs" />
+    <Compile Include="ViewModels\NowPlayingViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\ProxyConfigurationViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
