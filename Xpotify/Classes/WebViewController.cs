@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
+using Newtonsoft.Json;
 
 namespace Xpotify.Helpers
 {
@@ -241,6 +242,14 @@ namespace Xpotify.Helpers
             var script = await AssetManager.LoadAssetString("seekVolume.js");
             script = script.Replace("{{PERCENTAGE}}", percentage.ToString());
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+        }
+
+        internal async Task<WebAppStatus> StatusReport()
+        {
+            var script = await AssetManager.LoadAssetString("statusReport.js");
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+
+            return JsonConvert.DeserializeObject<WebAppStatus>(result);
         }
     }
 }

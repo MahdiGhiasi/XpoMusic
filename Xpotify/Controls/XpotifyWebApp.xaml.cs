@@ -368,27 +368,14 @@ namespace Xpotify.Controls
 
             try
             {
-                var currentPlaying = await Controller.GetCurrentPlaying();
-                if (currentPlaying != prevCurrentPlaying)
-                {
-                    prevCurrentPlaying = currentPlaying;
-                    logger.Info($"CurrentPlaying text extracted from web page changed to '{currentPlaying}'.");
+                var statusReport = await Controller.StatusReport();
 
-                    await PlayStatusTracker.RefreshPlayStatus();
-                }
+                BackEnabled = statusReport.BackButtonEnabled;
+                PlayStatusTracker.LocalPlaybackDataReceived(statusReport.NowPlaying);
             }
             catch (Exception ex)
             {
-                logger.Warn("checkCurrentPlaying failed: " + ex.ToString());
-            }
-
-            try
-            {
-                BackEnabled = await Controller.IsBackPossible();
-            }
-            catch (Exception ex)
-            {
-                logger.Warn("checkBackButtonEnable failed: " + ex.ToString());
+                logger.Warn("statusReport failed: " + ex.ToString());
             }
         }
 

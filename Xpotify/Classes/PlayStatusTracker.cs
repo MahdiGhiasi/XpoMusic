@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Windows.Media;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
+using Newtonsoft.Json;
+using Xpotify.Classes.Model;
 
 namespace Xpotify.Classes
 {
@@ -96,6 +98,64 @@ namespace Xpotify.Classes
         public static void StartRegularRefresh()
         {
             timer.Start();
+        }
+
+        private static int timesFingerprintEmpty = 0;
+        private static string lastLocalFingerprint = "";
+        public static async void LocalPlaybackDataReceived(NowPlayingData data)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(data.TrackFingerprint))
+                {
+                    if (timesFingerprintEmpty == 20)
+                    {
+                        AnalyticsHelper.Log("localPlaybackDataError", "fingerprintInvalid", JsonConvert.SerializeObject(data));
+                        timesFingerprintEmpty++;
+                    }
+                    else if (timesFingerprintEmpty < 20)
+                    {
+                        timesFingerprintEmpty++;
+                    }
+                }
+
+                if (!data.Success
+                    && !string.IsNullOrWhiteSpace(data.TrackFingerprint)
+                    && data.TrackFingerprint != lastLocalFingerprint)
+                {
+                    await RefreshPlayStatus();
+                    AnalyticsHelper.Log("localPlaybackDataError", "invalid", JsonConvert.SerializeObject(data));
+                }
+                else if (data.Success)
+                {
+                    bool changed = (LastPlayStatus.SongId != data.TrackId
+                        || LastPlayStatus.Volume != data.Volume);
+                        
+                    LastPlayStatus.AlbumId = data.AlbumId;
+                    LastPlayStatus.AlbumName = "???";
+                    LastPlayStatus.ArtistId = data.ArtistId;
+                    LastPlayStatus.ArtistName = data.ArtistName;
+                    LastPlayStatus.ProgressedMilliseconds = data.ElapsedTime;
+                    LastPlayStatus.SongLengthMilliseconds = data.TotalTime;
+                    LastPlayStatus.SongId = data.TrackId;
+                    LastPlayStatus.SongName = data.TrackName;
+                    LastPlayStatus.IsPlaying = data.IsPlaying;
+                    LastPlayStatus.Volume = data.Volume;
+
+                    if (changed)
+                        LastPlayStatus.InvokeUpdated();
+
+                    lastStatusFetch = DateTime.UtcNow;
+
+                    await UpdateMediaControls();
+                }
+
+                lastLocalFingerprint = data.TrackFingerprint;
+            }
+            catch (Exception ex)
+            {
+                logger.Info("LocalPlaybackDataReceived failed: " + ex.ToString());
+            }
         }
 
         public static async Task RefreshPlayStatus()

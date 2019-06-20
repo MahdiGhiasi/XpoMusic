@@ -124,7 +124,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Classes\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Classes\Model\NowPlayingData.cs" />
     <Compile Include="Classes\Model\SongExtraInfo.cs" />
+    <Compile Include="Classes\Model\WebAppStatus.cs" />
     <Compile Include="Classes\SemaphoreQueue.cs" />
     <Compile Include="Classes\SongExtraInfoStore.cs" />
     <Compile Include="Controls\FlyoutContainer.xaml.cs">
@@ -416,6 +418,7 @@
     <None Include="InjectedAssets\style-dark.css" />
     <Content Include="InjectedAssets\seekVolume.js" />
     <Content Include="InjectedAssets\seekPlayback.js" />
+    <Content Include="InjectedAssets\statusReport.js" />
     <Content Include="InjectedAssets\style-dark.min.css" />
     <None Include="InjectedAssets\style-light.css" />
     <Content Include="InjectedAssets\style-light.min.css" />
@@ -553,6 +556,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.1.190405004.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.2</Version>
     </PackageReference>
     <PackageReference Include="UWP.SDKforGoogleAnalytics.Managed">
       <Version>1.5.2</Version>
