@@ -16,7 +16,7 @@
             } else {
                 setTimeout(function () {
                     trackLoadCheck(initialProgress);
-                }, 5000);
+                }, 250);
             }
         } catch (ex) {
             console.log("trackLoadCheck failed.", ex);
@@ -49,7 +49,7 @@
 
                 setTimeout(function () {
                     trackLoadCheck(progressBarProgress);
-                }, 10000);
+                }, 250);
             }, 250);
         } catch (ex) {
             console.log("onTrackLoadBegin failed.", ex);
