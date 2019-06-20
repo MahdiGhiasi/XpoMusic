@@ -336,8 +336,7 @@ namespace Xpotify.Controls
 
                 if (await PlaybackActionHelper.Pause())
                 {
-                    await Task.Delay(1000);
-                    await PlayStatusTracker.RefreshPlayStatus();
+                    RefreshPlayStatus();
                     ViewModel.PlayPauseButtonEnabled = true;
                 }
                 else
@@ -345,7 +344,7 @@ namespace Xpotify.Controls
                     ViewModel.IsPlaying = true;
                     ViewModel.PlayPauseButtonEnabled = true;
 
-                    await PlayStatusTracker.RefreshPlayStatus();
+                    RefreshPlayStatus();
                 }
             }
             catch (UnauthorizedAccessException)
@@ -375,8 +374,7 @@ namespace Xpotify.Controls
 
                 if (await PlaybackActionHelper.Play())
                 {
-                    await Task.Delay(1000);
-                    await PlayStatusTracker.RefreshPlayStatus();
+                    RefreshPlayStatus();
                     ViewModel.PlayPauseButtonEnabled = true;
                 }
                 else
@@ -384,7 +382,7 @@ namespace Xpotify.Controls
                     ViewModel.IsPlaying = false;
                     ViewModel.PlayPauseButtonEnabled = true;
 
-                    await PlayStatusTracker.RefreshPlayStatus();
+                    RefreshPlayStatus();
                 }
             }
             catch (UnauthorizedAccessException)
@@ -422,8 +420,7 @@ namespace Xpotify.Controls
 
                 SetPrevTrackCommandIssued();
                 ViewModel.PrevButtonEnabled = false;
-                await Task.Delay(1000);
-                await PlayStatusTracker.RefreshPlayStatus();
+                RefreshPlayStatus();
                 ViewModel.PrevButtonEnabled = PlayStatusTracker.LastPlayStatus.IsPrevTrackAvailable;
             }
             catch (UnauthorizedAccessException)
@@ -452,8 +449,7 @@ namespace Xpotify.Controls
                 }
 
                 ViewModel.NextButtonEnabled = false;
-                await Task.Delay(1000);
-                await PlayStatusTracker.RefreshPlayStatus();
+                RefreshPlayStatus();
                 ViewModel.NextButtonEnabled = PlayStatusTracker.LastPlayStatus.IsNextTrackAvailable;
             }
             catch (UnauthorizedAccessException)
@@ -516,7 +512,7 @@ namespace Xpotify.Controls
             try
             {
                 await Update();
-                await PlayStatusTracker.RefreshPlayStatus();
+                RefreshPlayStatus();
             }
             catch (Exception ex)
             {
