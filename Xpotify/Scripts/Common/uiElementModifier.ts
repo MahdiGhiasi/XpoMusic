@@ -117,27 +117,4 @@ namespace InitScript.Common.UiElementModifier {
         }
         return "";
     }
-
-    export function addIndeterminateProgressBar() {
-        try {
-            var progressBar = document.createElement('div');
-            progressBar.classList.add("xpotify-indeterminateprogressbar");
-            progressBar.classList.add("playbackBar-indeterminateprogressbar");
-            progressBar.innerHTML = '<div class="xpotify-indeterminateprogressbar-inner">'
-                + '<div class="xpotify-indeterminateprogressbar-dot-container"><span /></div>'
-                + '<div class="xpotify-indeterminateprogressbar-dot-container"><span /></div>'
-                + '<div class="xpotify-indeterminateprogressbar-dot-container"><span /></div>'
-                + '<div class="xpotify-indeterminateprogressbar-dot-container"><span /></div>'
-                + '<div class="xpotify-indeterminateprogressbar-dot-container"><span /></div>'
-                + '</span></div>';
-
-            var progressBarContainer = document.querySelectorAll(".Root__now-playing-bar .playback-bar .progress-bar")[0];
-            progressBarContainer.append(progressBar);
-        }
-        catch (ex) {
-            return "addIndeterminateProgressBarFailed,";
-        }
-        return "";
-
-    }
 }

@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -10,6 +11,7 @@ using Xpotify.Classes;
 using Xpotify.Classes.Model;
 using Xpotify.Helpers;
 using Xpotify.SpotifyApi;
+using XpotifyWebAgent;
 
 namespace Xpotify.Controls
 {
@@ -66,6 +68,7 @@ namespace Xpotify.Controls
         private string prevCurrentPlaying;
         private int stuckDetectCounter = 0;
         private DateTime lastStuckFixApiCall;
+        private XpotifyWebAgent.XpotifyWebAgent xpotifyWebAgent;
 
         public XpotifyWebApp()
         {
@@ -75,6 +78,9 @@ namespace Xpotify.Controls
             PlaybackActionHelper.SetController(Controller);
 
             loadFailedAppVersionText.Text = PackageHelper.GetAppVersionString();
+
+            xpotifyWebAgent = new XpotifyWebAgent.XpotifyWebAgent();
+            xpotifyWebAgent.ProgressBarCommandReceived += XpotifyWebAgent_ProgressBarCommandReceived;
 
             webViewCheckTimer = new DispatcherTimer
             {
@@ -90,8 +96,21 @@ namespace Xpotify.Controls
             stuckDetectTimer.Tick += StuckDetectTimer_Tick;
             stuckDetectTimer.Start();
 
-
             VisualStateManager.GoToState(this, "Default", false);
+        }
+
+        private void XpotifyWebAgent_ProgressBarCommandReceived(object sender, XpotifyWebAgent.Model.ProgressBarCommandEventArgs e)
+        {
+            if (e.Command == XpotifyWebAgent.Model.ProgressBarCommand.Show)
+            {
+                playbackBarProgressBar.Margin = new Thickness(e.Left * mainWebView.ActualWidth, e.Top * mainWebView.ActualHeight, 0, 0);
+                playbackBarProgressBar.Width = e.Width * mainWebView.ActualWidth;
+                playbackBarProgressBar.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                playbackBarProgressBar.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void MainWebView_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
@@ -227,6 +246,10 @@ namespace Xpotify.Controls
             }
             else if (e.Uri.ToString().EndsWith("#xpotifyInitialPage"))
             {
+            }
+            else if (e.Uri.ToString().ToLower().Contains(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
+            {
+                mainWebView.AddWebAllowedObject("Xpotify", xpotifyWebAgent);
             }
             else
             {

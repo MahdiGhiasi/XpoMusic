@@ -12,7 +12,9 @@
                 progressBarBg.style.opacity = '1';
                 (<HTMLElement>(times[0])).style.opacity = '1';
                 (<HTMLElement>(times[1])).style.opacity = '1';
-                (<HTMLElement>(document.querySelectorAll(".playbackBar-indeterminateprogressbar")[0])).style.display = 'none';
+
+                // @ts-ignore
+                Xpotify.hideProgressBar();
             } else {
                 setTimeout(function () {
                     trackLoadCheck(initialProgress);
@@ -33,7 +35,10 @@
             (<HTMLElement>(times[0])).style.opacity = '0';
             (<HTMLElement>(times[1])).style.opacity = '0';
 
-            (<HTMLElement>(document.querySelectorAll(".playbackBar-indeterminateprogressbar")[0])).style.display = 'block';
+            var rect = progressBarBg.getBoundingClientRect();
+
+            // @ts-ignore
+            Xpotify.showProgressBar(rect.left / window.innerWidth, rect.top / window.innerHeight, rect.width / window.innerWidth);
 
             setTimeout(function () {
                 var progressBarProgress = (<HTMLElement>(playbackBar.querySelectorAll(".progress-bar__fg")[0])).style.transform;

@@ -431,7 +431,6 @@
     <None Include="Stylesheets\Common\contextMenu.scss" />
     <None Include="Stylesheets\Common\fontStyle.scss" />
     <None Include="Stylesheets\Common\general.scss" />
-    <None Include="Stylesheets\Common\indeterminateProgressBar.scss" />
     <None Include="Stylesheets\Common\navBar.scss" />
     <None Include="Stylesheets\Common\nowPlayingBar.scss" />
     <None Include="Stylesheets\Common\pivotTabStyle.scss" />
@@ -591,6 +590,12 @@
     <TypeScriptCompile Include="Scripts\Common\uiInjector.ts" />
     <TypeScriptCompile Include="Scripts\DarkTheme\initScript-dark.ts" />
     <TypeScriptCompile Include="Scripts\LightTheme\initScript-light.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XpotifyWebAgent\XpotifyWebAgent.csproj">
+      <Project>{15faca69-c86a-4447-97dc-b6cb59056075}</Project>
+      <Name>XpotifyWebAgent</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

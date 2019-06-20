@@ -31,7 +31,6 @@ namespace InitScript.Common {
         errors += UiElementModifier.createCompactOverlayButton();
         errors += UiElementModifier.addNowPlayingButton();
         errors += UiElementModifier.addBackgroundClass();
-        errors += UiElementModifier.addIndeterminateProgressBar();
         errors += initNowPlayingBarCheck();
         setInitialPageHash();
         initOnResizeCheck();

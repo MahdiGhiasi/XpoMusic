@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-
+    
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -73,12 +73,19 @@
                  LoadCompleted="MainWebView_LoadCompleted" />
 
         <ProgressRing x:Name="mainProgressRing"
-                      Foreground="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                      Foreground="{ThemeResource ButtonForegroundThemeBrush}"
                       Width="60"
                       Height="60"
                       IsActive="False" />
 
-        <Grid x:Name="loadFailedMessage" Background="#201B1B">
+        <ProgressBar x:Name="playbackBarProgressBar"
+                     Foreground="{ThemeResource ButtonForegroundThemeBrush}"
+                     VerticalAlignment="Top"
+                     HorizontalAlignment="Left"
+                     Visibility="Collapsed"
+                     IsIndeterminate="True" />
+
+        <Grid x:Name="loadFailedMessage" Background="#201B1B" RequestedTheme="Dark">
             <ScrollViewer>
                 <StackPanel MaxWidth="800" Padding="40,100,40,40">
                     <TextBlock Text="Connection failed."

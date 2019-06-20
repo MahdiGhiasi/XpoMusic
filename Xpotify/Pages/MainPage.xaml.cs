@@ -44,6 +44,8 @@ namespace Xpotify.Pages
             };
             silentMediaPlayer.CommandManager.IsEnabled = false;
 
+            xpotifyWebView.RequestedTheme = (ThemeHelper.GetCurrentTheme() == Theme.Light) ? ElementTheme.Light : ElementTheme.Dark;
+
             VisualStateManager.GoToState(this, "SplashScreen", false);
         }
 
