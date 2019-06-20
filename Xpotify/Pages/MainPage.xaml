@@ -15,29 +15,7 @@
     <Page.DataContext>
         <vm:MainPageViewModel x:Name="ViewModel" />
     </Page.DataContext>
-    <Page.Resources>
-        <ResourceDictionary>
-            <Storyboard x:Name="splashScreenToLightStoryboard">
-                <ColorAnimation Storyboard.TargetName="splashScreen"
-                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
-                                To="#D1D3D3"
-                                Duration="0:0:0.6">
-                    <ColorAnimation.EasingFunction>
-                        <ExponentialEase />
-                    </ColorAnimation.EasingFunction>
-                </ColorAnimation>
-                <ColorAnimation Storyboard.TargetName="splashProgressRing"
-                                Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
-                                To="Black"
-                                Duration="0:0:0.6">
-                    <ColorAnimation.EasingFunction>
-                        <ExponentialEase />
-                    </ColorAnimation.EasingFunction>
-                </ColorAnimation>
-            </Storyboard>
-        </ResourceDictionary>
-    </Page.Resources>
-    
+
     <Grid x:Name="mainGrid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>

@@ -6,9 +6,33 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    Loaded="UserControl_Loaded"
     d:DesignHeight="300"
     d:DesignWidth="400">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Storyboard x:Name="splashScreenToLightStoryboard">
+                <ColorAnimation Storyboard.TargetName="splashScreen"
+                                Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
+                                To="#D1D3D3"
+                                Duration="0:0:1">
+                    <ColorAnimation.EasingFunction>
+                        <ExponentialEase />
+                    </ColorAnimation.EasingFunction>
+                </ColorAnimation>
+                <ColorAnimation Storyboard.TargetName="splashProgressRing"
+                                Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
+                                To="Black"
+                                Duration="0:0:1">
+                    <ColorAnimation.EasingFunction>
+                        <ExponentialEase />
+                    </ColorAnimation.EasingFunction>
+                </ColorAnimation>
+            </Storyboard>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid x:Name="splashScreen" Background="#201B1B">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>

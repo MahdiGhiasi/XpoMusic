@@ -184,9 +184,6 @@ namespace Xpotify.Pages
             AnalyticsHelper.PageView("MainPage");
             AnalyticsHelper.Log("mainEvent", "appOpened", SystemInformation.OperatingSystemVersion.ToString());
             
-            if (ThemeHelper.GetCurrentTheme() == Theme.Light)
-                splashScreenToLightStoryboard.Begin();
-
             developerMessage = await DeveloperMessageHelper.GetNextDeveloperMessage();
 
             LyricsViewerIntegrationHelper.InitIntegration();

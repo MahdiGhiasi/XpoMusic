@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Xpotify.Classes.Model;
+using Xpotify.Helpers;
 
 namespace Xpotify.Controls
 {
@@ -62,6 +64,12 @@ namespace Xpotify.Controls
         public SplashScreen()
         {
             this.InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (ThemeHelper.GetCurrentTheme() == Theme.Light)
+                splashScreenToLightStoryboard.Begin();
         }
     }
 }
