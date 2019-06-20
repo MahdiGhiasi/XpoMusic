@@ -24,6 +24,8 @@ namespace Xpotify.Classes
 
         public static SystemMediaTransportControls MediaControls { get; internal set; }
 
+        public static bool IsLocalStatusTrackingOperational { get; private set; } = false;
+
         public static class LastPlayStatus
         {
             public static string ArtistName { get; internal set; }
@@ -94,6 +96,7 @@ namespace Xpotify.Classes
 
             if ((DateTime.UtcNow - lastStatusFetch) > AppConstants.Instance.PlayStatePollInterval)
             {
+                IsLocalStatusTrackingOperational = false;
                 await RefreshPlayStatus();
             }
         }
@@ -157,6 +160,8 @@ namespace Xpotify.Classes
                     lastStatusFetch = DateTime.UtcNow;
 
                     await UpdateMediaControls();
+
+                    IsLocalStatusTrackingOperational = true;
                 }
 
                 lastLocalFingerprint = data.TrackFingerprint;
