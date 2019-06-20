@@ -13,7 +13,7 @@ namespace XpotifyWebAgent
     {
         public event EventHandler<ProgressBarCommandEventArgs> ProgressBarCommandReceived;
 
-        public void showProgressBar(double left, double top, double width)
+        public void ShowProgressBar(double left, double top, double width)
         {
             ProgressBarCommandReceived?.Invoke(this, new ProgressBarCommandEventArgs
             {
@@ -24,7 +24,7 @@ namespace XpotifyWebAgent
             });
         }
 
-        public void hideProgressBar()
+        public void HideProgressBar()
         {
             ProgressBarCommandReceived?.Invoke(this, new ProgressBarCommandEventArgs
             {

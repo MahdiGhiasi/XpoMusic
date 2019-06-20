@@ -1,5 +1,7 @@
 ﻿namespace InitScript.Common.IndeterminateProgressBarHandler {
 
+    declare var Xpotify: any;
+
     function trackLoadCheck(initialProgress) {
         try {
             var playbackBar = <HTMLElement>(document.querySelectorAll(".Root__now-playing-bar .playback-bar")[0]);
@@ -13,7 +15,6 @@
                 (<HTMLElement>(times[0])).style.opacity = '1';
                 (<HTMLElement>(times[1])).style.opacity = '1';
 
-                // @ts-ignore
                 Xpotify.hideProgressBar();
             } else {
                 setTimeout(function () {
@@ -37,7 +38,6 @@
 
             var rect = progressBarBg.getBoundingClientRect();
 
-            // @ts-ignore
             Xpotify.showProgressBar(rect.left / window.innerWidth, rect.top / window.innerHeight, rect.width / window.innerWidth);
 
             setTimeout(function () {
