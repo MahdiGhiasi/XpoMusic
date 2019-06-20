@@ -11,6 +11,10 @@ namespace XpotifyWebAgent
     [AllowForWeb]
     public sealed class XpotifyWebAgent
     {
+        // NOTE:
+        // It seems that WebView automatically changes PascalCase method names to 
+        // camelCase on the Javascript side.
+
         public event EventHandler<ProgressBarCommandEventArgs> ProgressBarCommandReceived;
 
         public void ShowProgressBar(double left, double top, double width)
