@@ -11,6 +11,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Newtonsoft.Json;
 using Xpotify.Classes.Model;
+using Xpotify.Classes.Cache;
 
 namespace Xpotify.Classes
 {
@@ -130,9 +131,11 @@ namespace Xpotify.Classes
                 {
                     bool changed = (LastPlayStatus.SongId != data.TrackId
                         || LastPlayStatus.Volume != data.Volume);
-                        
+
+                    var album = await GlobalCache.Album.GetItem(data.AlbumId);
+
                     LastPlayStatus.AlbumId = data.AlbumId;
-                    LastPlayStatus.AlbumName = "???";
+                    LastPlayStatus.AlbumName = album.name;
                     LastPlayStatus.ArtistId = data.ArtistId;
                     LastPlayStatus.ArtistName = data.ArtistName;
                     LastPlayStatus.ProgressedMilliseconds = data.ElapsedTime;

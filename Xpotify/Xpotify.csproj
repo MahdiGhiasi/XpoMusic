@@ -123,12 +123,17 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Classes\Cache\GlobalCache.cs" />
+    <Compile Include="Classes\Cache\PlaylistStore.cs" />
+    <Compile Include="Classes\Cache\ArtistStore.cs" />
+    <Compile Include="Classes\Cache\AlbumStore.cs" />
+    <Compile Include="Classes\Cache\CacheStore.cs" />
     <Compile Include="Classes\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Classes\Model\NowPlayingData.cs" />
     <Compile Include="Classes\Model\SongExtraInfo.cs" />
     <Compile Include="Classes\Model\WebAppStatus.cs" />
     <Compile Include="Classes\SemaphoreQueue.cs" />
-    <Compile Include="Classes\SongExtraInfoStore.cs" />
+    <Compile Include="Classes\Cache\SongExtraInfoStore.cs" />
     <Compile Include="Controls\FlyoutContainer.xaml.cs">
       <DependentUpon>FlyoutContainer.xaml</DependentUpon>
     </Compile>

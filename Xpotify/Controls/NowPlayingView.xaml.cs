@@ -7,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Xpotify.Classes;
+using Xpotify.Classes.Cache;
 using Xpotify.Classes.Model;
 using Xpotify.Helpers;
 using Xpotify.SpotifyApi;
@@ -251,7 +252,7 @@ namespace Xpotify.Controls
 
             try
             {
-                var extraInfo = await songInfoCache.GetSongExtraInfo(currentSongId);
+                var extraInfo = await songInfoCache.GetItem(currentSongId);
                 ViewModel.IsSavedToLibrary = extraInfo.IsSavedToLibrary;
             }
             catch (Exception ex)
@@ -604,7 +605,7 @@ namespace Xpotify.Controls
 
         private async void SaveToYourLibrary_Click(object sender, RoutedEventArgs e)
         {
-            var extraInfo = await songInfoCache.GetSongExtraInfo(currentSongId);
+            var extraInfo = await songInfoCache.GetItem(currentSongId);
             extraInfo.IsSavedToLibrary = true;
             ViewModel.IsSavedToLibrary = true;
 
@@ -617,7 +618,7 @@ namespace Xpotify.Controls
 
         private async void RemoveFromYourLibrary_Click(object sender, RoutedEventArgs e)
         {
-            var extraInfo = await songInfoCache.GetSongExtraInfo(currentSongId);
+            var extraInfo = await songInfoCache.GetItem(currentSongId);
             extraInfo.IsSavedToLibrary = false;
             ViewModel.IsSavedToLibrary = false;
 

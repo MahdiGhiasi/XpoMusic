@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xpotify.Classes.Cache;
 
 namespace Xpotify.Helpers
 {
@@ -18,15 +19,12 @@ namespace Xpotify.Helpers
 
         public static async Task<string> GetArtistArt(string artistId)
         {
-            if (artistImages.ContainsKey(artistId))
-                return artistImages[artistId];
             if (string.IsNullOrEmpty(artistId))
                 return "";
 
             try
             {
-                var artistApi = new Artist();
-                var artist = await artistApi.GetArtist(artistId);
+                var artist = await GlobalCache.Artist.GetItem(artistId);
 
                 artistImages[artistId] = artist.images.OrderBy(x => x.width).Last().url;
                 return artistImages[artistId];
@@ -40,15 +38,12 @@ namespace Xpotify.Helpers
 
         public static async Task<string> GetAlbumArt(string albumId)
         {
-            if (albumImages.ContainsKey(albumId))
-                return albumImages[albumId];
             if (string.IsNullOrEmpty(albumId))
                 return "";
 
             try
             {
-                var albumApi = new Album();
-                var album = await albumApi.GetAlbum(albumId);
+                var album = await GlobalCache.Album.GetItem(albumId);
 
                 albumImages[albumId] = album.images.OrderBy(x => x.width).Last().url;
                 return albumImages[albumId];
@@ -62,22 +57,19 @@ namespace Xpotify.Helpers
 
         public static async Task<string> GetPlaylistArt(string playlistId)
         {
-            if (playlistImages.ContainsKey(playlistId))
-                return playlistImages[playlistId];
             if (string.IsNullOrEmpty(playlistId))
                 return "";
 
             try
             {
-                var playlistApi = new Playlist();
-                var playlist = await playlistApi.GetPlaylist(playlistId);
+                var playlist = await GlobalCache.Playlist.GetItem(playlistId);
 
                 playlistImages[playlistId] = playlist.images.OrderBy(x => x.width).Last().url;
                 return playlistImages[playlistId];
             }
             catch (Exception ex)
             {
-                logger.Info($"Fetching album art for {playlistId} failed: {ex}");
+                logger.Info($"Fetching playlist art for {playlistId} failed: {ex}");
                 return "";
             }
         }
