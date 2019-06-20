@@ -165,7 +165,7 @@
                 </VisualState>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="400" MinWindowHeight="290" />
+                        <AdaptiveTrigger MinWindowWidth="370" MinWindowHeight="290" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="artistName.Visibility" Value="Visible" />
