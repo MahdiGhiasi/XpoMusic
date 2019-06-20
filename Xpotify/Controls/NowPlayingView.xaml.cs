@@ -183,6 +183,9 @@ namespace Xpotify.Controls
 
             ViewModel.IsPlaying = PlayStatusTracker.LastPlayStatus.IsPlaying;
 
+            ViewModel.PrevButtonEnabled = PlayStatusTracker.LastPlayStatus.IsPrevTrackAvailable;
+            ViewModel.NextButtonEnabled = PlayStatusTracker.LastPlayStatus.IsNextTrackAvailable;
+
             if (currentSongId != PlayStatusTracker.LastPlayStatus.SongId
                 || currentShowArtistArtState != ViewModel.ShowArtistArt)
             {
@@ -421,7 +424,7 @@ namespace Xpotify.Controls
                 ViewModel.PrevButtonEnabled = false;
                 await Task.Delay(1000);
                 await PlayStatusTracker.RefreshPlayStatus();
-                ViewModel.PrevButtonEnabled = true;
+                ViewModel.PrevButtonEnabled = PlayStatusTracker.LastPlayStatus.IsPrevTrackAvailable;
             }
             catch (UnauthorizedAccessException)
             {
@@ -451,7 +454,7 @@ namespace Xpotify.Controls
                 ViewModel.NextButtonEnabled = false;
                 await Task.Delay(1000);
                 await PlayStatusTracker.RefreshPlayStatus();
-                ViewModel.NextButtonEnabled = true;
+                ViewModel.NextButtonEnabled = PlayStatusTracker.LastPlayStatus.IsNextTrackAvailable;
             }
             catch (UnauthorizedAccessException)
             {
@@ -643,7 +646,18 @@ namespace Xpotify.Controls
                 return;
 
             lastPoint = e.GetCurrentPoint(null).Position;
-            swipeTranslateTransform.X = lastPoint.Value.X - pressStartPoint.Value.X;
+            var movement = lastPoint.Value.X - pressStartPoint.Value.X;
+
+            logger.Info(movement);
+
+            if ((!PlayStatusTracker.LastPlayStatus.IsPrevTrackAvailable && movement > 0) ||
+                (!PlayStatusTracker.LastPlayStatus.IsNextTrackAvailable && movement < 0))
+            {
+                movement = 0;
+                pressStartPoint = lastPoint;
+            }
+
+            swipeTranslateTransform.X = movement;
         }
 
         private void UserControl_PointerReleased(object sender, PointerRoutedEventArgs e)

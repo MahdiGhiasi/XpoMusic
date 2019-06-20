@@ -35,6 +35,8 @@ namespace Xpotify.Classes
             public static int SongLengthMilliseconds { get; internal set; }
             public static bool IsPlaying { get; internal set; }
             public static double Volume { get; internal set; }
+            public static bool IsNextTrackAvailable { get; internal set; }
+            public static bool IsPrevTrackAvailable { get; internal set; }
 
             private static int progressedMilliseconds;
             private static DateTime progressedMillisecondsSetMoment;
@@ -130,7 +132,9 @@ namespace Xpotify.Classes
                 else if (data.Success)
                 {
                     bool changed = (LastPlayStatus.SongId != data.TrackId
-                        || LastPlayStatus.Volume != data.Volume);
+                        || LastPlayStatus.Volume != data.Volume 
+                        || LastPlayStatus.IsNextTrackAvailable != data.IsNextTrackAvailable
+                        || LastPlayStatus.IsPrevTrackAvailable != data.IsPrevTrackAvailable);
 
                     var album = await GlobalCache.Album.GetItem(data.AlbumId);
 
@@ -144,6 +148,8 @@ namespace Xpotify.Classes
                     LastPlayStatus.SongName = data.TrackName;
                     LastPlayStatus.IsPlaying = data.IsPlaying;
                     LastPlayStatus.Volume = data.Volume;
+                    LastPlayStatus.IsNextTrackAvailable = data.IsNextTrackAvailable;
+                    LastPlayStatus.IsPrevTrackAvailable = data.IsPrevTrackAvailable;
 
                     if (changed)
                         LastPlayStatus.InvokeUpdated();
@@ -198,6 +204,8 @@ namespace Xpotify.Classes
                     LastPlayStatus.SongName = current.item.name;
                     LastPlayStatus.IsPlaying = current.is_playing;
                     LastPlayStatus.Volume = (current.device.volume_percent ?? 50) / 100.0;
+                    LastPlayStatus.IsNextTrackAvailable = true;
+                    LastPlayStatus.IsPrevTrackAvailable = true;
 
                     LastPlayStatus.InvokeUpdated();
                 }
