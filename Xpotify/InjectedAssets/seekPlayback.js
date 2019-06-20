@@ -4,7 +4,7 @@ var percentage = Number.parseFloat('{{PERCENTAGE}}');
 var progressBar = document.querySelectorAll(".Root__now-playing-bar .now-playing-bar .playback-bar .progress-bar")[0];
 
 var rect = progressBar.getBoundingClientRect();
-var x = rect.left + (rect.width - 1) * percentage;
+var x = rect.left + 1 + (rect.width - 2) * percentage;
 var y = rect.top + rect.height / 2;
 
 var mouseDownEvent = document.createEvent('MouseEvents');
