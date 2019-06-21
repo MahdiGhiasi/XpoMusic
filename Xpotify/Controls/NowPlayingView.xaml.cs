@@ -183,7 +183,7 @@ namespace Xpotify.Controls
 
             ViewModel.IsPlaying = PlayStatusTracker.LastPlayStatus.IsPlaying;
 
-            ViewModel.PrevButtonEnabled = PlayStatusTracker.LastPlayStatus.IsPrevTrackAvailable;
+            ViewModel.PrevButtonEnabled = true;
             ViewModel.NextButtonEnabled = PlayStatusTracker.LastPlayStatus.IsNextTrackAvailable;
 
             if (currentSongId != PlayStatusTracker.LastPlayStatus.SongId
@@ -399,7 +399,14 @@ namespace Xpotify.Controls
 
         private async void PrevTrackButton_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            await PrevTrack(canGoToBeginningOfCurrentSong: true);
+            if (PlayStatusTracker.LastPlayStatus.IsPrevTrackAvailable)
+                await PrevTrack(canGoToBeginningOfCurrentSong: true);
+            else
+                ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+                {
+                    Action = Action.SeekPlayback,
+                    AdditionalData = 0.0,
+                });
         }
 
         private async Task PrevTrack(bool canGoToBeginningOfCurrentSong)
@@ -421,7 +428,7 @@ namespace Xpotify.Controls
                 SetPrevTrackCommandIssued();
                 ViewModel.PrevButtonEnabled = false;
                 RefreshPlayStatus();
-                ViewModel.PrevButtonEnabled = PlayStatusTracker.LastPlayStatus.IsPrevTrackAvailable;
+                ViewModel.PrevButtonEnabled = true;
             }
             catch (UnauthorizedAccessException)
             {
