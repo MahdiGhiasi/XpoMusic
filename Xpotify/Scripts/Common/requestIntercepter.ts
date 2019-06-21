@@ -1,6 +1,6 @@
 ﻿/// <reference path="indeterminateProgressBarHandler.ts" />
 
-namespace InitScript.Common.RequestIntercepter {
+namespace XpotifyScript.Common.RequestIntercepter {
 
     export function startInterceptingFetch() {
 

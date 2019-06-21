@@ -1,6 +1,6 @@
 ﻿/// <reference path="uriHelper.ts" />
 
-namespace InitScript.Common.DragDrop {
+namespace XpotifyScript.Common.DragDrop {
 
     export function allowDrop(event) {
         event.preventDefault();

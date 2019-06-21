@@ -2,7 +2,7 @@
 /// <reference path="uiInjector.ts" />
 /// <reference path="color.ts" />
 
-namespace InitScript.Common.UiElementModifier {
+namespace XpotifyScript.Common.UiElementModifier {
     export function createPageTitle(): string {
         try {
             var body = <HTMLElement>document.getElementsByTagName('body')[0];

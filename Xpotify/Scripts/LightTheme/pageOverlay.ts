@@ -1,4 +1,4 @@
-﻿namespace InitScript.Light.PageOverlay {
+﻿namespace XpotifyScript.Light.PageOverlay {
 
     export function createPageOverlay() {
         try {

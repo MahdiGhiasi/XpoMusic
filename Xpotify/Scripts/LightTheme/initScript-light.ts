@@ -1,7 +1,7 @@
 ﻿/// <reference path="../Common/initScript-common.ts" />
 /// <reference path="pageOverlay.ts" />
 
-namespace InitScript {
+namespace XpotifyScript {
 
     document.getElementsByTagName('body')[0].setAttribute('data-xpotifyTheme', 'light');
 

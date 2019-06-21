@@ -1,4 +1,4 @@
-﻿namespace InitScript.Common.BrowserHistory {
+﻿namespace XpotifyScript.Common.BrowserHistory {
     export function canGoBack() {
         return window.location.hash !== "#xpotifyInitialPage";
     }

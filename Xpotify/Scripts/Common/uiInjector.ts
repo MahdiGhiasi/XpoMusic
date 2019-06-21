@@ -1,4 +1,4 @@
-﻿namespace InitScript.Common.UiInjector {
+﻿namespace XpotifyScript.Common.UiInjector {
     export function injectBackButton(backButtonDiv) {
         var navbarHeader = document.getElementsByClassName('navBar-header');
         if (navbarHeader.length === 0) {

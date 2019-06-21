@@ -1,4 +1,4 @@
-﻿namespace InitScript.Common.Resize {
+﻿namespace XpotifyScript.Common.Resize {
     export function onResize() {
         try {
             /* 

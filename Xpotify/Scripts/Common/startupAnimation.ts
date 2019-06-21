@@ -1,4 +1,4 @@
-﻿namespace InitScript.Common.StartupAnimation {
+﻿namespace XpotifyScript.Common.StartupAnimation {
     export function init() {
         try {
             var pivotItems = document.querySelectorAll(".Root__main-view nav ul li");

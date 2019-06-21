@@ -7,7 +7,7 @@
 /// <reference path="startupAnimation.ts" />
 /// <reference path="requestIntercepter.ts" />
 
-namespace InitScript.Common {
+namespace XpotifyScript.Common {
 
     export function isProVersion(): boolean {
         //@ts-ignore

@@ -1,5 +1,5 @@
 ﻿
-namespace InitScript.Common.Lib.Vibrant {
+namespace XpotifyScript.Common.Lib.Vibrant {
 
     export function init() {
         //@ts-ignore

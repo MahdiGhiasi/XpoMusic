@@ -1,4 +1,4 @@
-﻿namespace InitScript.Common.IndeterminateProgressBarHandler {
+﻿namespace XpotifyScript.Common.IndeterminateProgressBarHandler {
 
     declare var Xpotify: any;
 
