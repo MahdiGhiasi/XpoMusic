@@ -200,7 +200,15 @@ namespace Xpotify.Pages
 
         private async void App_BackRequested(object sender, BackRequestedEventArgs e)
         {
-            if (xpotifyWebView.BackEnabled)
+            if (nowPlaying.IsOpen)
+            {
+                e.Handled = true;
+                NowPlaying_ActionRequested(nowPlaying, new ActionRequestedEventArgs
+                {
+                    Action = NowPlayingView.Action.Back,
+                });
+            }
+            else if (xpotifyWebView.BackEnabled)
             {
                 e.Handled = true;
 
