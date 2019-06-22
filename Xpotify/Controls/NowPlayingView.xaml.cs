@@ -592,8 +592,6 @@ namespace Xpotify.Controls
                 if (volumeSetSemaphore.WaitingCount > 0)
                     return;
 
-                logger.Info(" ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ " + e.NewValue);
-
                 ActionRequested?.Invoke(this, new ActionRequestedEventArgs
                 {
                     Action = Action.SeekVolume,
@@ -650,8 +648,6 @@ namespace Xpotify.Controls
 
             lastPoint = e.GetCurrentPoint(null).Position;
             var movement = lastPoint.Value.X - pressStartPoint.Value.X;
-
-            logger.Info(movement);
 
             if ((!PlayStatusTracker.LastPlayStatus.IsPrevTrackAvailable && movement > 0) ||
                 (!PlayStatusTracker.LastPlayStatus.IsNextTrackAvailable && movement < 0))
