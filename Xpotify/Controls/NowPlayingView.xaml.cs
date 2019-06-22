@@ -321,7 +321,7 @@ namespace Xpotify.Controls
             });
         }
 
-        private async void PauseButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void PauseButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -359,7 +359,7 @@ namespace Xpotify.Controls
             }
         }
 
-        private async void PlayButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -397,7 +397,7 @@ namespace Xpotify.Controls
             }
         }
 
-        private async void PrevTrackButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void PrevTrackButton_Click(object sender, RoutedEventArgs e)
         {
             if (PlayStatusTracker.LastPlayStatus.IsPrevTrackAvailable)
                 await PrevTrack(canGoToBeginningOfCurrentSong: true);
@@ -436,7 +436,7 @@ namespace Xpotify.Controls
             }
         }
 
-        private async void NextTrackButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void NextTrackButton_Click(object sender, RoutedEventArgs e)
         {
             await NextTrack();
         }
@@ -527,7 +527,7 @@ namespace Xpotify.Controls
             }
         }
 
-        private void FullScreenButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private void FullScreenButton_Click(object sender, RoutedEventArgs e)
         {
             var view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode)
@@ -542,7 +542,7 @@ namespace Xpotify.Controls
             }
         }
 
-        private async void MiniViewButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private async void MiniViewButton_Click(object sender, RoutedEventArgs e)
         {
             var viewMode = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
             viewMode.ViewSizePreference = ViewSizePreference.Custom;
@@ -560,7 +560,7 @@ namespace Xpotify.Controls
             }
         }
 
-        private void ShowNowPlayingListButton_Tapped(object sender, TappedRoutedEventArgs e)
+        private void ShowNowPlayingListButton_Click(object sender, RoutedEventArgs e)
         {
             ActionRequested?.Invoke(this, new ActionRequestedEventArgs
             {

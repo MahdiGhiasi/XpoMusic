@@ -430,7 +430,7 @@
                                 Width="40"
                                 Height="40"
                                 Margin="0,0,4,0"
-                                Tapped="PrevTrackButton_Tapped"
+                                Click="PrevTrackButton_Click"
                                 Background="Transparent"
                                 ToolTipService.ToolTip="Previous track">
                             <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE100;" />
@@ -441,7 +441,7 @@
                                 Width="40"
                                 Height="40"
                                 Margin="4,0,4,0"
-                                Tapped="PlayButton_Tapped"
+                                Click="PlayButton_Click"
                                 Background="Transparent"
                                 ToolTipService.ToolTip="Play">
                             <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE102;" />
@@ -452,7 +452,7 @@
                                 Width="40"
                                 Height="40"
                                 Margin="4,0,4,0"
-                                Tapped="PauseButton_Tapped"
+                                Click="PauseButton_Click"
                                 Background="Transparent" 
                                 ToolTipService.ToolTip="Pause">
                             <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE103;" />
@@ -462,7 +462,7 @@
                                 Width="40"
                                 Height="40"
                                 Margin="4,0,4,0"
-                                Tapped="NextTrackButton_Tapped"
+                                Click="NextTrackButton_Click"
                                 Background="Transparent" 
                                 ToolTipService.ToolTip="Next track">
                             <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE101;" />
@@ -518,7 +518,7 @@
                                 Width="40"
                                 Height="40"
                                 Margin="0,0,4,0"
-                                Tapped="ShowNowPlayingListButton_Tapped"
+                                Click="ShowNowPlayingListButton_Click"
                                 Background="Transparent"
                                 ToolTipService.ToolTip="Show now playing list">
                             <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE292;" />
@@ -528,7 +528,7 @@
                                 Width="40"
                                 Height="40"
                                 Margin="4,0,4,0"
-                                Tapped="MiniViewButton_Tapped"
+                                Click="MiniViewButton_Click"
                                 Background="Transparent"
                                 ToolTipService.ToolTip="Mini view">
                             <Grid Margin="2,3,2,-4">
@@ -550,7 +550,7 @@
                                 Width="40"
                                 Height="40"
                                 Margin="4,0,4,0"
-                                Tapped="FullScreenButton_Tapped"
+                                Click="FullScreenButton_Click"
                                 Background="Transparent" 
                                 ToolTipService.ToolTip="Full screen">
                             <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE740;" />
@@ -579,7 +579,7 @@
                             IsEnabled="{x:Bind ViewModel.PrevButtonEnabled, Mode=OneWay}"
                             Width="40"
                             Height="40"
-                            Tapped="PrevTrackButton_Tapped"
+                            Click="PrevTrackButton_Click"
                             Background="Transparent"
                             ToolTipService.ToolTip="Previous track">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE100;" />
@@ -590,7 +590,7 @@
                             Width="54"
                             Height="54"
                             Margin="4,0,4,0"
-                            Tapped="PlayButton_Tapped"
+                            Click="PlayButton_Click"
                             Background="Transparent"
                             ToolTipService.ToolTip="Play">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="36" Glyph="&#xE102;" />
@@ -601,7 +601,7 @@
                             Width="54"
                             Height="54"
                             Margin="4,0,4,0"
-                            Tapped="PauseButton_Tapped"
+                            Click="PauseButton_Click"
                             Background="Transparent" 
                             ToolTipService.ToolTip="Pause">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="36" Glyph="&#xE103;" />
@@ -610,7 +610,7 @@
                             IsEnabled="{x:Bind ViewModel.NextButtonEnabled, Mode=OneWay}"
                             Width="40"
                             Height="40"
-                            Tapped="NextTrackButton_Tapped"
+                            Click="NextTrackButton_Click"
                             Background="Transparent" 
                             ToolTipService.ToolTip="Next track">
                         <FontIcon FontFamily="Segoe MDL2 Assets" FontSize="24" Glyph="&#xE101;" />
