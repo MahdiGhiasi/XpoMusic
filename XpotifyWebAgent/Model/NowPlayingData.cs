@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace XpotifyWebAgent.Model
 {
-    public class NowPlayingData
+    public sealed class NowPlayingData
     {
         public string TrackName { get; set; }
         public string TrackId { get; set; }

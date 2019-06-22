@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace XpotifyWebAgent.Model
 {
-    public class StatusReportReceivedEventArgs
+    public sealed class StatusReportReceivedEventArgs
     {
         public WebAppStatus Status { get; set; }
     }

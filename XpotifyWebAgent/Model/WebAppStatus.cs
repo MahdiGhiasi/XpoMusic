@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace XpotifyWebAgent.Model
 {
-    public class WebAppStatus
+    public sealed class WebAppStatus
     {
         public bool BackButtonEnabled { get; set; }
         public NowPlayingData NowPlaying { get; set; }
