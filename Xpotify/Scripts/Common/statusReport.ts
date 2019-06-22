@@ -105,17 +105,16 @@
             return window.xpotify_prevTrackId;
         }
 
-        var menus = document.querySelectorAll("nav[role=menu]");
-        for (var i = 0; i < menus.length; i++) {
-            (<HTMLElement>menus[i]).style.display = 'none';
-        }
-
         var tracks = document.querySelectorAll('.Root__now-playing-bar .now-playing-bar__left .track-info .track-info__name a');
-
         if (tracks.length === 0)
             return "";
 
         var element = tracks[0];
+
+        var menus = document.querySelectorAll("nav[role=menu]");
+        for (var i = 0; i < menus.length; i++) {
+            (<HTMLElement>menus[i]).style.display = 'none';
+        }
 
         // Open context menu on track name on now playing bar
         var e = element.ownerDocument.createEvent('MouseEvents');
@@ -150,7 +149,6 @@
             false, false, 0, null
         );
         document.elementFromPoint(clickX, clickY).dispatchEvent(e2);
-
 
         setTimeout(function () {
             for (var i = 0; i < menus.length; i++) {
