@@ -77,6 +77,16 @@ namespace Xpotify.Controls
         public static readonly DependencyProperty Value2Property =
             DependencyProperty.Register("Value2", typeof(double), typeof(SliderExtended), new PropertyMetadata(0));
 
+        public double KeyboardStepFrequency
+        {
+            get { return (double)GetValue(KeyboardStepFrequencyProperty); }
+            set { SetValue(KeyboardStepFrequencyProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for KeyboardStepFrequency.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty KeyboardStepFrequencyProperty =
+            DependencyProperty.Register("KeyboardStepFrequency", typeof(double), typeof(SliderExtended), new PropertyMetadata(1));
+
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -147,6 +157,16 @@ namespace Xpotify.Controls
 
             // Also set the Value2 DependencyProperty directly
             SetValue(Value2Property, newValue);
+        }
+
+        protected override void OnKeyDown(KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Right || e.Key == Windows.System.VirtualKey.Up)
+                Value = Math.Min(Value + KeyboardStepFrequency, Maximum);
+            else if (e.Key == Windows.System.VirtualKey.Left || e.Key == Windows.System.VirtualKey.Down)
+                Value = Math.Max(Value - KeyboardStepFrequency, Minimum);
+            else
+                base.OnKeyDown(e);
         }
     }
 

@@ -405,6 +405,7 @@
                                 Text="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay, Converter={StaticResource MillisecondsToMinSecConverter}}"
                                 VerticalAlignment="Center" />
                     <xpotifycontrols:SliderExtended Grid.Column="1"
+                                                    KeyboardStepFrequency="10000"
                                                     ContinousUpdateWhileDragging="False"
                                                     ThumbToolTipValueConverter="{StaticResource MillisecondsToMinSecConverter}"
                                                     Value2="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay}"
@@ -476,7 +477,8 @@
                             <Button.Flyout>
                                 <Flyout>
                                     <Grid Width="140" Height="40">
-                                        <xpotifycontrols:SliderExtended Grid.Column="2" 
+                                        <xpotifycontrols:SliderExtended Grid.Column="2"
+                                                                        KeyboardStepFrequency="10"
                                                                         VerticalAlignment="Center"
                                                                         ContinousUpdateWhileDragging="True"
                                                                         IsThumbToolTipEnabled="True"
