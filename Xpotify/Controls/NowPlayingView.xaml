@@ -271,7 +271,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <Grid Background="White">
+        <Grid Background="#888888">
             <Grid x:Name="backgroundArtContainer">
                 <Grid.Background>
                     <ImageBrush ImageSource="{x:Bind ViewModel.BackgroundArt, Mode=OneWay}" Stretch="UniformToFill">
