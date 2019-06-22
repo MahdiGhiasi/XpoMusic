@@ -12,6 +12,7 @@ using Windows.UI.Xaml;
 using Newtonsoft.Json;
 using Xpotify.Classes.Model;
 using Xpotify.Classes.Cache;
+using XpotifyWebAgent.Model;
 
 namespace Xpotify.Classes
 {
@@ -21,8 +22,6 @@ namespace Xpotify.Classes
 
         static DispatcherTimer timer;
         static DateTime lastStatusFetch = DateTime.MinValue;
-
-        public static SystemMediaTransportControls MediaControls { get; internal set; }
 
         public static bool IsLocalStatusTrackingOperational { get; private set; } = false;
 
@@ -103,7 +102,8 @@ namespace Xpotify.Classes
 
         public static void StartRegularRefresh()
         {
-            timer.Start();
+            if (!timer.IsEnabled)
+                timer.Start();
         }
 
         private static int timesFingerprintEmpty = 0;
@@ -116,12 +116,14 @@ namespace Xpotify.Classes
                 {
                     if (timesFingerprintEmpty == 20)
                     {
+                        logger.Warn($"LocalPlaybackDataError #{timesFingerprintEmpty}");
                         AnalyticsHelper.Log("localPlaybackDataError", "fingerprintInvalid", JsonConvert.SerializeObject(data));
                         timesFingerprintEmpty++;
                     }
                     else if (timesFingerprintEmpty < 20)
                     {
                         timesFingerprintEmpty++;
+                        logger.Info($"LocalPlaybackDataError #{timesFingerprintEmpty}");
                     }
                 }
 
@@ -129,6 +131,7 @@ namespace Xpotify.Classes
                     && !string.IsNullOrWhiteSpace(data.TrackFingerprint)
                     && data.TrackFingerprint != lastLocalFingerprint)
                 {
+                    logger.Info("LocalPlaybackDataReceived, success = false, fingerprint changed to " + data.TrackFingerprint);
                     await RefreshPlayStatus();
                     AnalyticsHelper.Log("localPlaybackDataError", "invalid", JsonConvert.SerializeObject(data));
                 }
@@ -155,12 +158,12 @@ namespace Xpotify.Classes
                     LastPlayStatus.IsPrevTrackAvailable = data.IsPrevTrackAvailable;
 
                     if (changed)
+                    {
                         LastPlayStatus.InvokeUpdated();
+                        logger.Info("LocalPlaybackDataReceived and changed = true for " + data.TrackFingerprint);
+                    }
 
                     lastStatusFetch = DateTime.UtcNow;
-
-                    await UpdateMediaControls();
-
                     IsLocalStatusTrackingOperational = true;
                 }
 
@@ -214,36 +217,11 @@ namespace Xpotify.Classes
 
                     LastPlayStatus.InvokeUpdated();
                 }
-
-                await UpdateMediaControls();
             }
             catch (Exception ex)
             {
                 logger.Info("RefreshPlayStatus failed: " + ex.ToString());
             }
-        }
-
-        private static async Task UpdateMediaControls()
-        {
-            if (MediaControls == null)
-                return;
-
-            MediaControls.PlaybackStatus = (LastPlayStatus.IsPlaying) ? MediaPlaybackStatus.Playing : MediaPlaybackStatus.Paused;
-            MediaControls.DisplayUpdater.MusicProperties.Title = LastPlayStatus.SongName;
-            MediaControls.DisplayUpdater.MusicProperties.AlbumTitle = LastPlayStatus.AlbumName;
-            MediaControls.DisplayUpdater.MusicProperties.Artist = LastPlayStatus.ArtistName;
-
-            try
-            {
-                var albumArt = await SongImageProvider.GetAlbumArt(LastPlayStatus.AlbumId);
-                if (string.IsNullOrEmpty(albumArt))
-                    MediaControls.DisplayUpdater.Thumbnail = null;
-                else
-                    MediaControls.DisplayUpdater.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(albumArt));
-            }
-            catch { }
-
-            MediaControls.DisplayUpdater.Update();
         }
     }
 }

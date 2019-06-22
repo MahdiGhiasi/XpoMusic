@@ -4,17 +4,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Media;
+using Windows.Storage.Streams;
 using Windows.UI.Core;
 using Xpotify.Classes;
 using Xpotify.Controls;
+using static Xpotify.Classes.PlayStatusTracker;
 
 namespace Xpotify.Helpers
 {
     public static class MediaControlsHelper
     {
+        private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
+
         public static event EventHandler<TrackChangedEventArgs> TrackChanged;
+        public static SystemMediaTransportControls MediaControls { get; private set; }
 
         private static CoreDispatcher _dispatcher;
+
+        private static int lastMediaControlUpdateHash;
 
         public static async void Init(CoreDispatcher dispatcher)
         {
@@ -31,8 +38,54 @@ namespace Xpotify.Helpers
             await mediaControls.DisplayUpdater.CopyFromFileAsync(MediaPlaybackType.Music,
                 await Windows.Storage.StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Media/silent.wav")));
 
-            PlayStatusTracker.MediaControls = mediaControls;
-            PlayStatusTracker.StartRegularRefresh();
+            MediaControls = mediaControls;
+
+            PlayStatusTracker.LastPlayStatus.Updated += LastPlayStatus_Updated;
+        }
+
+        private static async void LastPlayStatus_Updated(object sender, EventArgs e)
+        {
+            try
+            {
+                await UpdateMediaControls();
+            }
+            catch (Exception ex)
+            {
+                logger.Warn("UpdateMediaControls failed: " + ex.ToString());
+            }
+        }
+
+        private static async Task UpdateMediaControls()
+        {
+            if (MediaControls == null)
+                return;
+
+            var hash = $"{LastPlayStatus.IsPlaying};{LastPlayStatus.SongName};{LastPlayStatus.AlbumId};{LastPlayStatus.ArtistId}".GetHashCode();
+            if (lastMediaControlUpdateHash == hash)
+                return;
+
+            lastMediaControlUpdateHash = hash;
+
+            logger.Info("Updating MediaControls...");
+
+            MediaControls.PlaybackStatus = (LastPlayStatus.IsPlaying) ? MediaPlaybackStatus.Playing : MediaPlaybackStatus.Paused;
+            MediaControls.DisplayUpdater.MusicProperties.Title = LastPlayStatus.SongName;
+            MediaControls.DisplayUpdater.MusicProperties.AlbumTitle = LastPlayStatus.AlbumName;
+            MediaControls.DisplayUpdater.MusicProperties.Artist = LastPlayStatus.ArtistName;
+
+            try
+            {
+                var albumArt = await SongImageProvider.GetAlbumArt(LastPlayStatus.AlbumId);
+                if (string.IsNullOrEmpty(albumArt))
+                    MediaControls.DisplayUpdater.Thumbnail = null;
+                else
+                    MediaControls.DisplayUpdater.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(albumArt));
+            }
+            catch { }
+
+            MediaControls.DisplayUpdater.Update();
+
+            logger.Info("MediaControls updated.");
         }
 
         private static async void SystemControls_ButtonPressed(SystemMediaTransportControls sender, SystemMediaTransportControlsButtonPressedEventArgs e)

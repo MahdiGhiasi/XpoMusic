@@ -186,7 +186,10 @@ namespace Xpotify.Controls
             {
                 var justInjected = await Controller.InjectInitScript(ThemeHelper.GetCurrentTheme() == Theme.Light);
                 if (justInjected)
+                {
                     SetInitialPlaybackState();
+                    PlayStatusTracker.StartRegularRefresh();
+                }
 
                 if (AutoPlayAction != AutoPlayAction.None)
                 {
