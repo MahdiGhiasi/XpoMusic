@@ -351,7 +351,8 @@ namespace Xpotify.Pages
 
         private void XpotifyWebView_WebAppLoaded(object sender, EventArgs e)
         {
-            VisualStateManager.GoToState(this, "MainScreen", false);
+            if (splashScreen.SplashState == Controls.SplashScreen.SplashScreenShowState.Visible)
+                VisualStateManager.GoToState(this, "MainScreen", false);
 
             OnWebViewLoadCompleted();
 
