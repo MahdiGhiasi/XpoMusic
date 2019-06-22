@@ -37,6 +37,7 @@ namespace XpotifyScript.Common {
         errors += initNowPlayingBarCheck();
         setInitialPageHash();
         initOnResizeCheck();
+        KeyboardShortcutListener.init();
         RequestIntercepter.startInterceptingFetch();
         StatusReport.initRegularStatusReport();
         StartupAnimation.init();

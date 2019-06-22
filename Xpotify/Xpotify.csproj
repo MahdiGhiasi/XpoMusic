@@ -214,6 +214,7 @@
     <TypeScriptCompile Include="Scripts\Common\color.ts" />
     <TypeScriptCompile Include="Scripts\Common\dragDrop.ts" />
     <TypeScriptCompile Include="Scripts\Common\indeterminateProgressBarHandler.ts" />
+    <TypeScriptCompile Include="Scripts\Common\keyboardShortcutListener.ts" />
     <TypeScriptCompile Include="Scripts\Common\pageTitleFinder.ts" />
     <TypeScriptCompile Include="Scripts\Common\requestIntercepter.ts" />
     <TypeScriptCompile Include="Scripts\Common\startupAnimation.ts" />
