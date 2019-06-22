@@ -80,15 +80,18 @@ namespace XpotifyScript.Common {
             Common.Lib.Vibrant.init();
             
             setInterval(function () {
-                var url = (<HTMLElement>document.querySelectorAll(".Root__now-playing-bar .now-playing .cover-art-image")[0]).style.backgroundImage.slice(5, -2);
-                var lightTheme = isLightTheme();
+                try {
+                    var url = (<HTMLElement>document.querySelectorAll(".Root__now-playing-bar .now-playing .cover-art-image")[0]).style.backgroundImage.slice(5, -2);
+                    var lightTheme = isLightTheme();
 
-                if (window["xpotifyNowPlayingIconUrl"] !== url || window["xpotifyNowPlayingLastSetLightTheme"] !== lightTheme) {
-                    window["xpotifyNowPlayingIconUrl"] = url;
-                    window["xpotifyNowPlayingLastSetLightTheme"] = lightTheme;
+                    if (window["xpotifyNowPlayingIconUrl"] !== url || window["xpotifyNowPlayingLastSetLightTheme"] !== lightTheme) {
+                        window["xpotifyNowPlayingIconUrl"] = url;
+                        window["xpotifyNowPlayingLastSetLightTheme"] = lightTheme;
 
-                    Color.setNowPlayingBarColor(url, lightTheme);
+                        Color.setNowPlayingBarColor(url, lightTheme);
+                    }
                 }
+                catch (ex) { }
             }, 1000);
         } catch (ex) {
             return "nowPlayingBarColorPollInitFailed,";
