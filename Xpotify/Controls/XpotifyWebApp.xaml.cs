@@ -41,7 +41,7 @@ namespace Xpotify.Controls
         #region Custom Properties
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(
             "IsOpen", typeof(bool), typeof(XpotifyWebApp), new PropertyMetadata(defaultValue: false,
-                propertyChangedCallback: new PropertyChangedCallback(OnSplashStatePropertyChanged)));
+                propertyChangedCallback: new PropertyChangedCallback(OnIsOpenPropertyChanged)));
 
         public bool IsOpen
         {
@@ -52,13 +52,15 @@ namespace Xpotify.Controls
                     SetValue(IsOpenProperty, value);
 
                 this.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
-                // TODO: Hide all html content via javascript to reduce CPU usage
+                mainWebView.Visibility = this.Visibility;
+                
+                // TODO: Hide html content from DOM when possible via javascript to reduce CPU usage
             }
         }
 
-        private static void OnSplashStatePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsOpenPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as NowPlayingView).IsOpen = (bool)e.NewValue;
+            (d as XpotifyWebApp).IsOpen = (bool)e.NewValue;
         }
         #endregion
 
