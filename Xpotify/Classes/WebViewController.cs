@@ -82,21 +82,13 @@ namespace Xpotify.Helpers
 
         public async Task EnableNowPlaying()
         {
-            var script = await AssetManager.LoadAssetString("enableNowPlaying.js");
+            var script = "window.XpotifyScript.Common.Action.enableNowPlaying();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
         }
 
         public async Task<bool> GoBackIfPossible()
         {
-            var script = await AssetManager.LoadAssetString("goBackIfPossible.js");
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
-
-            return (result == "1");
-        }
-
-        public async Task<bool> IsBackPossible()
-        {
-            var script = await AssetManager.LoadAssetString("isBackPossible.js");
+            var script = "window.XpotifyScript.Common.Action.goBackIfPossible();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -132,7 +124,7 @@ namespace Xpotify.Helpers
 
         public async Task<string> GetPageTitle()
         {
-            var findPageTitleScript = await AssetManager.LoadAssetString("findPageTitle.js");
+            var findPageTitleScript = "window.XpotifyScript.Common.PageTitleFinder.getTitle();";
             var pageTitle = await mainWebView.InvokeScriptAsync("eval", new string[] { findPageTitleScript });
 
             return pageTitle;
@@ -144,9 +136,7 @@ namespace Xpotify.Helpers
 
             if (currentUrl.ToLower().StartsWith(SpotifyPwaUrlBeginsWith.ToLower()))
             {
-                var script = await AssetManager.LoadAssetString("navigateToPage.js")
-                    + $"navigateToPage('{url.Replace("'", "\\'")}');";
-
+                var script = $"window.XpotifyScript.Common.Action.navigateToPage('{url.Replace("'", "\\'")}');";
                 await mainWebView.InvokeScriptAsync("eval", new string[] { script });
             }
             else
@@ -157,24 +147,13 @@ namespace Xpotify.Helpers
 
         internal async Task AutoPlay(AutoPlayAction action)
         {
-            var script = await AssetManager.LoadAssetString(action == AutoPlayAction.Track ? "autoplayTrack.js" : "autoplayPlaylist.js");
+            string script;
+            if (action == AutoPlayAction.Track)
+                script = "window.XpotifyScript.Common.Action.autoPlayTrack();";
+            else
+                script = "window.XpotifyScript.Common.Action.autoPlayPlaylist();";
+            
             var currentPlaying = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
-        }
-
-        public async Task<string> GetCurrentPlaying()
-        {
-            var script = await AssetManager.LoadAssetString("checkCurrentPlaying.js");
-            var currentPlaying = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
-
-            return currentPlaying;
-        }
-
-        public async Task<string> GetCurrentSongPlayTime()
-        {
-            var script = await AssetManager.LoadAssetString("checkCurrentSongPlayTime.js");
-            var currentPlayTime = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
-
-            return currentPlayTime;
         }
 
         public async Task<string> ClearPlaybackLocalStorage()
@@ -187,7 +166,7 @@ namespace Xpotify.Helpers
 
         public async Task<bool> Play()
         {
-            var script = await AssetManager.LoadAssetString("actionPlay.js");
+            var script = "window.XpotifyScript.Common.Action.play();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -195,7 +174,7 @@ namespace Xpotify.Helpers
 
         public async Task<bool> Pause()
         {
-            var script = await AssetManager.LoadAssetString("actionPause.js");
+            var script = "window.XpotifyScript.Common.Action.pause();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -203,7 +182,7 @@ namespace Xpotify.Helpers
 
         public async Task<bool> NextTrack()
         {
-            var script = await AssetManager.LoadAssetString("actionNextTrack.js");
+            var script = "window.XpotifyScript.Common.Action.nextTrack();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -213,9 +192,9 @@ namespace Xpotify.Helpers
         {
             string script;
             if (canGoToBeginningOfCurrentSong)
-                script = await AssetManager.LoadAssetString("actionPrevTrack.js");
+                script = "window.XpotifyScript.Common.Action.prevTrack();";
             else
-                script = await AssetManager.LoadAssetString("actionPrevTrackForce.js");
+                script = "window.XpotifyScript.Common.Action.prevTrackForce();";
 
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
@@ -224,7 +203,7 @@ namespace Xpotify.Helpers
 
         internal async Task<bool> IsPlayingOnThisApp()
         {
-            var script = await AssetManager.LoadAssetString("isPlayingOnThisApp.js");
+            var script = "window.XpotifyScript.Common.Action.isPlayingOnThisApp();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -232,15 +211,13 @@ namespace Xpotify.Helpers
 
         internal async Task SeekPlayback(double percentage)
         {
-            var script = await AssetManager.LoadAssetString("seekPlayback.js");
-            script = script.Replace("{{PERCENTAGE}}", percentage.ToString());
+            var script = $"window.XpotifyScript.Common.Action.seekPlayback({percentage});";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
         }
 
         internal async Task SeekVolume(double percentage)
         {
-            var script = await AssetManager.LoadAssetString("seekVolume.js");
-            script = script.Replace("{{PERCENTAGE}}", percentage.ToString());
+            var script = $"window.XpotifyScript.Common.Action.seekVolume({percentage});";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
         }
     }

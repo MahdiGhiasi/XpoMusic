@@ -398,70 +398,70 @@ namespace Xpotify.Controls
             if (!TokenHelper.HasTokens())
                 return;
 
-            try
-            {
-                var isPlayingOnThisApp = await Controller.IsPlayingOnThisApp();
-                if (isPlayingOnThisApp)
-                {
-                    var currentPlayTime = await Controller.GetCurrentSongPlayTime();
+            //try
+            //{
+            //    var isPlayingOnThisApp = await Controller.IsPlayingOnThisApp();
+            //    if (isPlayingOnThisApp)
+            //    {
+            //        var currentPlayTime = await Controller.GetCurrentSongPlayTime();
 
-                    if (currentPlayTime == "0:00"
-                        && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds > 5000
-                        && PlayStatusTracker.LastPlayStatus.IsPlaying)
-                    {
-                        if (stuckDetectCounter < 2)
-                        {
-                            stuckDetectCounter++;
-                        }
-                        else
-                        {
-                            stuckDetectCounter = 0;
-                            logger.Warn("Playback seems to have stuck.");
+            //        if (currentPlayTime == "0:00"
+            //            && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds > 5000
+            //            && PlayStatusTracker.LastPlayStatus.IsPlaying)
+            //        {
+            //            if (stuckDetectCounter < 2)
+            //            {
+            //                stuckDetectCounter++;
+            //            }
+            //            else
+            //            {
+            //                stuckDetectCounter = 0;
+            //                logger.Warn("Playback seems to have stuck.");
 
-                            var result = false;
+            //                var result = false;
 
-                            if ((DateTime.UtcNow - lastStuckFixApiCall) > TimeSpan.FromMinutes(1))
-                            {
-                                lastStuckFixApiCall = DateTime.UtcNow;
+            //                if ((DateTime.UtcNow - lastStuckFixApiCall) > TimeSpan.FromMinutes(1))
+            //                {
+            //                    lastStuckFixApiCall = DateTime.UtcNow;
 
-                                var player = new Player();
-                                result = await player.PreviousTrack();
-                            }
+            //                    var player = new Player();
+            //                    result = await player.PreviousTrack();
+            //                }
 
-                            if (result)
-                            {
-                                AnalyticsHelper.Log("playbackStuck", "1");
-                                ToastHelper.SendDebugToast("PlaybackStuck1", "PrevTrack issued.");
-                                logger.Info("playbackStuck1");
-                            }
-                            else
-                            {
-                                await Controller.NextTrack();
-                                await Task.Delay(1500);
-                                await Controller.PreviousTrack();
-                                await Task.Delay(1500);
-                                await Controller.PreviousTrack();
+            //                if (result)
+            //                {
+            //                    AnalyticsHelper.Log("playbackStuck", "1");
+            //                    ToastHelper.SendDebugToast("PlaybackStuck1", "PrevTrack issued.");
+            //                    logger.Info("playbackStuck1");
+            //                }
+            //                else
+            //                {
+            //                    await Controller.NextTrack();
+            //                    await Task.Delay(1500);
+            //                    await Controller.PreviousTrack();
+            //                    await Task.Delay(1500);
+            //                    await Controller.PreviousTrack();
 
-                                AnalyticsHelper.Log("playbackStuck", "3");
-                                ToastHelper.SendDebugToast("PlaybackStuck3", "NextAndPrevAndPrevTrack issued.");
-                                logger.Info("playbackStuck3");
-                            }
-                        }
-                    }
-                    else
-                    {
-                        stuckDetectCounter = 0;
-                    }
-                }
-                else
-                {
-                    stuckDetectCounter = 0;
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Warn("checkCurrentSongPlayTime failed: " + ex.ToString());
-            }
+            //                    AnalyticsHelper.Log("playbackStuck", "3");
+            //                    ToastHelper.SendDebugToast("PlaybackStuck3", "NextAndPrevAndPrevTrack issued.");
+            //                    logger.Info("playbackStuck3");
+            //                }
+            //            }
+            //        }
+            //        else
+            //        {
+            //            stuckDetectCounter = 0;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        stuckDetectCounter = 0;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.Warn("checkCurrentSongPlayTime failed: " + ex.ToString());
+            //}
         }
     }
 }

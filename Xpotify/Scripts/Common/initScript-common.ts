@@ -7,6 +7,8 @@
 /// <reference path="startupAnimation.ts" />
 /// <reference path="requestIntercepter.ts" />
 /// <reference path="statusReport.ts" />
+/// <reference path="action.ts" />
+/// <reference path="pageTitleFinder.ts" />
 
 namespace XpotifyScript.Common {
 
@@ -38,6 +40,11 @@ namespace XpotifyScript.Common {
         RequestIntercepter.startInterceptingFetch();
         StatusReport.initRegularStatusReport();
         StartupAnimation.init();
+
+        // @ts-ignore
+        if (window.XpotifyScript === undefined)
+            // @ts-ignore
+            window.XpotifyScript = XpotifyScript;
 
         return errors;
     }

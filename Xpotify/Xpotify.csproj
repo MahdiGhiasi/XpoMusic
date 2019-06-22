@@ -209,10 +209,12 @@
     <Compile Include="Helpers\TileHelper.cs" />
     <Compile Include="Helpers\ToastHelper.cs" />
     <Compile Include="Helpers\UnauthorizedHelper.cs" />
+    <TypeScriptCompile Include="Scripts\Common\action.ts" />
     <TypeScriptCompile Include="Scripts\Common\browserHistory.ts" />
     <TypeScriptCompile Include="Scripts\Common\color.ts" />
     <TypeScriptCompile Include="Scripts\Common\dragDrop.ts" />
     <TypeScriptCompile Include="Scripts\Common\indeterminateProgressBarHandler.ts" />
+    <TypeScriptCompile Include="Scripts\Common\pageTitleFinder.ts" />
     <TypeScriptCompile Include="Scripts\Common\requestIntercepter.ts" />
     <TypeScriptCompile Include="Scripts\Common\startupAnimation.ts" />
     <TypeScriptCompile Include="Scripts\Common\statusReport.ts" />
@@ -235,8 +237,6 @@
     <Content Include="Assets\TransparentSquare.png" />
     <Content Include="Assets\xpotify-white.png" />
     <Content Include="Assets\xpotify.png" />
-    <Content Include="InjectedAssets\actionNextTrack.js" />
-    <Content Include="InjectedAssets\actionPause.js" />
     <Compile Include="Classes\WebViewController.cs" />
     <Compile Include="Secrets.cs" />
     <Compile Include="Pages\SettingsPage.xaml.cs">
@@ -385,17 +385,8 @@
     <Content Include="Assets\Logo\SplashScreen.scale-150.png" />
     <Content Include="Assets\Logo\SplashScreen.scale-200.png" />
     <Content Include="Assets\Logo\SplashScreen.scale-400.png" />
-    <Content Include="InjectedAssets\actionPlay.js" />
-    <Content Include="InjectedAssets\actionPrevTrackForce.js" />
-    <Content Include="InjectedAssets\actionPrevTrack.js" />
-    <Content Include="InjectedAssets\autoplayPlaylist.js" />
-    <Content Include="InjectedAssets\autoplayTrack.js" />
-    <Content Include="InjectedAssets\checkCurrentPlaying.js" />
-    <Content Include="InjectedAssets\checkCurrentSongPlayTime.js" />
     <Content Include="InjectedAssets\clearPlaybackLocalStorage.js" />
     <Content Include="InjectedAssets\clickOnFacebookLogin.js" />
-    <Content Include="InjectedAssets\enableNowPlaying.js" />
-    <Content Include="InjectedAssets\findPageTitle.js" />
     <Compile Include="Helpers\WhatsNewHelper.cs" />
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -420,8 +411,6 @@
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
     <None Include="InjectedAssets\style-dark.css" />
-    <Content Include="InjectedAssets\seekVolume.js" />
-    <Content Include="InjectedAssets\seekPlayback.js" />
     <Content Include="InjectedAssets\style-dark.min.css" />
     <None Include="InjectedAssets\style-light.css" />
     <Content Include="InjectedAssets\style-light.min.css" />
@@ -456,11 +445,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Media\silent.wav" />
-    <Content Include="InjectedAssets\goBackIfPossible.js" />
-    <Content Include="InjectedAssets\isBackPossible.js" />
     <Content Include="InjectedAssets\isLoggedInCheck.js" />
-    <Content Include="InjectedAssets\isPlayingOnThisApp.js" />
-    <Content Include="InjectedAssets\navigateToPage.js" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
