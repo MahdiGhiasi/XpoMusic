@@ -12,29 +12,29 @@
         }
     }
 
-    function getTrackFingerprint() {
+    export function getTrackFingerprint() {
         return getTextContent('.Root__now-playing-bar .now-playing-bar__left', 0);
     }
 
-    function getTrackName() {
+    export function getTrackName() {
         return getTextContent('.Root__now-playing-bar .now-playing-bar__left .track-info .track-info__name', 0);
     }
 
-    function getTrackArtist() {
+    export function getTrackArtist() {
         return getTextContent('.Root__now-playing-bar .now-playing-bar__left .track-info .track-info__artists', 0);
     }
 
-    function getTrackAlbumId() {
+    export function getTrackAlbumId() {
         var artistUri = (<HTMLLinkElement>((document.querySelectorAll(".Root__now-playing-bar .now-playing-bar__left .track-info .track-info__name a")[0]))).href;
         return artistUri.substring(artistUri.lastIndexOf('/') + 1);
     }
 
-    function getTrackArtistId() {
+    export function getTrackArtistId() {
         var artistUri = (<HTMLLinkElement>((document.querySelectorAll(".Root__now-playing-bar .now-playing-bar__left .track-info .track-info__artists a")[0]))).href;
         return artistUri.substring(artistUri.lastIndexOf('/') + 1);
     }
 
-    function timeStringToMilliseconds(time) {
+    export function timeStringToMilliseconds(time) {
         if (time.match('^[0-9]+\:[0-9][0-9]?$') === null)
             throw "Invalid time format";
 
@@ -43,24 +43,24 @@
         return (Number.parseInt(parts[0]) * 60 + Number.parseInt(parts[1])) * 1000;
     }
 
-    function getElapsedTime() {
+    export function getElapsedTime() {
         var time = getTextContent('.Root__now-playing-bar .now-playing-bar__center .playback-bar .playback-bar__progress-time', 0);
         return timeStringToMilliseconds(time);
     }
 
-    function getTotalTime() {
+    export function getTotalTime() {
         var time = getTextContent('.Root__now-playing-bar .now-playing-bar__center .playback-bar .playback-bar__progress-time', 1);
         return timeStringToMilliseconds(time);
     }
 
-    function getIsSavedToLibrary() {
+    export function getIsSavedToLibrary() {
         var e = document.querySelectorAll('.Root__now-playing-bar .now-playing-bar__left .spoticon-heart-active-16');
         return (e.length > 0);
 
         // This is not fatal, so we don't throw exception if this fails.
     }
 
-    function getIsPlaying() {
+    export function getIsPlaying() {
         var pauseButton = document.querySelectorAll('.Root__now-playing-bar .now-playing-bar__center .spoticon-pause-16');
         if (pauseButton.length > 0) {
             return true;
@@ -74,7 +74,7 @@
         throw "Can't find play/pause buttons";
     }
 
-    function getIsPrevTrackAvailable() {
+    export function getIsPrevTrackAvailable() {
         var prevButton = document.querySelectorAll('.Root__now-playing-bar .now-playing-bar__center .spoticon-skip-back-16');
         if (prevButton.length === 0) {
             throw "Can't find prevTrackButton";
@@ -85,7 +85,7 @@
         return true;
     }
 
-    function getIsNextTrackAvailable() {
+    export function getIsNextTrackAvailable() {
         var nextButton = document.querySelectorAll('.Root__now-playing-bar .now-playing-bar__center .spoticon-skip-forward-16');
         if (nextButton.length === 0) {
             throw "Can't find nextTrackButton";
@@ -96,7 +96,7 @@
         return true;
     }
 
-    function getTrackId() {
+    export function getTrackId() {
         var fingerprint = getTrackFingerprint();
 
         // @ts-ignore
@@ -169,7 +169,7 @@
         return trackId;
     }
 
-    function getVolume() {
+    export function getVolume() {
         try {
             var element = <HTMLElement>(document.querySelectorAll('.Root__now-playing-bar .now-playing-bar__right .volume-bar .progress-bar .progress-bar__fg')[0]);
             return (100 - Number.parseFloat(element.style.transform.replace(/[^\d.]/g, ''))) / 100.0;
@@ -285,7 +285,7 @@
         return data;
     }
 
-    function isBackPossible() {
+    export function isBackPossible() {
         var backButtonDiv = document.querySelectorAll(".backButtonContainer");
 
         if (backButtonDiv.length === 0) {

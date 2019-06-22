@@ -7,7 +7,12 @@
             var playbackBar = <HTMLElement>(document.querySelectorAll(".Root__now-playing-bar .playback-bar")[0]);
             var progressBarProgress = (<HTMLElement>(playbackBar.querySelectorAll(".progress-bar__fg")[0])).style.transform;
 
-            if (progressBarProgress != initialProgress) {
+            var isPlaying = true;
+            try {
+                isPlaying = StatusReport.getIsPlaying();
+            } catch (ex) { }
+
+            if (progressBarProgress != initialProgress || isPlaying === false) {
                 var progressBarBg = <HTMLElement>(playbackBar.querySelectorAll(".progress-bar__bg")[0]);
                 var times = playbackBar.querySelectorAll(".playback-bar__progress-time");
 
