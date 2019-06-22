@@ -44,7 +44,7 @@ namespace Xpotify.Controls
         {
             settingsFlyout.InitFlyout(tabId);
             settingsFlyout.Visibility = Visibility.Visible;
-            VisualStateManager.GoToState(this, "OverlayVisible", false);
+            VisualStateManager.GoToState(this, nameof(OverlayVisibleVisualState), false);
         }
 
         public async void OpenWhatsNew()
@@ -53,7 +53,7 @@ namespace Xpotify.Controls
 
             whatsNewFlyout.InitFlyout();
             whatsNewFlyout.Visibility = Visibility.Visible;
-            VisualStateManager.GoToState(this, "OverlayVisible", false);
+            VisualStateManager.GoToState(this, nameof(OverlayVisibleVisualState), false);
 
             AnalyticsHelper.Log("flyoutShow", "whatsNew", PackageHelper.GetAppVersionString());
         }
@@ -67,7 +67,7 @@ namespace Xpotify.Controls
 
             developerMessageFlyout.InitFlyout(message);
             developerMessageFlyout.Visibility = Visibility.Visible;
-            VisualStateManager.GoToState(this, "OverlayVisible", false);
+            VisualStateManager.GoToState(this, nameof(OverlayVisibleVisualState), false);
 
             AnalyticsHelper.Log("flyoutShow", "developerMessage", message.id);
         }
@@ -89,7 +89,7 @@ namespace Xpotify.Controls
 
         private async void CloseOverlays()
         {
-            VisualStateManager.GoToState(this, "OverlayClosed", false);
+            VisualStateManager.GoToState(this, nameof(OverlayClosedVisualState), false);
 
             await Task.Delay(300);
 

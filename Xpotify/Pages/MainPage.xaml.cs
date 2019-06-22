@@ -46,7 +46,7 @@ namespace Xpotify.Pages
 
             xpotifyWebView.RequestedTheme = (ThemeHelper.GetCurrentTheme() == Theme.Light) ? ElementTheme.Light : ElementTheme.Dark;
 
-            VisualStateManager.GoToState(this, "SplashScreen", false);
+            VisualStateManager.GoToState(this, nameof(SplashScreenVisualState), false);
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -219,7 +219,7 @@ namespace Xpotify.Pages
         
         private void GoToNowPlayingMode()
         {
-            VisualStateManager.GoToState(this, "NowPlaying", false);
+            VisualStateManager.GoToState(this, nameof(NowPlayingVisualState), false);
             nowPlaying.ActionRequested += NowPlaying_ActionRequested;
             topBar.UpdateTitleBarColors(Theme.Dark);
 
@@ -231,7 +231,7 @@ namespace Xpotify.Pages
             if (!ApplicationView.GetForCurrentView().IsViewModeSupported(ApplicationViewMode.CompactOverlay))
                 return;
 
-            VisualStateManager.GoToState(this, "CompactOverlay", false);
+            VisualStateManager.GoToState(this, nameof(CompactOverlayVisualState), false);
 
             var viewMode = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
             viewMode.ViewSizePreference = ViewSizePreference.Custom;
@@ -248,7 +248,7 @@ namespace Xpotify.Pages
             }
             else
             {
-                VisualStateManager.GoToState(this, "MainScreen", false);
+                VisualStateManager.GoToState(this, nameof(MainScreenVisualState), false);
             }
         }
 
@@ -321,7 +321,7 @@ namespace Xpotify.Pages
         {
             await ApplicationView.GetForCurrentView().TryEnterViewModeAsync(ApplicationViewMode.Default);
             nowPlaying.ActionRequested -= NowPlaying_ActionRequested;
-            VisualStateManager.GoToState(this, "MainScreen", false);
+            VisualStateManager.GoToState(this, nameof(MainScreenVisualState), false);
             topBar.InitTitleBar();
 
             AnalyticsHelper.PageView("MainPage");
@@ -332,16 +332,16 @@ namespace Xpotify.Pages
             nowPlaying.ActionRequested -= NowPlaying_ActionRequested;
             topBar.InitTitleBar();
 
-            VisualStateManager.GoToState(this, "NowPlayingClosing", false);
+            VisualStateManager.GoToState(this, nameof(NowPlayingClosingVisualState), false);
             await Task.Delay(200);
-            VisualStateManager.GoToState(this, "MainScreen", false);
+            VisualStateManager.GoToState(this, nameof(MainScreenVisualState), false);
 
             AnalyticsHelper.PageView("MainPage");
         }
 
         private void XpotifyWebView_PageLoaded(object sender, EventArgs e)
         {
-            VisualStateManager.GoToState(this, "MainScreenQuick", false);
+            VisualStateManager.GoToState(this, nameof(MainScreenQuickVisualState), false);
 
             OnWebViewLoadCompleted();
 
@@ -352,7 +352,7 @@ namespace Xpotify.Pages
         private void XpotifyWebView_WebAppLoaded(object sender, EventArgs e)
         {
             if (splashScreen.SplashState == Controls.SplashScreen.SplashScreenShowState.Visible)
-                VisualStateManager.GoToState(this, "MainScreen", false);
+                VisualStateManager.GoToState(this, nameof(MainScreenVisualState), false);
 
             OnWebViewLoadCompleted();
 
@@ -446,7 +446,7 @@ namespace Xpotify.Pages
                         GoToNowPlayingMode();
                     break;
                 case XpotifyWebApp.XpotifyWebAppActionRequest.ShowSplashScreen:
-                    VisualStateManager.GoToState(this, "SplashScreen", false);
+                    VisualStateManager.GoToState(this, nameof(SplashScreenVisualState), false);
                     break;
                 default:
                     break;

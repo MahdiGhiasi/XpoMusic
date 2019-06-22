@@ -12,7 +12,7 @@
     <Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
-                <VisualState x:Name="Default">
+                <VisualState x:Name="DefaultVisualState">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="mainWebView"
                                                        Storyboard.TargetProperty="Visibility">
@@ -28,7 +28,7 @@
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-                <VisualState x:Name="Waiting">
+                <VisualState x:Name="WaitingVisualState">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="mainWebView"
                                                        Storyboard.TargetProperty="Visibility">
@@ -48,7 +48,7 @@
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-                <VisualState x:Name="LoadFailed">
+                <VisualState x:Name="LoadFailedVisualState">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="mainWebView"
                                                        Storyboard.TargetProperty="Visibility">

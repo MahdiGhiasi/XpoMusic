@@ -98,7 +98,7 @@ namespace Xpotify.Controls
             stuckDetectTimer.Tick += StuckDetectTimer_Tick;
             stuckDetectTimer.Start();
 
-            VisualStateManager.GoToState(this, "Default", false);
+            VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
         }
 
         private void XpotifyWebAgent_StatusReportReceived(object sender, StatusReportReceivedEventArgs e)
@@ -131,7 +131,7 @@ namespace Xpotify.Controls
                 return;
             }
 
-            VisualStateManager.GoToState(this, "LoadFailed", false);
+            VisualStateManager.GoToState(this, nameof(LoadFailedVisualState), false);
             PageLoaded?.Invoke(this, new EventArgs());
             loadFailedUrlText.Text = e.Uri.ToString();
             loadFailedUrl = e.Uri;
@@ -140,7 +140,7 @@ namespace Xpotify.Controls
 
         private async void MainWebView_LoadCompleted(object sender, NavigationEventArgs e)
         {
-            VisualStateManager.GoToState(this, "Default", false);
+            VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
 
             if (e.Uri.ToString().StartsWith(Authorization.SpotifyLoginUri) && LocalConfiguration.IsLoggedInByFacebook)
             {
@@ -285,14 +285,14 @@ namespace Xpotify.Controls
 
         private async Task PinPageToStart()
         {
-            VisualStateManager.GoToState(this, "Waiting", false);
+            VisualStateManager.GoToState(this, nameof(WaitingVisualState), false);
 
             var pageUrl = await Controller.GetPageUrl();
             var pageTitle = await Controller.GetPageTitle();
 
             await TileHelper.PinPageToStart(pageUrl, pageTitle);
 
-            VisualStateManager.GoToState(this, "Default", false);
+            VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
         }
 
         private void RetryConnectButton_Click(object sender, RoutedEventArgs e)

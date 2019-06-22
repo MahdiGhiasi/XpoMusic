@@ -42,14 +42,14 @@ namespace Xpotify.Controls
                 switch (value)
                 {
                     case SplashScreenShowState.Visible:
-                        VisualStateManager.GoToState(this, "SplashScreenVisible", true);
+                        VisualStateManager.GoToState(this, nameof(SplashScreenVisibleVisualState), true);
                         break;
                     case SplashScreenShowState.Closed:
-                        VisualStateManager.GoToState(this, "SplashScreenClosed", true);
+                        VisualStateManager.GoToState(this, nameof(SplashScreenClosedVisualState), true);
                         break;
                     case SplashScreenShowState.ClosedQuick:
                     default:
-                        VisualStateManager.GoToState(this, "SplashScreenClosedQuick", true);
+                        VisualStateManager.GoToState(this, nameof(SplashScreenClosedQuickVisualState), true);
                         break;
                 }
             }

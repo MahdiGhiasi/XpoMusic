@@ -36,7 +36,7 @@
     <Grid x:Name="splashScreen" Background="#201B1B">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
-                <VisualState x:Name="SplashScreenVisible">
+                <VisualState x:Name="SplashScreenVisibleVisualState">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashProgressRing"
                                                        Storyboard.TargetProperty="IsActive">
@@ -44,7 +44,7 @@
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-                <VisualState x:Name="SplashScreenClosed">
+                <VisualState x:Name="SplashScreenClosedVisualState">
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetName="extendedSplashImage" 
                                          Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
@@ -82,7 +82,7 @@
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-                <VisualState x:Name="SplashScreenClosedQuick">
+                <VisualState x:Name="SplashScreenClosedQuickVisualState">
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetName="splashScreen" 
                                          Storyboard.TargetProperty="Opacity"

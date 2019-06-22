@@ -15,7 +15,7 @@
     <Grid x:Name="overlay" Background="#00FFFFFF" Visibility="Collapsed">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
-                <VisualState x:Name="OverlayClosed">
+                <VisualState x:Name="OverlayClosedVisualState">
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetName="overlay" 
                                  Storyboard.TargetProperty="(UIElement.Opacity)"
@@ -38,7 +38,7 @@
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-                <VisualState x:Name="OverlayVisible">
+                <VisualState x:Name="OverlayVisibleVisualState">
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetName="overlay" 
                                          Storyboard.TargetProperty="(UIElement.Opacity)"

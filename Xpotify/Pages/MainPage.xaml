@@ -19,7 +19,7 @@
     <Grid x:Name="mainGrid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
-                <VisualState x:Name="SplashScreen">
+                <VisualState x:Name="SplashScreenVisualState">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashScreen"
                                                        Storyboard.TargetProperty="SplashState">
@@ -27,7 +27,7 @@
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-                <VisualState x:Name="MainScreenQuick">
+                <VisualState x:Name="MainScreenQuickVisualState">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashScreen"
                                                        Storyboard.TargetProperty="SplashState">
@@ -35,7 +35,7 @@
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-                <VisualState x:Name="MainScreen">
+                <VisualState x:Name="MainScreenVisualState">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashScreen"
                                                        Storyboard.TargetProperty="SplashState">
@@ -48,7 +48,7 @@
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-                <VisualState x:Name="CompactOverlay">
+                <VisualState x:Name="CompactOverlayVisualState">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashScreen"
                                                        Storyboard.TargetProperty="SplashState">
@@ -81,7 +81,7 @@
                         </ObjectAnimationUsingKeyFrames>
                     </Storyboard>
                 </VisualState>
-                <VisualState x:Name="NowPlaying">
+                <VisualState x:Name="NowPlayingVisualState">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashScreen"
                                                        Storyboard.TargetProperty="SplashState">
@@ -122,7 +122,7 @@
                         </DoubleAnimation>
                     </Storyboard>
                 </VisualState>
-                <VisualState x:Name="NowPlayingClosing">
+                <VisualState x:Name="NowPlayingClosingVisualState">
                     <Storyboard>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashScreen"
                                                        Storyboard.TargetProperty="SplashState">
