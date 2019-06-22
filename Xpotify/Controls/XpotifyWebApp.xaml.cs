@@ -12,6 +12,7 @@ using Xpotify.Classes.Model;
 using Xpotify.Helpers;
 using Xpotify.SpotifyApi;
 using XpotifyWebAgent;
+using XpotifyWebAgent.Model;
 
 namespace Xpotify.Controls
 {
@@ -81,6 +82,7 @@ namespace Xpotify.Controls
 
             xpotifyWebAgent = new XpotifyWebAgent.XpotifyWebAgent();
             xpotifyWebAgent.ProgressBarCommandReceived += XpotifyWebAgent_ProgressBarCommandReceived;
+            xpotifyWebAgent.StatusReportReceived += XpotifyWebAgent_StatusReportReceived;
 
             webViewCheckTimer = new DispatcherTimer
             {
@@ -99,9 +101,17 @@ namespace Xpotify.Controls
             VisualStateManager.GoToState(this, "Default", false);
         }
 
-        private void XpotifyWebAgent_ProgressBarCommandReceived(object sender, XpotifyWebAgent.Model.ProgressBarCommandEventArgs e)
+        private void XpotifyWebAgent_StatusReportReceived(object sender, StatusReportReceivedEventArgs e)
         {
-            if (e.Command == XpotifyWebAgent.Model.ProgressBarCommand.Show)
+            logger.Trace("StatusReport Received.");
+
+            BackEnabled = e.Status.BackButtonEnabled;
+            PlayStatusTracker.LocalPlaybackDataReceived(e.Status.NowPlaying);
+        }
+
+        private void XpotifyWebAgent_ProgressBarCommandReceived(object sender, ProgressBarCommandEventArgs e)
+        {
+            if (e.Command == ProgressBarCommand.Show)
             {
                 playbackBarProgressBar.Margin = new Thickness(e.Left * mainWebView.ActualWidth, e.Top * mainWebView.ActualHeight, 0, 0);
                 playbackBarProgressBar.Width = e.Width * mainWebView.ActualWidth;
@@ -366,17 +376,17 @@ namespace Xpotify.Controls
             if (!TokenHelper.HasTokens())
                 return;
 
-            try
-            {
-                var statusReport = await Controller.StatusReport();
+            //try
+            //{
+            //    var statusReport = await Controller.StatusReport();
 
-                BackEnabled = statusReport.BackButtonEnabled;
-                PlayStatusTracker.LocalPlaybackDataReceived(statusReport.NowPlaying);
-            }
-            catch (Exception ex)
-            {
-                logger.Warn("statusReport failed: " + ex.ToString());
-            }
+            //    BackEnabled = statusReport.BackButtonEnabled;
+            //    PlayStatusTracker.LocalPlaybackDataReceived(statusReport.NowPlaying);
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.Warn("statusReport failed: " + ex.ToString());
+            //}
         }
 
         private async void StuckDetectTimer_Tick(object sender, object e)

@@ -6,6 +6,7 @@
 /// <reference path="resize.ts" />
 /// <reference path="startupAnimation.ts" />
 /// <reference path="requestIntercepter.ts" />
+/// <reference path="statusReport.ts" />
 
 namespace XpotifyScript.Common {
 
@@ -35,6 +36,7 @@ namespace XpotifyScript.Common {
         setInitialPageHash();
         initOnResizeCheck();
         RequestIntercepter.startInterceptingFetch();
+        StatusReport.initRegularStatusReport();
         StartupAnimation.init();
 
         return errors;

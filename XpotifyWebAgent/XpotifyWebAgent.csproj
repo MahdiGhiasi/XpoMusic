@@ -121,13 +121,19 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Model\NowPlayingData.cs" />
     <Compile Include="Model\ProgressBarCommandEventArgs.cs" />
+    <Compile Include="Model\StatusReportReceivedEventArgs.cs" />
+    <Compile Include="Model\WebAppStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XpotifyWebAgent.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

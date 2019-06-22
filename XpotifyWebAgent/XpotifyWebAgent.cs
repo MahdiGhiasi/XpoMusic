@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace XpotifyWebAgent
         // camelCase on the Javascript side.
 
         public event EventHandler<ProgressBarCommandEventArgs> ProgressBarCommandReceived;
+        public event EventHandler<StatusReportReceivedEventArgs> StatusReportReceived;
 
         public void ShowProgressBar(double left, double top, double width)
         {
@@ -33,6 +35,14 @@ namespace XpotifyWebAgent
             ProgressBarCommandReceived?.Invoke(this, new ProgressBarCommandEventArgs
             {
                 Command = ProgressBarCommand.Hide,
+            });
+        }
+
+        public void StatusReport(string data)
+        {
+            StatusReportReceived?.Invoke(this, new StatusReportReceivedEventArgs
+            {
+                Status = JsonConvert.DeserializeObject<WebAppStatus>(data),
             });
         }
     }

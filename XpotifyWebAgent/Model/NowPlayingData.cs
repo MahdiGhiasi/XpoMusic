@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.Classes.Model
+namespace XpotifyWebAgent.Model
 {
     public class NowPlayingData
     {

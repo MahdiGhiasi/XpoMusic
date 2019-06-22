@@ -129,9 +129,7 @@
     <Compile Include="Classes\Cache\AlbumStore.cs" />
     <Compile Include="Classes\Cache\CacheStore.cs" />
     <Compile Include="Classes\Converters\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Classes\Model\NowPlayingData.cs" />
     <Compile Include="Classes\Model\SongExtraInfo.cs" />
-    <Compile Include="Classes\Model\WebAppStatus.cs" />
     <Compile Include="Classes\SemaphoreQueue.cs" />
     <Compile Include="Classes\Cache\SongExtraInfoStore.cs" />
     <Compile Include="Controls\FlyoutContainer.xaml.cs">
@@ -217,6 +215,7 @@
     <TypeScriptCompile Include="Scripts\Common\indeterminateProgressBarHandler.ts" />
     <TypeScriptCompile Include="Scripts\Common\requestIntercepter.ts" />
     <TypeScriptCompile Include="Scripts\Common\startupAnimation.ts" />
+    <TypeScriptCompile Include="Scripts\Common\statusReport.ts" />
     <TypeScriptCompile Include="Scripts\Common\vibrant.ts" />
     <TypeScriptCompile Include="Scripts\Common\resize.ts" />
     <TypeScriptCompile Include="Scripts\Common\uriHelper.ts" />
@@ -423,7 +422,6 @@
     <None Include="InjectedAssets\style-dark.css" />
     <Content Include="InjectedAssets\seekVolume.js" />
     <Content Include="InjectedAssets\seekPlayback.js" />
-    <Content Include="InjectedAssets\statusReport.js" />
     <Content Include="InjectedAssets\style-dark.min.css" />
     <None Include="InjectedAssets\style-light.css" />
     <Content Include="InjectedAssets\style-light.min.css" />
