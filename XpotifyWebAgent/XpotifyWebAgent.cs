@@ -18,6 +18,7 @@ namespace XpotifyWebAgent
 
         public event EventHandler<ProgressBarCommandEventArgs> ProgressBarCommandReceived;
         public event EventHandler<StatusReportReceivedEventArgs> StatusReportReceived;
+        public event EventHandler<ActionRequestedEventArgs> ActionRequested;
 
         public void ShowProgressBar(double left, double top, double width)
         {
@@ -43,6 +44,62 @@ namespace XpotifyWebAgent
             StatusReportReceived?.Invoke(this, new StatusReportReceivedEventArgs
             {
                 Status = JsonConvert.DeserializeObject<WebAppStatus>(data),
+            });
+        }
+
+        public void OpenSettings()
+        {
+            ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+            {
+                Action = Model.Action.OpenSettings,
+            });
+        }
+
+        public void OpenAbout()
+        {
+            ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+            {
+                Action = Model.Action.OpenAbout,
+            });
+        }
+
+        public void OpenDonate()
+        {
+            ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+            {
+                Action = Model.Action.OpenDonate,
+            });
+        }
+
+        public void OpenMiniView()
+        {
+            ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+            {
+                Action = Model.Action.OpenMiniView,
+            });
+        }
+
+        public void OpenNowPlaying()
+        {
+            ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+            {
+                Action = Model.Action.OpenNowPlaying,
+            });
+        }
+
+        public void PinToStart()
+        {
+            ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+            {
+                Action = Model.Action.PinToStart,
+            });
+        }
+
+        public void NavigateToClipboardUri()
+        {
+            ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+            {
+                Action = Model.Action.NavigateToClipboardUri,
             });
         }
     }

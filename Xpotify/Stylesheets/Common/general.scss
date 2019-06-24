@@ -160,6 +160,37 @@ div[aria-live=polite] button {
     color: #b3b3b3;
 }
 
+a:focus, button:focus {  
+    outline-color: #555;
+    outline-style: solid;
+    outline-width: 1px;
+}
+
+li[role=button]:focus {
+    outline-color: #555;
+    outline-style: solid;
+    outline-width: 1px;
+    background: #333;
+}
+
+a.mo-info-name:focus {
+    outline-color: transparent;
+    outline-width: 0;
+    color: #222;
+    background-color: #eee;
+}
+
+.Root__main-view nav ul li a:focus {
+    outline-color: #eee;
+    outline-style: solid;
+    outline-width: 2px;
+}
+
+a.search-history-result:focus h1, a.search-history-result:focus span {
+    opacity: 1;
+    border-left: 3px solid #fff;
+    padding-left: 10px;
+}
 
 /* Recently played items */
 @media (max-height:820px) {

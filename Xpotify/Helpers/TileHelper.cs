@@ -18,7 +18,7 @@ namespace Xpotify.Helpers
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public static async Task PinPageToStart(string pageUrl, string title)
+        public static async Task<bool> PinPageToStart(string pageUrl, string title)
         {
             // TODO: Download and use album/artist/playlist image for tile, if applicable
 
@@ -54,6 +54,8 @@ namespace Xpotify.Helpers
 
             if (!result)
                 logger.Info("Tile creation failed");
+
+            return result;
         }
 
         public static async Task<TileImageCollection> GetTileImages(string pageUrl)

@@ -85,6 +85,7 @@ namespace Xpotify.Controls
             xpotifyWebAgent = new XpotifyWebAgent.XpotifyWebAgent();
             xpotifyWebAgent.ProgressBarCommandReceived += XpotifyWebAgent_ProgressBarCommandReceived;
             xpotifyWebAgent.StatusReportReceived += XpotifyWebAgent_StatusReportReceived;
+            xpotifyWebAgent.ActionRequested += XpotifyWebAgent_ActionRequested;
 
             webViewCheckTimer = new DispatcherTimer
             {
@@ -101,6 +102,41 @@ namespace Xpotify.Controls
             stuckDetectTimer.Start();
 
             VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
+        }
+
+        private async void XpotifyWebAgent_ActionRequested(object sender, XpotifyWebAgent.Model.ActionRequestedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case XpotifyWebAgent.Model.Action.PinToStart:
+                    await PinPageToStart();
+                    break;
+                case XpotifyWebAgent.Model.Action.OpenSettings:
+                    ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.OpenSettingsFlyout);
+                    break;
+                case XpotifyWebAgent.Model.Action.OpenDonate:
+                    ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.OpenDonateFlyout);
+                    break;
+                case XpotifyWebAgent.Model.Action.OpenAbout:
+                    ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.OpenAboutFlyout);
+                    break;
+                case XpotifyWebAgent.Model.Action.OpenMiniView:
+                    ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.GoToCompactOverlay);
+                    break;
+                case XpotifyWebAgent.Model.Action.OpenNowPlaying:
+                    ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.GoToNowPlaying);
+                    break;
+                case XpotifyWebAgent.Model.Action.NavigateToClipboardUri:
+                    if (await ClipboardHelper.IsSpotifyUriPresent())
+                    {
+                        var uri = await ClipboardHelper.GetSpotifyUri();
+                        await Controller.NavigateToSpotifyUrl(uri);
+                    }
+                    break;
+                default:
+                    logger.Warn($"Action {e.Action} is unknown.");
+                    break;
+            }
         }
 
         private void XpotifyWebAgent_StatusReportReceived(object sender, StatusReportReceivedEventArgs e)
@@ -225,41 +261,7 @@ namespace Xpotify.Controls
         {
             logger.Info("Page: " + e.Uri.ToString());
 
-            if (e.Uri.ToString().EndsWith("#xpotifysettings"))
-            {
-                e.Cancel = true;
-                ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.OpenSettingsFlyout);
-            }
-            else if (e.Uri.ToString().EndsWith("#xpotifyabout"))
-            {
-                e.Cancel = true;
-                ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.OpenAboutFlyout);
-            }
-            else if (e.Uri.ToString().EndsWith("#xpotifydonate"))
-            {
-                e.Cancel = true;
-                ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.OpenDonateFlyout);
-            }
-            else if (e.Uri.ToString().EndsWith("#xpotifypintostart"))
-            {
-                e.Cancel = true;
-
-                await PinPageToStart();
-                AnalyticsHelper.Log("mainEvent", "pinToStart");
-            }
-            else if (e.Uri.ToString().EndsWith("#xpotifyCompactOverlay"))
-            {
-                e.Cancel = true;
-
-                ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.GoToCompactOverlay);
-            }
-            else if (e.Uri.ToString().EndsWith("#xpotifyNowPlaying"))
-            {
-                e.Cancel = true;
-
-                ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.GoToNowPlaying);
-            }
-            else if (e.Uri.ToString().EndsWith("#xpotifyInitialPage"))
+            if (e.Uri.ToString().EndsWith("#xpotifyInitialPage"))
             {
             }
             else if (e.Uri.ToString().ToLower().Contains(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
@@ -292,7 +294,8 @@ namespace Xpotify.Controls
             var pageUrl = await Controller.GetPageUrl();
             var pageTitle = await Controller.GetPageTitle();
 
-            await TileHelper.PinPageToStart(pageUrl, pageTitle);
+            if (await TileHelper.PinPageToStart(pageUrl, pageTitle))
+                AnalyticsHelper.Log("mainEvent", "pinToStart");
 
             VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
         }

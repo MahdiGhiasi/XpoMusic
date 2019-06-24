@@ -143,6 +143,10 @@
         }
     }
 
+    export function goForwardIfPossible() {
+        window.history.go(1);
+    }
+
     export function isPlayingOnThisApp() {
         return (document.querySelectorAll(".Root__now-playing-bar .ConnectBar").length === 0) ? "1" : "0";
     }

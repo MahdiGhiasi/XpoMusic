@@ -17,9 +17,7 @@ namespace XpotifyScript.Common.DragDrop {
         event.preventDefault();
 
         // Navigate to page
-        history.pushState({}, null, uri);
-        history.pushState({}, null, uri + "#navigatingToPagePleaseIgnore");
-        history.back();
+        Action.navigateToPage(uri);
     }
 
 }

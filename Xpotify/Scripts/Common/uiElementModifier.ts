@@ -3,6 +3,9 @@
 /// <reference path="color.ts" />
 
 namespace XpotifyScript.Common.UiElementModifier {
+
+    declare var Xpotify: any;
+
     export function createPageTitle(): string {
         try {
             var body = <HTMLElement>document.getElementsByTagName('body')[0];
@@ -35,21 +38,41 @@ namespace XpotifyScript.Common.UiElementModifier {
     export function createNavBarButtons(): string {
         try {
             var pinToStartButton = document.createElement('div');
-            pinToStartButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifypintostart-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#xpotifypintostart">'
+            pinToStartButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifypintostart-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE718;</span></div>'
                 + '<span class="navbar-link__text">Pin this page to Start</span></div></a></div>';
+            pinToStartButton.querySelector('a').onclick = function () {
+                Xpotify.pinToStart();
+                return false;
+            };
+
             var settingsButton = document.createElement('div');
-            settingsButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#xpotifysettings">'
+            settingsButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE115;</span></div>'
                 + '<span class="navbar-link__text">Settings</span></div></a></div>';
+            settingsButton.querySelector('a').onclick = function () {
+                Xpotify.openSettings();
+                return false;
+            };
+
             var aboutButton = document.createElement('div');
-            aboutButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#xpotifyabout">'
+            aboutButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE946;</span></div>'
                 + '<span class="navbar-link__text">About</span></div></a></div>';
+            aboutButton.querySelector('a').onclick = function () {
+                Xpotify.openAbout();
+                return false;
+            };
+
             var donateButton = document.createElement('div');
-            donateButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#xpotifydonate">'
+            donateButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE719;</span></div>'
                 + '<span class="navbar-link__text">Donate</span></div></a></div>';
+            donateButton.querySelector('a').onclick = function () {
+                Xpotify.openDonate();
+                return false;
+            };
+
             UiInjector.injectNavbarDownButton(pinToStartButton);
             UiInjector.injectNavbarDownButton(settingsButton);
             //UiInjector.injectNavbarDownButton(aboutButton);
@@ -68,11 +91,15 @@ namespace XpotifyScript.Common.UiElementModifier {
             var compactOverlayButton = document.createElement('div');
             compactOverlayButton.classList.add("CompactOverlayButton");
             compactOverlayButton.classList.add("CompactOverlayButton-disabled");
-            compactOverlayButton.innerHTML = '<a style="border-bottom: 0px;" href="#xpotifyCompactOverlay"><button title="Mini view" class="control-button">'
+            compactOverlayButton.innerHTML = '<a style="border-bottom: 0px;" href="#"><button title="Mini view" class="control-button">'
                 + '<div style="font-family: Segoe MDL2 Assets; position:relative; cursor: default;">'
                 + '<div style="left: 6px; top: -3px; font-size: 19px; position: absolute;">&#xE7FB;</div>'
                 + '<div style="left: 12px; top: -6px; font-size: 9px; position: absolute;">&#xEB9F;</div>'
                 + '</div></button></a>';
+            compactOverlayButton.querySelector('a').onclick = function () {
+                Xpotify.openMiniView();
+                return false;
+            };
             UiInjector.injectNowPlayingRightButton(compactOverlayButton);
         }
         catch (ex) {
@@ -86,9 +113,13 @@ namespace XpotifyScript.Common.UiElementModifier {
             var nowPlayingButton = document.createElement('div');
             nowPlayingButton.innerHTML = '<li class="navBar-group"><div class="GlueDropTarget">'
                 + '<div class="navBar-item navBar-item--with-icon-left nowPlaying-navBar-item nowPlaying-navBar-item-disabled">'
-                + '<a class="link-subtle navBar-link ellipsis-one-line" aria-label="Now Playing" href="#xpotifyNowPlaying"><div class="navBar-link-text-with-icon-wrapper">'
+                + '<a class="link-subtle navBar-link ellipsis-one-line" aria-label="Now Playing" href="#"><div class="navBar-link-text-with-icon-wrapper">'
                 + '<div class="icon NavBar__icon nowPlaying-icon"></div>'
                 + '<span class="navbar-link__text">Now Playing</span></div></a></div></div></li>';
+            nowPlayingButton.querySelector('a').onclick = function () {
+                Xpotify.openNowPlaying();
+                return false;
+            };
             UiInjector.injectNowPlayingNavBarButton(nowPlayingButton);
         }
         catch (ex) {

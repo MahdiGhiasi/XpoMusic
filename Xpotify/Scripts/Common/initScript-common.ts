@@ -9,6 +9,7 @@
 /// <reference path="statusReport.ts" />
 /// <reference path="action.ts" />
 /// <reference path="pageTitleFinder.ts" />
+/// <reference path="keyboardShortcutListener.ts" />
 
 namespace XpotifyScript.Common {
 
