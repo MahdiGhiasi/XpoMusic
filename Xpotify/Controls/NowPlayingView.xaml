@@ -159,8 +159,7 @@
                         <Setter Target="albumArtContainer.Margin" Value="36,0,12,0" />
                         <Setter Target="smallOptionsButton.Visibility" Value="Collapsed" />
                         <Setter Target="xpotifyLogo.Margin" Value="6,0,0,6" />
-                        <Setter Target="nextTrackLoadingProgressRing.Width" Value="64" />
-                        <Setter Target="nextTrackLoadingProgressRing.Height" Value="64" />
+                        <Setter Target="nextTrackLoadingProgressRing.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -193,8 +192,7 @@
                         <Setter Target="albumArtContainer.Margin" Value="24,0,12,0" />
                         <Setter Target="smallOptionsButton.Visibility" Value="Collapsed" />
                         <Setter Target="xpotifyLogo.Margin" Value="6,0,0,6" />
-                        <Setter Target="nextTrackLoadingProgressRing.Width" Value="48" />
-                        <Setter Target="nextTrackLoadingProgressRing.Height" Value="48" />
+                        <Setter Target="nextTrackLoadingProgressRing.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -394,6 +392,7 @@
                     </RelativePanel>
                 </Grid>
                 <Grid x:Name="musicSliderContainer"
+                      Height="40"
                       Visibility="Collapsed"
                       Margin="24,12,24,0">
                     <Grid.ColumnDefinitions>
@@ -402,19 +401,29 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" 
-                                Text="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay, Converter={StaticResource MillisecondsToMinSecConverter}}"
-                                VerticalAlignment="Center" />
+                               Text="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay, Converter={StaticResource MillisecondsToMinSecConverter}}"
+                               Visibility="{x:Bind ViewModel.ProgressRingActive, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Reverse}"
+                               VerticalAlignment="Center" />
                     <xpotifycontrols:SliderExtended Grid.Column="1"
+                                                    VerticalAlignment="Center"
                                                     KeyboardStepFrequency="10000"
                                                     ContinousUpdateWhileDragging="False"
                                                     ThumbToolTipValueConverter="{StaticResource MillisecondsToMinSecConverter}"
                                                     Value2="{x:Bind ViewModel.ProgressBarValue, Mode=OneWay}"
                                                     Maximum="{x:Bind ViewModel.ProgressBarMaximum, Mode=OneWay}"
                                                     Margin="12,4,12,0"
+                                                    Visibility="{x:Bind ViewModel.ProgressRingActive, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Reverse}"
                                                     ValueChangedByUserManipulation="PlaybackSlider_ValueChangedByUserManipulation"/>
+                    <ProgressBar Grid.Column="1" 
+                                 VerticalAlignment="Center"
+                                 Margin="12,4,12,0"
+                                 IsIndeterminate="True"
+                                 Foreground="White"
+                                 Visibility="{x:Bind ViewModel.ProgressRingActive, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <TextBlock Grid.Column="2" 
-                                Text="{x:Bind ViewModel.ProgressBarMaximum, Mode=OneWay, Converter={StaticResource MillisecondsToMinSecConverter}}"
-                                VerticalAlignment="Center" />
+                               Text="{x:Bind ViewModel.ProgressBarMaximum, Mode=OneWay, Converter={StaticResource MillisecondsToMinSecConverter}}"
+                               Visibility="{x:Bind ViewModel.ProgressRingActive, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=Reverse}"
+                               VerticalAlignment="Center" />
                 </Grid>
                 <Grid x:Name="largeButtonsContainer" 
                       Visibility="Collapsed"

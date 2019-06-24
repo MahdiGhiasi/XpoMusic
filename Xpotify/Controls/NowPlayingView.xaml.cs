@@ -470,9 +470,9 @@ namespace Xpotify.Controls
             animationState = AnimationState.HiddenToRightSide;
             spinnerShowTime = DateTime.UtcNow;
 
-            await hideToRightStoryboard.RunAsync();
-            
             ViewModel.ProgressRingActive = true;
+
+            await hideToRightStoryboard.RunAsync();
         }
 
         private async void HideToLeftAnimation()
@@ -480,9 +480,9 @@ namespace Xpotify.Controls
             animationState = AnimationState.HiddenToLeftSide;
             spinnerShowTime = DateTime.UtcNow;
 
-            await hideToLeftStoryboard.RunAsync();
-
             ViewModel.ProgressRingActive = true;
+
+            await hideToLeftStoryboard.RunAsync();
         }
 
         public void PlayChangeTrackAnimation(bool reverse)
