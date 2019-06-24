@@ -139,8 +139,8 @@ namespace XpotifyScript.Common.KeyboardShortcutListener {
             // Ctrl+V -> Paste
             Xpotify.navigateToClipboardUri();
 
-        } else if (e.which == 46) {
-            // Delete key -> Delete
+        //} else if (e.which == 46) {
+        // Delete key -> Delete
 
         } else if (e.which == ' '.charCodeAt(0)) {
             // Space -> Play/pause
@@ -181,9 +181,8 @@ namespace XpotifyScript.Common.KeyboardShortcutListener {
             // Ctrl+L -> Search
             Action.navigateToPage("/search");
 
-        } else if (e.ctrlKey && e.which == 'F'.charCodeAt(0)) {
-            // Ctrl+F -> Filter (in Songs and Playlists) -- not present at the moment
-            shouldPreventDefault = false;
+        //} else if (e.ctrlKey && e.which == 'F'.charCodeAt(0)) {
+        // Ctrl+F -> Filter (in Songs and Playlists) -- not present at the moment
 
         } else if (e.altKey && e.which == 37) {
             // Alt+ArrowLeft -> Go back
