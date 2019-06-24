@@ -6,6 +6,7 @@ using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Xpotify.Classes;
 using Xpotify.Classes.Model;
@@ -227,6 +228,7 @@ namespace Xpotify.Controls
                 {
                     SetInitialPlaybackState();
                     PlayStatusTracker.StartRegularRefresh();
+                    await FocusManager.TryFocusAsync(mainWebView, FocusState.Programmatic);
                 }
 
                 if (AutoPlayAction != AutoPlayAction.None)

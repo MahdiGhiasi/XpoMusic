@@ -33,6 +33,12 @@
         return "0";
     }
 
+    export function playPause() {
+        if (play() === '0') {
+            pause();
+        }
+    }
+
 
     export function prevTrack() {
         var prevButton = document.querySelectorAll(".Root__now-playing-bar .now-playing-bar__center .spoticon-skip-back-16");

@@ -164,6 +164,14 @@ namespace Xpotify.Helpers
             return result;
         }
 
+        public async Task<bool> PlayPause()
+        {
+            var script = "window.XpotifyScript.Common.Action.playPause();";
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+
+            return (result == "1");
+        }
+
         public async Task<bool> Play()
         {
             var script = "window.XpotifyScript.Common.Action.play();";
@@ -219,6 +227,16 @@ namespace Xpotify.Helpers
         {
             var script = $"window.XpotifyScript.Common.Action.seekVolume({percentage});";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+        }
+
+        internal async Task<bool> OnKeyDown(int charCode, bool shiftPressed, bool ctrlPressed, bool altPressed)
+        {
+            var script = $"window.XpotifyScript.Common.KeyboardShortcutListener.keyDownExternalCall" +
+                $"({charCode}, {shiftPressed.ToString().ToLower()}, {ctrlPressed.ToString().ToLower()}, " +
+                $"{altPressed.ToString().ToLower()});";
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            logger.Info(result);
+            return result == "1";
         }
     }
 }

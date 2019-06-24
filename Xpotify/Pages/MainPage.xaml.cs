@@ -18,6 +18,8 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Xpotify.Controls;
 using static Xpotify.Helpers.MediaControlsHelper.TrackChangedEventArgs;
+using Windows.System;
+using Windows.UI.Xaml.Input;
 
 namespace Xpotify.Pages
 {
@@ -189,6 +191,60 @@ namespace Xpotify.Pages
             LyricsViewerIntegrationHelper.InitIntegration();
             LiveTileHelper.InitLiveTileUpdates();
             JumpListHelper.DeleteRecentJumplistEntries();
+
+            // Window.Current.CoreWindow.KeyDown does not capture Alt events, but AcceleratorKeyActivated does.
+            // NOTE: This event captures all key events, even when WebView is focused.
+            CoreWindow.GetForCurrentThread().Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
+        }
+
+        private async void Dispatcher_AcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs e)
+        {
+            if (e.EventType == CoreAcceleratorKeyEventType.KeyDown || e.EventType == CoreAcceleratorKeyEventType.SystemKeyDown)
+            {
+                // We won't process the event if the currently focused element is WebView,
+                // as the web app can handle keyboard shortcuts itself.
+                if (FocusManager.GetFocusedElement().GetType() == typeof(WebView))
+                    return;
+
+                var shiftState = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Shift);
+                var shiftPressed = (shiftState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+
+                var ctrlState = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Control);
+                var ctrlPressed = (ctrlState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+
+                var altState = CoreWindow.GetForCurrentThread().GetKeyState(VirtualKey.Menu);
+                var altPressed = (altState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
+
+                logger.Info(e.VirtualKey);
+                var isHandled = await KeyboardShortcutHelper.KeyDown(e.VirtualKey, shiftPressed, ctrlPressed, altPressed, xpotifyWebView.Controller, nowPlaying);
+                if (isHandled == KeyboardShortcutHelper.KeyDownProcessResult.AskJs)
+                {
+                    logger.Info("Sending it to js...");
+                    int charCode = (int)e.VirtualKey;
+                    var handledByJs = await xpotifyWebView.Controller.OnKeyDown(charCode, shiftPressed, ctrlPressed, altPressed);
+                    if (handledByJs)
+                    {
+                        if (nowPlaying.IsOpen)
+                        {
+                            if (nowPlaying.ViewMode == NowPlayingView.NowPlayingViewMode.CompactOverlay)
+                                CloseCompactOverlay();
+                            else
+                                CloseNowPlaying();
+                        }
+                    }
+                }
+                else if (isHandled == KeyboardShortcutHelper.KeyDownProcessResult.GoBack)
+                {
+                    if (nowPlaying.IsOpen)
+                    {
+                        if (nowPlaying.ViewMode == NowPlayingView.NowPlayingViewMode.CompactOverlay)
+                            CloseCompactOverlay();
+                        else
+                            CloseNowPlaying();
+                    }
+                }
+            }
+            
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)

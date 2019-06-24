@@ -114,13 +114,23 @@ namespace XpotifyScript.Common.KeyboardShortcutListener {
         scrollIntoViewEx(selectedElement);
     }
 
-    function onKeyDown(e: KeyboardEvent) {
+    export function keyDownExternalCall(charCode, shiftPressed, ctrlPressed, altPressed): boolean {
+        // @ts-ignore
+        return processKeyDown({
+            which: charCode,
+            altKey: altPressed,
+            shiftKey: shiftPressed,
+            ctrlKey: ctrlPressed,
+        }) ? "1" : "0";
+    }
+
+    function processKeyDown(e: KeyboardEvent): boolean {
         // Ignore if focus is on a textbox and the selected key is anything other than arrow up/down keys
         var isInputFocused = document.activeElement.tagName.toLowerCase() === "input";
         if (isInputFocused && e.which != 38 && e.which != 40 && !e.ctrlKey && !e.altKey)
             return;
 
-        var shouldPreventDefault = true;
+        var shortcutKeyProcessed = true;
 
         // Spotify style shortcuts
         if (e.ctrlKey && e.which == 'N'.charCodeAt(0)) {
@@ -139,8 +149,8 @@ namespace XpotifyScript.Common.KeyboardShortcutListener {
             // Ctrl+V -> Paste
             Xpotify.navigateToClipboardUri();
 
-        //} else if (e.which == 46) {
-        // Delete key -> Delete
+            //} else if (e.which == 46) {
+            // Delete key -> Delete
 
         } else if (e.which == ' '.charCodeAt(0)) {
             // Space -> Play/pause
@@ -181,8 +191,8 @@ namespace XpotifyScript.Common.KeyboardShortcutListener {
             // Ctrl+L -> Search
             Action.navigateToPage("/search");
 
-        //} else if (e.ctrlKey && e.which == 'F'.charCodeAt(0)) {
-        // Ctrl+F -> Filter (in Songs and Playlists) -- not present at the moment
+            //} else if (e.ctrlKey && e.which == 'F'.charCodeAt(0)) {
+            // Ctrl+F -> Filter (in Songs and Playlists) -- not present at the moment
 
         } else if (e.altKey && e.which == 37) {
             // Alt+ArrowLeft -> Go back
@@ -217,7 +227,7 @@ namespace XpotifyScript.Common.KeyboardShortcutListener {
             // Ctrl+M -> Go to mini view
             Xpotify.openMiniView();
 
-        } else if (e.ctrlKey && e.which == ','.charCodeAt(0)) {
+        } else if (e.ctrlKey && e.which == 188) {
             // Ctrl+, -> Go to now playing
             Xpotify.openNowPlaying();
 
@@ -225,27 +235,33 @@ namespace XpotifyScript.Common.KeyboardShortcutListener {
             // Ctrl+Q -> Open playing queue
             Action.navigateToPage("/queue");
 
-        } else if (e.altKey && e.which == '1'.charCodeAt(0)) {
+        } else if (e.altKey && (e.which == '1'.charCodeAt(0) || e.which == 97)) {
             // Alt+1 -> Home
             Action.navigateToPage("/browse");
 
-        } else if (e.altKey && e.which == '2'.charCodeAt(0)) {
+        } else if (e.altKey && (e.which == '2'.charCodeAt(0) || e.which == 98)) {
             // Alt+2 -> Search
             Action.navigateToPage("/search");
 
-        } else if (e.altKey && e.which == '3'.charCodeAt(0)) {
+        } else if (e.altKey && (e.which == '3'.charCodeAt(0) || e.which == 99)) {
             // Alt+3 -> Your Library
             Action.navigateToPage("/collection");
 
-        } else if (e.altKey && e.which == '4'.charCodeAt(0)) {
+        } else if (e.altKey && (e.which == '4'.charCodeAt(0) || e.which == 100)) {
             // Alt+4 -> Now Playing
             Xpotify.openNowPlaying();
 
         } else {
-            shouldPreventDefault = false;
+            shortcutKeyProcessed = false;
         }
 
-        if (shouldPreventDefault) {
+        return shortcutKeyProcessed;
+    }
+
+    function onKeyDown(e: KeyboardEvent) {
+        var shortcutKeyProcessed = processKeyDown(e);
+
+        if (shortcutKeyProcessed) {
             e.preventDefault();
             return false;
         }
