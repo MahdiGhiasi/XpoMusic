@@ -544,6 +544,14 @@ namespace Xpotify.Controls
 
         private async void MiniViewButton_Click(object sender, RoutedEventArgs e)
         {
+            await SwitchToMiniView();
+        }
+
+        public async Task SwitchToMiniView()
+        {
+            if (ViewMode == NowPlayingViewMode.CompactOverlay)
+                return;
+
             var viewMode = ViewModePreferences.CreateDefault(ApplicationViewMode.CompactOverlay);
             viewMode.ViewSizePreference = ViewSizePreference.Custom;
             viewMode.CustomSize = LocalConfiguration.CompactOverlaySize;

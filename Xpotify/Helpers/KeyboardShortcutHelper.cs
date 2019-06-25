@@ -72,6 +72,10 @@ namespace Xpotify.Helpers
                 // Back
                 return KeyDownProcessResult.GoBack;
             }
+            else if (key == VirtualKey.M && ctrlPressed && nowPlaying.IsOpen && nowPlaying.ViewMode == Controls.NowPlayingView.NowPlayingViewMode.Normal)
+            {
+                await nowPlaying.SwitchToMiniView();
+            }
             else if (key == VirtualKey.Left || key == VirtualKey.Right || key == VirtualKey.Up || key == VirtualKey.Down)
             {
                 // Do nothing, but don't switch out of now playing either.
