@@ -32,6 +32,8 @@ namespace Xpotify.Pages
         private DeveloperMessage developerMessage = null;
         private bool isNowPlayingEnabled = false;
 
+        private DispatcherTimer analyticsHeartbeatTimer;
+
         private readonly string _playQueueUri = "https://open.spotify.com/queue";
 
         public MainPage()
@@ -46,9 +48,24 @@ namespace Xpotify.Pages
             };
             silentMediaPlayer.CommandManager.IsEnabled = false;
 
+            analyticsHeartbeatTimer = new DispatcherTimer()
+            {
+                Interval = TimeSpan.FromMinutes(15),
+            };
+            analyticsHeartbeatTimer.Tick += AnalyticsHeartbeatTimer_Tick;
+
             xpotifyWebView.RequestedTheme = (ThemeHelper.GetCurrentTheme() == Theme.Light) ? ElementTheme.Light : ElementTheme.Dark;
 
             VisualStateManager.GoToState(this, nameof(SplashScreenVisualState), false);
+        }
+
+        private void AnalyticsHeartbeatTimer_Tick(object sender, object e)
+        {
+            if (!AppConstants.Instance.HeartbeatEnabled)
+                return;
+
+            // Keep the session alive in analytics
+            AnalyticsHelper.Log("Heartbeat", "Heartbeat");
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

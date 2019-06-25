@@ -46,6 +46,9 @@ namespace Xpotify.Classes
             }
         }
 
+        [JsonProperty]
+        public bool HeartbeatEnabled { get; private set; } = true;
+
         public static async void Update()
         {
             try
