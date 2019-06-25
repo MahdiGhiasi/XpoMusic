@@ -228,7 +228,7 @@ namespace Xpotify.Controls
                 {
                     SetInitialPlaybackState();
                     PlayStatusTracker.StartRegularRefresh();
-                    await FocusManager.TryFocusAsync(mainWebView, FocusState.Programmatic);
+                    SetFocusToWebView();
                 }
 
                 if (AutoPlayAction != AutoPlayAction.None)
@@ -250,6 +250,11 @@ namespace Xpotify.Controls
                 Authorize("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F", clearExisting: true);
                 AnalyticsHelper.Log("mainEvent", "notLoggedIn");
             }
+        }
+
+        public async void SetFocusToWebView()
+        {
+            await FocusManager.TryFocusAsync(mainWebView, FocusState.Programmatic);
         }
 
         private async void AutoPlayOnStartup(AutoPlayAction autoPlayAction)

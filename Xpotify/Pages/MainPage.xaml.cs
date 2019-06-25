@@ -381,6 +381,8 @@ namespace Xpotify.Pages
             topBar.InitTitleBar();
 
             AnalyticsHelper.PageView("MainPage");
+
+            GetBackFocusToWebView();
         }
 
         private async void CloseNowPlaying()
@@ -393,6 +395,14 @@ namespace Xpotify.Pages
             VisualStateManager.GoToState(this, nameof(MainScreenVisualState), false);
 
             AnalyticsHelper.PageView("MainPage");
+
+            GetBackFocusToWebView();
+        }
+
+        private async void GetBackFocusToWebView()
+        {
+            await Task.Delay(200);
+            xpotifyWebView.SetFocusToWebView();
         }
 
         private void XpotifyWebView_PageLoaded(object sender, EventArgs e)
