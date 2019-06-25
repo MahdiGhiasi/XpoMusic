@@ -1,7 +1,7 @@
 ﻿/// <reference path="uiElementModifier.ts" />
 /// <reference path="dragDrop.ts" />
-/// <reference path="vibrant.ts" />
-/// <reference path="focus-visible.ts" />
+/// <reference path="../Lib/vibrant.ts" />
+/// <reference path="../Lib/focus-visible.ts" />
 /// <reference path="color.ts" />
 /// <reference path="browserHistory.ts" />
 /// <reference path="resize.ts" />
@@ -39,7 +39,7 @@ namespace XpotifyScript.Common {
         errors += initNowPlayingBarCheck();
         setInitialPageHash();
         initOnResizeCheck();
-        Common.Lib.FocusVisible.init();
+        Lib.FocusVisible.init();
         KeyboardShortcutListener.init();
         RequestIntercepter.startInterceptingFetch();
         StatusReport.initRegularStatusReport();
@@ -81,7 +81,7 @@ namespace XpotifyScript.Common {
     function initNowPlayingBarCheck() {
         // Check and set now playing bar background color when now playing album art changes
         try {
-            Common.Lib.Vibrant.init();
+            Lib.Vibrant.init();
             
             setInterval(function () {
                 try {

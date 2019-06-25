@@ -214,14 +214,14 @@
     <TypeScriptCompile Include="Scripts\Common\browserHistory.ts" />
     <TypeScriptCompile Include="Scripts\Common\color.ts" />
     <TypeScriptCompile Include="Scripts\Common\dragDrop.ts" />
-    <TypeScriptCompile Include="Scripts\Common\focus-visible.ts" />
+    <TypeScriptCompile Include="Scripts\Lib\focus-visible.ts" />
     <TypeScriptCompile Include="Scripts\Common\indeterminateProgressBarHandler.ts" />
     <TypeScriptCompile Include="Scripts\Common\keyboardShortcutListener.ts" />
     <TypeScriptCompile Include="Scripts\Common\pageTitleFinder.ts" />
     <TypeScriptCompile Include="Scripts\Common\requestIntercepter.ts" />
     <TypeScriptCompile Include="Scripts\Common\startupAnimation.ts" />
     <TypeScriptCompile Include="Scripts\Common\statusReport.ts" />
-    <TypeScriptCompile Include="Scripts\Common\vibrant.ts" />
+    <TypeScriptCompile Include="Scripts\Lib\vibrant.ts" />
     <TypeScriptCompile Include="Scripts\Common\resize.ts" />
     <TypeScriptCompile Include="Scripts\Common\uriHelper.ts" />
     <TypeScriptCompile Include="Scripts\Common\uiElementModifier.ts" />
