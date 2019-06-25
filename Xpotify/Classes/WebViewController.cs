@@ -10,6 +10,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using Newtonsoft.Json;
+using Windows.UI.Popups;
 
 namespace Xpotify.Helpers
 {
@@ -18,6 +19,8 @@ namespace Xpotify.Helpers
         private NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
         public const string SpotifyPwaUrlBeginsWith = "https://open.spotify.com";
+
+        public string LastInitErrors { get; internal set; } = "";
 
         private WebView mainWebView;
 
@@ -56,7 +59,34 @@ namespace Xpotify.Helpers
                     .Replace("{{XPOTIFYCSSBASE64CONTENT}}", Convert.ToBase64String(Encoding.UTF8.GetBytes(styleCss)))
                     .Replace("{{XPOTIFYISPROVERSION}}", PackageHelper.IsProVersion ? "1" : "0");
 
-                await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+                try
+                {
+                    await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+                }
+                catch (Exception ex)
+                {
+                    logger.Warn("InjectInitScript failed: " + ex.ToString());
+                    AnalyticsHelper.Log("injectException", ex.Message, $"{LastInitErrors}\n{ex}");
+
+                    if (ex.ToString().Contains("80020101"))
+                    {
+                        MessageDialog md = new MessageDialog(
+                            content: $"Error details:\r\n\r\n{LastInitErrors}\r\n{ex}", 
+                            title: "There was a problem while initializing Xpotify. Some features might not work properly.");
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                        md.ShowAsync();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                    }
+                    else
+                    {
+                        MessageDialog md = new MessageDialog(
+                            content: ex.ToString(),
+                            title: "Xpotify initialization failed. Some features might not work properly.");
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                        md.ShowAsync();
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                    }
+                }
 
                 return true;
             }

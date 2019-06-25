@@ -10,6 +10,13 @@ namespace XpotifyScript {
     errors += Common.init();
     errors += Light.PageOverlay.createPageOverlay();
 
-    if (errors.length > 0)
+    if (errors.length > 0) {
+        try {
+            // @ts-ignore
+            Xpotify.initFailed(errors);
+        }
+        catch (ex) { }
+
         throw errors;
+    }
 }

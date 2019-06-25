@@ -87,6 +87,7 @@ namespace Xpotify.Controls
             xpotifyWebAgent.ProgressBarCommandReceived += XpotifyWebAgent_ProgressBarCommandReceived;
             xpotifyWebAgent.StatusReportReceived += XpotifyWebAgent_StatusReportReceived;
             xpotifyWebAgent.ActionRequested += XpotifyWebAgent_ActionRequested;
+            xpotifyWebAgent.InitializationFailed += XpotifyWebAgent_InitializationFailed;
 
             webViewCheckTimer = new DispatcherTimer
             {
@@ -103,6 +104,13 @@ namespace Xpotify.Controls
             stuckDetectTimer.Start();
 
             VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
+        }
+
+        private void XpotifyWebAgent_InitializationFailed(object sender, InitFailedEventArgs e)
+        {
+            Controller.LastInitErrors = e.Errors;
+            logger.Warn("WebAgent: InitFailed :: " + e.Errors);
+            AnalyticsHelper.Log("webAgentInitFailed", e.Errors);
         }
 
         private async void XpotifyWebAgent_ActionRequested(object sender, XpotifyWebAgent.Model.ActionRequestedEventArgs e)

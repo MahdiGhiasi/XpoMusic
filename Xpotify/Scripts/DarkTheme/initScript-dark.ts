@@ -8,6 +8,13 @@ namespace XpotifyScript {
 
     errors += Common.init();
 
-    if (errors.length > 0)
+    if (errors.length > 0) {
+        try {
+            // @ts-ignore
+            Xpotify.initFailed(errors);
+        }
+        catch (ex) { }
+
         throw errors;
+    }
 }

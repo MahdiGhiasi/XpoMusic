@@ -19,6 +19,7 @@ namespace XpotifyWebAgent
         public event EventHandler<ProgressBarCommandEventArgs> ProgressBarCommandReceived;
         public event EventHandler<StatusReportReceivedEventArgs> StatusReportReceived;
         public event EventHandler<ActionRequestedEventArgs> ActionRequested;
+        public event EventHandler<InitFailedEventArgs> InitializationFailed;
 
         public void ShowProgressBar(double left, double top, double width)
         {
@@ -100,6 +101,14 @@ namespace XpotifyWebAgent
             ActionRequested?.Invoke(this, new ActionRequestedEventArgs
             {
                 Action = Model.Action.NavigateToClipboardUri,
+            });
+        }
+
+        public void InitFailed(string errors)
+        {
+            InitializationFailed?.Invoke(this, new InitFailedEventArgs
+            {
+                Errors = errors,
             });
         }
     }

@@ -122,6 +122,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Model\ActionRequestedEventArgs.cs" />
+    <Compile Include="Model\InitFailedEventArgs.cs" />
     <Compile Include="Model\NowPlayingData.cs" />
     <Compile Include="Model\ProgressBarCommandEventArgs.cs" />
     <Compile Include="Model\StatusReportReceivedEventArgs.cs" />
