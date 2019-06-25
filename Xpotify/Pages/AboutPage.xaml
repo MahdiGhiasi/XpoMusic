@@ -72,6 +72,8 @@
 
                     <HyperlinkButton Content="Follow @Xpotify on Twitter"
                                      Click="TwitterButton_Click"/>
+                    <HyperlinkButton Content="Browse source code on GitHub"
+                                     Click="GitHubButton_Click"/>
                     <HyperlinkButton Content="Rate and review"
                                      Click="RateAndReviewButton_Click"/>
                     <HyperlinkButton Content="Send feedback"

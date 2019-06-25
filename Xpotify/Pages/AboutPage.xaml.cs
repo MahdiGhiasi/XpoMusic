@@ -25,6 +25,7 @@ namespace Xpotify.Pages
     {
         private const string supportEmailAddress = "xpotifyapp@gmail.com";
         private readonly Uri twitterPageUri = new Uri("https://twitter.com/Xpotify");
+        private readonly Uri githubPageUri = new Uri("https://github.com/MahdiGhiasi/Xpotify");
         private readonly Uri privacyPolicyPageUri = new Uri("https://ghiasi.net/xpotify/privacy.html");
 
         public AboutPage()
@@ -107,6 +108,11 @@ namespace Xpotify.Pages
         private async void TwitterButton_Click(object sender, RoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(twitterPageUri);
+        }
+
+        private async void GitHubButton_Click(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(githubPageUri);
         }
     }
 }
