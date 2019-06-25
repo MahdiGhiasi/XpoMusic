@@ -18,7 +18,7 @@
                                 To="#D1D3D3"
                                 Duration="0:0:1">
                     <ColorAnimation.EasingFunction>
-                        <ExponentialEase />
+                        <ExponentialEase EasingMode="EaseInOut" />
                     </ColorAnimation.EasingFunction>
                 </ColorAnimation>
                 <ColorAnimation Storyboard.TargetName="splashProgressRing"
@@ -26,7 +26,7 @@
                                 To="Black"
                                 Duration="0:0:1">
                     <ColorAnimation.EasingFunction>
-                        <ExponentialEase />
+                        <ExponentialEase EasingMode="EaseInOut" />
                     </ColorAnimation.EasingFunction>
                 </ColorAnimation>
             </Storyboard>
