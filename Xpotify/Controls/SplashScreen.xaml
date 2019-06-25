@@ -16,7 +16,7 @@
                 <ColorAnimation Storyboard.TargetName="splashScreen"
                                 Storyboard.TargetProperty="(Control.Background).(SolidColorBrush.Color)"
                                 To="#D1D3D3"
-                                Duration="0:0:1">
+                                Duration="0:0:0.6">
                     <ColorAnimation.EasingFunction>
                         <ExponentialEase EasingMode="EaseInOut" />
                     </ColorAnimation.EasingFunction>
@@ -24,7 +24,7 @@
                 <ColorAnimation Storyboard.TargetName="splashProgressRing"
                                 Storyboard.TargetProperty="(Control.Foreground).(SolidColorBrush.Color)"
                                 To="Black"
-                                Duration="0:0:1">
+                                Duration="0:0:0.6">
                     <ColorAnimation.EasingFunction>
                         <ExponentialEase EasingMode="EaseInOut" />
                     </ColorAnimation.EasingFunction>
@@ -48,24 +48,24 @@
                     <Storyboard>
                         <DoubleAnimation Storyboard.TargetName="extendedSplashImage" 
                                          Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
-                                         BeginTime="0:0:0.5"
-                                         Duration="0:0:0.4" To="3">
+                                         BeginTime="0:0:0.6"
+                                         Duration="0:0:0.3" To="5">
                             <DoubleAnimation.EasingFunction>
                                 <ExponentialEase EasingMode="EaseOut" />
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
                         <DoubleAnimation Storyboard.TargetName="extendedSplashImage" 
                                          Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
-                                         BeginTime="0:0:0.5"
-                                         Duration="0:0:0.4" To="3">
+                                         BeginTime="0:0:0.6"
+                                         Duration="0:0:0.3" To="5">
                             <DoubleAnimation.EasingFunction>
                                 <ExponentialEase EasingMode="EaseOut" />
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
                         <DoubleAnimation Storyboard.TargetName="splashScreen" 
                                          Storyboard.TargetProperty="Opacity"
-                                         BeginTime="0:0:0.5"
-                                         Duration="0:0:0.4" To="0">
+                                         BeginTime="0:0:0.6"
+                                         Duration="0:0:0.3" To="0">
                             <DoubleAnimation.EasingFunction>
                                 <ExponentialEase EasingMode="EaseOut" />
                             </DoubleAnimation.EasingFunction>
