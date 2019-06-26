@@ -48,9 +48,8 @@ namespace Xpotify.Helpers
 #if !DEBUG
             StoreCustomEventLogger.Log(eventName + " : " + action);
             GoogleAnalyticsTracker.Send(HitBuilder.CreateCustomEvent(eventName, action).Build());
-
-            logger.Info($"Analytics event '{eventName} : {action}' fired.");
 #endif
+            logger.Info($"Analytics event '{eventName} : {action}' fired.");
         }
 
         public static void Log(string eventName, string action, string label)
@@ -58,9 +57,8 @@ namespace Xpotify.Helpers
 #if !DEBUG
             StoreCustomEventLogger.Log(eventName + " : " + action + " : " + label);
             GoogleAnalyticsTracker.Send(HitBuilder.CreateCustomEvent(eventName, action, label).Build());
-
-            logger.Info($"Analytics event '{eventName} : {action} : {label}' fired.");
 #endif
+            logger.Info($"Analytics event '{eventName} : {action} : {label}' fired.");
         }
 
         internal static void PageView(string pageName, bool setNewSession = false)
@@ -70,9 +68,8 @@ namespace Xpotify.Helpers
                 GoogleAnalyticsTracker.Send(HitBuilder.CreateScreenView(pageName).SetNewSession().Build());
             else
                 GoogleAnalyticsTracker.Send(HitBuilder.CreateScreenView(pageName).Build());
-
-            logger.Info($"PageView '{pageName}' fired.");
 #endif
+            logger.Info($"PageView '{pageName}' fired.");
         }
     }
 }
