@@ -68,10 +68,6 @@ namespace Xpotify.Controls
         private Uri loadFailedUrl;
         private string webViewPreviousUri = "";
         private LocalStoragePlayback initialPlaybackState;
-        private DispatcherTimer webViewCheckTimer, stuckDetectTimer;
-        private string prevCurrentPlaying;
-        private int stuckDetectCounter = 0;
-        private DateTime lastStuckFixApiCall;
         private XpotifyWebAgent.XpotifyWebAgent xpotifyWebAgent;
 
         public XpotifyWebApp()
@@ -88,20 +84,6 @@ namespace Xpotify.Controls
             xpotifyWebAgent.StatusReportReceived += XpotifyWebAgent_StatusReportReceived;
             xpotifyWebAgent.ActionRequested += XpotifyWebAgent_ActionRequested;
             xpotifyWebAgent.InitializationFailed += XpotifyWebAgent_InitializationFailed;
-
-            webViewCheckTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(1),
-            };
-            webViewCheckTimer.Tick += WebViewCheckTimer_Tick;
-            webViewCheckTimer.Start();
-
-            stuckDetectTimer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(4),
-            };
-            stuckDetectTimer.Tick += StuckDetectTimer_Tick;
-            stuckDetectTimer.Start();
 
             VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
         }
@@ -392,97 +374,6 @@ namespace Xpotify.Controls
             {
                 logger.Warn("SetInitialPlaybackState failed: " + ex.ToString());
             }
-        }
-
-        private async void WebViewCheckTimer_Tick(object sender, object e)
-        {
-            // Ignore if not logged in
-            if (!TokenHelper.HasTokens())
-                return;
-
-            //try
-            //{
-            //    var statusReport = await Controller.StatusReport();
-
-            //    BackEnabled = statusReport.BackButtonEnabled;
-            //    PlayStatusTracker.LocalPlaybackDataReceived(statusReport.NowPlaying);
-            //}
-            //catch (Exception ex)
-            //{
-            //    logger.Warn("statusReport failed: " + ex.ToString());
-            //}
-        }
-
-        private async void StuckDetectTimer_Tick(object sender, object e)
-        {
-            // Ignore if not logged in
-            if (!TokenHelper.HasTokens())
-                return;
-
-            //try
-            //{
-            //    var isPlayingOnThisApp = await Controller.IsPlayingOnThisApp();
-            //    if (isPlayingOnThisApp)
-            //    {
-            //        var currentPlayTime = await Controller.GetCurrentSongPlayTime();
-
-            //        if (currentPlayTime == "0:00"
-            //            && PlayStatusTracker.LastPlayStatus.ProgressedMilliseconds > 5000
-            //            && PlayStatusTracker.LastPlayStatus.IsPlaying)
-            //        {
-            //            if (stuckDetectCounter < 2)
-            //            {
-            //                stuckDetectCounter++;
-            //            }
-            //            else
-            //            {
-            //                stuckDetectCounter = 0;
-            //                logger.Warn("Playback seems to have stuck.");
-
-            //                var result = false;
-
-            //                if ((DateTime.UtcNow - lastStuckFixApiCall) > TimeSpan.FromMinutes(1))
-            //                {
-            //                    lastStuckFixApiCall = DateTime.UtcNow;
-
-            //                    var player = new Player();
-            //                    result = await player.PreviousTrack();
-            //                }
-
-            //                if (result)
-            //                {
-            //                    AnalyticsHelper.Log("playbackStuck", "1");
-            //                    ToastHelper.SendDebugToast("PlaybackStuck1", "PrevTrack issued.");
-            //                    logger.Info("playbackStuck1");
-            //                }
-            //                else
-            //                {
-            //                    await Controller.NextTrack();
-            //                    await Task.Delay(1500);
-            //                    await Controller.PreviousTrack();
-            //                    await Task.Delay(1500);
-            //                    await Controller.PreviousTrack();
-
-            //                    AnalyticsHelper.Log("playbackStuck", "3");
-            //                    ToastHelper.SendDebugToast("PlaybackStuck3", "NextAndPrevAndPrevTrack issued.");
-            //                    logger.Info("playbackStuck3");
-            //                }
-            //            }
-            //        }
-            //        else
-            //        {
-            //            stuckDetectCounter = 0;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        stuckDetectCounter = 0;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    logger.Warn("checkCurrentSongPlayTime failed: " + ex.ToString());
-            //}
         }
     }
 }
