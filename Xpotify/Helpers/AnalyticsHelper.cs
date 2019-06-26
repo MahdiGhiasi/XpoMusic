@@ -63,10 +63,13 @@ namespace Xpotify.Helpers
 #endif
         }
 
-        internal static void PageView(string pageName)
+        internal static void PageView(string pageName, bool setNewSession = false)
         {
 #if !DEBUG
-            GoogleAnalyticsTracker.Send(HitBuilder.CreateScreenView(pageName).Build());
+            if (setNewSession)
+                GoogleAnalyticsTracker.Send(HitBuilder.CreateScreenView(pageName).SetNewSession().Build());
+            else
+                GoogleAnalyticsTracker.Send(HitBuilder.CreateScreenView(pageName).Build());
 
             logger.Info($"PageView '{pageName}' fired.");
 #endif

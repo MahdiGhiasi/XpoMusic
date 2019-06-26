@@ -208,7 +208,7 @@ namespace Xpotify.Pages
             if (WhatsNewHelper.ShouldShowWhatsNew())
                 shouldShowWhatsNew = true;
 
-            AnalyticsHelper.PageView("MainPage");
+            AnalyticsHelper.PageView("MainPage", setNewSession: true);
             AnalyticsHelper.Log("mainEvent", "appOpened", SystemInformation.OperatingSystemVersion.ToString());
             
             developerMessage = await DeveloperMessageHelper.GetNextDeveloperMessage();
