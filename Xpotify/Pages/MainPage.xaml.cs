@@ -264,6 +264,8 @@ namespace Xpotify.Pages
                     {
                         if (nowPlaying.ViewMode == NowPlayingView.NowPlayingViewMode.CompactOverlay)
                             CloseCompactOverlay();
+                        else if (ApplicationView.GetForCurrentView().IsFullScreenMode)
+                            nowPlaying.ToggleFullscreen();
                         else
                             CloseNowPlaying();
                     }

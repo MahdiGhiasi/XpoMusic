@@ -529,6 +529,11 @@ namespace Xpotify.Controls
 
         private void FullScreenButton_Click(object sender, RoutedEventArgs e)
         {
+            ToggleFullscreen();
+        }
+
+        public void ToggleFullscreen()
+        {
             var view = ApplicationView.GetForCurrentView();
             if (view.IsFullScreenMode)
             {
