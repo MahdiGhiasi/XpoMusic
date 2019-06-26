@@ -29,6 +29,8 @@ namespace Xpotify.Classes
 
         private AppConstants() { }
 
+        public event EventHandler ConstantsUpdated;
+
         [JsonProperty]
         public int PlayStatePollIntervalMilliseconds { get; private set; } = 10000;
 
@@ -49,6 +51,11 @@ namespace Xpotify.Classes
         [JsonProperty]
         public bool HeartbeatEnabled { get; private set; } = true;
 
+        [JsonProperty]
+        public int HeartbeatIntervalSeconds { get; private set; } = 60 * 15;
+
+        public TimeSpan HeartbeatInterval => TimeSpan.FromSeconds(HeartbeatIntervalSeconds);
+
         public static async void Update()
         {
             try
@@ -62,10 +69,12 @@ namespace Xpotify.Classes
                 }
 
                 JsonConvert.PopulateObject(updateString, Instance);
+                Instance.ConstantsUpdated?.Invoke(Instance, new EventArgs());
             }
             catch (Exception ex)
             {
                 logger.Warn("AppConstants.Update failed: " + ex.ToString());
+                AnalyticsHelper.Log("constantsFetchException", ex.Message, ex.ToString());
             }
         }
     }

@@ -50,13 +50,21 @@ namespace Xpotify.Pages
 
             analyticsHeartbeatTimer = new DispatcherTimer()
             {
-                Interval = TimeSpan.FromMinutes(15),
+                Interval = AppConstants.Instance.HeartbeatInterval,
             };
             analyticsHeartbeatTimer.Tick += AnalyticsHeartbeatTimer_Tick;
+            analyticsHeartbeatTimer.Start();
+
+            AppConstants.Instance.ConstantsUpdated += Instance_ConstantsUpdated;
 
             xpotifyWebView.RequestedTheme = (ThemeHelper.GetCurrentTheme() == Theme.Light) ? ElementTheme.Light : ElementTheme.Dark;
 
             VisualStateManager.GoToState(this, nameof(SplashScreenVisualState), false);
+        }
+
+        private void Instance_ConstantsUpdated(object sender, EventArgs e)
+        {
+            analyticsHeartbeatTimer.Interval = AppConstants.Instance.HeartbeatInterval;
         }
 
         private void AnalyticsHeartbeatTimer_Tick(object sender, object e)
