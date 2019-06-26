@@ -148,6 +148,7 @@
     <Compile Include="Helpers\KeyboardShortcutHelper.cs" />
     <Compile Include="Helpers\MediaControlsHelper.cs" />
     <Compile Include="Helpers\StoryboardExtensions.cs" />
+    <Compile Include="Helpers\StuckResolveHelper.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -214,6 +215,7 @@
     <TypeScriptCompile Include="Scripts\Common\browserHistory.ts" />
     <TypeScriptCompile Include="Scripts\Common\color.ts" />
     <TypeScriptCompile Include="Scripts\Common\dragDrop.ts" />
+    <TypeScriptCompile Include="Scripts\Common\playbackStuckHelper.ts" />
     <TypeScriptCompile Include="Scripts\Lib\focus-visible.ts" />
     <TypeScriptCompile Include="Scripts\Common\indeterminateProgressBarHandler.ts" />
     <TypeScriptCompile Include="Scripts\Common\keyboardShortcutListener.ts" />

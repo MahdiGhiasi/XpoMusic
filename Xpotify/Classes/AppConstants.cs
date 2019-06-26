@@ -56,6 +56,15 @@ namespace Xpotify.Classes
 
         public TimeSpan HeartbeatInterval => TimeSpan.FromSeconds(HeartbeatIntervalSeconds);
 
+        [JsonProperty]
+        public int StuckDetectSameElapsedCount { get; private set; } = 10;
+
+        [JsonProperty]
+        public int StuckDetectSameElapsedExtraCount { get; private set; } = 5;
+
+        [JsonProperty]
+        public int MaxStuckResolveTryCount { get; private set; } = 1;
+
         public static async void Update()
         {
             try

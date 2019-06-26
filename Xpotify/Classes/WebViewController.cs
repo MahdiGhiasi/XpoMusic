@@ -268,5 +268,17 @@ namespace Xpotify.Helpers
             logger.Info(result);
             return result == "1";
         }
+
+        internal async Task TryResolvePlaybackStartStuck()
+        {
+            var script = $"window.XpotifyScript.Common.PlaybackStuckHelper.tryResolveStart();";
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+        }
+
+        internal async Task TryResolvePlaybackMiddleStuck()
+        {
+            var script = $"window.XpotifyScript.Common.PlaybackStuckHelper.tryResolveMiddle();";
+            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+        }
     }
 }

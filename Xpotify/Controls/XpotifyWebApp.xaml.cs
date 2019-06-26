@@ -154,6 +154,7 @@ namespace Xpotify.Controls
 
             BackEnabled = e.Status.BackButtonEnabled;
             PlayStatusTracker.LocalPlaybackDataReceived(e.Status.NowPlaying);
+            StuckResolveHelper.StatusReportReceived(e.Status.NowPlaying, Controller);
         }
 
         private void XpotifyWebAgent_ProgressBarCommandReceived(object sender, ProgressBarCommandEventArgs e)
