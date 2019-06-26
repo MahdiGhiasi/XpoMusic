@@ -153,6 +153,36 @@ namespace Xpotify.Controls
             }
         }
 
+        public void OpenWebApp()
+        {
+            var destinationUrl = "https://open.spotify.com";
+            var navigateUrl = "https://open.spotify.com/static/offline.html?redirectUrl=" + System.Net.WebUtility.UrlEncode(destinationUrl);
+
+            OpenWebApp(navigateUrl);
+        }
+
+        public void OpenWebApp(string targetUrl)
+        {
+            if (TokenHelper.HasTokens())
+            {
+                if (LocalConfiguration.IsLoggedInByFacebook)
+                {
+                    // We need to open the login page and click on facebook button
+                    logger.Info("Logging in via Facebook...");
+                    var loginUrl = "https://accounts.spotify.com/login?continue=" + System.Net.WebUtility.UrlEncode(targetUrl);
+                    Controller.Navigate(new Uri(loginUrl));
+                }
+                else
+                {
+                    Controller.Navigate(new Uri(targetUrl));
+                }
+            }
+            else
+            {
+                Authorize(targetUrl, clearExisting: false);
+            }
+        }
+
         private void MainWebView_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
         {
             if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))

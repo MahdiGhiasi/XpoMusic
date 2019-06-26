@@ -78,33 +78,16 @@ namespace Xpotify.Pages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var targetUrl = GetTargetUrl(e);
+            var targetUrl = GetTileLaunchTargetUrl(e.Parameter as string);
 
-            if (TokenHelper.HasTokens())
-            {
-                if (LocalConfiguration.IsLoggedInByFacebook)
-                {
-                    // We need to open the login page and click on facebook button
-                    logger.Info("Logging in via Facebook...");
-                    var loginUrl = "https://accounts.spotify.com/login?continue=" + System.Net.WebUtility.UrlEncode(targetUrl);
-                    xpotifyWebView.Controller.Navigate(new Uri(loginUrl));
-                }
-                else
-                {
-                    xpotifyWebView.Controller.Navigate(new Uri(targetUrl));
-                }
-            }
+            if (string.IsNullOrEmpty(targetUrl))
+                xpotifyWebView.OpenWebApp();
             else
-            {
-                xpotifyWebView.Authorize(targetUrl, clearExisting: false);
-            }
+                xpotifyWebView.OpenWebApp(targetUrl);
         }
 
-        private string GetTargetUrl(NavigationEventArgs e)
+        private string GetTileLaunchTargetUrl(string parameter)
         {
-            var destinationUrl = "https://open.spotify.com";
-
-            var parameter = e.Parameter as string;
             if (!string.IsNullOrEmpty(parameter))
             {
                 try
@@ -129,15 +112,15 @@ namespace Xpotify.Pages
                         OpenCompactOverlayForAutoPlay();
                     }
 
-                    destinationUrl = pageUrl;
+                    return pageUrl;
                 }
                 catch (Exception ex)
                 {
-                    logger.Info($"Parsing input parameter {e.Parameter.ToString()} failed. {ex}");
+                    logger.Info($"Parsing input parameter '{parameter}' failed: {ex}");
                 }
             }
 
-            return "https://open.spotify.com/static/offline.html?redirectUrl=" + System.Net.WebUtility.UrlEncode(destinationUrl);
+            return null;
         }
 
         private async void OpenCompactOverlayForAutoPlay()
