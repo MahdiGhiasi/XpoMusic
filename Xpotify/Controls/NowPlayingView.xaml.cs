@@ -698,6 +698,35 @@ namespace Xpotify.Controls
             }
         }
 
+        private async void SliderExtended_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
+        {
+            SliderExtended sliderExtended = (SliderExtended) sender;
+            int delta = e.GetCurrentPoint(null).Properties.MouseWheelDelta;
+
+            try
+            {
+                await volumeSetSemaphore.WaitAsync();
+
+                // There are new shiny requests waiting, so I'm not needed anymore :(
+                if (volumeSetSemaphore.WaitingCount > 0)
+                    return;
+
+                double newValue = Math.Max(0.0, Math.Min(sliderExtended.Value + ((double)delta / 10.0), 100.0));
+                ActionRequested?.Invoke(this, new ActionRequestedEventArgs
+                {
+                    Action = Action.SeekVolume,
+                    AdditionalData = newValue / 100.0,
+                });
+
+                // Don't overload the SeekVolume request.
+                await Task.Delay(200);
+            }
+            finally
+            {
+                volumeSetSemaphore.Release();
+            }
+        }
+
         private void UserControl_PointerExited(object sender, PointerRoutedEventArgs e)
         {
             if (!pressStartPoint.HasValue)

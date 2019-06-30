@@ -493,6 +493,7 @@
                                                                         IsThumbToolTipEnabled="True"
                                                                         Value2="{x:Bind ViewModel.Volume, Mode=TwoWay}"
                                                                         Maximum="100"
+                                                                        PointerWheelChanged="SliderExtended_PointerWheelChanged"
                                                                         ValueChangedByUserManipulation="VolumeSlider_ValueChangedByUserManipulation"/>
                                     </Grid>
                                 </Flyout>
