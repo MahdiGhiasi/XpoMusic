@@ -12,6 +12,7 @@
   "include": [
     "*.ts",
     "../Common/*.ts",
-    "../Lib/*.ts"
+    "../Lib/*.ts",
+    "../SpotifyApi/*.ts"
   ]
 }

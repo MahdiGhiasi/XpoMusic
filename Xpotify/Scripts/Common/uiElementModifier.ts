@@ -164,22 +164,24 @@ namespace XpotifyScript.Common.UiElementModifier {
                 addSongDiv.classList.add("control-button");
                 addSongDiv.classList.add("spoticon-add-16");
                 addSongDiv.classList.add("trackListAddRemoveSongButton");
+                addSongDiv.classList.add("trackListAddSongButton");
                 addSongDiv.style.display = "none";
-                addSongDiv.setAttribute("title", "Add to your library");
+                addSongDiv.setAttribute("title", "Add to your Liked Songs");
 
-                var removeSongDiv = document.createElement('div');
+                var removeSongDiv = document.createElement('button');
+                removeSongDiv.classList.add("tracklist-middle-align");
                 removeSongDiv.classList.add("control-button");
                 removeSongDiv.classList.add("spoticon-added-16");
                 removeSongDiv.classList.add("control-button--active");
                 removeSongDiv.classList.add("trackListAddRemoveSongButton");
+                removeSongDiv.classList.add("trackListRemoveSongButton");
                 removeSongDiv.style.display = "none";
-                removeSongDiv.setAttribute("title", "Remove from your library");
+                removeSongDiv.setAttribute("title", "Remove from your Liked Songs");
 
-                var destContainer = tracks[i].querySelectorAll('.tracklist-col-duration')[0];
-                var destSibling = destContainer.querySelectorAll('.tracklist-duration')[0];
+                var destContainer = tracks[i].querySelectorAll('.more')[0];
 
-                destContainer.insertBefore(addSongDiv, destSibling);
-                destContainer.insertBefore(removeSongDiv, destSibling);
+                destContainer.appendChild(addSongDiv);
+                destContainer.appendChild(removeSongDiv);
             }
         } catch (ex) {
             console.log(ex);

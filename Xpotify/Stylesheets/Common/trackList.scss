@@ -8,23 +8,29 @@
     margin-top: 0;
 }
 
-.tracklist-col-duration {
-    width: 7em;
+.tracklist-col.more > div:nth-child(1) {
+    float: left;
 }
 
 .trackListAddRemoveSongButton {
-    float: left;
-    height: auto;
-    width: auto;
+    float: right;
     padding: 8px;
+    margin-top: -2px;
+    animation: animation-tracklist-addremove-entrance 0.3s ease-out;
 }
 
 .trackListAddRemoveSongButton:hover {
     opacity: 0.8;
 }
 
-.trackListRemoveSongButton {
+/* Keyframes */
+@keyframes animation-tracklist-addremove-entrance {
+    0% {
+        opacity: 0;
+    }
 
+    100% {
+        opacity: 1;
+    }
 }
-
 

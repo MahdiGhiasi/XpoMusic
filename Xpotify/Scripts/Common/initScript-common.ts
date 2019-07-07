@@ -133,7 +133,7 @@ namespace XpotifyScript.Common {
     function periodicPageCheck() {
         try {
             if (document.querySelectorAll(".tracklist").length > 0) {
-                UiElementModifier.createTrackListAddRemoveButtons();
+                TracklistExtended.initTracklistMod();
             }
         }
         catch (ex) {
@@ -142,6 +142,6 @@ namespace XpotifyScript.Common {
     }
 
     function initPeriodicPageCheck() {
-        setInterval(periodicPageCheck, 2000);
+        setInterval(periodicPageCheck, 1000);
     }
 }

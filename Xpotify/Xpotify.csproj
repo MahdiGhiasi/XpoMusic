@@ -217,6 +217,7 @@
     <TypeScriptCompile Include="Scripts\Common\color.ts" />
     <TypeScriptCompile Include="Scripts\Common\dragDrop.ts" />
     <TypeScriptCompile Include="Scripts\Common\playbackStuckHelper.ts" />
+    <TypeScriptCompile Include="Scripts\Common\tracklistExtended.ts" />
     <TypeScriptCompile Include="Scripts\Lib\focus-visible.ts" />
     <TypeScriptCompile Include="Scripts\Common\indeterminateProgressBarHandler.ts" />
     <TypeScriptCompile Include="Scripts\Common\keyboardShortcutListener.ts" />
@@ -407,6 +408,8 @@
     <Content Include="InjectedAssets\init-dark.js" />
     <Content Include="InjectedAssets\init-light.js" />
     <TypeScriptCompile Include="Scripts\LightTheme\pageOverlay.ts" />
+    <TypeScriptCompile Include="Scripts\SpotifyApi\apiBase.ts" />
+    <TypeScriptCompile Include="Scripts\SpotifyApi\library.ts" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" Condition="'$(Configuration)'=='Release'">

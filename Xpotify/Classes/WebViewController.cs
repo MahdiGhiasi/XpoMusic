@@ -11,6 +11,7 @@ using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using Newtonsoft.Json;
 using Windows.UI.Popups;
+using Xpotify.SpotifyApi;
 
 namespace Xpotify.Helpers
 {
@@ -55,9 +56,11 @@ namespace Xpotify.Helpers
             {
                 var script = await AssetManager.LoadAssetString(lightTheme ? "init-light.js" : "init-dark.js");
                 var styleCss = await AssetManager.LoadAssetString(lightTheme ? "style-light.min.css" : "style-dark.min.css");
+                var tokens = TokenHelper.GetTokens();
                 script = script
                     .Replace("{{XPOTIFYCSSBASE64CONTENT}}", Convert.ToBase64String(Encoding.UTF8.GetBytes(styleCss)))
-                    .Replace("{{XPOTIFYISPROVERSION}}", PackageHelper.IsProVersion ? "1" : "0");
+                    .Replace("{{XPOTIFYISPROVERSION}}", PackageHelper.IsProVersion ? "1" : "0")
+                    .Replace("{{SPOTIFYACCESSTOKEN}}", tokens.AccessToken);
 
                 try
                 {
