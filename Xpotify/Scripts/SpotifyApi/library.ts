@@ -16,7 +16,9 @@
         private async isTracksSavedInternal(trackIds: string[]): Promise<boolean[]> {
             var url = 'https://api.spotify.com/v1/me/tracks/contains?ids=' + trackIds.join(',');
             var result = await this.sendJsonRequestWithToken(url, 'get');
-            return result;
+
+            var data = await result.json();
+            return data;
         }
     }
 }

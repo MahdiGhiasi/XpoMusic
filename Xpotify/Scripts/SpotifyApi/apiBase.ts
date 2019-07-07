@@ -5,7 +5,7 @@
     export abstract class ApiBase {
         protected accessToken: string = "{{SPOTIFYACCESSTOKEN}}";
 
-        protected async sendJsonRequestWithToken(uri, method, body = undefined): Promise<any> {
+        protected async sendJsonRequestWithToken(uri, method, body = undefined): Promise<Response> {
             if (this.accessToken.length === 0) {
                 this.accessToken = await Xpotify.getNewAccessTokenAsync();
             }
@@ -13,7 +13,7 @@
             return await this.sendJsonRequestWithTokenInternal(uri, method, body, true);
         }
 
-        private async sendJsonRequestWithTokenInternal(uri, method, body, allowRefreshingToken): Promise<any> {
+        private async sendJsonRequestWithTokenInternal(uri, method, body, allowRefreshingToken): Promise<Response> {
             var response = await fetch(uri, {
                 method: method,
                 body: JSON.stringify(body),
@@ -31,8 +31,7 @@
                 return await this.sendJsonRequestWithTokenInternal(uri, method, body, false);
             }
 
-            var data = await response.json();
-            return data;
+            return response;
         }
     }
 }
