@@ -92,6 +92,10 @@ img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
     background-color: #e246ab !important;
 }
 
+.Root__main-view nav ul li a:focus {
+    outline-color: #111;
+}
+
 /* Error page image */
 #main .dialog img {
     filter: invert(1);

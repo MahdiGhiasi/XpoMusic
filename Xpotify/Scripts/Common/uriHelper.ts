@@ -1,4 +1,4 @@
-﻿namespace InitScript.Common.UriHelper {
+﻿namespace XpotifyScript.Common.UriHelper {
 
     export function getPwaUri(uri) {
         if (uri === undefined || uri.trim() === "") {

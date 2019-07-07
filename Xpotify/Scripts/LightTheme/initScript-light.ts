@@ -1,7 +1,7 @@
 ﻿/// <reference path="../Common/initScript-common.ts" />
 /// <reference path="pageOverlay.ts" />
 
-namespace InitScript {
+namespace XpotifyScript {
 
     document.getElementsByTagName('body')[0].setAttribute('data-xpotifyTheme', 'light');
 
@@ -10,6 +10,13 @@ namespace InitScript {
     errors += Common.init();
     errors += Light.PageOverlay.createPageOverlay();
 
-    if (errors.length > 0)
+    if (errors.length > 0) {
+        try {
+            // @ts-ignore
+            Xpotify.initFailed(errors);
+        }
+        catch (ex) { }
+
         throw errors;
+    }
 }

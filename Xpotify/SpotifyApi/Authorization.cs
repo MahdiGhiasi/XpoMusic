@@ -7,12 +7,13 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Xpotify.Classes;
 
 namespace Xpotify.SpotifyApi
 {
     public static class Authorization
     {
-        internal static readonly string Scopes = "user-read-recently-played playlist-read-private user-read-email user-library-read user-read-playback-state user-read-private user-modify-playback-state user-read-currently-playing";
+        internal static readonly string Scopes = "user-read-recently-played playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-read-email user-library-read user-library-modify user-read-playback-state user-modify-playback-state user-read-private user-read-currently-playing user-follow-read user-follow-modify streaming user-top-read app-remote-control";
         internal static readonly string SpotifyLoginUri = "https://accounts.spotify.com/";
         internal static readonly string FacebookLoginFinishRedirectUri = "https://accounts.spotify.com/api/facebook/oauth/access_token";
         internal static readonly string RedirectUri = "https://xpotify.ghiasi.net/login/redirect";
@@ -51,6 +52,8 @@ namespace Xpotify.SpotifyApi
             var refreshToken = responseData["refresh_token"].ToString();
 
             TokenHelper.SaveTokens(accessToken, refreshToken);
+
+            LocalConfiguration.ApiTokenVersion = 2;
         }
     }
 }

@@ -1,16 +1,26 @@
 ﻿/// <reference path="uiElementModifier.ts" />
 /// <reference path="dragDrop.ts" />
-/// <reference path="vibrant.ts" />
+/// <reference path="../Lib/vibrant.ts" />
+/// <reference path="../Lib/focus-visible.ts" />
 /// <reference path="color.ts" />
 /// <reference path="browserHistory.ts" />
 /// <reference path="resize.ts" />
 /// <reference path="startupAnimation.ts" />
+/// <reference path="requestIntercepter.ts" />
+/// <reference path="statusReport.ts" />
+/// <reference path="action.ts" />
+/// <reference path="pageTitleFinder.ts" />
+/// <reference path="keyboardShortcutListener.ts" />
 
-namespace InitScript.Common {
+namespace XpotifyScript.Common {
 
     export function isProVersion(): boolean {
         //@ts-ignore
         return '{{XPOTIFYISPROVERSION}}' === '1';
+    }
+
+    export function isLightTheme(): boolean {
+        return (document.getElementsByTagName('body')[0].getAttribute('data-xpotifyTheme') === 'light');
     }
 
     export function init() {
@@ -24,12 +34,22 @@ namespace InitScript.Common {
         errors += UiElementModifier.createBackButton();
         errors += UiElementModifier.createNavBarButtons();
         errors += UiElementModifier.createCompactOverlayButton();
+        errors += UiElementModifier.addNowPlayingButton();
         errors += UiElementModifier.addBackgroundClass();
         errors += initNowPlayingBarCheck();
         setInitialPageHash();
         initOnResizeCheck();
         initPeriodicPageCheck();
+        Lib.FocusVisible.init();
+        KeyboardShortcutListener.init();
+        RequestIntercepter.startInterceptingFetch();
+        StatusReport.initRegularStatusReport();
         StartupAnimation.init();
+
+        // @ts-ignore
+        if (window.XpotifyScript === undefined)
+            // @ts-ignore
+            window.XpotifyScript = XpotifyScript;
 
         return errors;
     }
@@ -62,18 +82,21 @@ namespace InitScript.Common {
     function initNowPlayingBarCheck() {
         // Check and set now playing bar background color when now playing album art changes
         try {
-            Common.Lib.Vibrant.init();
+            Lib.Vibrant.init();
             
             setInterval(function () {
-                var url = (<HTMLElement>document.querySelectorAll(".Root__now-playing-bar .now-playing .cover-art-image")[0]).style.backgroundImage.slice(5, -2);
-                var lightTheme = (document.getElementsByTagName('body')[0].getAttribute('data-xpotifyTheme') === 'light');
+                try {
+                    var url = (<HTMLElement>document.querySelectorAll(".Root__now-playing-bar .now-playing .cover-art-image")[0]).style.backgroundImage.slice(5, -2);
+                    var lightTheme = isLightTheme();
 
-                if (window["xpotifyNowPlayingIconUrl"] !== url || window["xpotifyNowPlayingLastSetLightTheme"] !== lightTheme) {
-                    window["xpotifyNowPlayingIconUrl"] = url;
-                    window["xpotifyNowPlayingLastSetLightTheme"] = lightTheme;
+                    if (window["xpotifyNowPlayingIconUrl"] !== url || window["xpotifyNowPlayingLastSetLightTheme"] !== lightTheme) {
+                        window["xpotifyNowPlayingIconUrl"] = url;
+                        window["xpotifyNowPlayingLastSetLightTheme"] = lightTheme;
 
-                    Color.setNowPlayingBarColor(url, lightTheme);
+                        Color.setNowPlayingBarColor(url, lightTheme);
+                    }
                 }
+                catch (ex) { }
             }, 1000);
         } catch (ex) {
             return "nowPlayingBarColorPollInitFailed,";

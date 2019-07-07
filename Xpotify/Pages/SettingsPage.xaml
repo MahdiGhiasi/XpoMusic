@@ -1,0 +1,100 @@
+﻿<Page
+    x:Class="Xpotify.Pages.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Xpotify"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:Xpotify.ViewModels"
+    xmlns:converters="using:Xpotify.Classes.Converters"
+    xmlns:controls="using:Xpotify.Controls"
+    mc:Ignorable="d"
+    Background="Transparent">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <converters:LanguageToStringConverter x:Key="LanguageToStringConverter" />
+            <converters:ThemeToStringConverter x:Key="ThemeToStringConverter" />
+            <converters:LiveTileDesignToStringConverter x:Key="LiveTileDesignToStringConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+    <Page.DataContext>
+        <vm:SettingsViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <Grid>
+        <ScrollViewer>
+            <StackPanel x:Name="Content" Padding="14">
+                <StackPanel Margin="0,0,0,24" Visibility="Visible">
+                    <TextBlock Text="Theme:" />
+                    <ComboBox ItemsSource="{x:Bind ViewModel.Themes, Mode=OneWay}"
+                              SelectedItem="{x:Bind ViewModel.SelectedTheme, Mode=TwoWay}"
+                              Margin="0,8,0,0" 
+                              Width="240">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource ThemeToStringConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Text="You'll need to close and reopen Xpotify for this change to take effect."
+                               TextWrapping="Wrap"
+                               Margin="0,4,0,0"
+                               Foreground="Red"
+                               Visibility="{x:Bind ViewModel.ThemeRestartNeededNoticeVisibility, Mode=OneWay}" />
+                    <HyperlinkButton Content="Restart Xpotify"
+                             Visibility="{x:Bind ViewModel.ThemeRestartNeededNoticeVisibility, Mode=OneWay}"
+                             Click="RestartApp_Click"/>
+
+                    <TextBlock Text="Live tile preference:" Margin="0,24,0,0" />
+                    <ComboBox ItemsSource="{x:Bind ViewModel.LiveTileDesigns, Mode=OneWay}"
+                              SelectedItem="{x:Bind ViewModel.SelectedLiveTileDesign, Mode=TwoWay}"
+                              Margin="0,8,0,0" 
+                              Width="240">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource LiveTileDesignToStringConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Opacity="0.5" 
+                               Margin="0,4,8,0"
+                               TextWrapping="Wrap">
+                        Live tile will show up on Xpotify tile when you're listening to music.
+                    </TextBlock>
+                    <HyperlinkButton Visibility="{x:Bind ViewModel.PinToStartLinkVisibility, Mode=OneWay}"
+                                     Click="PinTileToStart_Click">
+                        Pin Xpotify to Start
+                    </HyperlinkButton>
+
+                    <TextBlock Text="Interface language:" Margin="0,24,0,0" />
+                    <ComboBox ItemsSource="{x:Bind ViewModel.Languages, Mode=OneWay}"
+                              SelectedItem="{x:Bind ViewModel.SelectedLanguage, Mode=TwoWay}"
+                              Margin="0,8,0,0" 
+                              Width="240">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource LanguageToStringConverter}}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <TextBlock Text="You'll need to close and reopen Xpotify for this change to take effect."
+                               TextWrapping="Wrap"
+                               Margin="0,4,0,0"
+                               Foreground="Red"
+                               Visibility="{x:Bind ViewModel.LanguageRestartNeededNoticeVisibility, Mode=OneWay}" />
+                    <HyperlinkButton Content="Restart Xpotify"
+                             Visibility="{x:Bind ViewModel.LanguageRestartNeededNoticeVisibility, Mode=OneWay}"
+                             Click="RestartApp_Click"/>
+                    <ToggleSwitch Header="Open Xpotify in mini view when launched by Cortana" 
+                                  Margin="0,24,0,0"
+                                  IsOn="{x:Bind ViewModel.OpenInMiniViewByCortana, Mode=TwoWay}" />
+                    <TextBlock Margin="0,4,0,0" Opacity="0.5" TextWrapping="Wrap">
+                        State of the app won't be changed if it's already opened before Cortana's request.
+                    </TextBlock>
+                    <controls:ProxyConfiguration Margin="0,24,0,0" />
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

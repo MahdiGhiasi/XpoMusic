@@ -1,4 +1,4 @@
-﻿namespace InitScript.Common.UiInjector {
+﻿namespace XpotifyScript.Common.UiInjector {
     export function injectBackButton(backButtonDiv) {
         var navbarHeader = document.getElementsByClassName('navBar-header');
         if (navbarHeader.length === 0) {
@@ -30,6 +30,17 @@
             }, 500);
         } else {
             extraControlsBar[0].prepend(button);
+        }
+    }
+
+    export function injectNowPlayingNavBarButton(button) {
+        var extraControlsBar = document.querySelectorAll('.Root__top-container .navBar ul');
+        if (extraControlsBar.length === 0) {
+            setTimeout(function () {
+                injectNowPlayingNavBarButton(button);
+            }, 500);
+        } else {
+            extraControlsBar[0].append(button);
         }
     }
 }

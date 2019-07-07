@@ -32,6 +32,12 @@ Sign up on [Spotify Developer website](https://developer.spotify.com/) and get a
 
 Also, you will need to add `https://xpotify.ghiasi.net/login/redirect` as the redirect URI on Spotify developer dashboard for the app entry you created. Alternatively, you can choose a different redirect URI and then modify [this line of code](https://github.com/MahdiGhiasi/Xpotify/blob/7e003b9879104a5b8b771f48475feca92155de8a/Xpotify/SpotifyApi/Authorization.cs#L18) accordingly.
 
+## Contributing
+
+If you want to work on a bug or an enhancement that is already present and approved in the Issues, please leave a comment under that issue stating that you're going to work on it (so we can avoid doing duplicate work).
+
+Also, if you want to work on a new feature you have in mind for Xpotify, please create an issue first so we can discuss it.
+
 ## License
 
 Xpotify is available under [GNU General Public License v3.0](https://github.com/MahdiGhiasi/Xpotify/blob/master/LICENSE.md).

@@ -1,6 +1,6 @@
 ﻿/// <reference path="uriHelper.ts" />
 
-namespace InitScript.Common.DragDrop {
+namespace XpotifyScript.Common.DragDrop {
 
     export function allowDrop(event) {
         event.preventDefault();
@@ -17,9 +17,7 @@ namespace InitScript.Common.DragDrop {
         event.preventDefault();
 
         // Navigate to page
-        history.pushState({}, null, uri);
-        history.pushState({}, null, uri + "#navigatingToPagePleaseIgnore");
-        history.back();
+        Action.navigateToPage(uri);
     }
 
 }

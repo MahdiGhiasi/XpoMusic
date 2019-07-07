@@ -11,6 +11,7 @@
   },
   "include": [
     "*.ts",
-    "../Common/*.ts"
+    "../Common/*.ts",
+    "../Lib/*.ts"
   ]
 }

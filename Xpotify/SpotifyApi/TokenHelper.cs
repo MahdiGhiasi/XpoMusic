@@ -61,6 +61,7 @@ namespace Xpotify.SpotifyApi
             CrossSecureStorage.Current.SetValue(refreshTokenKey, newRefreshToken);
         }
 
+        private static bool isLoggedHasTokensException = false;
         public static bool HasTokens()
         {
             try
@@ -70,7 +71,11 @@ namespace Xpotify.SpotifyApi
             }
             catch (Exception ex)
             {
-                AnalyticsHelper.Log("hasTokensException", ex.Message, ex.ToString());
+                if (!isLoggedHasTokensException)
+                {
+                    AnalyticsHelper.Log("hasTokensException", ex.Message, ex.ToString());
+                    isLoggedHasTokensException = true;
+                }
                 return false;
             }
         }

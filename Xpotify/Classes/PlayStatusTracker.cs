@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 using Windows.Media;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
+using Newtonsoft.Json;
+using Xpotify.Classes.Model;
+using Xpotify.Classes.Cache;
+using XpotifyWebAgent.Model;
 
 namespace Xpotify.Classes
 {
@@ -19,7 +23,7 @@ namespace Xpotify.Classes
         static DispatcherTimer timer;
         static DateTime lastStatusFetch = DateTime.MinValue;
 
-        public static SystemMediaTransportControls MediaControls { get; internal set; }
+        public static bool IsLocalStatusTrackingOperational { get; private set; } = false;
 
         public static class LastPlayStatus
         {
@@ -31,6 +35,9 @@ namespace Xpotify.Classes
             public static string SongId { get; internal set; }
             public static int SongLengthMilliseconds { get; internal set; }
             public static bool IsPlaying { get; internal set; }
+            public static double Volume { get; internal set; }
+            public static bool IsNextTrackAvailable { get; internal set; }
+            public static bool IsPrevTrackAvailable { get; internal set; }
 
             private static int progressedMilliseconds;
             private static DateTime progressedMillisecondsSetMoment;
@@ -68,6 +75,18 @@ namespace Xpotify.Classes
             timer.Tick += Timer_Tick;
         }
 
+        public static void SeekPlayback(double percentage)
+        {
+            LastPlayStatus.ProgressedMilliseconds = (int)(LastPlayStatus.SongLengthMilliseconds * percentage);
+            LastPlayStatus.InvokeUpdated();
+        }
+
+        public static void SeekVolume(double percentage)
+        {
+            LastPlayStatus.Volume = percentage;
+            LastPlayStatus.InvokeUpdated();
+        }
+
         private static async void Timer_Tick(object sender, object e)
         {
             // Ignore if not logged in
@@ -76,13 +95,84 @@ namespace Xpotify.Classes
 
             if ((DateTime.UtcNow - lastStatusFetch) > AppConstants.Instance.PlayStatePollInterval)
             {
+                IsLocalStatusTrackingOperational = false;
                 await RefreshPlayStatus();
             }
         }
 
         public static void StartRegularRefresh()
         {
-            timer.Start();
+            if (!timer.IsEnabled)
+                timer.Start();
+        }
+
+        private static int timesFingerprintEmpty = 0;
+        private static string lastLocalFingerprint = "";
+        public static async void LocalPlaybackDataReceived(NowPlayingData data)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(data.TrackFingerprint))
+                {
+                    if (timesFingerprintEmpty == 20)
+                    {
+                        logger.Warn($"LocalPlaybackDataError #{timesFingerprintEmpty}");
+                        AnalyticsHelper.Log("localPlaybackDataError", "fingerprintInvalid", JsonConvert.SerializeObject(data));
+                        timesFingerprintEmpty++;
+                    }
+                    else if (timesFingerprintEmpty < 20)
+                    {
+                        timesFingerprintEmpty++;
+                        logger.Info($"LocalPlaybackDataError #{timesFingerprintEmpty}");
+                    }
+                }
+
+                if (!data.Success
+                    && !string.IsNullOrWhiteSpace(data.TrackFingerprint)
+                    && data.TrackFingerprint != lastLocalFingerprint)
+                {
+                    logger.Info("LocalPlaybackDataReceived, success = false, fingerprint changed to " + data.TrackFingerprint);
+                    await RefreshPlayStatus();
+                    AnalyticsHelper.Log("localPlaybackDataError", "invalid", JsonConvert.SerializeObject(data));
+                }
+                else if (data.Success)
+                {
+                    bool changed = (LastPlayStatus.SongId != data.TrackId
+                        || LastPlayStatus.Volume != data.Volume 
+                        || LastPlayStatus.IsNextTrackAvailable != data.IsNextTrackAvailable
+                        || LastPlayStatus.IsPrevTrackAvailable != data.IsPrevTrackAvailable);
+
+                    var album = await GlobalCache.Album.GetItem(data.AlbumId);
+
+                    LastPlayStatus.AlbumId = data.AlbumId;
+                    LastPlayStatus.AlbumName = album.name;
+                    LastPlayStatus.ArtistId = data.ArtistId;
+                    LastPlayStatus.ArtistName = data.ArtistName;
+                    LastPlayStatus.ProgressedMilliseconds = data.ElapsedTime;
+                    LastPlayStatus.SongLengthMilliseconds = data.TotalTime;
+                    LastPlayStatus.SongId = data.TrackId;
+                    LastPlayStatus.SongName = data.TrackName;
+                    LastPlayStatus.IsPlaying = data.IsPlaying;
+                    LastPlayStatus.Volume = data.Volume;
+                    LastPlayStatus.IsNextTrackAvailable = data.IsNextTrackAvailable;
+                    LastPlayStatus.IsPrevTrackAvailable = data.IsPrevTrackAvailable;
+
+                    if (changed)
+                    {
+                        LastPlayStatus.InvokeUpdated();
+                        logger.Info("LocalPlaybackDataReceived and changed = true for " + data.TrackFingerprint);
+                    }
+
+                    lastStatusFetch = DateTime.UtcNow;
+                    IsLocalStatusTrackingOperational = true;
+                }
+
+                lastLocalFingerprint = data.TrackFingerprint;
+            }
+            catch (Exception ex)
+            {
+                logger.Info("LocalPlaybackDataReceived failed: " + ex.ToString());
+            }
         }
 
         public static async Task RefreshPlayStatus()
@@ -105,6 +195,7 @@ namespace Xpotify.Classes
                 //    LastPlayStatus.SongId = "";
                 //    LastPlayStatus.SongName = "";
                 //    LastPlayStatus.IsPlaying = false;
+                //    LastPlayStatus.Volume = 0.0;
                 //
                 //    LastPlayStatus.InvokeUpdated();
                 //}
@@ -120,39 +211,17 @@ namespace Xpotify.Classes
                     LastPlayStatus.SongId = current.item.id;
                     LastPlayStatus.SongName = current.item.name;
                     LastPlayStatus.IsPlaying = current.is_playing;
+                    LastPlayStatus.Volume = (current.device.volume_percent ?? 50) / 100.0;
+                    LastPlayStatus.IsNextTrackAvailable = true;
+                    LastPlayStatus.IsPrevTrackAvailable = true;
 
                     LastPlayStatus.InvokeUpdated();
                 }
-
-                await UpdateMediaControls();
             }
             catch (Exception ex)
             {
                 logger.Info("RefreshPlayStatus failed: " + ex.ToString());
             }
-        }
-
-        private static async Task UpdateMediaControls()
-        {
-            if (MediaControls == null)
-                return;
-
-            MediaControls.PlaybackStatus = (LastPlayStatus.IsPlaying) ? MediaPlaybackStatus.Playing : MediaPlaybackStatus.Paused;
-            MediaControls.DisplayUpdater.MusicProperties.Title = LastPlayStatus.SongName;
-            MediaControls.DisplayUpdater.MusicProperties.AlbumTitle = LastPlayStatus.AlbumName;
-            MediaControls.DisplayUpdater.MusicProperties.Artist = LastPlayStatus.ArtistName;
-
-            try
-            {
-                var albumArt = await SongImageProvider.GetAlbumArt(LastPlayStatus.AlbumId);
-                if (string.IsNullOrEmpty(albumArt))
-                    MediaControls.DisplayUpdater.Thumbnail = null;
-                else
-                    MediaControls.DisplayUpdater.Thumbnail = RandomAccessStreamReference.CreateFromUri(new Uri(albumArt));
-            }
-            catch { }
-
-            MediaControls.DisplayUpdater.Update();
         }
     }
 }
