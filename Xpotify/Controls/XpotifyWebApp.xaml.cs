@@ -38,6 +38,7 @@ namespace Xpotify.Controls
         public AutoPlayAction AutoPlayAction { get; set; } = AutoPlayAction.None;
         public WebViewController Controller { get; }
         public bool BackEnabled { get; private set; } = false;
+        public bool IsWebAppLoaded { get; private set; } = false;
 
         #region Custom Properties
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(
@@ -260,11 +261,20 @@ namespace Xpotify.Controls
             }
 
             if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
+            {
                 FinalizeAuthorization(e.Uri.ToString());
+                IsWebAppLoaded = false;
+            }
             else if (e.Uri.ToString().ToLower().Contains(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
+            {
                 WebAppLoaded?.Invoke(this, new EventArgs());
+                IsWebAppLoaded = true;
+            }
             else
+            {
                 PageLoaded?.Invoke(this, new EventArgs());
+                IsWebAppLoaded = false;
+            }
 
             if (!await Controller.CheckLoggedIn())
             {

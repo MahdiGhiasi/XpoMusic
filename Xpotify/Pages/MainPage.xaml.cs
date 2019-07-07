@@ -191,14 +191,14 @@ namespace Xpotify.Pages
             if (WhatsNewHelper.ShouldShowWhatsNew())
                 shouldShowWhatsNew = true;
 
+            LyricsViewerIntegrationHelper.InitIntegration();
+            LiveTileHelper.InitLiveTileUpdates();
+            JumpListHelper.DeleteRecentJumplistEntries();
+
             AnalyticsHelper.PageView("MainPage", setNewSession: true);
             AnalyticsHelper.Log("mainEvent", "appOpened", SystemInformation.OperatingSystemVersion.ToString());
             
             developerMessage = await DeveloperMessageHelper.GetNextDeveloperMessage();
-
-            LyricsViewerIntegrationHelper.InitIntegration();
-            LiveTileHelper.InitLiveTileUpdates();
-            JumpListHelper.DeleteRecentJumplistEntries();
 
             // Window.Current.CoreWindow.KeyDown does not capture Alt events, but AcceleratorKeyActivated does.
             // NOTE: This event captures all key events, even when WebView is focused.
@@ -207,6 +207,9 @@ namespace Xpotify.Pages
 
         private async void Dispatcher_AcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs e)
         {
+            if (!xpotifyWebView.IsWebAppLoaded)
+                return;
+
             if (e.EventType == CoreAcceleratorKeyEventType.KeyDown || e.EventType == CoreAcceleratorKeyEventType.SystemKeyDown)
             {
                 // We won't process the event if the currently focused element is WebView,
