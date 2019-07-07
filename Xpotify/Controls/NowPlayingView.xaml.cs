@@ -726,7 +726,7 @@ namespace Xpotify.Controls
                 });
 
                 // Don't overload the SeekVolume request.
-                await Task.Delay(200);
+                await Task.Delay(50);
             }
             finally
             {
