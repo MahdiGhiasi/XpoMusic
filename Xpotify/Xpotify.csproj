@@ -155,6 +155,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Content Include="Assets\ReauthorizeForV2.html" />
     <Content Include="Assets\TileTemplates\LiveTileArtistArtOnly.xml">
       <SubType>Designer</SubType>
     </Content>

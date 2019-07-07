@@ -1,12 +1,12 @@
-﻿using Xpotify.Classes.Model;
-using Xpotify.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Storage;
+using Xpotify.Classes.Model;
+using Xpotify.Helpers;
 using static Xpotify.Helpers.LiveTileHelper;
 using static Xpotify.Helpers.ProxyHelper;
 
@@ -257,6 +257,23 @@ namespace Xpotify.Classes
             set
             {
                 SetConfiguration("MiniViewShowArtistArt", value ? "1" : "0");
+            }
+        }
+
+        public static int ApiTokenVersion
+        {
+            get
+            {
+                var config = GetConfiguration("ApiTokenVersion");
+                if (config == null)
+                    return 1;
+                if (!int.TryParse(config, out int apiTokenVersion))
+                    return 1;
+                return apiTokenVersion;
+            }
+            set
+            {
+                SetConfiguration("ApiTokenVersion", value.ToString());
             }
         }
 

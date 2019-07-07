@@ -166,16 +166,25 @@ namespace Xpotify.Controls
         {
             if (TokenHelper.HasTokens())
             {
-                if (LocalConfiguration.IsLoggedInByFacebook)
+                if (LocalConfiguration.ApiTokenVersion < 2)
                 {
-                    // We need to open the login page and click on facebook button
-                    logger.Info("Logging in via Facebook...");
-                    var loginUrl = "https://accounts.spotify.com/login?continue=" + System.Net.WebUtility.UrlEncode(targetUrl);
-                    Controller.Navigate(new Uri(loginUrl));
+                    var authorizeUrl = Authorization.GetAuthorizationUrl(targetUrl);
+                    Controller.Navigate(new Uri($"ms-appx-web:///Assets/ReauthorizeForV2.html?theme={(ThemeHelper.GetCurrentTheme() == Theme.Light ? "light" : "dark")}&" +
+                        $"redirectUri={System.Net.WebUtility.UrlEncode(authorizeUrl)}"));
                 }
                 else
                 {
-                    Controller.Navigate(new Uri(targetUrl));
+                    if (LocalConfiguration.IsLoggedInByFacebook)
+                    {
+                        // We need to open the login page and click on facebook button
+                        logger.Info("Logging in via Facebook...");
+                        var loginUrl = "https://accounts.spotify.com/login?continue=" + System.Net.WebUtility.UrlEncode(targetUrl);
+                        Controller.Navigate(new Uri(loginUrl));
+                    }
+                    else
+                    {
+                        Controller.Navigate(new Uri(targetUrl));
+                    }
                 }
             }
             else

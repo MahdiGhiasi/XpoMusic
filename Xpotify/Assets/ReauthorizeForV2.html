@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        html {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-user-select: none;
+        }
+
+        body.dark {
+            background: #201B1B;
+            color: white;
+        }
+
+        body.light {
+            background: #D1D3D3;
+            color: black;
+        }
+
+        .container {
+            max-width: 700px;
+            padding-left: 32px;
+            padding-right: 32px;
+            padding-top: 72px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 100;
+        }
+
+            h1 img {
+                height: 60px;
+                width: auto;
+                vertical-align: middle;
+                margin-right: 8px;
+                margin-top: 4px;
+            }
+
+            h1 span {
+                vertical-align: middle;
+            }
+
+        h3 {
+            font-weight: 400;
+            margin-left: 88px;
+        }
+
+        .button {
+            background-color: #0099ab;
+            border: none;
+            color: white;
+            padding: 8px 34px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .buttonContainer {
+            margin-left: 88px;
+            margin-top: 36px;
+        }
+
+        .lastParagraph {
+            font-weight: 600;
+            padding-top: 30px;
+        }
+
+        @media (max-width: 660px) {
+            h1 {
+                font-size: 32px;
+            }
+
+                h1 img {
+                    height: 44px;
+                }
+
+            h3 {
+                margin-left: 60px;
+            }
+
+            .buttonContainer {
+                margin-left: 60px;
+            }
+        }
+    </style>
+    <script>
+        function load() {
+            var urlParams = new URLSearchParams(window.location.search);
+            var redirectUri = urlParams.get('redirectUri');
+            var theme = urlParams.get('theme');
+
+            document.getElementById("authorizeButton").setAttribute("href", redirectUri);
+
+            if (theme !== null)
+                document.body.className = theme;
+        }
+    </script>
+</head>
+<body onload="load()" class="dark">
+    <div class="container">
+        <h1>
+            <img src="xpotify.png" />
+            <span>Welcome to Xpotify v2.0</span>
+        </h1>
+        <h3 style="opacity: 0.7">
+            There are many new features and improvements in this version, including:
+            <ul>
+                <li>This</li>
+                <li>That</li>
+                <li>The other thing</li>
+            </ul>
+        </h3>
+        <h3 class="lastParagraph">
+            Some new features require you to authorize Xpotify again with your Spotify account, so you can have the best experience possible.
+        </h3>
+        <div class="buttonContainer">
+            <a href="#" id="authorizeButton" class="button">Authorize Xpotify</a>
+        </div>
+    </div>
+</body>
+</html>
