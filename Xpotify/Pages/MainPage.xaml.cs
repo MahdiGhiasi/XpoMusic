@@ -20,6 +20,7 @@ using Xpotify.Controls;
 using static Xpotify.Helpers.MediaControlsHelper.TrackChangedEventArgs;
 using Windows.System;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Popups;
 
 namespace Xpotify.Pages
 {
@@ -165,44 +166,52 @@ namespace Xpotify.Pages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            ApplicationView.GetForCurrentView().SetPreferredMinSize(LocalConfiguration.WindowMinSize);
-
-            SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
-
-            // Update app constants from server
-            AppConstants.Update();
-
-            // Update assets from server
-            AssetManager.UpdateAssets();
-
-            // Play silent sound to avoid suspending the app when it's minimized.
-            silentMediaPlayer.Play();
-
-            // Media controls are necessary for the audio to continue when app is minimized.
-            MediaControlsHelper.Init(Dispatcher);
-            MediaControlsHelper.TrackChanged += (ss, trackChangedArgs) =>
+            try
             {
-                if (nowPlaying.IsOpen)
-                    nowPlaying.PlayChangeTrackAnimation(
-                        reverse: (trackChangedArgs.Direction == TrackChangeDirection.Backward));
-            };
+                ApplicationView.GetForCurrentView().SetPreferredMinSize(LocalConfiguration.WindowMinSize);
 
-            // Show what's new if necessary
-            if (WhatsNewHelper.ShouldShowWhatsNew())
-                shouldShowWhatsNew = true;
+                SystemNavigationManager.GetForCurrentView().BackRequested += App_BackRequested;
 
-            LyricsViewerIntegrationHelper.InitIntegration();
-            LiveTileHelper.InitLiveTileUpdates();
-            JumpListHelper.DeleteRecentJumplistEntries();
+                // Update app constants from server
+                AppConstants.Update();
 
-            AnalyticsHelper.PageView("MainPage", setNewSession: true);
-            AnalyticsHelper.Log("mainEvent", "appOpened", SystemInformation.OperatingSystemVersion.ToString());
-            
-            developerMessage = await DeveloperMessageHelper.GetNextDeveloperMessage();
+                // Update assets from server
+                AssetManager.UpdateAssets();
 
-            // Window.Current.CoreWindow.KeyDown does not capture Alt events, but AcceleratorKeyActivated does.
-            // NOTE: This event captures all key events, even when WebView is focused.
-            CoreWindow.GetForCurrentThread().Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
+                // Play silent sound to avoid suspending the app when it's minimized.
+                silentMediaPlayer.Play();
+
+                // Media controls are necessary for the audio to continue when app is minimized.
+                MediaControlsHelper.Init(Dispatcher);
+                MediaControlsHelper.TrackChanged += (ss, trackChangedArgs) =>
+                {
+                    if (nowPlaying.IsOpen)
+                        nowPlaying.PlayChangeTrackAnimation(
+                            reverse: (trackChangedArgs.Direction == TrackChangeDirection.Backward));
+                };
+
+                // Show what's new if necessary
+                if (WhatsNewHelper.ShouldShowWhatsNew())
+                    shouldShowWhatsNew = true;
+
+                LyricsViewerIntegrationHelper.InitIntegration();
+                LiveTileHelper.InitLiveTileUpdates();
+                JumpListHelper.DeleteRecentJumplistEntries();
+
+                AnalyticsHelper.PageView("MainPage", setNewSession: true);
+                AnalyticsHelper.Log("mainEvent", "appOpened", SystemInformation.OperatingSystemVersion.ToString());
+
+                developerMessage = await DeveloperMessageHelper.GetNextDeveloperMessage();
+
+                // Window.Current.CoreWindow.KeyDown does not capture Alt events, but AcceleratorKeyActivated does.
+                // NOTE: This event captures all key events, even when WebView is focused.
+                CoreWindow.GetForCurrentThread().Dispatcher.AcceleratorKeyActivated += Dispatcher_AcceleratorKeyActivated;
+            }
+            catch (Exception ex)
+            {
+                AnalyticsHelper.Log("mainPageLoadedException", ex.Message, ex.ToString());
+                await new MessageDialog(ex.ToString(), "MainPage:Loaded unhandled exception").ShowAsync();
+            }
         }
 
         private async void Dispatcher_AcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs e)
