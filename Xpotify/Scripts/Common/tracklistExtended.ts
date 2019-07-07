@@ -1,5 +1,7 @@
 ﻿namespace XpotifyScript.Common.TracklistExtended {
 
+    declare var Xpotify: any;
+
     export function injectTrackIdsToTrackList() {
 
         // Hide menus
@@ -10,6 +12,8 @@
 
         var tracks = document.querySelectorAll(".Root__main-view .tracklist-container .tracklist-row")
 
+        var counter = 0;
+
         // Find track url for each tracklist-row and add it to data-trackid
         for (var i = 0; i < tracks.length; i++) {
 
@@ -17,6 +21,8 @@
 
             if (element.getAttribute('data-trackid') !== null)
                 continue;
+
+            counter++;
 
             var e = element.ownerDocument.createEvent('MouseEvents');
             e.initMouseEvent('contextmenu', true, true,
@@ -32,6 +38,7 @@
             }
         }
 
+        Xpotify.log(counter.toString() + " trackIds extracted.");
 
         // Close context menu
         var clickX = 1;
@@ -109,6 +116,7 @@
         if (!UiElementModifier.createTrackListAddRemoveButtons())
             return; // No new elements present
 
+        Xpotify.log('Some new track list elements found. will try to find track ids.');
         injectTrackIdsToTrackList();
 
         // TODO: Don't ask server for the items we already know the status

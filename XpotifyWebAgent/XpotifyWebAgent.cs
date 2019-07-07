@@ -21,6 +21,7 @@ namespace XpotifyWebAgent
         public event EventHandler<StatusReportReceivedEventArgs> StatusReportReceived;
         public event EventHandler<ActionRequestedEventArgs> ActionRequested;
         public event EventHandler<InitFailedEventArgs> InitializationFailed;
+        public event EventHandler<LogMessageReceivedEventArgs> LogMessageReceived;
         public event EventHandler<object> NewAccessTokenRequested;
 
         private TaskCompletionSource<string> newAccessTokenTcs;
@@ -131,6 +132,14 @@ namespace XpotifyWebAgent
         public void SetNewAccessToken(string accessToken)
         {
             newAccessTokenTcs.TrySetResult(accessToken);
+        }
+
+        public void Log(string message)
+        {
+            LogMessageReceived?.Invoke(this, new LogMessageReceivedEventArgs
+            {
+                Message = message,
+            });
         }
     }
 }
