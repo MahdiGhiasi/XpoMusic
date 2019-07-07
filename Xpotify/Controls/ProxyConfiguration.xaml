@@ -62,7 +62,7 @@
                         <Run>If you want to set a local proxy, you'll need to enable loopback for this app first.</Run>
                     </Paragraph>
                 </RichTextBlock>
-                <HyperlinkButton NavigateUri="https://ghiasi.net/xpotify/loopback">
+                <HyperlinkButton Click="LocalProxyHelp_Click">
                     How can I enable loopback?
                 </HyperlinkButton>
             </StackPanel>

@@ -55,6 +55,11 @@ namespace Xpotify.Flyouts
                 contentFrame.Navigate(typeof(SettingsPage), null, new EntranceNavigationTransitionInfo());
                 AnalyticsHelper.PageView("SettingsPage");
             }
+            else if (args.SelectedItem == helpMenuItem)
+            {
+                contentFrame.Navigate(typeof(HelpPage), null, new EntranceNavigationTransitionInfo());
+                AnalyticsHelper.PageView("HelpPage");
+            }
             else if (args.SelectedItem == aboutMenuItem)
             {
                 contentFrame.Navigate(typeof(AboutPage), null, new EntranceNavigationTransitionInfo());

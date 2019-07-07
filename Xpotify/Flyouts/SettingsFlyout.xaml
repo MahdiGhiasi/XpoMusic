@@ -25,6 +25,7 @@
                                      BackRequested="NavigationView_BackRequested">
                 <controls:NavigationView.MenuItems>
                     <controls:NavigationViewItem Content="Settings" x:Name="settingsMenuItem" />
+                    <controls:NavigationViewItem Content="Help" x:Name="helpMenuItem" />
                     <controls:NavigationViewItem Content="About" x:Name="aboutMenuItem" />
                     <controls:NavigationViewItem Content="Donate" x:Name="donateMenuItem" />
                 </controls:NavigationView.MenuItems>

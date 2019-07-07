@@ -30,14 +30,19 @@ namespace Xpotify.Controls
             OpenSettings(0);
         }
 
-        public void OpenAbout()
+        public void OpenHelp()
         {
             OpenSettings(1);
         }
 
-        public void OpenDonate()
+        public void OpenAbout()
         {
             OpenSettings(2);
+        }
+
+        public void OpenDonate()
+        {
+            OpenSettings(3);
         }
 
         private void OpenSettings(int tabId)

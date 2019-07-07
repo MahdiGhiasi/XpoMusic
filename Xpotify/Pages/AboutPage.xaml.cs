@@ -23,7 +23,6 @@ namespace Xpotify.Pages
 {
     public sealed partial class AboutPage : Page
     {
-        private const string supportEmailAddress = "xpotifyapp@gmail.com";
         private readonly Uri twitterPageUri = new Uri("https://twitter.com/Xpotify");
         private readonly Uri githubPageUri = new Uri("https://github.com/MahdiGhiasi/Xpotify");
         private readonly Uri privacyPolicyPageUri = new Uri("https://ghiasi.net/xpotify/privacy.html");
@@ -60,59 +59,25 @@ namespace Xpotify.Pages
         private async void RateAndReviewButton_Click(object sender, RoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(new Uri(string.Format("ms-windows-store:REVIEW?PFN={0}", Windows.ApplicationModel.Package.Current.Id.FamilyName)));
-        }
-
-        private async void SendFeedbackButton_Click(object sender, RoutedEventArgs e)
-        {
-            RandomAccessStreamReference logFileReference = null;
-            var emailMessage = new EmailMessage
-            {
-                Body = "",
-            };
-
-            try
-            {
-                if (await ApplicationData.Current.LocalFolder.TryGetItemAsync("logs") is StorageFolder logFolder)
-                {
-                    if (await logFolder.TryGetItemAsync("xpotify-email.log") is StorageFile oldLogFile)
-                        await oldLogFile.DeleteAsync();
-
-                    if (await logFolder.TryGetItemAsync("xpotify.log") is StorageFile logFile)
-                    {
-                        var newFile = await logFile.CopyAsync(logFolder, "xpotify-email.log");
-                        logFileReference = RandomAccessStreamReference.CreateFromFile(newFile);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                emailMessage.Body = "\r\n\r\n\r\n\r\nCould not attach log file\r\n" + ex.ToString();
-            }
-
-            emailMessage.To.Add(new EmailRecipient(supportEmailAddress));
-            emailMessage.Subject = $"{PackageHelper.GetAppNameString()} v{PackageHelper.GetAppVersionString()}";
-            if (logFileReference != null)
-            {
-                emailMessage.Attachments.Add(new EmailAttachment("xpotify-email.log", logFileReference));
-            }
-
-            await EmailManager.ShowComposeNewEmailAsync(emailMessage);
-
+            AnalyticsHelper.Log("aboutLink", "rateAndReview");
         }
 
         private async void PrivacyPolicyButton_Click(object sender, RoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(privacyPolicyPageUri);
+            AnalyticsHelper.Log("aboutLink", "privacyPolicy");
         }
 
         private async void TwitterButton_Click(object sender, RoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(twitterPageUri);
+            AnalyticsHelper.Log("aboutLink", "twitter");
         }
 
         private async void GitHubButton_Click(object sender, RoutedEventArgs e)
         {
             await Launcher.LaunchUriAsync(githubPageUri);
+            AnalyticsHelper.Log("aboutLink", "gitHub");
         }
     }
 }

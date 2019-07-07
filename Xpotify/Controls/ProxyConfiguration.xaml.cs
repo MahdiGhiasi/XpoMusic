@@ -16,11 +16,14 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.System;
 
 namespace Xpotify.Controls
 {
     public sealed partial class ProxyConfiguration : UserControl
     {
+        private readonly Uri localProxyHelpPage = new Uri("https://ghiasi.net/xpotify/loopback");
+
         public ProxyConfiguration()
         {
             this.InitializeComponent();
@@ -60,6 +63,12 @@ namespace Xpotify.Controls
         private void RestartApp_Click(object sender, RoutedEventArgs e)
         {
             PackageHelper.RestartApp();
+        }
+
+        private async void LocalProxyHelp_Click(object sender, RoutedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(localProxyHelpPage);
+            AnalyticsHelper.Log("helpLink", "localProxy");
         }
     }
 }
