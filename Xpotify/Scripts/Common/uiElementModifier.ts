@@ -152,16 +152,11 @@ namespace XpotifyScript.Common.UiElementModifier {
     export function createTrackListAddRemoveButtons(): boolean {
         try {
             var count = 0;
-
             var tracks = document.querySelectorAll(".tracklist .tracklist-row");
             for (var i = 0; i < tracks.length; i++) {
                 if (tracks[i].getAttribute("data-xpotify-addremovebuttonsadded") !== null) {
                     continue;
                 }
-
-                count++;
-
-                tracks[i].setAttribute("data-xpotify-addremovebuttonsadded", "1");
 
                 var addSongDiv = document.createElement('button');
                 addSongDiv.classList.add("tracklist-middle-align");
@@ -184,13 +179,18 @@ namespace XpotifyScript.Common.UiElementModifier {
 
                 var destContainer = tracks[i].querySelectorAll('.more')[0];
 
-                destContainer.appendChild(addSongDiv);
-                destContainer.appendChild(removeSongDiv);
+                if (destContainer !== undefined) {
+                    destContainer.appendChild(addSongDiv);
+                    destContainer.appendChild(removeSongDiv);
+                    count++;
+                }
+
+                tracks[i].setAttribute("data-xpotify-addremovebuttonsadded", "1");
             }
 
             return count > 0;
         } catch (ex) {
-            console.log(ex);
+            Xpotify.log(ex.toString());
             return false;
         }
     }
