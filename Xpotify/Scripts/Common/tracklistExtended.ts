@@ -15,6 +15,9 @@
 
             var element = tracks[i];
 
+            if (element.getAttribute('data-trackid') !== null)
+                continue;
+
             var e = element.ownerDocument.createEvent('MouseEvents');
             e.initMouseEvent('contextmenu', true, true,
                 element.ownerDocument.defaultView, 1, 0, 0, 0, 0, false,
@@ -97,16 +100,19 @@
         if (tracklist.length === 0)
             return; // No tracklist found
 
+        if (window.location.href.startsWith("https://open.spotify.com/collection/tracks"))
+            return; // No tracklist add remove button for Liked Songs page (they're all liked by definition!)
+
         if (tracklist[0].querySelectorAll(".tracklist-row").length === 0)
             return; // List not loaded yet
 
-        if (tracklist[0].getAttribute("data-xpotifytracklistmod") === window.location.href)
-            return; // Already added
-        tracklist[0].setAttribute("data-xpotifytracklistmod", window.location.href);
+        if (!UiElementModifier.createTrackListAddRemoveButtons())
+            return; // No new elements present
 
-        UiElementModifier.createTrackListAddRemoveButtons();
         injectTrackIdsToTrackList();
-        await setAddRemoveButtons();
+
+        // TODO: Don't ask server for the items we already know the status
+        await setAddRemoveButtons(); 
     }
 
 }

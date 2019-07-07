@@ -149,13 +149,17 @@ namespace XpotifyScript.Common.UiElementModifier {
         return "";
     }
 
-    export function createTrackListAddRemoveButtons() {
+    export function createTrackListAddRemoveButtons(): boolean {
         try {
+            var count = 0;
+
             var tracks = document.querySelectorAll(".tracklist .tracklist-row");
             for (var i = 0; i < tracks.length; i++) {
                 if (tracks[i].getAttribute("data-xpotify-addremovebuttonsadded") !== null) {
                     continue;
                 }
+
+                count++;
 
                 tracks[i].setAttribute("data-xpotify-addremovebuttonsadded", "1");
 
@@ -183,8 +187,11 @@ namespace XpotifyScript.Common.UiElementModifier {
                 destContainer.appendChild(addSongDiv);
                 destContainer.appendChild(removeSongDiv);
             }
+
+            return count > 0;
         } catch (ex) {
             console.log(ex);
+            return false;
         }
     }
 }
