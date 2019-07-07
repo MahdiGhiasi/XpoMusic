@@ -216,6 +216,7 @@
     <TypeScriptCompile Include="Scripts\Common\browserHistory.ts" />
     <TypeScriptCompile Include="Scripts\Common\color.ts" />
     <TypeScriptCompile Include="Scripts\Common\dragDrop.ts" />
+    <TypeScriptCompile Include="Scripts\Common\mouseWheelListener.ts" />
     <TypeScriptCompile Include="Scripts\Common\playbackStuckHelper.ts" />
     <TypeScriptCompile Include="Scripts\Common\tracklistExtended.ts" />
     <TypeScriptCompile Include="Scripts\Lib\focus-visible.ts" />
