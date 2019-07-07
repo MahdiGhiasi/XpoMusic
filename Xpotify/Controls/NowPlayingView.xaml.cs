@@ -135,6 +135,8 @@ namespace Xpotify.Controls
             };
             timer.Tick += Timer_Tick;
             timer.Start();
+
+            PlayStatusTracker.LastPlayStatus.Updated += LastPlayStatus_Updated;
         }
 
         private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -146,6 +148,11 @@ namespace Xpotify.Controls
         public void ActivateProgressRing()
         {
             ViewModel.ProgressRingActive = true;
+        }
+
+        private void LastPlayStatus_Updated(object sender, EventArgs e)
+        {
+            TryUpdate();
         }
 
         private void Timer_Tick(object sender, object e)
