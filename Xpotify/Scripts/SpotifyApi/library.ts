@@ -20,5 +20,19 @@
             var data = await result.json();
             return data;
         }
+
+        public async saveTrack(trackId: string): Promise<boolean> {
+            var url = "https://api.spotify.com/v1/me/tracks?ids=" + trackId;
+            var result = await this.sendJsonRequestWithToken(url, 'put');
+
+            return result.status >= 200 && result.status <= 299;
+        }
+
+        public async removeTrack(trackId: string): Promise<boolean> {
+            var url = "https://api.spotify.com/v1/me/tracks?ids=" + trackId;
+            var result = await this.sendJsonRequestWithToken(url, 'delete');
+
+            return result.status >= 200 && result.status <= 299;
+        }
     }
 }

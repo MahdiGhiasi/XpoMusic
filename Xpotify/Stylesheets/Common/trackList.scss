@@ -17,11 +17,21 @@
     padding: 8px;
     margin-top: -2px;
     animation: animation-tracklist-addremove-entrance 0.3s ease-out;
+    display: none;
 }
 
 .trackListAddRemoveSongButton:hover {
     opacity: 0.8;
 }
+
+.tracklistSongNotExistsInLibrary .trackListAddSongButton {
+    display: block;
+}
+
+.tracklistSongExistsInLibrary .trackListRemoveSongButton {
+    display: block;
+}
+
 
 /* Keyframes */
 @keyframes animation-tracklist-addremove-entrance {

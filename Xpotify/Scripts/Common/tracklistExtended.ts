@@ -83,20 +83,16 @@
         var result = await api.isTracksSaved(trackIds);
 
         result.forEach(function (item: boolean, index: number) {
-            var addSong = document.querySelectorAll('.tracklist-row[data-trackid="' + trackIds[index] + '"] .trackListAddSongButton');
-            if (addSong.length < 1)
-                return;
-
-            var removeSong = document.querySelectorAll('.tracklist-row[data-trackid="' + trackIds[index] + '"] .trackListRemoveSongButton');
-            if (removeSong.length < 1)
+            var element = document.querySelectorAll('.tracklist-row[data-trackid="' + trackIds[index] + '"]');
+            if (element.length < 1)
                 return;
 
             if (item) {
-                (<HTMLElement>addSong[0]).style.display = 'none';
-                (<HTMLElement>removeSong[0]).style.display = 'block';
+                (<HTMLElement>element[0]).classList.remove('tracklistSongNotExistsInLibrary');
+                (<HTMLElement>element[0]).classList.add('tracklistSongExistsInLibrary');
             } else {
-                (<HTMLElement>addSong[0]).style.display = 'block';
-                (<HTMLElement>removeSong[0]).style.display = 'none';
+                (<HTMLElement>element[0]).classList.remove('tracklistSongExistsInLibrary');
+                (<HTMLElement>element[0]).classList.add('tracklistSongNotExistsInLibrary');
             }
         });
     }

@@ -164,8 +164,22 @@ namespace XpotifyScript.Common.UiElementModifier {
                 addSongDiv.classList.add("spoticon-add-16");
                 addSongDiv.classList.add("trackListAddRemoveSongButton");
                 addSongDiv.classList.add("trackListAddSongButton");
-                addSongDiv.style.display = "none";
                 addSongDiv.setAttribute("title", "Add to your Liked Songs");
+                addSongDiv.addEventListener('click', async function (e) {
+                    var row = (<HTMLElement>e.target).closest('.tracklist-row');
+                    var trackId = row.getAttribute("data-trackid");
+
+                    row.classList.add('tracklistSongExistsInLibrary');
+                    row.classList.remove('tracklistSongNotExistsInLibrary');
+
+                    var libraryApi = new SpotifyApi.Library();
+                    var result = await libraryApi.saveTrack(trackId);
+
+                    if (!result) {
+                        row.classList.add('tracklistSongNotExistsInLibrary');
+                        row.classList.remove('tracklistSongExistsInLibrary');
+                    }
+                });
 
                 var removeSongDiv = document.createElement('button');
                 removeSongDiv.classList.add("tracklist-middle-align");
@@ -174,8 +188,22 @@ namespace XpotifyScript.Common.UiElementModifier {
                 removeSongDiv.classList.add("control-button--active");
                 removeSongDiv.classList.add("trackListAddRemoveSongButton");
                 removeSongDiv.classList.add("trackListRemoveSongButton");
-                removeSongDiv.style.display = "none";
                 removeSongDiv.setAttribute("title", "Remove from your Liked Songs");
+                removeSongDiv.addEventListener('click', async function (e) {
+                    var row = (<HTMLElement>e.target).closest('.tracklist-row');
+                    var trackId = row.getAttribute("data-trackid");
+
+                    row.classList.add('tracklistSongNotExistsInLibrary');
+                    row.classList.remove('tracklistSongExistsInLibrary');
+
+                    var libraryApi = new SpotifyApi.Library();
+                    var result = await libraryApi.removeTrack(trackId);
+
+                    if (!result) {
+                        row.classList.add('tracklistSongExistsInLibrary');
+                        row.classList.remove('tracklistSongNotExistsInLibrary');
+                    }
+                });
 
                 var destContainer = tracks[i].querySelectorAll('.more')[0];
 
