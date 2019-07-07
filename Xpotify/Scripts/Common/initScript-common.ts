@@ -11,6 +11,8 @@
 /// <reference path="action.ts" />
 /// <reference path="pageTitleFinder.ts" />
 /// <reference path="keyboardShortcutListener.ts" />
+/// <reference path="mouseWheelListener.ts" />
+
 
 namespace XpotifyScript.Common {
 
@@ -40,6 +42,7 @@ namespace XpotifyScript.Common {
         setInitialPageHash();
         initOnResizeCheck();
         Lib.FocusVisible.init();
+        MouseWheelListener.init();
         KeyboardShortcutListener.init();
         RequestIntercepter.startInterceptingFetch();
         StatusReport.initRegularStatusReport();
