@@ -227,6 +227,9 @@
     <TypeScriptCompile Include="Scripts\Common\resize.ts" />
     <TypeScriptCompile Include="Scripts\Common\uriHelper.ts" />
     <TypeScriptCompile Include="Scripts\Common\uiElementModifier.ts" />
+    <Compile Include="Pages\HelpPage.xaml.cs">
+      <DependentUpon>HelpPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SpotifyApi\Library.cs" />
     <Compile Include="ViewModels\TopBarViewModel.cs" />
     <Compile Include="XpotifyApi\AppConstantsApi.cs" />
@@ -499,6 +502,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Flyouts\WhatsNewFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\HelpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
