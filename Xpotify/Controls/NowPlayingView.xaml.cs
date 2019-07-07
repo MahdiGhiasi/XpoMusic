@@ -698,7 +698,7 @@ namespace Xpotify.Controls
             }
         }
 
-        private async void SliderExtended_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
+        private async void VolumeSlider_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
         {
             SliderExtended sliderExtended = (SliderExtended) sender;
             int delta = e.GetCurrentPoint(null).Properties.MouseWheelDelta;

@@ -2,8 +2,6 @@
 /// <reference path="action.ts" />
 
 namespace XpotifyScript.Common.MouseWheelListener {
-
-    declare var Xpotify: any;
    
     function volumeMouseWheelHandler(e) {
         var { deltaY } = e;
@@ -14,7 +12,7 @@ namespace XpotifyScript.Common.MouseWheelListener {
     }
 
     function setVolumeBarListener() {
-        var volumeBar = document.querySelector("#main > div > div.Root__top-container > div.Root__now-playing-bar > footer > div.now-playing-bar > div.now-playing-bar__right > div > div > div.volume-bar > div");
+        var volumeBar = document.querySelector(".Root__top-container .Root__now-playing-bar .now-playing-bar__right__inner .volume-bar > div");
         volumeBar.addEventListener("mousewheel", (e) => { volumeMouseWheelHandler(e) });
     }
 
