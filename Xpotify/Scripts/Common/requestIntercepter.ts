@@ -14,6 +14,12 @@ namespace XpotifyScript.Common.RequestIntercepter {
                 if (reqJson.indexOf("before_track_load") >= 0) {
                     IndeterminateProgressBarHandler.onTrackLoadBegin();
                 }
+            } else if (args[0].toString().endsWith('/v1/devices')) {
+                console.log(args);
+                console.log(args[1].body);
+                var appName = Common.getAppName();
+                var spotifyConnectName = Common.getDeviceName() + ' (' + appName + ')';
+                args[1].body = args[1].body.toString().replace('Web Player (Microsoft Edge)', spotifyConnectName);
             }
 
             // Sending the real request

@@ -11,7 +11,7 @@ namespace XpotifyScript.Common.UiElementModifier {
             var body = <HTMLElement>document.getElementsByTagName('body')[0];
             var titleDiv = document.createElement('div');
             titleDiv.classList.add("xpotifyWindowTitle");
-            titleDiv.innerText = isProVersion() ? "Xpotify Pro" : "Xpotify";
+            titleDiv.innerText = Common.getAppName();
             body.appendChild(titleDiv);
         }
         catch (ex) {
@@ -76,7 +76,7 @@ namespace XpotifyScript.Common.UiElementModifier {
             UiInjector.injectNavbarDownButton(pinToStartButton);
             UiInjector.injectNavbarDownButton(settingsButton);
             //UiInjector.injectNavbarDownButton(aboutButton);
-            if (!isProVersion())
+            if (!Common.isProVersion())
                 UiInjector.injectNavbarDownButton(donateButton);
         }
         catch (ex) {

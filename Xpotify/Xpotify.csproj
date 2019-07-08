@@ -145,6 +145,7 @@
     <Compile Include="Controls\XpotifyWebApp.xaml.cs">
       <DependentUpon>XpotifyWebApp.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DeviceInfoHelper.cs" />
     <Compile Include="Helpers\KeyboardShortcutHelper.cs" />
     <Compile Include="Helpers\MediaControlsHelper.cs" />
     <Compile Include="Helpers\StoryboardExtensions.cs" />

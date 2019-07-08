@@ -21,6 +21,14 @@ namespace XpotifyScript.Common {
         return '{{XPOTIFYISPROVERSION}}' === '1';
     }
 
+    export function getDeviceName(): string {
+        return '{{DEVICENAME}}';
+    }
+
+    export function getAppName(): string {
+        return isProVersion() ? 'Xpotify Pro' : 'Xpotify';
+    }
+
     export function isLightTheme(): boolean {
         return (document.getElementsByTagName('body')[0].getAttribute('data-xpotifyTheme') === 'light');
     }
