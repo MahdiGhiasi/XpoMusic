@@ -15,6 +15,8 @@ namespace XpotifyScript.Common.UiElementModifier {
             body.appendChild(titleDiv);
         }
         catch (ex) {
+            Xpotify.log("injectTitleFailed");
+            Xpotify.log(ex.toString());
             return "injectTitleFailed,";
         }
         return "";
@@ -30,6 +32,8 @@ namespace XpotifyScript.Common.UiElementModifier {
             UiInjector.injectBackButton(backButtonDiv);
         }
         catch (ex) {
+            Xpotify.log("injectBackFailed");
+            Xpotify.log(ex.toString());
             return "injectBackFailed,";
         }
         return "";
@@ -80,6 +84,8 @@ namespace XpotifyScript.Common.UiElementModifier {
                 UiInjector.injectNavbarDownButton(donateButton);
         }
         catch (ex) {
+            Xpotify.log("injectNavBarFooterFailed");
+            Xpotify.log(ex.toString());
             return "injectNavBarFooterFailed,";
         }
         return "";
@@ -103,6 +109,8 @@ namespace XpotifyScript.Common.UiElementModifier {
             UiInjector.injectNowPlayingRightButton(compactOverlayButton);
         }
         catch (ex) {
+            Xpotify.log("injectCompactOverlayFailed");
+            Xpotify.log(ex.toString());
             return "injectCompactOverlayFailed,";
         }
         return "";
@@ -123,6 +131,8 @@ namespace XpotifyScript.Common.UiElementModifier {
             UiInjector.injectNowPlayingNavBarButton(nowPlayingButton);
         }
         catch (ex) {
+            Xpotify.log("addNowPlayingButtonFailed");
+            Xpotify.log(ex.toString());
             return "addNowPlayingButtonFailed,";
         }
         return "";
@@ -144,6 +154,8 @@ namespace XpotifyScript.Common.UiElementModifier {
             }, 4000);
         }
         catch (ex) {
+            Xpotify.log("findBackgroundDivFailed");
+            Xpotify.log(ex.toString());
             return "findBackgroundDivFailed,";
         }
         return "";

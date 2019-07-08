@@ -16,6 +16,8 @@
 
 namespace XpotifyScript.Common {
 
+    declare var Xpotify: any;
+
     export function isProVersion(): boolean {
         //@ts-ignore
         return '{{XPOTIFYISPROVERSION}}' === '1';
@@ -39,6 +41,7 @@ namespace XpotifyScript.Common {
         markPageAsInjected();
         initDragDrop();
 
+        Xpotify.log("Initializing UiElemetModifier stuff...");
         errors += injectCss();
         errors += UiElementModifier.createPageTitle();
         errors += UiElementModifier.createBackButton();
@@ -47,14 +50,28 @@ namespace XpotifyScript.Common {
         errors += UiElementModifier.addNowPlayingButton();
         errors += UiElementModifier.addBackgroundClass();
         errors += initNowPlayingBarCheck();
+
+        Xpotify.log("Setting page hash and initializing resize and periodic checks...");
         setInitialPageHash();
         initOnResizeCheck();
         initPeriodicPageCheck();
+
+        Xpotify.log("Initializing libraries...");
         Lib.FocusVisible.init();
+
+        Xpotify.log("Initializing MouseWheelListener...");
         MouseWheelListener.init();
+
+        Xpotify.log("Initializing KeyboardShortcutListener...");
         KeyboardShortcutListener.init();
+
+        Xpotify.log("Initializing RequestIntercepter...");
         RequestIntercepter.startInterceptingFetch();
+
+        Xpotify.log("Initializing StatusReport...");
         StatusReport.initRegularStatusReport();
+
+        Xpotify.log("Initializing StartupAnimation...");
         StartupAnimation.init();
 
         // @ts-ignore
@@ -62,6 +79,7 @@ namespace XpotifyScript.Common {
             // @ts-ignore
             window.XpotifyScript = XpotifyScript;
 
+        Xpotify.log("Common.init() finished. errors = '" + errors + "'");
         return errors;
     }
 
