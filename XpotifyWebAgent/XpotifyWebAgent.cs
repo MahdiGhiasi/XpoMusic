@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using XpotifyWebAgent.Model;
 
@@ -20,6 +21,10 @@ namespace XpotifyWebAgent
         public event EventHandler<StatusReportReceivedEventArgs> StatusReportReceived;
         public event EventHandler<ActionRequestedEventArgs> ActionRequested;
         public event EventHandler<InitFailedEventArgs> InitializationFailed;
+        public event EventHandler<LogMessageReceivedEventArgs> LogMessageReceived;
+        public event EventHandler<object> NewAccessTokenRequested;
+
+        private TaskCompletionSource<string> newAccessTokenTcs;
 
         public void ShowProgressBar(double left, double top, double width)
         {
@@ -109,6 +114,31 @@ namespace XpotifyWebAgent
             InitializationFailed?.Invoke(this, new InitFailedEventArgs
             {
                 Errors = errors,
+            });
+        }
+
+        public IAsyncOperation<string> GetNewAccessTokenAsync()
+        {
+            return GetNewAccessToken().AsAsyncOperation();
+        }
+
+        private Task<string> GetNewAccessToken()
+        {
+            newAccessTokenTcs = new TaskCompletionSource<string>();
+            NewAccessTokenRequested?.Invoke(this, new EventArgs());
+            return newAccessTokenTcs.Task;
+        }
+
+        public void SetNewAccessToken(string accessToken)
+        {
+            newAccessTokenTcs.TrySetResult(accessToken);
+        }
+
+        public void Log(string message)
+        {
+            LogMessageReceived?.Invoke(this, new LogMessageReceivedEventArgs
+            {
+                Message = message,
             });
         }
     }

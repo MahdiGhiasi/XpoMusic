@@ -85,8 +85,21 @@ namespace Xpotify.Controls
             xpotifyWebAgent.StatusReportReceived += XpotifyWebAgent_StatusReportReceived;
             xpotifyWebAgent.ActionRequested += XpotifyWebAgent_ActionRequested;
             xpotifyWebAgent.InitializationFailed += XpotifyWebAgent_InitializationFailed;
+            xpotifyWebAgent.NewAccessTokenRequested += XpotifyWebAgent_NewAccessTokenRequested;
+            xpotifyWebAgent.LogMessageReceived += XpotifyWebAgent_LogMessageReceived;
 
             VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
+        }
+
+        private void XpotifyWebAgent_LogMessageReceived(object sender, LogMessageReceivedEventArgs e)
+        {
+            logger.Info($"js::{e.Message}");
+        }
+
+        private async void XpotifyWebAgent_NewAccessTokenRequested(object sender, object e)
+        {
+            await TokenHelper.GetAndSaveNewTokenAsync();
+            xpotifyWebAgent.SetNewAccessToken(TokenHelper.GetTokens().AccessToken);
         }
 
         private void XpotifyWebAgent_InitializationFailed(object sender, InitFailedEventArgs e)

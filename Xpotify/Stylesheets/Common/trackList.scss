@@ -1,0 +1,46 @@
+﻿
+.tracklist-top-align {
+    /* No top align, will always be middle aligned. */
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin-top: 0;
+}
+
+.tracklist-col.more > div:nth-child(1) {
+    float: left;
+}
+
+.trackListAddRemoveSongButton {
+    float: right;
+    padding: 8px;
+    margin-top: -2px;
+    animation: animation-tracklist-addremove-entrance 0.3s ease-out;
+    display: none;
+}
+
+.trackListAddRemoveSongButton:hover {
+    opacity: 0.8;
+}
+
+.tracklistSongNotExistsInLibrary .trackListAddSongButton {
+    display: block;
+}
+
+.tracklistSongExistsInLibrary .trackListRemoveSongButton {
+    display: block;
+}
+
+
+/* Keyframes */
+@keyframes animation-tracklist-addremove-entrance {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+

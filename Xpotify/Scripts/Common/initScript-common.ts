@@ -49,6 +49,7 @@ namespace XpotifyScript.Common {
         errors += initNowPlayingBarCheck();
         setInitialPageHash();
         initOnResizeCheck();
+        initPeriodicPageCheck();
         Lib.FocusVisible.init();
         MouseWheelListener.init();
         KeyboardShortcutListener.init();
@@ -138,5 +139,20 @@ namespace XpotifyScript.Common {
     function initOnResizeCheck() {
         window.addEventListener("resize", Resize.onResize, true);
         setInterval(Resize.onResize, 5000); // Sometimes an OnResize is necessary when users goes to a new page.
+    }
+
+    function periodicPageCheck() {
+        try {
+            if (document.querySelectorAll(".tracklist").length > 0) {
+                TracklistExtended.initTracklistMod();
+            }
+        }
+        catch (ex) {
+            console.log(ex);
+        }
+    }
+
+    function initPeriodicPageCheck() {
+        setInterval(periodicPageCheck, 1000);
     }
 }

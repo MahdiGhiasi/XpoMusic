@@ -148,4 +148,78 @@ namespace XpotifyScript.Common.UiElementModifier {
         }
         return "";
     }
+
+    export function createTrackListAddRemoveButtons(): boolean {
+        try {
+            var count = 0;
+            var tracks = document.querySelectorAll(".tracklist .tracklist-row");
+            for (var i = 0; i < tracks.length; i++) {
+                if (tracks[i].getAttribute("data-xpotify-addremovebuttonsadded") !== null) {
+                    continue;
+                }
+
+                var addSongDiv = document.createElement('button');
+                addSongDiv.classList.add("tracklist-middle-align");
+                addSongDiv.classList.add("control-button");
+                addSongDiv.classList.add("spoticon-add-16");
+                addSongDiv.classList.add("trackListAddRemoveSongButton");
+                addSongDiv.classList.add("trackListAddSongButton");
+                addSongDiv.setAttribute("title", "Add to your Liked Songs");
+                addSongDiv.addEventListener('click', async function (e) {
+                    var row = (<HTMLElement>e.target).closest('.tracklist-row');
+                    var trackId = row.getAttribute("data-trackid");
+
+                    row.classList.add('tracklistSongExistsInLibrary');
+                    row.classList.remove('tracklistSongNotExistsInLibrary');
+
+                    var libraryApi = new SpotifyApi.Library();
+                    var result = await libraryApi.saveTrack(trackId);
+
+                    if (!result) {
+                        row.classList.add('tracklistSongNotExistsInLibrary');
+                        row.classList.remove('tracklistSongExistsInLibrary');
+                    }
+                });
+
+                var removeSongDiv = document.createElement('button');
+                removeSongDiv.classList.add("tracklist-middle-align");
+                removeSongDiv.classList.add("control-button");
+                removeSongDiv.classList.add("spoticon-added-16");
+                removeSongDiv.classList.add("control-button--active");
+                removeSongDiv.classList.add("trackListAddRemoveSongButton");
+                removeSongDiv.classList.add("trackListRemoveSongButton");
+                removeSongDiv.setAttribute("title", "Remove from your Liked Songs");
+                removeSongDiv.addEventListener('click', async function (e) {
+                    var row = (<HTMLElement>e.target).closest('.tracklist-row');
+                    var trackId = row.getAttribute("data-trackid");
+
+                    row.classList.add('tracklistSongNotExistsInLibrary');
+                    row.classList.remove('tracklistSongExistsInLibrary');
+
+                    var libraryApi = new SpotifyApi.Library();
+                    var result = await libraryApi.removeTrack(trackId);
+
+                    if (!result) {
+                        row.classList.add('tracklistSongExistsInLibrary');
+                        row.classList.remove('tracklistSongNotExistsInLibrary');
+                    }
+                });
+
+                var destContainer = tracks[i].querySelectorAll('.more')[0];
+
+                if (destContainer !== undefined) {
+                    destContainer.appendChild(addSongDiv);
+                    destContainer.appendChild(removeSongDiv);
+                    count++;
+                }
+
+                tracks[i].setAttribute("data-xpotify-addremovebuttonsadded", "1");
+            }
+
+            return count > 0;
+        } catch (ex) {
+            Xpotify.log(ex.toString());
+            return false;
+        }
+    }
 }
