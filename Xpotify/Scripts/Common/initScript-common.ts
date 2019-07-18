@@ -28,7 +28,7 @@ namespace XpotifyScript.Common {
     }
 
     export function getAppName(): string {
-        return isProVersion() ? 'Xpotify Pro' : 'Xpotify';
+        return isProVersion() ? 'Xpo Music Pro' : 'Xpo Music';
     }
 
     export function isLightTheme(): boolean {

@@ -37,12 +37,12 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <TextBlock Text="You'll need to close and reopen Xpotify for this change to take effect."
+                    <TextBlock Text="You'll need to close and reopen Xpo Music for this change to take effect."
                                TextWrapping="Wrap"
                                Margin="0,4,0,0"
                                Foreground="Red"
                                Visibility="{x:Bind ViewModel.ThemeRestartNeededNoticeVisibility, Mode=OneWay}" />
-                    <HyperlinkButton Content="Restart Xpotify"
+                    <HyperlinkButton Content="Restart Xpo Music"
                              Visibility="{x:Bind ViewModel.ThemeRestartNeededNoticeVisibility, Mode=OneWay}"
                              Click="RestartApp_Click"/>
 
@@ -60,11 +60,11 @@
                     <TextBlock Opacity="0.5" 
                                Margin="0,4,8,0"
                                TextWrapping="Wrap">
-                        Live tile will show up on Xpotify tile when you're listening to music.
+                        Live tile will show up on Xpo Music tile when you're listening to music.
                     </TextBlock>
                     <HyperlinkButton Visibility="{x:Bind ViewModel.PinToStartLinkVisibility, Mode=OneWay}"
                                      Click="PinTileToStart_Click">
-                        Pin Xpotify to Start
+                        Pin Xpo Music to Start
                     </HyperlinkButton>
 
                     <TextBlock Text="Interface language:" Margin="0,24,0,0" />
@@ -78,15 +78,15 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                    <TextBlock Text="You'll need to close and reopen Xpotify for this change to take effect."
+                    <TextBlock Text="You'll need to close and reopen Xpo Music for this change to take effect."
                                TextWrapping="Wrap"
                                Margin="0,4,0,0"
                                Foreground="Red"
                                Visibility="{x:Bind ViewModel.LanguageRestartNeededNoticeVisibility, Mode=OneWay}" />
-                    <HyperlinkButton Content="Restart Xpotify"
+                    <HyperlinkButton Content="Restart Xpo Music"
                              Visibility="{x:Bind ViewModel.LanguageRestartNeededNoticeVisibility, Mode=OneWay}"
                              Click="RestartApp_Click"/>
-                    <ToggleSwitch Header="Open Xpotify in mini view when launched by Cortana" 
+                    <ToggleSwitch Header="Open Xpo Music in mini view when launched by Cortana" 
                                   Margin="0,24,0,0"
                                   IsOn="{x:Bind ViewModel.OpenInMiniViewByCortana, Mode=TwoWay}" />
                     <TextBlock Margin="0,4,0,0" Opacity="0.5" TextWrapping="Wrap">

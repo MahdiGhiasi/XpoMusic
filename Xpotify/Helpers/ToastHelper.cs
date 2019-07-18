@@ -41,7 +41,7 @@ namespace Xpotify.Helpers
             var xmlToastTemplate = "<toast launch=\"action=reopenApp\">" +
                                      "<visual>" +
                                        "<binding template =\"ToastGeneric\">" +
-                                         "<text>Tap here to open Xpotify again</text>" +
+                                         "<text>Tap here to open Xpo Music again</text>" +
                                        "</binding>" +
                                      "</visual>" +
                                    "</toast>";
