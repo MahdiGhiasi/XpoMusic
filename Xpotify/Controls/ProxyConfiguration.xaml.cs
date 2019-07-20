@@ -44,8 +44,8 @@ namespace Xpotify.Controls
 
             ContentDialog cd = new ContentDialog
             {
-                Title = "Restart Xpotify",
-                Content = "We need to restart Xpotify in order to apply proxy settings.",
+                Title = "Restart Xpo Music",
+                Content = "We need to restart Xpo Music in order to apply proxy settings.",
                 RequestedTheme = ElementTheme.Dark,
                 IsPrimaryButtonEnabled = true,
                 PrimaryButtonText = "Restart Now",

@@ -79,7 +79,7 @@ namespace Xpotify.Helpers
                     {
                         MessageDialog md = new MessageDialog(
                             content: $"Error details:\r\n\r\n{LastInitErrors}\r\n{ex}", 
-                            title: "There was a problem while initializing Xpotify. Some features might not work properly.");
+                            title: "There was a problem while initializing Xpo Music. Some features might not work properly.");
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                         md.ShowAsync();
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
@@ -88,7 +88,7 @@ namespace Xpotify.Helpers
                     {
                         MessageDialog md = new MessageDialog(
                             content: ex.ToString(),
-                            title: "Xpotify initialization failed. Some features might not work properly.");
+                            title: "Xpo Music initialization failed. Some features might not work properly.");
 #pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
                         md.ShowAsync();
 #pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed

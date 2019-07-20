@@ -24,9 +24,9 @@
                 System-wide proxy settings will be used.
             </TextBlock>
             <TextBlock Margin="0,4,0,0" Foreground="Red" TextWrapping="Wrap" Visibility="{x:Bind ViewModel.RestartNeededNoticeVisibility, Mode=OneWay}">
-                You'll need to close and reopen Xpotify for this change to take effect.
+                You'll need to close and reopen Xpo Music for this change to take effect.
             </TextBlock>
-            <HyperlinkButton Content="Restart Xpotify"
+            <HyperlinkButton Content="Restart Xpo Music"
                              Visibility="{x:Bind ViewModel.RestartNeededNoticeVisibility, Mode=OneWay}"
                              Click="RestartApp_Click"/>
             <StackPanel Margin="16,8,16,0" Visibility="{x:Bind ViewModel.ProxyConfigurationVisibility, Mode=OneWay}">

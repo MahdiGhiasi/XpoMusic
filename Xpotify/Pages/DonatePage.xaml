@@ -15,21 +15,21 @@
                 Margin="0,8,0,16"
                 FontWeight="Bold"
                 Foreground="ForestGreen"
-                Text="You are running Xpotify Pro. Thanks for your support!"
+                Text="You are running Xpo Music Pro. Thanks for your support!"
                 TextWrapping="Wrap" />
             <TextBlock
                 Margin="0,8,0,0"
-                Text="You can support the development of Xpotify by purchasing Xpotify Pro from the Store."
+                Text="You can support the development of Xpo Music by purchasing Xpo Music Pro from the Store."
                 TextWrapping="Wrap" />
-            <HyperlinkButton Click="GetXpotifyPro_Click" Content="Get Xpotify Pro from Microsoft Store" />
+            <HyperlinkButton Click="GetXpotifyPro_Click" Content="Get Xpo Music Pro from Microsoft Store" />
             <TextBlock
                 Margin="0,8,0,32"
                 Opacity="0.5"
-                Text="The free version of Xpotify does not have any limitations; but you can buy Xpotify Pro to support the development of the app."
+                Text="The free version of Xpo Music does not have any limitations; but you can buy Xpo Music Pro to support the development of the app."
                 TextWrapping="Wrap" />
             <TextBlock
                 Margin="0,8,0,0"
-                Text="You can also support the development of Xpotify by donating to one of the addresses below."
+                Text="You can also support the development of Xpo Music by donating to one of the addresses below."
                 TextWrapping="Wrap" />
             <TextBlock
                 Margin="0,16,0,0"

@@ -144,7 +144,7 @@
                                                  Margin="0,24,0,0" />
 
                     <StackPanel Orientation="Horizontal" Margin="0,80,0,0">
-                        <TextBlock Text="Xpotify v"
+                        <TextBlock Text="Xpo Music v"
                                    Foreground="White"
                                    Opacity="0.5"
                                    FontWeight="ExtraLight"

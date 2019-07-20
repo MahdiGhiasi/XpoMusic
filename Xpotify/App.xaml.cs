@@ -46,7 +46,7 @@ namespace Xpotify
             e.Handled = true;
 
             AnalyticsHelper.Log("unhandledException", e.Message, e.Exception.ToString());
-            await new MessageDialog(e.Message + "\r\n---\r\n" + e.Exception.ToString(), "An exception has been occured in Xpotify.").ShowAsync();
+            await new MessageDialog(e.Message + "\r\n---\r\n" + e.Exception.ToString(), "An exception has been occured in Xpo Music.").ShowAsync();
             logger.Error("Unhandled exception: \r\n" + e.Message + "\r\n---\r\n" + e.Exception.ToString());
         }
 

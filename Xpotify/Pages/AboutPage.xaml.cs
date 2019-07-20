@@ -23,7 +23,7 @@ namespace Xpotify.Pages
 {
     public sealed partial class AboutPage : Page
     {
-        private readonly Uri twitterPageUri = new Uri("https://twitter.com/Xpotify");
+        private readonly Uri twitterPageUri = new Uri("https://twitter.com/XpoMusic");
         private readonly Uri githubPageUri = new Uri("https://github.com/MahdiGhiasi/Xpotify");
         private readonly Uri privacyPolicyPageUri = new Uri("https://ghiasi.net/xpotify/privacy.html");
 
