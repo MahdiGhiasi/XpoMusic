@@ -220,18 +220,25 @@ namespace Xpotify.Controls
                 ViewModel.ArtistName = PlayStatusTracker.LastPlayStatus.ArtistName;
 
                 var albumArtUrl = await SongImageProvider.GetAlbumArt(PlayStatusTracker.LastPlayStatus.AlbumId);
-                ViewModel.AlbumArtUri = new Uri(albumArtUrl);
+                if (!string.IsNullOrWhiteSpace(albumArtUrl))
+                    ViewModel.AlbumArtUri = new Uri(albumArtUrl);
 
                 if (ViewModel.ShowArtistArt)
                 {
                     var artistArtUrl = await SongImageProvider.GetArtistArt(PlayStatusTracker.LastPlayStatus.ArtistId);
-                    ViewModel.BackgroundArtUri = new Uri(artistArtUrl);
-                    ViewModel.BlurEnabled = false;
+                    if (!string.IsNullOrWhiteSpace(artistArtUrl))
+                    {
+                        ViewModel.BackgroundArtUri = new Uri(artistArtUrl);
+                        ViewModel.BlurEnabled = false;
+                    }
                 }
                 else
                 {
-                    ViewModel.BackgroundArtUri = new Uri(albumArtUrl);
-                    ViewModel.BlurEnabled = true;
+                    if (!string.IsNullOrWhiteSpace(albumArtUrl))
+                    {
+                        ViewModel.BackgroundArtUri = new Uri(albumArtUrl);
+                        ViewModel.BlurEnabled = true;
+                    }
                 }
 
                 await Task.Delay(200);

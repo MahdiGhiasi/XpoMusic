@@ -142,10 +142,7 @@ namespace Xpotify.Classes
                         || LastPlayStatus.IsNextTrackAvailable != data.IsNextTrackAvailable
                         || LastPlayStatus.IsPrevTrackAvailable != data.IsPrevTrackAvailable);
 
-                    var album = await GlobalCache.Album.GetItem(data.AlbumId);
-
                     LastPlayStatus.AlbumId = data.AlbumId;
-                    LastPlayStatus.AlbumName = album.name;
                     LastPlayStatus.ArtistId = data.ArtistId;
                     LastPlayStatus.ArtistName = data.ArtistName;
                     LastPlayStatus.ProgressedMilliseconds = data.ElapsedTime;
@@ -156,6 +153,16 @@ namespace Xpotify.Classes
                     LastPlayStatus.Volume = data.Volume;
                     LastPlayStatus.IsNextTrackAvailable = data.IsNextTrackAvailable;
                     LastPlayStatus.IsPrevTrackAvailable = data.IsPrevTrackAvailable;
+
+                    try
+                    {
+                        var album = await GlobalCache.Album.GetItem(data.AlbumId);
+                        LastPlayStatus.AlbumName = album.name;
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Info("LocalPlaybackDataReceived:GetAlbumInfo failed: " + ex.ToString());
+                    }
 
                     if (changed)
                     {
