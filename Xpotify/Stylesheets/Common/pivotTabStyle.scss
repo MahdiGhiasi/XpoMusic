@@ -18,25 +18,28 @@
     height: 2px;
     position: absolute;
     display: block;
-    left: 10px;
-    right: 10px;
-    bottom: -4px;
-    width: unset;
-    margin: 0;
-    opacity: 0;
-    transform: translateY(-6px);
-    transition: opacity .2s ease-out .1s, transform .2s ease-out .1s;
-}
-
-.EYVkZXmTImKH4iH48N7Uj._1-aXXBO8bQU1WTFY-7B0m-:before {
-    left: 10px;
-    right: 10px;
-    bottom: -4px;
-    width: unset;
-    margin: 0;
+    left: 10px !important;
+    right: 10px !important;
+    bottom: -4px !important;
+    width: unset !important;
+    margin: 0 !important;
+    transition: opacity .2s ease-out .1s,transform .2s ease-out .1s;
     transform: translateY(0);
     opacity: 1;
 }
+
+/* Begin pivot select item animation */
+/* This does not have strong selectors, and it may fail with updates on the PWA side. */
+._137ec408b14ac4ea5aec6ded3d95f328\.scss:before {
+    opacity: 0 !important;
+    transform: translateY(-6px) !important;
+}
+
+.be059487cfa7b71ee0f482c8e5be2b7e\.scss:before {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+/* End pivot select item animation */
 
 .Root__main-view nav ul {
     text-align: left !important;
