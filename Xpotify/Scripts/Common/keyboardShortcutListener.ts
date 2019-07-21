@@ -135,11 +135,7 @@ namespace XpotifyScript.Common.KeyboardShortcutListener {
         // Spotify style shortcuts
         if (e.ctrlKey && e.which == 'N'.charCodeAt(0)) {
             // Ctrl+N -> New Playlist
-            Action.navigateToPage("/collection/playlists");
-
-            setTimeout(function () {
-                (<HTMLElement>document.querySelectorAll('.Root__main-view .asideButton button')[0]).click();
-            }, 250);
+            Action.newPlaylist();
 
         } else if (e.ctrlKey && e.which == 'C'.charCodeAt(0) && !isInputFocused) {
             // Ctrl+C -> Copy

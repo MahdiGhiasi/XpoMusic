@@ -205,4 +205,24 @@
         );
         document.elementFromPoint(x, y).dispatchEvent(mouseUpEvent);
     }
+
+    export function newPlaylist() {
+        var newPlaylistButton = document.querySelectorAll('.CreatePlaylistButton');
+
+        if (newPlaylistButton.length > 0) {
+            (<HTMLElement>newPlaylistButton[0]).click();
+        }
+        else {
+            // Old UI
+            Action.navigateToPage("/collection/playlists");
+
+            setTimeout(function () {
+                (<HTMLElement>document.querySelectorAll('.Root__main-view .asideButton button')[0]).click();
+            }, 250);
+
+            return;
+        }
+
+        
+    }
 }
