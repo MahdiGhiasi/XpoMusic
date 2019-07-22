@@ -80,8 +80,8 @@ namespace XpotifyScript.Common.UiElementModifier {
             UiInjector.injectNavbarDownButton(pinToStartButton);
             UiInjector.injectNavbarDownButton(settingsButton);
             //UiInjector.injectNavbarDownButton(aboutButton);
-            if (!Common.isProVersion())
-                UiInjector.injectNavbarDownButton(donateButton);
+            //if (!Common.isProVersion())
+            //    UiInjector.injectNavbarDownButton(donateButton);
         }
         catch (ex) {
             Xpotify.log("injectNavBarFooterFailed");
