@@ -4,6 +4,9 @@ html {
         Color of the bounce effect of page when using touch or touchpad.
     */
     background-color: #181818;
+
+    /* Disable horizontal scrollbar which appears occasionally */
+    overflow-x: hidden;
 }
 
 @media (max-height: 1100px) {
@@ -31,6 +34,9 @@ body {
 
     /* Disable text selection */
     -webkit-user-select: none;
+
+    /* Disable horizontal scrollbar which appears occasionally */
+    overflow-x: hidden;
 }
 
 .main-view-container__content, .main-view-container__scroll-node {
