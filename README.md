@@ -30,7 +30,7 @@ Create a file named `Secrets.cs` in the `Xpotify/` directory, and put the follow
 
 Sign up on [Spotify Developer website](https://developer.spotify.com/) and get an API key for yourself. Put Id and Secret that you get from Spotify into the `SpotifyClientId` and `SpotifyClientSecret` fields. You can leave the `GoogleAnalyticsTrackerId` empty.
 
-Also, you will need to add `https://xpotify.ghiasi.net/login/redirect` as the redirect URI on Spotify developer dashboard for the app entry you created. Alternatively, you can choose a different redirect URI and then modify [this line of code](https://github.com/MahdiGhiasi/Xpotify/blob/7e003b9879104a5b8b771f48475feca92155de8a/Xpotify/SpotifyApi/Authorization.cs#L18) accordingly.
+Also, you will need to add `https://xpomusic.ghiasi.net/login/redirect` as the redirect URI on Spotify developer dashboard for the app entry you created. Alternatively, you can choose a different redirect URI and then modify [this line of code](https://github.com/MahdiGhiasi/Xpotify/blob/7e003b9879104a5b8b771f48475feca92155de8a/Xpotify/SpotifyApi/Authorization.cs#L18) accordingly.
 
 ## Contributing
 

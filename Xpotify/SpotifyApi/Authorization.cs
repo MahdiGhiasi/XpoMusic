@@ -16,7 +16,7 @@ namespace Xpotify.SpotifyApi
         internal static readonly string Scopes = "user-read-recently-played playlist-read-private playlist-read-collaborative playlist-modify-private playlist-modify-public user-read-email user-library-read user-library-modify user-read-playback-state user-modify-playback-state user-read-private user-read-currently-playing user-follow-read user-follow-modify streaming user-top-read app-remote-control";
         internal static readonly string SpotifyLoginUri = "https://accounts.spotify.com/";
         internal static readonly string FacebookLoginFinishRedirectUri = "https://accounts.spotify.com/api/facebook/oauth/access_token";
-        internal static readonly string RedirectUri = "https://xpotify.ghiasi.net/login/redirect";
+        internal static readonly string RedirectUri = "https://xpomusic.ghiasi.net/login/redirect";
 
         public static string GetAuthorizationUrl(string state)
         {
