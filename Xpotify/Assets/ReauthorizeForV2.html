@@ -46,6 +46,12 @@
                 vertical-align: middle;
             }
 
+
+        h2 {
+            font-weight: 400;
+            margin-left: 88px;
+        }
+
         h3 {
             font-weight: 400;
             margin-left: 88px;
@@ -71,6 +77,26 @@
         .lastParagraph {
             font-weight: 600;
             padding-top: 30px;
+        }
+
+        a:hover, a:visited, a:link, a:active {
+            text-decoration: none;
+        }
+
+        body.dark a {
+            color: lightskyblue;
+        }
+
+        body.light a {
+            color: deepskyblue;
+        }
+
+        a {
+            font-weight: 600;
+        }
+
+        .buttonContainer a {
+            color: white !important;
         }
 
         @media (max-width: 660px) {
@@ -110,16 +136,25 @@
             <img src="xpotify.png" />
             <span>Welcome to Xpo Music v2.0</span>
         </h1>
+        <h2 style="font-weight: 600; opacity: 0.85; font-size: 22px">
+            Xpotify has been renamed to Xpo Music!
+        </h2>
         <h3 style="opacity: 0.7">
-            Xpotify is now renamed to Xpo Music, and there are many new features and improvements in this version as well, including:
+            This update also contains many new features and improvements:
             <ul>
-                <li>This</li>
-                <li>That</li>
-                <li>The other thing</li>
+                <li>Now Playing page</li>
+                <li>Keyboard shortcuts <i><a href="https://ghiasi.net/xpotify/keyboardShortcuts" target="_blank">read more</a></i></li>
+                <li>Add or remove songs to your Liked Songs quickly on album and playlist pages</li>
+                <li>Mini view redesign</li>
+                <li>Change volume by mouse wheel over volume bar</li>
+                <li>Appropriate device and app name in Spotify Connect</li>
+                <li>Animation improvements</li>
+                <li>Playback improvements</li>
+                <li>Many more under the hood improvements</li>
             </ul>
         </h3>
         <h3 class="lastParagraph">
-            Some new features require you to authorize Xpo Music again with your Spotify account, so you can have the best experience possible.
+            Xpo Music requires you to authorize it again with your Spotify account, so you can have the best experience possible.
         </h3>
         <div class="buttonContainer">
             <a href="#" id="authorizeButton" class="button">Authorize Xpo Music</a>
