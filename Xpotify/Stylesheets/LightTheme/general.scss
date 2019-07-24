@@ -100,3 +100,12 @@ img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
 #main .dialog img {
     filter: invert(1);
 }
+
+/* Show emojis in playlist names correctly */
+.RootlistItemPlaylist__text-wrapper,
+.mo-info-name,
+.TrackListHeader .mo-info-name,
+.TrackListHeader__entity-name h2 {
+    color: black;
+    filter: invert(1);
+}
