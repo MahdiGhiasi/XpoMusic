@@ -1,3 +1,10 @@
 ﻿.now-playing-bar-container {
     background-color: rgba(30, 33, 40, 0.65);
 }
+
+.connect-device-list-item--active .connect-device-list-item__icon,
+.connect-device-list-item--active .connect-device-list-item__info,
+.connect-device-list-content .btn-blue {
+    filter: invert(1);
+}
+
