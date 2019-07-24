@@ -2,3 +2,7 @@
     background-color: rgba(40, 40, 40, 0.6) !important;
     -webkit-backdrop-filter: blur(20px);
 }
+
+.RootlistItem--is-active:before {
+    filter: invert(1);
+}
