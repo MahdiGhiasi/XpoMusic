@@ -186,6 +186,10 @@ namespace Xpotify.Classes
         {
             try
             {
+                // Don't ask API if local status tracking is working correctly.
+                if (IsLocalStatusTrackingOperational)
+                    return;
+
                 lastStatusFetch = DateTime.UtcNow;
 
                 var player = new Player();
