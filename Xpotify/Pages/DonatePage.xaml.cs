@@ -61,11 +61,5 @@ namespace Xpotify.Pages
             Clipboard.SetContent(dataPackage);
             Clipboard.Flush();
         }
-
-        private async void GetXpotifyPro_Click(object sender, RoutedEventArgs e)
-        {
-            await Launcher.LaunchUriAsync(PackageHelper.ProStoreUri);
-            AnalyticsHelper.Log("donate", "getXpotifyPro");
-        }
     }
 }
