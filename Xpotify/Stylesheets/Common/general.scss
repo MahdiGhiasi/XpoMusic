@@ -7,6 +7,9 @@ html {
 
     /* Disable horizontal scrollbar which appears occasionally */
     overflow-x: hidden;
+
+    /* Disable overscrolling navbar and now playing bar */
+    overflow-y: hidden;
 }
 
 @media (max-height: 1100px) {
@@ -26,9 +29,6 @@ html {
 body {
     background-color: #181818;
 
-    /* Disable overscrolling navbar and now playing bar */
-    overflow-y: hidden;
-
     /* Disable zooming by pinch on touch screen or presicion touchpad */
     -ms-content-zooming: none;
 
@@ -37,6 +37,9 @@ body {
 
     /* Disable horizontal scrollbar which appears occasionally */
     overflow-x: hidden;
+
+    /* Disable overscrolling navbar and now playing bar */
+    overflow-y: hidden;
 }
 
 .main-view-container__content, .main-view-container__scroll-node {
