@@ -605,7 +605,7 @@
     <TypeScriptCompile Include="Scripts\LightTheme\initScript-light.ts" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XpotifyWebAgent\XpoMusicWebAgent.csproj">
+    <ProjectReference Include="..\XpoMusicWebAgent\XpoMusicWebAgent.csproj">
       <Project>{15faca69-c86a-4447-97dc-b6cb59056075}</Project>
       <Name>XpoMusicWebAgent</Name>
     </ProjectReference>
