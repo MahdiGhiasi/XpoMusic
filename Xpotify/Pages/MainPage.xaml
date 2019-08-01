@@ -34,7 +34,7 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="ClosedQuick" />
                         </ObjectAnimationUsingKeyFrames>
                         
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpotifyWebView"
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpoWebView"
                                                        Storyboard.TargetProperty="IsOpen">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="True" />
                         </ObjectAnimationUsingKeyFrames>
@@ -52,7 +52,7 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
                         </ObjectAnimationUsingKeyFrames>
                         
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpotifyWebView"
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpoWebView"
                                                        Storyboard.TargetProperty="IsOpen">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="True" />
                         </ObjectAnimationUsingKeyFrames>
@@ -80,7 +80,7 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpotifyWebView"
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpoWebView"
                                                        Storyboard.TargetProperty="IsOpen">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="True" />
                             <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="False" />
@@ -99,7 +99,7 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Closed" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpotifyWebView"
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpoWebView"
                                                        Storyboard.TargetProperty="IsTabStop">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="False" />
                         </ObjectAnimationUsingKeyFrames>
@@ -124,7 +124,7 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpotifyWebView"
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpoWebView"
                                                        Storyboard.TargetProperty="IsOpen">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="True" />
                             <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="False" />
@@ -156,7 +156,7 @@
                             <DiscreteObjectKeyFrame KeyTime="0" Value="True" />
                         </ObjectAnimationUsingKeyFrames>
 
-                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpotifyWebView"
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="xpoWebView"
                                                        Storyboard.TargetProperty="IsOpen">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="True" />
                         </ObjectAnimationUsingKeyFrames>
@@ -179,13 +179,13 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <controls:XpoMusicWebApp x:Name="xpotifyWebView"
+        <controls:XpoMusicWebApp x:Name="xpoWebView"
                                 IsTabStop="True"
                                 MinWidth="500"
                                 MinHeight="500"
-                                PageLoaded="XpotifyWebView_PageLoaded"
-                                WebAppLoaded="XpotifyWebView_WebAppLoaded"
-                                ActionRequested="XpotifyWebView_ActionRequested"/>
+                                PageLoaded="XpoWebView_PageLoaded"
+                                WebAppLoaded="XpoWebView_WebAppLoaded"
+                                ActionRequested="XpoWebView_ActionRequested"/>
 
         <controls:FlyoutContainer x:Name="flyoutContainer" />
 

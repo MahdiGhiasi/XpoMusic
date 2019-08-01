@@ -58,7 +58,7 @@ namespace XpoMusic.Pages
 
             AppConstants.Instance.ConstantsUpdated += Instance_ConstantsUpdated;
 
-            xpotifyWebView.RequestedTheme = (ThemeHelper.GetCurrentTheme() == Theme.Light) ? ElementTheme.Light : ElementTheme.Dark;
+            xpoWebView.RequestedTheme = (ThemeHelper.GetCurrentTheme() == Theme.Light) ? ElementTheme.Light : ElementTheme.Dark;
 
             VisualStateManager.GoToState(this, nameof(SplashScreenVisualState), false);
         }
@@ -82,9 +82,9 @@ namespace XpoMusic.Pages
             var targetUrl = GetTileLaunchTargetUrl(e.Parameter as string);
 
             if (string.IsNullOrEmpty(targetUrl))
-                xpotifyWebView.OpenWebApp();
+                xpoWebView.OpenWebApp();
             else
-                xpotifyWebView.OpenWebApp(targetUrl);
+                xpoWebView.OpenWebApp(targetUrl);
         }
 
         private string GetTileLaunchTargetUrl(string parameter)
@@ -100,11 +100,11 @@ namespace XpoMusic.Pages
                     var autoplayEntry = urlDecoder.FirstOrDefault(x => x.Name == "autoplay");
                     if (autoplayEntry != null)
                     {
-                        xpotifyWebView.AutoPlayAction = autoplayEntry.Value == "track" ? AutoPlayAction.Track : AutoPlayAction.Playlist;
+                        xpoWebView.AutoPlayAction = autoplayEntry.Value == "track" ? AutoPlayAction.Track : AutoPlayAction.Playlist;
                     }
                     else
                     {
-                        xpotifyWebView.AutoPlayAction = AutoPlayAction.None;
+                        xpoWebView.AutoPlayAction = AutoPlayAction.None;
                     }
 
                     var sourceEntry = urlDecoder.FirstOrDefault(x => x.Name == "source");
@@ -146,7 +146,7 @@ namespace XpoMusic.Pages
                 var urlDecoder = new WwwFormUrlDecoder(parameter);
                 var pageUrl = urlDecoder.GetFirstValueByName("pageUrl");
 
-                await xpotifyWebView.Controller.NavigateToSpotifyUrl(pageUrl);
+                await xpoWebView.Controller.NavigateToSpotifyUrl(pageUrl);
 
                 var autoplayEntry = urlDecoder.FirstOrDefault(x => x.Name == "autoplay");
                 AutoPlayAction action = AutoPlayAction.None;
@@ -154,7 +154,7 @@ namespace XpoMusic.Pages
                     action = autoplayEntry.Value == "track" ? AutoPlayAction.Track : AutoPlayAction.Playlist;
 
                 if (action != AutoPlayAction.None)
-                    await xpotifyWebView.Controller.AutoPlay(action);
+                    await xpoWebView.Controller.AutoPlay(action);
 
                 return;
             }
@@ -216,7 +216,7 @@ namespace XpoMusic.Pages
 
         private async void Dispatcher_AcceleratorKeyActivated(CoreDispatcher sender, AcceleratorKeyEventArgs e)
         {
-            if (!xpotifyWebView.IsWebAppLoaded)
+            if (!xpoWebView.IsWebAppLoaded)
                 return;
 
             if (e.EventType == CoreAcceleratorKeyEventType.KeyDown || e.EventType == CoreAcceleratorKeyEventType.SystemKeyDown)
@@ -236,12 +236,12 @@ namespace XpoMusic.Pages
                 var altPressed = (altState & CoreVirtualKeyStates.Down) == CoreVirtualKeyStates.Down;
 
                 logger.Info(e.VirtualKey);
-                var isHandled = await KeyboardShortcutHelper.KeyDown(e.VirtualKey, shiftPressed, ctrlPressed, altPressed, xpotifyWebView.Controller, nowPlaying);
+                var isHandled = await KeyboardShortcutHelper.KeyDown(e.VirtualKey, shiftPressed, ctrlPressed, altPressed, xpoWebView.Controller, nowPlaying);
                 if (isHandled == KeyboardShortcutHelper.KeyDownProcessResult.AskJs)
                 {
                     logger.Info("Sending it to js...");
                     int charCode = (int)e.VirtualKey;
-                    var handledByJs = await xpotifyWebView.Controller.OnKeyDown(charCode, shiftPressed, ctrlPressed, altPressed);
+                    var handledByJs = await xpoWebView.Controller.OnKeyDown(charCode, shiftPressed, ctrlPressed, altPressed);
                     if (handledByJs)
                     {
                         if (nowPlaying.IsOpen)
@@ -286,11 +286,11 @@ namespace XpoMusic.Pages
                     Action = NowPlayingView.Action.Back,
                 });
             }
-            else if (xpotifyWebView.BackEnabled)
+            else if (xpoWebView.BackEnabled)
             {
                 e.Handled = true;
 
-                var result = await xpotifyWebView.Controller.GoBackIfPossible();
+                var result = await xpoWebView.Controller.GoBackIfPossible();
                 logger.Info($"GoBackIfPossible() result = {result}");
             }
         }
@@ -355,7 +355,7 @@ namespace XpoMusic.Pages
                 }
                 else if (e.Action == NowPlayingView.Action.PlayQueue)
                 {
-                    await xpotifyWebView.Controller.NavigateToSpotifyUrl(_playQueueUri);
+                    await xpoWebView.Controller.NavigateToSpotifyUrl(_playQueueUri);
                     CloseNowPlaying();
                 }
                 else if (e.Action == NowPlayingView.Action.SeekPlayback)
@@ -374,7 +374,7 @@ namespace XpoMusic.Pages
             try
             {
                 PlayStatusTracker.SeekPlayback(percentage);
-                await xpotifyWebView.Controller.SeekPlayback(percentage);
+                await xpoWebView.Controller.SeekPlayback(percentage);
             }
             catch (Exception ex)
             {
@@ -387,7 +387,7 @@ namespace XpoMusic.Pages
             try
             {
                 PlayStatusTracker.SeekVolume(percentage);
-                await xpotifyWebView.Controller.SeekVolume(percentage);
+                await xpoWebView.Controller.SeekVolume(percentage);
             }
             catch (Exception ex)
             {
@@ -424,10 +424,10 @@ namespace XpoMusic.Pages
         private async void GetBackFocusToWebView()
         {
             await Task.Delay(200);
-            xpotifyWebView.SetFocusToWebView();
+            xpoWebView.SetFocusToWebView();
         }
 
-        private void XpotifyWebView_PageLoaded(object sender, EventArgs e)
+        private void XpoWebView_PageLoaded(object sender, EventArgs e)
         {
             VisualStateManager.GoToState(this, nameof(MainScreenQuickVisualState), false);
 
@@ -437,7 +437,7 @@ namespace XpoMusic.Pages
             PlayStatusTracker.LastPlayStatus.Updated -= LastPlayStatus_Updated;
         }
 
-        private void XpotifyWebView_WebAppLoaded(object sender, EventArgs e)
+        private void XpoWebView_WebAppLoaded(object sender, EventArgs e)
         {
             if (splashScreen.SplashState == Controls.SplashScreen.SplashScreenShowState.Visible)
                 VisualStateManager.GoToState(this, nameof(MainScreenVisualState), false);
@@ -504,7 +504,7 @@ namespace XpoMusic.Pages
             if (!isNowPlayingEnabled && nowPlayingShouldBeEnabled)
             {
                 PlayStatusTracker.LastPlayStatus.Updated -= LastPlayStatus_Updated;
-                await xpotifyWebView.Controller.EnableNowPlaying();
+                await xpoWebView.Controller.EnableNowPlaying();
                 isNowPlayingEnabled = true;
                 return true;
             }
@@ -512,7 +512,7 @@ namespace XpoMusic.Pages
             return false;
         }
 
-        private async void XpotifyWebView_ActionRequested(object sender, XpoMusicWebApp.XpotifyWebAppActionRequest request)
+        private async void XpoWebView_ActionRequested(object sender, XpoMusicWebApp.XpotifyWebAppActionRequest request)
         {
             switch (request)
             {
@@ -543,7 +543,7 @@ namespace XpoMusic.Pages
 
         private async void TopBar_OpenSpotifyUriRequested(object sender, string uri)
         {
-            await xpotifyWebView.Controller.NavigateToSpotifyUrl(uri);
+            await xpoWebView.Controller.NavigateToSpotifyUrl(uri);
         }
 
         private void Page_SizeChanged(object sender, SizeChangedEventArgs e)
