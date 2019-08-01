@@ -1,0 +1,58 @@
+﻿<UserControl
+    x:Class="XpoMusic.Controls.TopBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:XpoMusic.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:XpoMusic.ViewModels"
+    mc:Ignorable="d"
+    Loaded="UserControl_Loaded"
+    d:DesignHeight="300"
+    d:DesignWidth="400">
+    <UserControl.DataContext>
+        <vm:TopBarViewModel x:Name="ViewModel" />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <AcrylicBrush x:Name="topBarButtonsAcrylicBrush" BackgroundSource="Backdrop"
+                          TintOpacity="0.3" TintColor="#FFFFFFFF" FallbackColor="#77FFFFFF" />
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid x:Name="topBar" 
+              RequestedTheme="Light"
+              Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}">
+            <Rectangle x:Name="topBarBackground"
+                       Fill="#01000000" />
+            <StackPanel x:Name="topBarButtonsStackPanel" 
+                        HorizontalAlignment="Right"
+                        Background="{ThemeResource topBarButtonsAcrylicBrush}"
+                        Padding="0,0,0,0"
+                        Orientation="Horizontal" 
+                        FlowDirection="RightToLeft">
+                <Grid Width="{x:Bind ViewModel.TopBarBehindSystemControlsAreaWidth, Mode=OneWay}"
+                      Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}" />
+                <Grid x:Name="topBarButtonSeparator"
+                      Width="{x:Bind ViewModel.TopBarButtonWidth, Mode=OneWay}"
+                      Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}"
+                      Visibility="{x:Bind ViewModel.OpenLinkFromClipboardVisibility, Mode=OneWay}" />
+                <Button x:Name="openLinkFromClipboard"
+                        Width="{x:Bind ViewModel.TopBarButtonWidth, Mode=OneWay}"
+                        Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.OpenLinkFromClipboardVisibility, Mode=OneWay}"
+                        Click="OpenLinkFromClipboard_Click"
+                        ToolTipService.ToolTip="Open Spotify link from clipboard">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE78B;" RenderTransformOrigin="0.5, 0.5">
+                            <FontIcon.RenderTransform>
+                                <RotateTransform Angle="180" />
+                            </FontIcon.RenderTransform>
+                        </FontIcon>
+                    </Button.Content>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

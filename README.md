@@ -16,9 +16,9 @@ You need to have these components installed in order to build Xpotify:
 
 #### Configuration
 
-Create a file named `Secrets.cs` in the `Xpotify/` directory, and put the following content into it:
+Create a file named `Secrets.cs` in the `XpoMusic/` directory, and put the following content into it:
 
-    namespace Xpotify
+    namespace XpoMusic
     {
         internal static class Secrets
         {
