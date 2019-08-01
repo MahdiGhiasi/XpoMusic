@@ -142,8 +142,8 @@
     <Compile Include="Controls\TopBar.xaml.cs">
       <DependentUpon>TopBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\XpotifyWebApp.xaml.cs">
-      <DependentUpon>XpotifyWebApp.xaml</DependentUpon>
+    <Compile Include="Controls\XpoMusicWebApp.xaml.cs">
+      <DependentUpon>XpoMusicWebApp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DeviceInfoHelper.cs" />
     <Compile Include="Helpers\KeyboardShortcutHelper.cs" />
@@ -484,7 +484,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\XpotifyWebApp.xaml">
+    <Page Include="Controls\XpoMusicWebApp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

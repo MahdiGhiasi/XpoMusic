@@ -17,7 +17,7 @@ using XpoMusicWebAgent.Model;
 
 namespace XpoMusic.Controls
 {
-    public sealed partial class XpotifyWebApp : UserControl
+    public sealed partial class XpoMusicWebApp : UserControl
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
@@ -42,7 +42,7 @@ namespace XpoMusic.Controls
 
         #region Custom Properties
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(
-            "IsOpen", typeof(bool), typeof(XpotifyWebApp), new PropertyMetadata(defaultValue: false,
+            "IsOpen", typeof(bool), typeof(XpoMusicWebApp), new PropertyMetadata(defaultValue: false,
                 propertyChangedCallback: new PropertyChangedCallback(OnIsOpenPropertyChanged)));
 
         public bool IsOpen
@@ -62,7 +62,7 @@ namespace XpoMusic.Controls
 
         private static void OnIsOpenPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            (d as XpotifyWebApp).IsOpen = (bool)e.NewValue;
+            (d as XpoMusicWebApp).IsOpen = (bool)e.NewValue;
         }
         #endregion
 
@@ -71,7 +71,7 @@ namespace XpoMusic.Controls
         private LocalStoragePlayback initialPlaybackState;
         private XpoMusicWebAgent.WebAgent xpotifyWebAgent;
 
-        public XpotifyWebApp()
+        public XpoMusicWebApp()
         {
             this.InitializeComponent();
 

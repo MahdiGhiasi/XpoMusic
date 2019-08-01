@@ -512,28 +512,28 @@ namespace XpoMusic.Pages
             return false;
         }
 
-        private async void XpotifyWebView_ActionRequested(object sender, XpotifyWebApp.XpotifyWebAppActionRequest request)
+        private async void XpotifyWebView_ActionRequested(object sender, XpoMusicWebApp.XpotifyWebAppActionRequest request)
         {
             switch (request)
             {
-                case XpotifyWebApp.XpotifyWebAppActionRequest.OpenSettingsFlyout:
+                case XpoMusicWebApp.XpotifyWebAppActionRequest.OpenSettingsFlyout:
                     flyoutContainer.OpenSettings();
                     break;
-                case XpotifyWebApp.XpotifyWebAppActionRequest.OpenAboutFlyout:
+                case XpoMusicWebApp.XpotifyWebAppActionRequest.OpenAboutFlyout:
                     flyoutContainer.OpenAbout();
                     break;
-                case XpotifyWebApp.XpotifyWebAppActionRequest.OpenDonateFlyout:
+                case XpoMusicWebApp.XpotifyWebAppActionRequest.OpenDonateFlyout:
                     flyoutContainer.OpenDonate();
                     break;
-                case XpotifyWebApp.XpotifyWebAppActionRequest.GoToCompactOverlay:
+                case XpoMusicWebApp.XpotifyWebAppActionRequest.GoToCompactOverlay:
                     if (isNowPlayingEnabled)
                         await GoToCompactOverlayMode();
                     break;
-                case XpotifyWebApp.XpotifyWebAppActionRequest.GoToNowPlaying:
+                case XpoMusicWebApp.XpotifyWebAppActionRequest.GoToNowPlaying:
                     if (isNowPlayingEnabled)
                         GoToNowPlayingMode();
                     break;
-                case XpotifyWebApp.XpotifyWebAppActionRequest.ShowSplashScreen:
+                case XpoMusicWebApp.XpotifyWebAppActionRequest.ShowSplashScreen:
                     VisualStateManager.GoToState(this, nameof(SplashScreenVisualState), false);
                     break;
                 default:

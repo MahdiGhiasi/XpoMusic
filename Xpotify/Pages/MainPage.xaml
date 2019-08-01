@@ -179,7 +179,7 @@
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
-        <controls:XpotifyWebApp x:Name="xpotifyWebView"
+        <controls:XpoMusicWebApp x:Name="xpotifyWebView"
                                 IsTabStop="True"
                                 MinWidth="500"
                                 MinHeight="500"
