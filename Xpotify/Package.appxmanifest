@@ -29,13 +29,19 @@
         <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="spotify">
             <uap:Logo>Assets\Logo\Square44x44Logo.png</uap:Logo>
-            <uap:DisplayName>Xpotify</uap:DisplayName>
+            <uap:DisplayName>Xpo Music</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
         <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="xpotify">
             <uap:Logo>Assets\Logo\Square44x44Logo.png</uap:Logo>
-            <uap:DisplayName>Xpotify</uap:DisplayName>
+            <uap:DisplayName>Xpo Music</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="xpomusic">
+            <uap:Logo>Assets\Logo\Square44x44Logo.png</uap:Logo>
+            <uap:DisplayName>Xpo Music</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
       </Extensions>
