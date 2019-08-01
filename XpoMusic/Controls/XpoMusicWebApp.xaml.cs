@@ -55,7 +55,7 @@ namespace XpoMusic.Controls
 
                 this.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
                 mainWebView.Visibility = this.Visibility;
-                
+
                 // TODO: Hide html content from DOM when possible via javascript to reduce CPU usage
             }
         }
@@ -411,26 +411,10 @@ namespace XpoMusic.Controls
 
             try
             {
-                await Task.Delay(TimeSpan.FromSeconds(3));
+                await Task.Delay(1000);
 
-                var player = new Player();
-
-                SpotifyApi.Model.Device thisDevice = null;
-
-                for (int i = 0; i < 10; i++)
-                {
-                    var devices = await player.GetDevices();
-                    thisDevice = devices.devices.FirstOrDefault(x => x.name.Contains("Edge") && x.name.Contains("Web"));
-
-                    if (thisDevice != null)
-                        break;
-                    await Task.Delay(TimeSpan.FromSeconds(2));
-                }
-
-                if (thisDevice != null)
-                {
-                    await player.SetVolume(thisDevice.id, initialPlaybackState.volume);
-                }
+                logger.Info($"Setting [initial] volume to {initialPlaybackState.volume}");
+                await Controller.SeekVolume(initialPlaybackState.volume);
             }
             catch (Exception ex)
             {
