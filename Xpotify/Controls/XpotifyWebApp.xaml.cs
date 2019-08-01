@@ -69,7 +69,7 @@ namespace XpoMusic.Controls
         private Uri loadFailedUrl;
         private string webViewPreviousUri = "";
         private LocalStoragePlayback initialPlaybackState;
-        private XpoMusicWebAgent.XpotifyWebAgent xpotifyWebAgent;
+        private XpoMusicWebAgent.WebAgent xpotifyWebAgent;
 
         public XpotifyWebApp()
         {
@@ -80,7 +80,7 @@ namespace XpoMusic.Controls
 
             loadFailedAppVersionText.Text = PackageHelper.GetAppVersionString();
 
-            xpotifyWebAgent = new XpoMusicWebAgent.XpotifyWebAgent();
+            xpotifyWebAgent = new XpoMusicWebAgent.WebAgent();
             xpotifyWebAgent.ProgressBarCommandReceived += XpotifyWebAgent_ProgressBarCommandReceived;
             xpotifyWebAgent.StatusReportReceived += XpotifyWebAgent_StatusReportReceived;
             xpotifyWebAgent.ActionRequested += XpotifyWebAgent_ActionRequested;

@@ -11,7 +11,7 @@ using XpoMusicWebAgent.Model;
 namespace XpoMusicWebAgent
 {
     [AllowForWeb]
-    public sealed class XpotifyWebAgent
+    public sealed class WebAgent
     {
         // NOTE:
         // It seems that WebView automatically changes PascalCase method names to 
