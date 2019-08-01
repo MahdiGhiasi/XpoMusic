@@ -22,7 +22,7 @@ namespace XpoMusic.Helpers
             if (!data.IsPlaying)
                 return;
 
-            logger.Info(data.ElapsedTime.ToString());
+            logger.Trace(data.ElapsedTime.ToString());
 
             try
             {
