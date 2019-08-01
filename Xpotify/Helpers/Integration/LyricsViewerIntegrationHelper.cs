@@ -1,5 +1,5 @@
-﻿using Xpotify.Classes;
-using Xpotify.Classes.Model.LyricsViewer;
+﻿using XpoMusic.Classes;
+using XpoMusic.Classes.Model.LyricsViewer;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;
 
-namespace Xpotify.Helpers.Integration
+namespace XpoMusic.Helpers.Integration
 {
     public static class LyricsViewerIntegrationHelper
     {

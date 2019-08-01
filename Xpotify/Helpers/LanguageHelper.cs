@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xpotify.Classes.Model;
+using XpoMusic.Classes.Model;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class LanguageHelper
     {

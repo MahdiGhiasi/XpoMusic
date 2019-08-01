@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 
-namespace Xpotify.ViewModels
+namespace XpoMusic.ViewModels
 {
     public class TopBarViewModel : ViewModelBase
     {

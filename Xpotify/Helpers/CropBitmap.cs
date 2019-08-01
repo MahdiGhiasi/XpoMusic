@@ -9,7 +9,7 @@ using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     // Taken from https://github.com/XamlBrewer/UWP-ImageCropper-/blob/master/XamlBrewer.Uwp.Controls/Helpers/CropBitmap.cs
 

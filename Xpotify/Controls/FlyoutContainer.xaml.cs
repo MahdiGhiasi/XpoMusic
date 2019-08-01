@@ -13,10 +13,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Xpotify.Helpers;
-using Xpotify.XpotifyApi.Model;
+using XpoMusic.Helpers;
+using XpoMusic.XpotifyApi.Model;
 
-namespace Xpotify.Controls
+namespace XpoMusic.Controls
 {
     public sealed partial class FlyoutContainer : UserControl
     {

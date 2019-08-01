@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Windows.Media;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
-using Xpotify.Classes;
-using Xpotify.Controls;
-using static Xpotify.Classes.PlayStatusTracker;
+using XpoMusic.Classes;
+using XpoMusic.Controls;
+using static XpoMusic.Classes.PlayStatusTracker;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class MediaControlsHelper
     {

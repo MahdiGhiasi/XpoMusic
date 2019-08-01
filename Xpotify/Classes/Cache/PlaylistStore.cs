@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.Classes.Cache
+namespace XpoMusic.Classes.Cache
 {
     public class PlaylistStore : CacheStore<SpotifyApi.Model.Playlist>
     {

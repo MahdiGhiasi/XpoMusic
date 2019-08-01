@@ -1,6 +1,6 @@
 ﻿/// <reference path="../Common/initScript-common.ts" />
 
-namespace XpotifyScript {
+namespace XpoMusicScript {
 
     document.getElementsByTagName('body')[0].setAttribute('data-xpotifyTheme', 'dark');
 

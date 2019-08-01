@@ -1,10 +1,10 @@
 ﻿using Microsoft.Toolkit.Uwp.Helpers;
-using Xpotify.Classes;
-using Xpotify.Classes.Model;
-using Xpotify.Helpers;
-using Xpotify.Helpers.Integration;
-using Xpotify.SpotifyApi;
-using Xpotify.XpotifyApi.Model;
+using XpoMusic.Classes;
+using XpoMusic.Classes.Model;
+using XpoMusic.Helpers;
+using XpoMusic.Helpers.Integration;
+using XpoMusic.SpotifyApi;
+using XpoMusic.XpotifyApi.Model;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,13 +16,13 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-using Xpotify.Controls;
-using static Xpotify.Helpers.MediaControlsHelper.TrackChangedEventArgs;
+using XpoMusic.Controls;
+using static XpoMusic.Helpers.MediaControlsHelper.TrackChangedEventArgs;
 using Windows.System;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Popups;
 
-namespace Xpotify.Pages
+namespace XpoMusic.Pages
 {
     public sealed partial class MainPage : Page
     {

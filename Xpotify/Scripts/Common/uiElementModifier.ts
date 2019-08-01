@@ -2,7 +2,7 @@
 /// <reference path="uiInjector.ts" />
 /// <reference path="color.ts" />
 
-namespace XpotifyScript.Common.UiElementModifier {
+namespace XpoMusicScript.Common.UiElementModifier {
 
     declare var Xpotify: any;
 

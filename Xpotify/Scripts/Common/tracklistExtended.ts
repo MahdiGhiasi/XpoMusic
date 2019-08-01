@@ -1,4 +1,4 @@
-﻿namespace XpotifyScript.Common.TracklistExtended {
+﻿namespace XpoMusicScript.Common.TracklistExtended {
 
     declare var Xpotify: any;
 

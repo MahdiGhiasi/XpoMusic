@@ -1,4 +1,4 @@
-﻿using Xpotify.Helpers;
+﻿using XpoMusic.Helpers;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.XpotifyApi
+namespace XpoMusic.XpotifyApi
 {
     public static class AppConstantsApi
     {

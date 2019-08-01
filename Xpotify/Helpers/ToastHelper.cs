@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class ToastHelper
     {

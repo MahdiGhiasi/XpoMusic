@@ -1,5 +1,5 @@
-﻿using Xpotify.Classes;
-using Xpotify.Helpers;
+﻿using XpoMusic.Classes;
+using XpoMusic.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,9 +20,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using Xpotify.Pages;
+using XpoMusic.Pages;
 
-namespace Xpotify.Flyouts
+namespace XpoMusic.Flyouts
 {
     public sealed partial class SettingsFlyout : UserControl, IFlyout<EventArgs>
     {

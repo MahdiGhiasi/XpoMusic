@@ -1,4 +1,4 @@
-﻿namespace XpotifyScript.Common.Action {
+﻿namespace XpoMusicScript.Common.Action {
 
     export function nextTrack() {
         var nextButton = document.querySelectorAll(".Root__now-playing-bar .now-playing-bar__center .spoticon-skip-forward-16");

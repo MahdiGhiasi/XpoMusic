@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
-using XpotifyWebAgent.Model;
+using XpoMusicWebAgent.Model;
 
-namespace XpotifyWebAgent
+namespace XpoMusicWebAgent
 {
     [AllowForWeb]
     public sealed class XpotifyWebAgent

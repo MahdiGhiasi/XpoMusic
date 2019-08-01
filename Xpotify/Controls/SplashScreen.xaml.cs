@@ -12,10 +12,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Xpotify.Classes.Model;
-using Xpotify.Helpers;
+using XpoMusic.Classes.Model;
+using XpoMusic.Helpers;
 
-namespace Xpotify.Controls
+namespace XpoMusic.Controls
 {
     public sealed partial class SplashScreen : UserControl
     {

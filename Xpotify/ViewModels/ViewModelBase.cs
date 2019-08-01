@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.ViewModels
+namespace XpoMusic.ViewModels
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

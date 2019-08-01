@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
-namespace Xpotify.Controls
+namespace XpoMusic.Controls
 {
     public sealed class SliderExtended : Slider
     {

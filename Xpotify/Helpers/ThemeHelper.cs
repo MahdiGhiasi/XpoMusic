@@ -1,5 +1,5 @@
-﻿using Xpotify.Classes;
-using Xpotify.Classes.Model;
+﻿using XpoMusic.Classes;
+using XpoMusic.Classes.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class ThemeHelper
     {

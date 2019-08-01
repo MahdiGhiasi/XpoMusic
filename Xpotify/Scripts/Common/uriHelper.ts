@@ -1,4 +1,4 @@
-﻿namespace XpotifyScript.Common.UriHelper {
+﻿namespace XpoMusicScript.Common.UriHelper {
 
     export function getPwaUri(uri) {
         if (uri === undefined || uri.trim() === "") {

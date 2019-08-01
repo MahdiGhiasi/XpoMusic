@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.XpotifyApi.Model
+namespace XpoMusic.XpotifyApi.Model
 {
     public class AssetPackageInfo
     {

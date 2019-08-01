@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class WhatsNewHelper
     {

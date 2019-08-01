@@ -1,5 +1,5 @@
-﻿using Xpotify.Helpers;
-using Xpotify.XpotifyApi;
+﻿using XpoMusic.Helpers;
+using XpoMusic.XpotifyApi;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 
-namespace Xpotify.Classes
+namespace XpoMusic.Classes
 {
     public class AppConstants
     {

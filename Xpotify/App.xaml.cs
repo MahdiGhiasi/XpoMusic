@@ -1,4 +1,4 @@
-﻿using Xpotify.Helpers;
+﻿using XpoMusic.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,9 +19,9 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using Xpotify.Pages;
+using XpoMusic.Pages;
 
-namespace Xpotify
+namespace XpoMusic
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

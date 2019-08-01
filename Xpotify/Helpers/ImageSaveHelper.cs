@@ -11,7 +11,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class ImageSaveHelper
     {

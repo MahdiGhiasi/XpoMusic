@@ -1,4 +1,4 @@
-﻿namespace XpotifyScript.Common.BrowserHistory {
+﻿namespace XpoMusicScript.Common.BrowserHistory {
     export function canGoBack() {
         return window.location.hash !== "#xpotifyInitialPage";
     }

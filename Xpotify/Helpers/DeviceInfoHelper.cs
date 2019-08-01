@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Networking.Connectivity;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public class DeviceInfoHelper
     {

@@ -1,4 +1,4 @@
-﻿using Xpotify.Classes;
+﻿using XpoMusic.Classes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ using Windows.UI.Notifications;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class LiveTileHelper
     {

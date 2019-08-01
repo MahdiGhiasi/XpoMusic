@@ -1,5 +1,5 @@
-﻿using Xpotify.Classes;
-using Xpotify.XpotifyApi;
+﻿using XpoMusic.Classes;
+using XpoMusic.XpotifyApi;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class AssetManager
     {

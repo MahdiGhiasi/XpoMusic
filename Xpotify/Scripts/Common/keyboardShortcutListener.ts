@@ -1,7 +1,7 @@
 ﻿/// <reference path="statusReport.ts" />
 /// <reference path="action.ts" />
 
-namespace XpotifyScript.Common.KeyboardShortcutListener {
+namespace XpoMusicScript.Common.KeyboardShortcutListener {
 
     declare var Xpotify: any;
 

@@ -1,4 +1,4 @@
-﻿namespace XpotifyScript.SpotifyApi {
+﻿namespace XpoMusicScript.SpotifyApi {
 
     declare var Xpotify: any;
     var accessToken = "{{SPOTIFYACCESSTOKEN}}";

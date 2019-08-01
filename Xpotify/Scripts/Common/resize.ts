@@ -1,4 +1,4 @@
-﻿namespace XpotifyScript.Common.Resize {
+﻿namespace XpoMusicScript.Common.Resize {
     export function onResize() {
         try {
             /* 

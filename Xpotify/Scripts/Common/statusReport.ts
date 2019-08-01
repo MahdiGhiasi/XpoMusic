@@ -1,4 +1,4 @@
-﻿namespace XpotifyScript.Common.StatusReport {
+﻿namespace XpoMusicScript.Common.StatusReport {
 
     declare var Xpotify: any;
 

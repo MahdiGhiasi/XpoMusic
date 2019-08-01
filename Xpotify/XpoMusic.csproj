@@ -7,8 +7,8 @@
     <ProjectGuid>{CF732FD1-9200-423A-8BB6-1685B598A3DC}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xpotify</RootNamespace>
-    <AssemblyName>Xpotify</AssemblyName>
+    <RootNamespace>XpoMusic</RootNamespace>
+    <AssemblyName>XpoMusic</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
@@ -605,9 +605,9 @@
     <TypeScriptCompile Include="Scripts\LightTheme\initScript-light.ts" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XpotifyWebAgent\XpotifyWebAgent.csproj">
+    <ProjectReference Include="..\XpotifyWebAgent\XpoMusicWebAgent.csproj">
       <Project>{15faca69-c86a-4447-97dc-b6cb59056075}</Project>
-      <Name>XpotifyWebAgent</Name>
+      <Name>XpoMusicWebAgent</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

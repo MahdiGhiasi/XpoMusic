@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.Classes.Model.LyricsViewer
+namespace XpoMusic.Classes.Model.LyricsViewer
 {
     public class CurrentPlayingSongInfo
     {

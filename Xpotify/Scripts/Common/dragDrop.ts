@@ -1,6 +1,6 @@
 ﻿/// <reference path="uriHelper.ts" />
 
-namespace XpotifyScript.Common.DragDrop {
+namespace XpoMusicScript.Common.DragDrop {
 
     export function allowDrop(event) {
         event.preventDefault();

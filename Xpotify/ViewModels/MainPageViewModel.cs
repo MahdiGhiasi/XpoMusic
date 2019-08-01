@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 
-namespace Xpotify.ViewModels
+namespace XpoMusic.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {

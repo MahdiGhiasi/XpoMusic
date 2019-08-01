@@ -1,4 +1,4 @@
-﻿using Xpotify.Classes;
+﻿using XpoMusic.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class ProxyHelper
     {

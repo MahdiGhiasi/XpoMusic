@@ -1,4 +1,4 @@
-﻿namespace XpotifyScript.Common.PlaybackStuckHelper
+﻿namespace XpoMusicScript.Common.PlaybackStuckHelper
 {
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));

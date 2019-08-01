@@ -1,4 +1,4 @@
-﻿namespace Xpotify.SpotifyApi.Model
+﻿namespace XpoMusic.SpotifyApi.Model
 {
     public class ArtistSimplified
     {

@@ -1,5 +1,5 @@
-﻿using Xpotify.Classes.Model;
-using Xpotify.Helpers;
+﻿using XpoMusic.Classes.Model;
+using XpoMusic.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
 
-namespace Xpotify.Classes.Converters
+namespace XpoMusic.Classes.Converters
 {
     public class ThemeToStringConverter : IValueConverter
     {

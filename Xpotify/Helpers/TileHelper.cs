@@ -1,4 +1,4 @@
-﻿using Xpotify.Classes;
+﻿using XpoMusic.Classes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,7 +12,7 @@ using Windows.Storage;
 using Windows.UI.StartScreen;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class TileHelper
     {

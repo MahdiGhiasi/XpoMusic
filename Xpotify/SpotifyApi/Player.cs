@@ -1,5 +1,5 @@
-﻿using Xpotify.Helpers;
-using Xpotify.SpotifyApi.Model;
+﻿using XpoMusic.Helpers;
+using XpoMusic.SpotifyApi.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.SpotifyApi
+namespace XpoMusic.SpotifyApi
 {
     public class Player : ApiBase
     {

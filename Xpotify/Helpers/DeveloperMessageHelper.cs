@@ -1,13 +1,13 @@
-﻿using Xpotify.Classes;
-using Xpotify.XpotifyApi;
-using Xpotify.XpotifyApi.Model;
+﻿using XpoMusic.Classes;
+using XpoMusic.XpotifyApi;
+using XpoMusic.XpotifyApi.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class DeveloperMessageHelper
     {

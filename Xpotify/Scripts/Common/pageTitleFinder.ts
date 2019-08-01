@@ -1,4 +1,4 @@
-﻿namespace XpotifyScript.Common.PageTitleFinder {
+﻿namespace XpoMusicScript.Common.PageTitleFinder {
 
     function titleCase(str) {
         var splitStr = str.toLowerCase().split(' ');

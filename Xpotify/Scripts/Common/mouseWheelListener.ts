@@ -1,7 +1,7 @@
 ﻿/// <reference path="statusReport.ts" />
 /// <reference path="action.ts" />
 
-namespace XpotifyScript.Common.MouseWheelListener {
+namespace XpoMusicScript.Common.MouseWheelListener {
    
     function volumeMouseWheelHandler(e) {
         var { deltaY } = e;

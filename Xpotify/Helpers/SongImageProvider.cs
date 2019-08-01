@@ -1,13 +1,13 @@
-﻿using Xpotify.SpotifyApi;
+﻿using XpoMusic.SpotifyApi;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xpotify.Classes.Cache;
+using XpoMusic.Classes.Cache;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class SongImageProvider
     {

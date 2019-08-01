@@ -16,11 +16,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Xpotify.Classes.Model;
-using Xpotify.Helpers;
-using Xpotify.SpotifyApi;
+using XpoMusic.Classes.Model;
+using XpoMusic.Helpers;
+using XpoMusic.SpotifyApi;
 
-namespace Xpotify.Controls
+namespace XpoMusic.Controls
 {
     public sealed partial class TopBar : UserControl
     {

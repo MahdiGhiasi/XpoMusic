@@ -1,5 +1,5 @@
-﻿using Xpotify.Classes;
-using Xpotify.Helpers;
+﻿using XpoMusic.Classes;
+using XpoMusic.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 
-namespace Xpotify.ViewModels
+namespace XpoMusic.ViewModels
 {
     public class ProxyConfigurationViewModel : ViewModelBase
     {

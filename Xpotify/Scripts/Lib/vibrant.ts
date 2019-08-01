@@ -1,5 +1,5 @@
 ﻿
-namespace XpotifyScript.Lib.Vibrant {
+namespace XpoMusicScript.Lib.Vibrant {
 
     export function init() {
         //@ts-ignore

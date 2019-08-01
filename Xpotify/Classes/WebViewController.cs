@@ -1,5 +1,5 @@
-﻿using Xpotify.Classes;
-using Xpotify.Classes.Model;
+﻿using XpoMusic.Classes;
+using XpoMusic.Classes.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,10 +11,10 @@ using Windows.Web.Http;
 using Windows.Web.Http.Filters;
 using Newtonsoft.Json;
 using Windows.UI.Popups;
-using Xpotify.SpotifyApi;
+using XpoMusic.SpotifyApi;
 using Windows.Networking.Connectivity;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public class WebViewController
     {

@@ -6,13 +6,13 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Xpotify.Classes;
-using Xpotify.Classes.Cache;
-using Xpotify.Classes.Model;
-using Xpotify.Helpers;
-using Xpotify.SpotifyApi;
+using XpoMusic.Classes;
+using XpoMusic.Classes.Cache;
+using XpoMusic.Classes.Model;
+using XpoMusic.Helpers;
+using XpoMusic.SpotifyApi;
 
-namespace Xpotify.Controls
+namespace XpoMusic.Controls
 {
     public sealed partial class NowPlayingView : UserControl
     {

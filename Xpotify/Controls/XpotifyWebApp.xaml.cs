@@ -8,14 +8,14 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
-using Xpotify.Classes;
-using Xpotify.Classes.Model;
-using Xpotify.Helpers;
-using Xpotify.SpotifyApi;
-using XpotifyWebAgent;
-using XpotifyWebAgent.Model;
+using XpoMusic.Classes;
+using XpoMusic.Classes.Model;
+using XpoMusic.Helpers;
+using XpoMusic.SpotifyApi;
+using XpoMusicWebAgent;
+using XpoMusicWebAgent.Model;
 
-namespace Xpotify.Controls
+namespace XpoMusic.Controls
 {
     public sealed partial class XpotifyWebApp : UserControl
     {
@@ -69,7 +69,7 @@ namespace Xpotify.Controls
         private Uri loadFailedUrl;
         private string webViewPreviousUri = "";
         private LocalStoragePlayback initialPlaybackState;
-        private XpotifyWebAgent.XpotifyWebAgent xpotifyWebAgent;
+        private XpoMusicWebAgent.XpotifyWebAgent xpotifyWebAgent;
 
         public XpotifyWebApp()
         {
@@ -80,7 +80,7 @@ namespace Xpotify.Controls
 
             loadFailedAppVersionText.Text = PackageHelper.GetAppVersionString();
 
-            xpotifyWebAgent = new XpotifyWebAgent.XpotifyWebAgent();
+            xpotifyWebAgent = new XpoMusicWebAgent.XpotifyWebAgent();
             xpotifyWebAgent.ProgressBarCommandReceived += XpotifyWebAgent_ProgressBarCommandReceived;
             xpotifyWebAgent.StatusReportReceived += XpotifyWebAgent_StatusReportReceived;
             xpotifyWebAgent.ActionRequested += XpotifyWebAgent_ActionRequested;
@@ -109,29 +109,29 @@ namespace Xpotify.Controls
             AnalyticsHelper.Log("webAgentInitFailed", e.Errors);
         }
 
-        private async void XpotifyWebAgent_ActionRequested(object sender, XpotifyWebAgent.Model.ActionRequestedEventArgs e)
+        private async void XpotifyWebAgent_ActionRequested(object sender, XpoMusicWebAgent.Model.ActionRequestedEventArgs e)
         {
             switch (e.Action)
             {
-                case XpotifyWebAgent.Model.Action.PinToStart:
+                case XpoMusicWebAgent.Model.Action.PinToStart:
                     await PinPageToStart();
                     break;
-                case XpotifyWebAgent.Model.Action.OpenSettings:
+                case XpoMusicWebAgent.Model.Action.OpenSettings:
                     ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.OpenSettingsFlyout);
                     break;
-                case XpotifyWebAgent.Model.Action.OpenDonate:
+                case XpoMusicWebAgent.Model.Action.OpenDonate:
                     ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.OpenDonateFlyout);
                     break;
-                case XpotifyWebAgent.Model.Action.OpenAbout:
+                case XpoMusicWebAgent.Model.Action.OpenAbout:
                     ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.OpenAboutFlyout);
                     break;
-                case XpotifyWebAgent.Model.Action.OpenMiniView:
+                case XpoMusicWebAgent.Model.Action.OpenMiniView:
                     ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.GoToCompactOverlay);
                     break;
-                case XpotifyWebAgent.Model.Action.OpenNowPlaying:
+                case XpoMusicWebAgent.Model.Action.OpenNowPlaying:
                     ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.GoToNowPlaying);
                     break;
-                case XpotifyWebAgent.Model.Action.NavigateToClipboardUri:
+                case XpoMusicWebAgent.Model.Action.NavigateToClipboardUri:
                     if (await ClipboardHelper.IsSpotifyUriPresent())
                     {
                         var uri = await ClipboardHelper.GetSpotifyUri();

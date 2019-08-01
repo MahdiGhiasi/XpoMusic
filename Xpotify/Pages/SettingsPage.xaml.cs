@@ -1,4 +1,4 @@
-﻿using Xpotify.Helpers;
+﻿using XpoMusic.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace Xpotify.Pages
+namespace XpoMusic.Pages
 {
     public sealed partial class SettingsPage : Page
     {

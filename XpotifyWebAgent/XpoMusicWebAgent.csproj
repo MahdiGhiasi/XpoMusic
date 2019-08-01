@@ -7,8 +7,8 @@
     <ProjectGuid>{15FACA69-C86A-4447-97DC-B6CB59056075}</ProjectGuid>
     <OutputType>winmdobj</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XpotifyWebAgent</RootNamespace>
-    <AssemblyName>XpotifyWebAgent</AssemblyName>
+    <RootNamespace>XpoMusicWebAgent</RootNamespace>
+    <AssemblyName>XpoMusicWebAgent</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>

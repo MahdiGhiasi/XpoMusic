@@ -1,6 +1,6 @@
-﻿using Xpotify.Classes;
-using Xpotify.Helpers;
-using Xpotify.XpotifyApi.Model;
+﻿using XpoMusic.Classes;
+using XpoMusic.Helpers;
+using XpoMusic.XpotifyApi.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace Xpotify.XpotifyApi
+namespace XpoMusic.XpotifyApi
 {
     public static class AssetUpdatesApi
     {

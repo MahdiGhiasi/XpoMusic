@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xpotify.Classes.Model;
-using Xpotify.SpotifyApi;
+using XpoMusic.Classes.Model;
+using XpoMusic.SpotifyApi;
 
-namespace Xpotify.Classes.Cache
+namespace XpoMusic.Classes.Cache
 {
     public class SongExtraInfoStore : CacheStore<SongExtraInfo>
     {

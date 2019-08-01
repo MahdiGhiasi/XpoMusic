@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.System;
-using Xpotify.Classes;
+using XpoMusic.Classes;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class KeyboardShortcutHelper
     {

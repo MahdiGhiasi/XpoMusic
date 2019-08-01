@@ -1,5 +1,5 @@
-﻿using Xpotify.Classes;
-using Xpotify.Helpers;
+﻿using XpoMusic.Classes;
+using XpoMusic.Helpers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.System;
 
-namespace Xpotify.Controls
+namespace XpoMusic.Controls
 {
     public sealed partial class ProxyConfiguration : UserControl
     {

@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Xpotify.Classes;
-using Xpotify.SpotifyApi;
-using XpotifyWebAgent.Model;
+using XpoMusic.Classes;
+using XpoMusic.SpotifyApi;
+using XpoMusicWebAgent.Model;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class StuckResolveHelper
     {

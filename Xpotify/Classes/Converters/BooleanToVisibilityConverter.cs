@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace Xpotify.Classes.Converters
+namespace XpoMusic.Classes.Converters
 {
     public class BooleanToVisibilityConverter : IValueConverter
     {

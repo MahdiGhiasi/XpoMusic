@@ -1,5 +1,5 @@
-﻿using Xpotify.Helpers;
-using Xpotify.SpotifyApi;
+﻿using XpoMusic.Helpers;
+using XpoMusic.SpotifyApi;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,11 +10,11 @@ using Windows.Media;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Newtonsoft.Json;
-using Xpotify.Classes.Model;
-using Xpotify.Classes.Cache;
-using XpotifyWebAgent.Model;
+using XpoMusic.Classes.Model;
+using XpoMusic.Classes.Cache;
+using XpoMusicWebAgent.Model;
 
-namespace Xpotify.Classes
+namespace XpoMusic.Classes
 {
     public static class PlayStatusTracker
     {

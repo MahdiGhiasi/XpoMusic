@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.SpotifyApi.Model
+namespace XpoMusic.SpotifyApi.Model
 {
     public class Playlist
     {

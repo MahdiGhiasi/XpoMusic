@@ -1,5 +1,5 @@
 ﻿
-namespace XpotifyScript.Lib.FocusVisible {
+namespace XpoMusicScript.Lib.FocusVisible {
 
     export function init() {
         /**

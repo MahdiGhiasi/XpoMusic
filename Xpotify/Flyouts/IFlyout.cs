@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.Flyouts
+namespace XpoMusic.Flyouts
 {
     internal interface IFlyout<T>
     {

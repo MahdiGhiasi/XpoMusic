@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.StartScreen;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class JumpListHelper
     {

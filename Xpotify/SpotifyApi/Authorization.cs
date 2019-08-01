@@ -7,9 +7,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Xpotify.Classes;
+using XpoMusic.Classes;
 
-namespace Xpotify.SpotifyApi
+namespace XpoMusic.SpotifyApi
 {
     public static class Authorization
     {

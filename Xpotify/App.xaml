@@ -1,9 +1,9 @@
 ﻿<Application
-    x:Class="Xpotify.App"
+    x:Class="XpoMusic.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Xpotify"
-    xmlns:converters="using:Xpotify.Classes.Converters">
+    xmlns:local="using:XpoMusic"
+    xmlns:converters="using:XpoMusic.Classes.Converters">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

@@ -7,7 +7,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class PackageHelper
     {

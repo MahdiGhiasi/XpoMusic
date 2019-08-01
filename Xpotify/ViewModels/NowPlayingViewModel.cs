@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Xpotify.Classes;
-using static Xpotify.Controls.NowPlayingView;
+using XpoMusic.Classes;
+using static XpoMusic.Controls.NowPlayingView;
 
-namespace Xpotify.ViewModels
+namespace XpoMusic.ViewModels
 {
     public class NowPlayingViewModel : ViewModelBase
     {

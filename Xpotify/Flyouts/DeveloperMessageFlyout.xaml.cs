@@ -1,6 +1,6 @@
-﻿using Xpotify.Classes;
-using Xpotify.Helpers;
-using Xpotify.XpotifyApi.Model;
+﻿using XpoMusic.Classes;
+using XpoMusic.Helpers;
+using XpoMusic.XpotifyApi.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace Xpotify.Flyouts
+namespace XpoMusic.Flyouts
 {
     public sealed partial class DeveloperMessageFlyout : UserControl, IFlyout<EventArgs>
     {

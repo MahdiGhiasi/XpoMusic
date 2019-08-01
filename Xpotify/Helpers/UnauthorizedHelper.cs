@@ -1,4 +1,4 @@
-﻿using Xpotify.SpotifyApi;
+﻿using XpoMusic.SpotifyApi;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace Xpotify.Helpers
+namespace XpoMusic.Helpers
 {
     public static class UnauthorizedHelper
     {

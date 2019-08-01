@@ -14,7 +14,7 @@
 /// <reference path="mouseWheelListener.ts" />
 
 
-namespace XpotifyScript.Common {
+namespace XpoMusicScript.Common {
 
     declare var Xpotify: any;
 

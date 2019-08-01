@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace Xpotify.XpotifyApi.Model
+namespace XpoMusic.XpotifyApi.Model
 {
     public class AssetPackage
     {

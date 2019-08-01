@@ -1,4 +1,4 @@
-﻿namespace XpotifyScript.Light.PageOverlay {
+﻿namespace XpoMusicScript.Light.PageOverlay {
 
     export function createPageOverlay() {
         try {

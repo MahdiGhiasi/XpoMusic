@@ -1,5 +1,5 @@
-﻿using Xpotify.Helpers;
-using Xpotify.XpotifyApi.Model;
+﻿using XpoMusic.Helpers;
+using XpoMusic.XpotifyApi.Model;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Xpotify.XpotifyApi
+namespace XpoMusic.XpotifyApi
 {
     public static class DeveloperMessageApi
     {

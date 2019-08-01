@@ -1,4 +1,4 @@
-﻿namespace XpotifyScript.Common.Color {
+﻿namespace XpoMusicScript.Common.Color {
     declare var Vibrant: any;
 
     export function setNowPlayingBarColor(url, lightTheme) {
