@@ -35,7 +35,9 @@ namespace XpoMusic.Helpers
                         if (stuckResolveTryCount >= AppConstants.Instance.MaxStuckResolveTryCount)
                         {
                             logger.Warn("MaxStuckResolveTryCount exceeded.");
-                            LogPlaybackStuck("MaxStuckResolveTryCountExceeded");
+
+                            if (stuckResolveTryCount == AppConstants.Instance.MaxStuckResolveTryCount)
+                                LogPlaybackStuck("MaxStuckResolveTryCountExceeded");
 
                             // TODO: Probably reload the page?
                         }
@@ -55,6 +57,7 @@ namespace XpoMusic.Helpers
                 }
                 else
                 {
+                    stuckResolveTryCount = 0;
                     sameElapsedCounter = 0;
                     lastElapsed = data.ElapsedTime;
                 }
