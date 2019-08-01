@@ -1,6 +1,6 @@
 ﻿namespace XpoMusicScript.Common.StatusReport {
 
-    declare var Xpotify: any;
+    declare var XpoMusic: any;
 
     function getTextContent(element, index) {
         var e = document.querySelectorAll(element);
@@ -301,7 +301,7 @@
             NowPlaying: getNowPlaying(),
         });
 
-        Xpotify.statusReport(data);
+        XpoMusic.statusReport(data);
     }
 
     export function initRegularStatusReport() {

@@ -4,7 +4,7 @@
 
 namespace XpoMusicScript.Common.UiElementModifier {
 
-    declare var Xpotify: any;
+    declare var XpoMusic: any;
 
     export function createPageTitle(): string {
         try {
@@ -15,8 +15,8 @@ namespace XpoMusicScript.Common.UiElementModifier {
             body.appendChild(titleDiv);
         }
         catch (ex) {
-            Xpotify.log("injectTitleFailed");
-            Xpotify.log(ex.toString());
+            XpoMusic.log("injectTitleFailed");
+            XpoMusic.log(ex.toString());
             return "injectTitleFailed,";
         }
         return "";
@@ -32,8 +32,8 @@ namespace XpoMusicScript.Common.UiElementModifier {
             UiInjector.injectBackButton(backButtonDiv);
         }
         catch (ex) {
-            Xpotify.log("injectBackFailed");
-            Xpotify.log(ex.toString());
+            XpoMusic.log("injectBackFailed");
+            XpoMusic.log(ex.toString());
             return "injectBackFailed,";
         }
         return "";
@@ -46,7 +46,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE718;</span></div>'
                 + '<span class="navbar-link__text">Pin this page to Start</span></div></a></div>';
             pinToStartButton.querySelector('a').onclick = function () {
-                Xpotify.pinToStart();
+                XpoMusic.pinToStart();
                 return false;
             };
 
@@ -55,7 +55,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE115;</span></div>'
                 + '<span class="navbar-link__text">Settings</span></div></a></div>';
             settingsButton.querySelector('a').onclick = function () {
-                Xpotify.openSettings();
+                XpoMusic.openSettings();
                 return false;
             };
 
@@ -64,7 +64,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE946;</span></div>'
                 + '<span class="navbar-link__text">About</span></div></a></div>';
             aboutButton.querySelector('a').onclick = function () {
-                Xpotify.openAbout();
+                XpoMusic.openAbout();
                 return false;
             };
 
@@ -73,7 +73,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE719;</span></div>'
                 + '<span class="navbar-link__text">Donate</span></div></a></div>';
             donateButton.querySelector('a').onclick = function () {
-                Xpotify.openDonate();
+                XpoMusic.openDonate();
                 return false;
             };
 
@@ -84,8 +84,8 @@ namespace XpoMusicScript.Common.UiElementModifier {
             //    UiInjector.injectNavbarDownButton(donateButton);
         }
         catch (ex) {
-            Xpotify.log("injectNavBarFooterFailed");
-            Xpotify.log(ex.toString());
+            XpoMusic.log("injectNavBarFooterFailed");
+            XpoMusic.log(ex.toString());
             return "injectNavBarFooterFailed,";
         }
         return "";
@@ -103,14 +103,14 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 + '<div style="left: 12px; top: -6px; font-size: 9px; position: absolute;">&#xEB9F;</div>'
                 + '</div></button></a>';
             compactOverlayButton.querySelector('a').onclick = function () {
-                Xpotify.openMiniView();
+                XpoMusic.openMiniView();
                 return false;
             };
             UiInjector.injectNowPlayingRightButton(compactOverlayButton);
         }
         catch (ex) {
-            Xpotify.log("injectCompactOverlayFailed");
-            Xpotify.log(ex.toString());
+            XpoMusic.log("injectCompactOverlayFailed");
+            XpoMusic.log(ex.toString());
             return "injectCompactOverlayFailed,";
         }
         return "";
@@ -125,14 +125,14 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 + '<div class="icon NavBar__icon nowPlaying-icon"></div>'
                 + '<span class="navbar-link__text">Now Playing</span></div></a></div></div></li>';
             nowPlayingButton.querySelector('a').onclick = function () {
-                Xpotify.openNowPlaying();
+                XpoMusic.openNowPlaying();
                 return false;
             };
             UiInjector.injectNowPlayingNavBarButton(nowPlayingButton);
         }
         catch (ex) {
-            Xpotify.log("addNowPlayingButtonFailed");
-            Xpotify.log(ex.toString());
+            XpoMusic.log("addNowPlayingButtonFailed");
+            XpoMusic.log(ex.toString());
             return "addNowPlayingButtonFailed,";
         }
         return "";
@@ -154,8 +154,8 @@ namespace XpoMusicScript.Common.UiElementModifier {
             }, 4000);
         }
         catch (ex) {
-            Xpotify.log("findBackgroundDivFailed");
-            Xpotify.log(ex.toString());
+            XpoMusic.log("findBackgroundDivFailed");
+            XpoMusic.log(ex.toString());
             return "findBackgroundDivFailed,";
         }
         return "";
@@ -230,7 +230,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
 
             return count > 0;
         } catch (ex) {
-            Xpotify.log(ex.toString());
+            XpoMusic.log(ex.toString());
             return false;
         }
     }

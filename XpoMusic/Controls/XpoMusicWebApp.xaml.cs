@@ -21,7 +21,7 @@ namespace XpoMusic.Controls
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public enum XpotifyWebAppActionRequest
+        public enum XpoMusicWebAppActionRequest
         {
             OpenSettingsFlyout,
             OpenAboutFlyout,
@@ -33,7 +33,7 @@ namespace XpoMusic.Controls
 
         public event EventHandler<EventArgs> PageLoaded;
         public event EventHandler<EventArgs> WebAppLoaded;
-        public event EventHandler<XpotifyWebAppActionRequest> ActionRequested;
+        public event EventHandler<XpoMusicWebAppActionRequest> ActionRequested;
 
         public AutoPlayAction AutoPlayAction { get; set; } = AutoPlayAction.None;
         public WebViewController Controller { get; }
@@ -69,7 +69,7 @@ namespace XpoMusic.Controls
         private Uri loadFailedUrl;
         private string webViewPreviousUri = "";
         private LocalStoragePlayback initialPlaybackState;
-        private XpoMusicWebAgent.WebAgent xpotifyWebAgent;
+        private XpoMusicWebAgent.WebAgent xpoWebAgent;
 
         public XpoMusicWebApp()
         {
@@ -80,13 +80,13 @@ namespace XpoMusic.Controls
 
             loadFailedAppVersionText.Text = PackageHelper.GetAppVersionString();
 
-            xpotifyWebAgent = new XpoMusicWebAgent.WebAgent();
-            xpotifyWebAgent.ProgressBarCommandReceived += XpotifyWebAgent_ProgressBarCommandReceived;
-            xpotifyWebAgent.StatusReportReceived += XpotifyWebAgent_StatusReportReceived;
-            xpotifyWebAgent.ActionRequested += XpotifyWebAgent_ActionRequested;
-            xpotifyWebAgent.InitializationFailed += XpotifyWebAgent_InitializationFailed;
-            xpotifyWebAgent.NewAccessTokenRequested += XpotifyWebAgent_NewAccessTokenRequested;
-            xpotifyWebAgent.LogMessageReceived += XpotifyWebAgent_LogMessageReceived;
+            xpoWebAgent = new XpoMusicWebAgent.WebAgent();
+            xpoWebAgent.ProgressBarCommandReceived += XpotifyWebAgent_ProgressBarCommandReceived;
+            xpoWebAgent.StatusReportReceived += XpotifyWebAgent_StatusReportReceived;
+            xpoWebAgent.ActionRequested += XpotifyWebAgent_ActionRequested;
+            xpoWebAgent.InitializationFailed += XpotifyWebAgent_InitializationFailed;
+            xpoWebAgent.NewAccessTokenRequested += XpotifyWebAgent_NewAccessTokenRequested;
+            xpoWebAgent.LogMessageReceived += XpotifyWebAgent_LogMessageReceived;
 
             VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
         }
@@ -99,7 +99,7 @@ namespace XpoMusic.Controls
         private async void XpotifyWebAgent_NewAccessTokenRequested(object sender, object e)
         {
             await TokenHelper.GetAndSaveNewTokenAsync();
-            xpotifyWebAgent.SetNewAccessToken(TokenHelper.GetTokens().AccessToken);
+            xpoWebAgent.SetNewAccessToken(TokenHelper.GetTokens().AccessToken);
         }
 
         private void XpotifyWebAgent_InitializationFailed(object sender, InitFailedEventArgs e)
@@ -117,19 +117,19 @@ namespace XpoMusic.Controls
                     await PinPageToStart();
                     break;
                 case XpoMusicWebAgent.Model.Action.OpenSettings:
-                    ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.OpenSettingsFlyout);
+                    ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.OpenSettingsFlyout);
                     break;
                 case XpoMusicWebAgent.Model.Action.OpenDonate:
-                    ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.OpenDonateFlyout);
+                    ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.OpenDonateFlyout);
                     break;
                 case XpoMusicWebAgent.Model.Action.OpenAbout:
-                    ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.OpenAboutFlyout);
+                    ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.OpenAboutFlyout);
                     break;
                 case XpoMusicWebAgent.Model.Action.OpenMiniView:
-                    ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.GoToCompactOverlay);
+                    ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.GoToCompactOverlay);
                     break;
                 case XpoMusicWebAgent.Model.Action.OpenNowPlaying:
-                    ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.GoToNowPlaying);
+                    ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.GoToNowPlaying);
                     break;
                 case XpoMusicWebAgent.Model.Action.NavigateToClipboardUri:
                     if (await ClipboardHelper.IsSpotifyUriPresent())
@@ -326,7 +326,7 @@ namespace XpoMusic.Controls
             }
             else if (e.Uri.ToString().ToLower().Contains(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
             {
-                mainWebView.AddWebAllowedObject("Xpotify", xpotifyWebAgent);
+                mainWebView.AddWebAllowedObject("XpoMusic", xpoWebAgent);
             }
             else
             {
@@ -334,7 +334,7 @@ namespace XpoMusic.Controls
                     || !e.Uri.ToString().ToLower().StartsWith(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
                 {
                     // Open splash screen, unless both new and old uris are in open.spotify.com itself.
-                    ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.ShowSplashScreen);
+                    ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.ShowSplashScreen);
                 }
             }
 
@@ -362,7 +362,7 @@ namespace XpoMusic.Controls
 
         private void RetryConnectButton_Click(object sender, RoutedEventArgs e)
         {
-            ActionRequested?.Invoke(this, XpotifyWebAppActionRequest.ShowSplashScreen);
+            ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.ShowSplashScreen);
             Controller.Navigate(loadFailedUrl);
         }
 

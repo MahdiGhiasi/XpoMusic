@@ -16,7 +16,7 @@
 
 namespace XpoMusicScript.Common {
 
-    declare var Xpotify: any;
+    declare var XpoMusic: any;
 
     export function isProVersion(): boolean {
         //@ts-ignore
@@ -41,7 +41,7 @@ namespace XpoMusicScript.Common {
         markPageAsInjected();
         initDragDrop();
 
-        Xpotify.log("Initializing UiElemetModifier stuff...");
+        XpoMusic.log("Initializing UiElemetModifier stuff...");
         errors += injectCss();
         errors += UiElementModifier.createPageTitle();
         errors += UiElementModifier.createBackButton();
@@ -51,35 +51,35 @@ namespace XpoMusicScript.Common {
         errors += UiElementModifier.addBackgroundClass();
         errors += initNowPlayingBarCheck();
 
-        Xpotify.log("Setting page hash and initializing resize and periodic checks...");
+        XpoMusic.log("Setting page hash and initializing resize and periodic checks...");
         setInitialPageHash();
         initOnResizeCheck();
         initPeriodicPageCheck();
 
-        Xpotify.log("Initializing libraries...");
+        XpoMusic.log("Initializing libraries...");
         Lib.FocusVisible.init();
 
-        Xpotify.log("Initializing MouseWheelListener...");
+        XpoMusic.log("Initializing MouseWheelListener...");
         MouseWheelListener.init();
 
-        Xpotify.log("Initializing KeyboardShortcutListener...");
+        XpoMusic.log("Initializing KeyboardShortcutListener...");
         KeyboardShortcutListener.init();
 
-        Xpotify.log("Initializing RequestIntercepter...");
+        XpoMusic.log("Initializing RequestIntercepter...");
         RequestIntercepter.startInterceptingFetch();
 
-        Xpotify.log("Initializing StatusReport...");
+        XpoMusic.log("Initializing StatusReport...");
         StatusReport.initRegularStatusReport();
 
-        Xpotify.log("Initializing StartupAnimation...");
+        XpoMusic.log("Initializing StartupAnimation...");
         StartupAnimation.init();
 
         // @ts-ignore
-        if (window.XpotifyScript === undefined)
+        if (window.XpoMusicScript === undefined)
             // @ts-ignore
-            window.XpotifyScript = XpotifyScript;
+            window.XpoMusicScript = XpoMusicScript;
 
-        Xpotify.log("Common.init() finished. errors = '" + errors + "'");
+        XpoMusic.log("Common.init() finished. errors = '" + errors + "'");
         return errors;
     }
 

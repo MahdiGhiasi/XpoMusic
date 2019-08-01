@@ -3,7 +3,7 @@
 
 namespace XpoMusicScript.Common.KeyboardShortcutListener {
 
-    declare var Xpotify: any;
+    declare var XpoMusic: any;
 
     function copyToClipboard(str) {
         // From https://hackernoon.com/copying-text-to-clipboard-with-javascript-df4d4988697f
@@ -143,7 +143,7 @@ namespace XpoMusicScript.Common.KeyboardShortcutListener {
 
         } else if (e.ctrlKey && e.which == 'V'.charCodeAt(0) && !isInputFocused) {
             // Ctrl+V -> Paste
-            Xpotify.navigateToClipboardUri();
+            XpoMusic.navigateToClipboardUri();
 
             //} else if (e.which == 46) {
             // Delete key -> Delete
@@ -216,16 +216,16 @@ namespace XpoMusicScript.Common.KeyboardShortcutListener {
 
         } else if (e.ctrlKey && e.which == 'P'.charCodeAt(0)) {
             // Ctrl+P -> Settings
-            Xpotify.openSettings();
+            XpoMusic.openSettings();
         }
         // Custom shortcuts
         else if (e.ctrlKey && e.which == 'M'.charCodeAt(0)) {
             // Ctrl+M -> Go to mini view
-            Xpotify.openMiniView();
+            XpoMusic.openMiniView();
 
         } else if (e.ctrlKey && e.which == 188) {
             // Ctrl+, -> Go to now playing
-            Xpotify.openNowPlaying();
+            XpoMusic.openNowPlaying();
 
         } else if (e.ctrlKey && e.which == 'Q'.charCodeAt(0)) {
             // Ctrl+Q -> Open playing queue
@@ -245,7 +245,7 @@ namespace XpoMusicScript.Common.KeyboardShortcutListener {
 
         } else if (e.altKey && (e.which == '4'.charCodeAt(0) || e.which == 100)) {
             // Alt+4 -> Now Playing
-            Xpotify.openNowPlaying();
+            XpoMusic.openNowPlaying();
 
         } else {
             shortcutKeyProcessed = false;

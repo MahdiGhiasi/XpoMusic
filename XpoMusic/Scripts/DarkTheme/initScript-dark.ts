@@ -11,7 +11,7 @@ namespace XpoMusicScript {
     if (errors.length > 0) {
         try {
             // @ts-ignore
-            Xpotify.initFailed(errors);
+            XpoMusic.initFailed(errors);
         }
         catch (ex) { }
 

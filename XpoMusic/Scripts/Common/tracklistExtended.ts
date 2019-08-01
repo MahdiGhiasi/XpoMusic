@@ -1,6 +1,6 @@
 ﻿namespace XpoMusicScript.Common.TracklistExtended {
 
-    declare var Xpotify: any;
+    declare var XpoMusic: any;
 
     export function injectTrackIdsToTrackList() {
 
@@ -38,7 +38,7 @@
             }
         }
 
-        Xpotify.log(counter.toString() + " trackIds extracted.");
+        XpoMusic.log(counter.toString() + " trackIds extracted.");
 
         // Close context menu
         var clickX = 1;
@@ -112,7 +112,7 @@
         if (!UiElementModifier.createTrackListAddRemoveButtons())
             return; // No new elements present
 
-        Xpotify.log('Some new track list elements found. will try to find track ids.');
+        XpoMusic.log('Some new track list elements found. will try to find track ids.');
         injectTrackIdsToTrackList();
 
         // TODO: Don't ask server for the items we already know the status

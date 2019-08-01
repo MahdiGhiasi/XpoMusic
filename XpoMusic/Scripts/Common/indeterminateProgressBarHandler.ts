@@ -1,6 +1,6 @@
 ﻿namespace XpoMusicScript.Common.IndeterminateProgressBarHandler {
 
-    declare var Xpotify: any;
+    declare var XpoMusic: any;
 
     function trackLoadCheck(initialProgress) {
         try {
@@ -20,7 +20,7 @@
                 (<HTMLElement>(times[0])).style.opacity = '1';
                 (<HTMLElement>(times[1])).style.opacity = '1';
 
-                Xpotify.hideProgressBar();
+                XpoMusic.hideProgressBar();
             } else {
                 setTimeout(function () {
                     trackLoadCheck(initialProgress);
@@ -43,7 +43,7 @@
 
             var rect = progressBarBg.getBoundingClientRect();
 
-            Xpotify.showProgressBar(rect.left / window.innerWidth, rect.top / window.innerHeight, rect.width / window.innerWidth);
+            XpoMusic.showProgressBar(rect.left / window.innerWidth, rect.top / window.innerHeight, rect.width / window.innerWidth);
 
             setTimeout(function () {
                 var progressBarProgress = (<HTMLElement>(playbackBar.querySelectorAll(".progress-bar__fg")[0])).style.transform;

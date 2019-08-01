@@ -119,13 +119,13 @@ namespace XpoMusic.Helpers
 
         public async Task EnableNowPlaying()
         {
-            var script = "window.XpotifyScript.Common.Action.enableNowPlaying();";
+            var script = "window.XpoMusicScript.Common.Action.enableNowPlaying();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
         }
 
         public async Task<bool> GoBackIfPossible()
         {
-            var script = "window.XpotifyScript.Common.Action.goBackIfPossible();";
+            var script = "window.XpoMusicScript.Common.Action.goBackIfPossible();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -161,7 +161,7 @@ namespace XpoMusic.Helpers
 
         public async Task<string> GetPageTitle()
         {
-            var findPageTitleScript = "window.XpotifyScript.Common.PageTitleFinder.getTitle();";
+            var findPageTitleScript = "window.XpoMusicScript.Common.PageTitleFinder.getTitle();";
             var pageTitle = await mainWebView.InvokeScriptAsync("eval", new string[] { findPageTitleScript });
 
             return pageTitle;
@@ -173,7 +173,7 @@ namespace XpoMusic.Helpers
 
             if (currentUrl.ToLower().StartsWith(SpotifyPwaUrlBeginsWith.ToLower()))
             {
-                var script = $"window.XpotifyScript.Common.Action.navigateToPage('{url.Replace("'", "\\'")}');";
+                var script = $"window.XpoMusicScript.Common.Action.navigateToPage('{url.Replace("'", "\\'")}');";
                 await mainWebView.InvokeScriptAsync("eval", new string[] { script });
             }
             else
@@ -186,9 +186,9 @@ namespace XpoMusic.Helpers
         {
             string script;
             if (action == AutoPlayAction.Track)
-                script = "window.XpotifyScript.Common.Action.autoPlayTrack();";
+                script = "window.XpoMusicScript.Common.Action.autoPlayTrack();";
             else
-                script = "window.XpotifyScript.Common.Action.autoPlayPlaylist();";
+                script = "window.XpoMusicScript.Common.Action.autoPlayPlaylist();";
             
             var currentPlaying = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
         }
@@ -203,7 +203,7 @@ namespace XpoMusic.Helpers
 
         public async Task<bool> PlayPause()
         {
-            var script = "window.XpotifyScript.Common.Action.playPause();";
+            var script = "window.XpoMusicScript.Common.Action.playPause();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -211,7 +211,7 @@ namespace XpoMusic.Helpers
 
         public async Task<bool> Play()
         {
-            var script = "window.XpotifyScript.Common.Action.play();";
+            var script = "window.XpoMusicScript.Common.Action.play();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -219,7 +219,7 @@ namespace XpoMusic.Helpers
 
         public async Task<bool> Pause()
         {
-            var script = "window.XpotifyScript.Common.Action.pause();";
+            var script = "window.XpoMusicScript.Common.Action.pause();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -227,7 +227,7 @@ namespace XpoMusic.Helpers
 
         public async Task<bool> NextTrack()
         {
-            var script = "window.XpotifyScript.Common.Action.nextTrack();";
+            var script = "window.XpoMusicScript.Common.Action.nextTrack();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -237,9 +237,9 @@ namespace XpoMusic.Helpers
         {
             string script;
             if (canGoToBeginningOfCurrentSong)
-                script = "window.XpotifyScript.Common.Action.prevTrack();";
+                script = "window.XpoMusicScript.Common.Action.prevTrack();";
             else
-                script = "window.XpotifyScript.Common.Action.prevTrackForce();";
+                script = "window.XpoMusicScript.Common.Action.prevTrackForce();";
 
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
@@ -248,7 +248,7 @@ namespace XpoMusic.Helpers
 
         internal async Task<bool> IsPlayingOnThisApp()
         {
-            var script = "window.XpotifyScript.Common.Action.isPlayingOnThisApp();";
+            var script = "window.XpoMusicScript.Common.Action.isPlayingOnThisApp();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
 
             return (result == "1");
@@ -256,19 +256,19 @@ namespace XpoMusic.Helpers
 
         internal async Task SeekPlayback(double percentage)
         {
-            var script = $"window.XpotifyScript.Common.Action.seekPlayback({percentage});";
+            var script = $"window.XpoMusicScript.Common.Action.seekPlayback({percentage});";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
         }
 
         internal async Task SeekVolume(double percentage)
         {
-            var script = $"window.XpotifyScript.Common.Action.seekVolume({percentage});";
+            var script = $"window.XpoMusicScript.Common.Action.seekVolume({percentage});";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
         }
 
         internal async Task<bool> OnKeyDown(int charCode, bool shiftPressed, bool ctrlPressed, bool altPressed)
         {
-            var script = $"window.XpotifyScript.Common.KeyboardShortcutListener.keyDownExternalCall" +
+            var script = $"window.XpoMusicScript.Common.KeyboardShortcutListener.keyDownExternalCall" +
                 $"({charCode}, {shiftPressed.ToString().ToLower()}, {ctrlPressed.ToString().ToLower()}, " +
                 $"{altPressed.ToString().ToLower()});";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
@@ -278,13 +278,13 @@ namespace XpoMusic.Helpers
 
         internal async Task TryResolvePlaybackStartStuck()
         {
-            var script = $"window.XpotifyScript.Common.PlaybackStuckHelper.tryResolveStart();";
+            var script = $"window.XpoMusicScript.Common.PlaybackStuckHelper.tryResolveStart();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
         }
 
         internal async Task TryResolvePlaybackMiddleStuck()
         {
-            var script = $"window.XpotifyScript.Common.PlaybackStuckHelper.tryResolveMiddle();";
+            var script = $"window.XpoMusicScript.Common.PlaybackStuckHelper.tryResolveMiddle();";
             var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
         }
     }

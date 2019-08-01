@@ -166,8 +166,8 @@ var XpoMusicScript;
                     body.appendChild(titleDiv);
                 }
                 catch (ex) {
-                    Xpotify.log("injectTitleFailed");
-                    Xpotify.log(ex.toString());
+                    XpoMusic.log("injectTitleFailed");
+                    XpoMusic.log(ex.toString());
                     return "injectTitleFailed,";
                 }
                 return "";
@@ -183,8 +183,8 @@ var XpoMusicScript;
                     Common.UiInjector.injectBackButton(backButtonDiv);
                 }
                 catch (ex) {
-                    Xpotify.log("injectBackFailed");
-                    Xpotify.log(ex.toString());
+                    XpoMusic.log("injectBackFailed");
+                    XpoMusic.log(ex.toString());
                     return "injectBackFailed,";
                 }
                 return "";
@@ -197,7 +197,7 @@ var XpoMusicScript;
                         + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE718;</span></div>'
                         + '<span class="navbar-link__text">Pin this page to Start</span></div></a></div>';
                     pinToStartButton.querySelector('a').onclick = function () {
-                        Xpotify.pinToStart();
+                        XpoMusic.pinToStart();
                         return false;
                     };
                     var settingsButton = document.createElement('div');
@@ -205,7 +205,7 @@ var XpoMusicScript;
                         + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE115;</span></div>'
                         + '<span class="navbar-link__text">Settings</span></div></a></div>';
                     settingsButton.querySelector('a').onclick = function () {
-                        Xpotify.openSettings();
+                        XpoMusic.openSettings();
                         return false;
                     };
                     var aboutButton = document.createElement('div');
@@ -213,7 +213,7 @@ var XpoMusicScript;
                         + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE946;</span></div>'
                         + '<span class="navbar-link__text">About</span></div></a></div>';
                     aboutButton.querySelector('a').onclick = function () {
-                        Xpotify.openAbout();
+                        XpoMusic.openAbout();
                         return false;
                     };
                     var donateButton = document.createElement('div');
@@ -221,7 +221,7 @@ var XpoMusicScript;
                         + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE719;</span></div>'
                         + '<span class="navbar-link__text">Donate</span></div></a></div>';
                     donateButton.querySelector('a').onclick = function () {
-                        Xpotify.openDonate();
+                        XpoMusic.openDonate();
                         return false;
                     };
                     Common.UiInjector.injectNavbarDownButton(pinToStartButton);
@@ -231,8 +231,8 @@ var XpoMusicScript;
                     //    UiInjector.injectNavbarDownButton(donateButton);
                 }
                 catch (ex) {
-                    Xpotify.log("injectNavBarFooterFailed");
-                    Xpotify.log(ex.toString());
+                    XpoMusic.log("injectNavBarFooterFailed");
+                    XpoMusic.log(ex.toString());
                     return "injectNavBarFooterFailed,";
                 }
                 return "";
@@ -250,14 +250,14 @@ var XpoMusicScript;
                         + '<div style="left: 12px; top: -6px; font-size: 9px; position: absolute;">&#xEB9F;</div>'
                         + '</div></button></a>';
                     compactOverlayButton.querySelector('a').onclick = function () {
-                        Xpotify.openMiniView();
+                        XpoMusic.openMiniView();
                         return false;
                     };
                     Common.UiInjector.injectNowPlayingRightButton(compactOverlayButton);
                 }
                 catch (ex) {
-                    Xpotify.log("injectCompactOverlayFailed");
-                    Xpotify.log(ex.toString());
+                    XpoMusic.log("injectCompactOverlayFailed");
+                    XpoMusic.log(ex.toString());
                     return "injectCompactOverlayFailed,";
                 }
                 return "";
@@ -272,14 +272,14 @@ var XpoMusicScript;
                         + '<div class="icon NavBar__icon nowPlaying-icon"></div>'
                         + '<span class="navbar-link__text">Now Playing</span></div></a></div></div></li>';
                     nowPlayingButton.querySelector('a').onclick = function () {
-                        Xpotify.openNowPlaying();
+                        XpoMusic.openNowPlaying();
                         return false;
                     };
                     Common.UiInjector.injectNowPlayingNavBarButton(nowPlayingButton);
                 }
                 catch (ex) {
-                    Xpotify.log("addNowPlayingButtonFailed");
-                    Xpotify.log(ex.toString());
+                    XpoMusic.log("addNowPlayingButtonFailed");
+                    XpoMusic.log(ex.toString());
                     return "addNowPlayingButtonFailed,";
                 }
                 return "";
@@ -299,8 +299,8 @@ var XpoMusicScript;
                     }, 4000);
                 }
                 catch (ex) {
-                    Xpotify.log("findBackgroundDivFailed");
-                    Xpotify.log(ex.toString());
+                    XpoMusic.log("findBackgroundDivFailed");
+                    XpoMusic.log(ex.toString());
                     return "findBackgroundDivFailed,";
                 }
                 return "";
@@ -368,7 +368,7 @@ var XpoMusicScript;
                     return count > 0;
                 }
                 catch (ex) {
-                    Xpotify.log(ex.toString());
+                    XpoMusic.log(ex.toString());
                     return false;
                 }
             }
@@ -1156,7 +1156,7 @@ var XpoMusicScript;
                         progressBarBg.style.opacity = '1';
                         (times[0]).style.opacity = '1';
                         (times[1]).style.opacity = '1';
-                        Xpotify.hideProgressBar();
+                        XpoMusic.hideProgressBar();
                     }
                     else {
                         setTimeout(function () {
@@ -1177,7 +1177,7 @@ var XpoMusicScript;
                     (times[0]).style.opacity = '0';
                     (times[1]).style.opacity = '0';
                     var rect = progressBarBg.getBoundingClientRect();
-                    Xpotify.showProgressBar(rect.left / window.innerWidth, rect.top / window.innerHeight, rect.width / window.innerWidth);
+                    XpoMusic.showProgressBar(rect.left / window.innerWidth, rect.top / window.innerHeight, rect.width / window.innerWidth);
                     setTimeout(function () {
                         var progressBarProgress = (playbackBar.querySelectorAll(".progress-bar__fg")[0]).style.transform;
                         if (progressBarProgress.indexOf("translate") == -1) {
@@ -1524,7 +1524,7 @@ var XpoMusicScript;
                     BackButtonEnabled: isBackPossible(),
                     NowPlaying: getNowPlaying(),
                 });
-                Xpotify.statusReport(data);
+                XpoMusic.statusReport(data);
             }
             function initRegularStatusReport() {
                 setInterval(sendStatusReport, 1000);
@@ -1933,7 +1933,7 @@ var XpoMusicScript;
                 }
                 else if (e.ctrlKey && e.which == 'V'.charCodeAt(0) && !isInputFocused) {
                     // Ctrl+V -> Paste
-                    Xpotify.navigateToClipboardUri();
+                    XpoMusic.navigateToClipboardUri();
                     //} else if (e.which == 46) {
                     // Delete key -> Delete
                 }
@@ -2003,16 +2003,16 @@ var XpoMusicScript;
                 }
                 else if (e.ctrlKey && e.which == 'P'.charCodeAt(0)) {
                     // Ctrl+P -> Settings
-                    Xpotify.openSettings();
+                    XpoMusic.openSettings();
                 }
                 // Custom shortcuts
                 else if (e.ctrlKey && e.which == 'M'.charCodeAt(0)) {
                     // Ctrl+M -> Go to mini view
-                    Xpotify.openMiniView();
+                    XpoMusic.openMiniView();
                 }
                 else if (e.ctrlKey && e.which == 188) {
                     // Ctrl+, -> Go to now playing
-                    Xpotify.openNowPlaying();
+                    XpoMusic.openNowPlaying();
                 }
                 else if (e.ctrlKey && e.which == 'Q'.charCodeAt(0)) {
                     // Ctrl+Q -> Open playing queue
@@ -2032,7 +2032,7 @@ var XpoMusicScript;
                 }
                 else if (e.altKey && (e.which == '4'.charCodeAt(0) || e.which == 100)) {
                     // Alt+4 -> Now Playing
-                    Xpotify.openNowPlaying();
+                    XpoMusic.openNowPlaying();
                 }
                 else {
                     shortcutKeyProcessed = false;
@@ -2138,7 +2138,7 @@ var XpoMusicScript;
             var errors = "";
             markPageAsInjected();
             initDragDrop();
-            Xpotify.log("Initializing UiElemetModifier stuff...");
+            XpoMusic.log("Initializing UiElemetModifier stuff...");
             errors += injectCss();
             errors += Common.UiElementModifier.createPageTitle();
             errors += Common.UiElementModifier.createBackButton();
@@ -2147,27 +2147,27 @@ var XpoMusicScript;
             errors += Common.UiElementModifier.addNowPlayingButton();
             errors += Common.UiElementModifier.addBackgroundClass();
             errors += initNowPlayingBarCheck();
-            Xpotify.log("Setting page hash and initializing resize and periodic checks...");
+            XpoMusic.log("Setting page hash and initializing resize and periodic checks...");
             setInitialPageHash();
             initOnResizeCheck();
             initPeriodicPageCheck();
-            Xpotify.log("Initializing libraries...");
+            XpoMusic.log("Initializing libraries...");
             XpoMusicScript.Lib.FocusVisible.init();
-            Xpotify.log("Initializing MouseWheelListener...");
+            XpoMusic.log("Initializing MouseWheelListener...");
             Common.MouseWheelListener.init();
-            Xpotify.log("Initializing KeyboardShortcutListener...");
+            XpoMusic.log("Initializing KeyboardShortcutListener...");
             Common.KeyboardShortcutListener.init();
-            Xpotify.log("Initializing RequestIntercepter...");
+            XpoMusic.log("Initializing RequestIntercepter...");
             Common.RequestIntercepter.startInterceptingFetch();
-            Xpotify.log("Initializing StatusReport...");
+            XpoMusic.log("Initializing StatusReport...");
             Common.StatusReport.initRegularStatusReport();
-            Xpotify.log("Initializing StartupAnimation...");
+            XpoMusic.log("Initializing StartupAnimation...");
             Common.StartupAnimation.init();
             // @ts-ignore
-            if (window.XpotifyScript === undefined)
+            if (window.XpoMusicScript === undefined)
                 // @ts-ignore
-                window.XpotifyScript = XpotifyScript;
-            Xpotify.log("Common.init() finished. errors = '" + errors + "'");
+                window.XpoMusicScript = XpoMusicScript;
+            XpoMusic.log("Common.init() finished. errors = '" + errors + "'");
             return errors;
         }
         Common.init = init;
@@ -2262,7 +2262,7 @@ var XpoMusicScript;
     if (errors.length > 0) {
         try {
             // @ts-ignore
-            Xpotify.initFailed(errors);
+            XpoMusic.initFailed(errors);
         }
         catch (ex) { }
         throw errors;
@@ -2363,7 +2363,7 @@ var XpoMusicScript;
                         }
                     }
                 }
-                Xpotify.log(counter.toString() + " trackIds extracted.");
+                XpoMusic.log(counter.toString() + " trackIds extracted.");
                 // Close context menu
                 var clickX = 1;
                 var clickY = window.innerHeight - 1;
@@ -2421,7 +2421,7 @@ var XpoMusicScript;
                         return; // List not loaded yet
                     if (!Common.UiElementModifier.createTrackListAddRemoveButtons())
                         return; // No new elements present
-                    Xpotify.log('Some new track list elements found. will try to find track ids.');
+                    XpoMusic.log('Some new track list elements found. will try to find track ids.');
                     injectTrackIdsToTrackList();
                     // TODO: Don't ask server for the items we already know the status
                     yield setAddRemoveButtons();
@@ -2440,7 +2440,7 @@ var XpoMusicScript;
             sendJsonRequestWithToken(uri, method, body = undefined) {
                 return __awaiter(this, void 0, void 0, function* () {
                     if (accessToken.length === 0) {
-                        accessToken = yield Xpotify.getNewAccessTokenAsync();
+                        accessToken = yield XpoMusic.getNewAccessTokenAsync();
                     }
                     return yield this.sendJsonRequestWithTokenInternal(uri, method, body, true);
                 });
@@ -2454,11 +2454,11 @@ var XpoMusicScript;
                             'Authorization': 'Bearer ' + accessToken,
                         },
                     });
-                    Xpotify.log("SpotifyApi: " + uri + " (" + method + ") -> result status = " + response.status);
+                    XpoMusic.log("SpotifyApi: " + uri + " (" + method + ") -> result status = " + response.status);
                     if (response.status == 401 && allowRefreshingToken) {
                         // Refresh access token and retry
-                        Xpotify.log("Will ask for new token.");
-                        accessToken = yield Xpotify.getNewAccessTokenAsync();
+                        XpoMusic.log("Will ask for new token.");
+                        accessToken = yield XpoMusic.getNewAccessTokenAsync();
                         return yield this.sendJsonRequestWithTokenInternal(uri, method, body, false);
                     }
                     return response;
