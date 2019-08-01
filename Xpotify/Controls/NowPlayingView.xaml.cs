@@ -528,6 +528,69 @@ namespace Xpotify.Controls
             prevTrackCommandIssued = false;
         }
 
+        #region Swipe Gesture
+        const double _minimumDeltaXForSwipe = 20.0;
+        Point? pressStartPoint = null, lastPoint = null;
+        private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            pressStartPoint = e.GetCurrentPoint(null).Position;
+        }
+
+        private void UserControl_PointerMoved(object sender, PointerRoutedEventArgs e)
+        {
+            if (!pressStartPoint.HasValue)
+                return;
+
+            lastPoint = e.GetCurrentPoint(null).Position;
+            var movement = lastPoint.Value.X - pressStartPoint.Value.X;
+
+            if ((!PlayStatusTracker.LastPlayStatus.IsPrevTrackAvailable && movement > 0) ||
+                (!PlayStatusTracker.LastPlayStatus.IsNextTrackAvailable && movement < 0))
+            {
+                movement = 0;
+                pressStartPoint = lastPoint;
+            }
+
+            swipeTranslateTransform.X = movement;
+        }
+
+        private void UserControl_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            if (!pressStartPoint.HasValue)
+                return;
+
+            SwipeFinished(e.GetCurrentPoint(null).Position.X);
+        }
+
+        private async void SwipeFinished(double finalX)
+        {
+            var deltaX = finalX - pressStartPoint.Value.X;
+            pressStartPoint = null;
+
+            if (Math.Abs(deltaX) > _minimumDeltaXForSwipe)
+            {
+                if (deltaX > 0)
+                    await PrevTrack(canGoToBeginningOfCurrentSong: false);
+                else
+                    await NextTrack();
+            }
+            else
+            {
+                swipeTranslateTransform.X = 0;
+            }
+        }
+
+        private void UserControl_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            if (!pressStartPoint.HasValue)
+                return;
+            if (!lastPoint.HasValue)
+                return;
+
+            SwipeFinished(lastPoint.Value.X);
+        }
+        #endregion
+
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -660,61 +723,9 @@ namespace Xpotify.Controls
             ViewModel.IsSavedToLibrary = !result;
         }
 
-        #region Swipe Gesture
-        const double _minimumDeltaXForSwipe = 20.0;
-        Point? pressStartPoint = null, lastPoint = null;
-        private void UserControl_PointerPressed(object sender, PointerRoutedEventArgs e)
-        {
-            pressStartPoint = e.GetCurrentPoint(null).Position;
-        }
-
-        private void UserControl_PointerMoved(object sender, PointerRoutedEventArgs e)
-        {
-            if (!pressStartPoint.HasValue)
-                return;
-
-            lastPoint = e.GetCurrentPoint(null).Position;
-            var movement = lastPoint.Value.X - pressStartPoint.Value.X;
-
-            if ((!PlayStatusTracker.LastPlayStatus.IsPrevTrackAvailable && movement > 0) ||
-                (!PlayStatusTracker.LastPlayStatus.IsNextTrackAvailable && movement < 0))
-            {
-                movement = 0;
-                pressStartPoint = lastPoint;
-            }
-
-            swipeTranslateTransform.X = movement;
-        }
-
-        private void UserControl_PointerReleased(object sender, PointerRoutedEventArgs e)
-        {
-            if (!pressStartPoint.HasValue)
-                return;
-
-            SwipeFinished(e.GetCurrentPoint(null).Position.X);
-        }
-
-        private async void SwipeFinished(double finalX)
-        {
-            var deltaX = finalX - pressStartPoint.Value.X;
-            pressStartPoint = null;
-
-            if (Math.Abs(deltaX) > _minimumDeltaXForSwipe)
-            {
-                if (deltaX > 0)
-                    await PrevTrack(canGoToBeginningOfCurrentSong: false);
-                else
-                    await NextTrack();
-            }
-            else
-            {
-                swipeTranslateTransform.X = 0;
-            }
-        }
-
         private async void VolumeSlider_PointerWheelChanged(object sender, PointerRoutedEventArgs e)
         {
-            SliderExtended sliderExtended = (SliderExtended) sender;
+            SliderExtended sliderExtended = (SliderExtended)sender;
             int delta = e.GetCurrentPoint(null).Properties.MouseWheelDelta;
 
             try
@@ -740,17 +751,6 @@ namespace Xpotify.Controls
                 volumeSetSemaphore.Release();
             }
         }
-
-        private void UserControl_PointerExited(object sender, PointerRoutedEventArgs e)
-        {
-            if (!pressStartPoint.HasValue)
-                return;
-            if (!lastPoint.HasValue)
-                return;
-
-            SwipeFinished(lastPoint.Value.X);
-        }
-        #endregion
     }
 
     public class ActionRequestedEventArgs
