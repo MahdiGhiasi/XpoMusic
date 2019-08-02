@@ -23,9 +23,19 @@ namespace XpoMusic.Helpers
                 uri = uri.Substring("xpotify:".Length);
                 uriLowerCase = uri.ToLower();
             }
+            else if (uriLowerCase.StartsWith("xpomusic:https://"))
+            {
+                uri = uri.Substring("xpomusic:".Length);
+                uriLowerCase = uri.ToLower();
+            }
             else if (uriLowerCase.StartsWith("xpotify:"))
             {
                 uri = Regex.Replace(uri, "^xpotify\\:", "spotify:", RegexOptions.IgnoreCase);
+                uriLowerCase = uri.ToLower();
+            }
+            else if (uriLowerCase.StartsWith("xpomusic:"))
+            {
+                uri = Regex.Replace(uri, "^xpomusic\\:", "spotify:", RegexOptions.IgnoreCase);
                 uriLowerCase = uri.ToLower();
             }
             else if (uriLowerCase.StartsWith("spotify:nl:"))
