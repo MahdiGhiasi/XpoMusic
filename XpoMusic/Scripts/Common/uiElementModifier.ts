@@ -24,12 +24,13 @@ namespace XpoMusicScript.Common.UiElementModifier {
 
     export function createBackButton(): string {
         try {
+            var body = <HTMLElement>document.getElementsByTagName('body')[0];
             var backButtonDiv = document.createElement('div');
             backButtonDiv.classList.add("backButtonContainer");
             backButtonDiv.classList.add("backButtonContainer-disabled");
-            backButtonDiv.innerHTML = "<a class='backbutton'><span>&#xE72B;</span></a>";
+            backButtonDiv.innerHTML = "<span>&#xE72B;</span>";
             backButtonDiv.onclick = BrowserHistory.goBack;
-            UiInjector.injectBackButton(backButtonDiv);
+            body.appendChild(backButtonDiv);
         }
         catch (ex) {
             XpoMusic.log("injectBackFailed");

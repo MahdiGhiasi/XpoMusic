@@ -1,7 +1,17 @@
 ﻿
 .backButtonContainer {
-    transition: opacity linear .2s;
-    margin-top: 16px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    width: 46px;
+    height: 32px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.backButtonContainer:hover {
+    background: #555;
 }
 
 .backButtonContainer-disabled {
@@ -10,23 +20,13 @@
     cursor: default;
 }
 
-.backbutton {
-    padding-left: 24px;
-    margin-right: -6px;
-    margin-bottom: 12px;
-    border-bottom-width: 0px;
-    cursor: pointer;
+.backButtonContainer-disabled:hover {
+    background: unset;
 }
 
-.backbutton span {
+.backButtonContainer span {
     font-family: Segoe MDL2 Assets;
-    font-size: 20px;
-    padding-top: 10px;
+    font-size: 14px;
+    padding-top: 6px;
     display: inline-block;
-}
-
-@media (max-width: 720px) {
-    .backbutton {
-        padding-left: 30px;
-    }
 }

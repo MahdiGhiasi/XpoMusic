@@ -198,6 +198,7 @@
         <controls:TopBar x:Name="topBar" 
                          IsTabStop="True"
                          OpenSpotifyUriRequested="TopBar_OpenSpotifyUriRequested"
+                         Margin="46,0,0,0"
                          VerticalAlignment="Top"
                          HorizontalAlignment="Stretch" />
     </Grid>

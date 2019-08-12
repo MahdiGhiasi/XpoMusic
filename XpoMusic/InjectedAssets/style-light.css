@@ -198,30 +198,31 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
     width: 200px; } }
 
 .backButtonContainer {
-  transition: opacity linear .2s;
-  margin-top: 16px; }
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 46px;
+  height: 32px;
+  text-align: center;
+  cursor: pointer; }
+
+.backButtonContainer:hover {
+  background: #555; }
 
 .backButtonContainer-disabled {
   opacity: 0.4;
   pointer-events: none;
   cursor: default; }
 
-.backbutton {
-  padding-left: 24px;
-  margin-right: -6px;
-  margin-bottom: 12px;
-  border-bottom-width: 0px;
-  cursor: pointer; }
+.backButtonContainer-disabled:hover {
+  background: unset; }
 
-.backbutton span {
+.backButtonContainer span {
   font-family: Segoe MDL2 Assets;
-  font-size: 20px;
-  padding-top: 10px;
+  font-size: 14px;
+  padding-top: 6px;
   display: inline-block; }
-
-@media (max-width: 720px) {
-  .backbutton {
-    padding-left: 30px; } }
 
 /* Context menu */
 .react-contextmenu {
@@ -288,7 +289,8 @@ h1 {
 .navBar {
   position: absolute;
   bottom: 0;
-  top: 0; }
+  top: 0;
+  padding-top: 36px; }
 
 .main-view-container__content, .main-view-container__scroll-node {
   /* Acrylic behind navbar in artist page */
@@ -435,19 +437,23 @@ body {
     padding-right: 0 !important;
     width: 100%; }
   .Root__nav-bar {
-    width: 80px; }
+    width: 46px; }
   .Root__nav-bar .navBar-item .navbar-link__text {
     display: none; }
+  .Root__nav-bar .navBar-item .icon {
+    transform: scale(0.75); }
   [dir=ltr] .SearchInputBox {
     left: 80px; }
   .navBar-link {
-    padding: 0 30px; }
+    padding: 0 14px; }
   .navBar-item--with-icon-left .navBar-link-text-with-icon-wrapper,
   .navBar-item--with-icon-right .navBar-link-text-with-icon-wrapper {
     justify-content: initial; }
   .recently-played {
     display: none; }
   .Rootlist__playlists {
+    display: none; }
+  .xpotifyWindowTitle {
     display: none; } }
 
 @media (max-width: 640px) {
@@ -533,8 +539,8 @@ body {
   position: fixed;
   font-family: Segoe UI;
   font-weight: 400;
-  padding-top: 8px;
-  padding-left: 12px;
+  padding-top: 5px;
+  padding-left: 54px;
   color: white;
   font-size: 12px;
   pointer-events: none;
@@ -1054,7 +1060,7 @@ header.artist-header:after {
   filter: invert(1); }
 
 .xpotifyWindowTitle {
-  font-weight: 400; }
+  font-weight: 300; }
 
 .ad6f7074db563f98f848cc3ffdbd8190\.scss img, .ad6f7074db563f98f848cc3ffdbd8190\.scss button {
   filter: invert(1); }
