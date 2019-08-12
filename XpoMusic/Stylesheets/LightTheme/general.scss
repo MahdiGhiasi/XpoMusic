@@ -13,6 +13,7 @@
     right: 0;
     bottom: 0;
     pointer-events: none;
+    z-index: 99999;
 }
 
 @media (max-height: 1100px) {
@@ -77,9 +78,13 @@ img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
     filter: brightness(.6);
 }
 
-.Root__main-view {
-    /* Fixed a bug where search page can appear dark in tall pages in Edge. */
-    filter: invert(0);
+@media (max-height: 1100px) {
+    .Root__main-view {
+        /* Fixed a bug where search page can appear dark in tall pages in Edge.
+           (This causes pixelated-text in tall pages, so we disable it when page height is greater than 1100px.) 
+        */
+        filter: invert(0);
+    }
 }
 
 .Search__content nav ul li a {

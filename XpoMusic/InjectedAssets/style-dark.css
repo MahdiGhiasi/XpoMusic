@@ -318,7 +318,8 @@ h1 {
     margin-bottom: 10px; } }
 
 .Root__now-playing-bar {
-  background-color: transparent; }
+  background-color: transparent;
+  z-index: 10; }
 
 .now-playing-bar-container {
   border: 0;

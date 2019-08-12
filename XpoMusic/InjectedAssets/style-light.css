@@ -318,7 +318,8 @@ h1 {
     margin-bottom: 10px; } }
 
 .Root__now-playing-bar {
-  background-color: transparent; }
+  background-color: transparent;
+  z-index: 10; }
 
 .now-playing-bar-container {
   border: 0;
@@ -904,7 +905,8 @@ body {
   top: 0;
   right: 0;
   bottom: 0;
-  pointer-events: none; }
+  pointer-events: none;
+  z-index: 99999; }
 
 @media (max-height: 1100px) {
   html {
@@ -955,9 +957,12 @@ img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
 .media-object .media-object-hoverable:hover .daily-mix-decoration {
   filter: brightness(0.6); }
 
-.Root__main-view {
-  /* Fixed a bug where search page can appear dark in tall pages in Edge. */
-  filter: invert(0); }
+@media (max-height: 1100px) {
+  .Root__main-view {
+    /* Fixed a bug where search page can appear dark in tall pages in Edge.
+           (This causes pixelated-text in tall pages, so we disable it when page height is greater than 1100px.) 
+        */
+    filter: invert(0); } }
 
 .Search__content nav ul li a {
   /* Fixed a bug in search page content header in white theme in Edge. */
