@@ -88,8 +88,6 @@ namespace XpoMusic.Controls
             xpoWebAgent.NewAccessTokenRequested += XpotifyWebAgent_NewAccessTokenRequested;
             xpoWebAgent.LogMessageReceived += XpotifyWebAgent_LogMessageReceived;
 
-            windowTitle.Text = PackageHelper.GetAppNameString();
-
             VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
         }
 
@@ -275,6 +273,7 @@ namespace XpoMusic.Controls
                     SetInitialPlaybackState();
                     PlayStatusTracker.StartRegularRefresh();
                     SetFocusToWebView();
+                    windowTitle.Text = PackageHelper.GetAppNameString();
                 }
 
                 if (AutoPlayAction != AutoPlayAction.None)
@@ -282,6 +281,10 @@ namespace XpoMusic.Controls
                     AutoPlayOnStartup(AutoPlayAction);
                     AutoPlayAction = AutoPlayAction.None;
                 }
+            }
+            else
+            {
+                windowTitle.Text = "";
             }
 
             if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
