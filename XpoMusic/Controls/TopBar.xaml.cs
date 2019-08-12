@@ -185,9 +185,9 @@ namespace XpoMusic.Controls
                 titleBar.ButtonForegroundColor = Colors.White;
                 titleBar.ButtonBackgroundColor = Colors.Transparent;
                 titleBar.ButtonHoverForegroundColor = Colors.White;
-                titleBar.ButtonHoverBackgroundColor = Color.FromArgb(255, 100, 100, 100);
+                titleBar.ButtonHoverBackgroundColor = Color.FromArgb(128, 100, 100, 100);
                 titleBar.ButtonPressedForegroundColor = Colors.White;
-                titleBar.ButtonPressedBackgroundColor = Color.FromArgb(255, 140, 140, 140);
+                titleBar.ButtonPressedBackgroundColor = Color.FromArgb(128, 140, 140, 140);
 
                 // Set inactive window colors
                 titleBar.InactiveForegroundColor = Color.FromArgb(255, 200, 200, 200);
@@ -210,9 +210,9 @@ namespace XpoMusic.Controls
                 titleBar.ButtonForegroundColor = Colors.Black;
                 titleBar.ButtonBackgroundColor = Colors.Transparent;
                 titleBar.ButtonHoverForegroundColor = Colors.Black;
-                titleBar.ButtonHoverBackgroundColor = Color.FromArgb(255, 200, 200, 200);
+                titleBar.ButtonHoverBackgroundColor = Color.FromArgb(128, 200, 200, 200);
                 titleBar.ButtonPressedForegroundColor = Colors.Black;
-                titleBar.ButtonPressedBackgroundColor = Color.FromArgb(255, 160, 160, 160);
+                titleBar.ButtonPressedBackgroundColor = Color.FromArgb(128, 160, 160, 160);
 
                 // Set inactive window colors
                 titleBar.InactiveForegroundColor = Color.FromArgb(255, 255 - 200, 255 - 200, 255 - 200);
