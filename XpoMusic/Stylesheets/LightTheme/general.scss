@@ -69,6 +69,10 @@ img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
     color: black !important;
 }
 
+.Root__main-view .Search nav {
+    filter: invert(0);
+} 
+
 .media-object .media-object-hoverable.playing .cover-art-image,
 .media-object .media-object-hoverable.playing .daily-mix-decoration,
 .media-object .media-object-hoverable:focus .cover-art-image,
