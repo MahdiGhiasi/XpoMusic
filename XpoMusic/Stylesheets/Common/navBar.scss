@@ -1,6 +1,7 @@
 ﻿
 .Root__nav-bar {
     background-color: rgba(0, 0, 0, 0.2) !important;
+    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     position: relative;
     overflow: hidden;
