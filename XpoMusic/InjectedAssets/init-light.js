@@ -145,22 +145,6 @@ var XpoMusicScript;
     (function (Common) {
         var UiElementModifier;
         (function (UiElementModifier) {
-            function createPageTitle() {
-                try {
-                    var body = document.getElementsByTagName('body')[0];
-                    var titleDiv = document.createElement('div');
-                    titleDiv.classList.add("xpotifyWindowTitle");
-                    titleDiv.innerText = Common.getAppName();
-                    body.appendChild(titleDiv);
-                }
-                catch (ex) {
-                    XpoMusic.log("injectTitleFailed");
-                    XpoMusic.log(ex.toString());
-                    return "injectTitleFailed,";
-                }
-                return "";
-            }
-            UiElementModifier.createPageTitle = createPageTitle;
             function createBackButton() {
                 try {
                     var body = document.getElementsByTagName('body')[0];
@@ -2129,7 +2113,6 @@ var XpoMusicScript;
             initDragDrop();
             XpoMusic.log("Initializing UiElemetModifier stuff...");
             errors += injectCss();
-            errors += Common.UiElementModifier.createPageTitle();
             errors += Common.UiElementModifier.createBackButton();
             errors += Common.UiElementModifier.createNavBarButtons();
             errors += Common.UiElementModifier.createCompactOverlayButton();

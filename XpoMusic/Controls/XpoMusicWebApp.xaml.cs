@@ -88,6 +88,8 @@ namespace XpoMusic.Controls
             xpoWebAgent.NewAccessTokenRequested += XpotifyWebAgent_NewAccessTokenRequested;
             xpoWebAgent.LogMessageReceived += XpotifyWebAgent_LogMessageReceived;
 
+            windowTitle.Text = PackageHelper.GetAppNameString();
+
             VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
         }
 

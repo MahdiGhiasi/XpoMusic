@@ -6,22 +6,6 @@ namespace XpoMusicScript.Common.UiElementModifier {
 
     declare var XpoMusic: any;
 
-    export function createPageTitle(): string {
-        try {
-            var body = <HTMLElement>document.getElementsByTagName('body')[0];
-            var titleDiv = document.createElement('div');
-            titleDiv.classList.add("xpotifyWindowTitle");
-            titleDiv.innerText = Common.getAppName();
-            body.appendChild(titleDiv);
-        }
-        catch (ex) {
-            XpoMusic.log("injectTitleFailed");
-            XpoMusic.log(ex.toString());
-            return "injectTitleFailed,";
-        }
-        return "";
-    }
-
     export function createBackButton(): string {
         try {
             var body = <HTMLElement>document.getElementsByTagName('body')[0];
