@@ -205,10 +205,10 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
   width: 46px;
   height: 32px;
   text-align: center;
-  cursor: pointer; }
+  cursor: default; }
 
 .backButtonContainer:hover {
-  background: #555; }
+  background: rgba(70, 70, 70, 0.5); }
 
 .backButtonContainer-disabled {
   opacity: 0.4;
