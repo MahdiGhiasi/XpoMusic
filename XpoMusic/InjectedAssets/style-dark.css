@@ -92,17 +92,6 @@ body {
 .TrackListHeader__entity-by {
   margin-right: 4px; }
 
-/* Move top info banners, so they don't get covered up via window close button */
-div[aria-live=polite] {
-  height: auto;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-right: 150px; }
-
-/* Remove the X button on the top info banners */
-div[aria-live=polite] button {
-  display: none; }
-
 .nowPlaying-icon {
   width: 22px;
   height: 22px;
