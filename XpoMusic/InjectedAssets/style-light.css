@@ -952,6 +952,9 @@ img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
 .Root__main-view nav a {
   color: black !important; }
 
+.Root__main-view .Search nav {
+  filter: invert(0); }
+
 .media-object .media-object-hoverable.playing .cover-art-image,
 .media-object .media-object-hoverable.playing .daily-mix-decoration,
 .media-object .media-object-hoverable:focus .cover-art-image,
@@ -1055,3 +1058,6 @@ header.artist-header:after {
 
 .ad6f7074db563f98f848cc3ffdbd8190\.scss img, .ad6f7074db563f98f848cc3ffdbd8190\.scss button {
   filter: invert(1); }
+
+.ad6f7074db563f98f848cc3ffdbd8190\.scss button._81a88e0d61622b328f181589e4074b12\.scss {
+  filter: invert(0); }
