@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
 using XpoMusic.Classes.Model.WebResourceModifications;
@@ -30,6 +31,10 @@ namespace XpoMusic.Classes
 
         private AppConstants()
         {
+#if DEBUG
+            var initialStateJson = JsonConvert.SerializeObject(this, Formatting.Indented);
+#endif
+
             var latestSavedAppConstantsString = LocalConfiguration.LatestAppConstants;
             try
             {
@@ -83,7 +88,22 @@ namespace XpoMusic.Classes
         public int MaxStuckResolveTryCount { get; private set; } = 1;
 
         [JsonProperty]
-        public WebResourceModificationRule[] ModificationRules { get; private set; } = null;
+        public WebResourceModificationRule[] ModificationRules { get; private set; } = new[]
+            {
+                new WebResourceModificationRule
+                {
+                    UriRegexMatch = @"web-player\.[a-zA-Z0-9]*\.js",
+                    Type = WebResourceModificationRuleType.ModifyString,
+                    StringModificationRules = new[]
+                    {
+                        new WebResourceStringModificationRule
+                        {
+                            RegexMatch = Regex.Escape(@"window.matchMedia(""(display-mode: standalone)"").addEventListener(""change"",function(t){e(t.matches)})"),
+                            ReplaceTo = @"window.matchMedia(""(display-mode: standalone)"").addListener(""change"",function(t){e(t.matches)})",
+                        }
+                    }
+                },
+            };
 
         public static async void Update()
         {
