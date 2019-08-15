@@ -1,6 +1,4 @@
-﻿using XpoMusic.Helpers;
-using XpoMusic.XpotifyApi;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +6,8 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
+using XpoMusic.Helpers;
+using XpoMusic.XpotifyApi;
 
 namespace XpoMusic.Classes
 {
@@ -27,7 +27,23 @@ namespace XpoMusic.Classes
             }
         }
 
-        private AppConstants() { }
+        private AppConstants()
+        {
+            var latestSavedAppConstantsString = LocalConfiguration.LatestAppConstants;
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(latestSavedAppConstantsString))
+                {
+                    JsonConvert.PopulateObject(latestSavedAppConstantsString, this);
+                    this.ConstantsUpdated?.Invoke(this, new EventArgs());
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Warn($"Updating AppConstants from latest saved app constants string failed. The content was: '{latestSavedAppConstantsString}'");
+                logger.Error($"Updating AppConstants from latest saved app constants string failed: {ex}");
+            }
+        }
 
         public event EventHandler ConstantsUpdated;
 
@@ -79,6 +95,8 @@ namespace XpoMusic.Classes
 
                 JsonConvert.PopulateObject(updateString, Instance);
                 Instance.ConstantsUpdated?.Invoke(Instance, new EventArgs());
+
+                LocalConfiguration.LatestAppConstants = updateString;
             }
             catch (Exception ex)
             {
