@@ -5,6 +5,7 @@
     xmlns:controls="using:XpoMusic.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -90,7 +91,7 @@
         </VisualStateManager.VisualStateGroups>
         
         <WebView x:Name="mainWebView"
-                 WebResourceRequested="MainWebView_WebResourceRequested"
+                 Windows10version1809:WebResourceRequested="MainWebView_WebResourceRequested"
                  NavigationStarting="MainWebView_NavigationStarting"
                  NavigationFailed="MainWebView_NavigationFailed"
                  LoadCompleted="MainWebView_LoadCompleted" />
