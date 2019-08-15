@@ -54,10 +54,10 @@ namespace XpoMusic.Classes
         public event EventHandler ConstantsUpdated;
 
         [JsonProperty]
-        public int PlayStatePollIntervalMilliseconds { get; private set; } = 10000;
+        public int PlayStatePollIntervalMilliseconds { get; private set; } = 20000;
 
         [JsonProperty]
-        public int PlayStatePollIntervalMillisecondsWithCompactOverlayOpen { get; private set; } = 8000;
+        public int PlayStatePollIntervalMillisecondsWithCompactOverlayOpen { get; private set; } = 15000;
 
         public TimeSpan PlayStatePollInterval
         {
@@ -74,7 +74,7 @@ namespace XpoMusic.Classes
         public bool HeartbeatEnabled { get; private set; } = true;
 
         [JsonProperty]
-        public int HeartbeatIntervalSeconds { get; private set; } = 60 * 15;
+        public int HeartbeatIntervalSeconds { get; private set; } = 60 * 10;
 
         public TimeSpan HeartbeatInterval => TimeSpan.FromSeconds(HeartbeatIntervalSeconds);
 
