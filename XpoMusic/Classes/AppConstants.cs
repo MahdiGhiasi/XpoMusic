@@ -107,6 +107,9 @@ namespace XpoMusic.Classes
                 },
             };
 
+        [JsonProperty]
+        public bool WebPlayerBackupEnabled { get; private set; } = true;
+
         public static async void Update()
         {
             try

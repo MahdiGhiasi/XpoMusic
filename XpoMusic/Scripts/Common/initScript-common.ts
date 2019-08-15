@@ -12,6 +12,7 @@
 /// <reference path="pageTitleFinder.ts" />
 /// <reference path="keyboardShortcutListener.ts" />
 /// <reference path="mouseWheelListener.ts" />
+/// <reference path="web-player-backup.ts" />
 
 
 namespace XpoMusicScript.Common {
@@ -35,7 +36,20 @@ namespace XpoMusicScript.Common {
         return (document.getElementsByTagName('body')[0].getAttribute('data-xpotifyTheme') === 'light');
     }
 
+    export function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     export function init() {
+        if (document.querySelectorAll("#main").length === 0 && XpoMusic.isWebPlayerBackupEnabled()) {
+            XpoMusic.log("#main is missing. Will try runWebPlayerBackup()")
+            try {
+                WebPlayerBackup.runWebPlayerBackup();
+            } catch (ex) {
+                XpoMusic.log("runWebPlayerBackup() failed: " + ex)
+            }
+        }
+
         var errors = "";
 
         markPageAsInjected();
@@ -165,7 +179,7 @@ namespace XpoMusicScript.Common {
             }
         }
         catch (ex) {
-            console.log(ex);
+            XpoMusic.log(ex);
         }
     }
 

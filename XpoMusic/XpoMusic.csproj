@@ -224,6 +224,7 @@
     <TypeScriptCompile Include="Scripts\Common\mouseWheelListener.ts" />
     <TypeScriptCompile Include="Scripts\Common\playbackStuckHelper.ts" />
     <TypeScriptCompile Include="Scripts\Common\tracklistExtended.ts" />
+    <TypeScriptCompile Include="Scripts\Common\web-player-backup.ts" />
     <TypeScriptCompile Include="Scripts\Lib\focus-visible.ts" />
     <TypeScriptCompile Include="Scripts\Common\indeterminateProgressBarHandler.ts" />
     <TypeScriptCompile Include="Scripts\Common\keyboardShortcutListener.ts" />

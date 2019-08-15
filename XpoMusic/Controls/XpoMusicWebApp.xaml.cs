@@ -80,7 +80,10 @@ namespace XpoMusic.Controls
 
             loadFailedAppVersionText.Text = PackageHelper.GetAppVersionString();
 
-            xpoWebAgent = new XpoMusicWebAgent.WebAgent();
+            xpoWebAgent = new XpoMusicWebAgent.WebAgent()
+            {
+                WebPlayerBackupEnabled = AppConstants.Instance.WebPlayerBackupEnabled,
+            };
             xpoWebAgent.ProgressBarCommandReceived += XpotifyWebAgent_ProgressBarCommandReceived;
             xpoWebAgent.StatusReportReceived += XpotifyWebAgent_StatusReportReceived;
             xpoWebAgent.ActionRequested += XpotifyWebAgent_ActionRequested;

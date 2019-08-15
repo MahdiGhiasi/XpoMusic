@@ -1,9 +1,5 @@
 ﻿namespace XpoMusicScript.Common.PlaybackStuckHelper
 {
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
     async function resolveStart() {
         var initialElapsedTime = StatusReport.getElapsedTime();
 
@@ -11,13 +7,13 @@
             return;
 
         while (!StatusReport.getIsPlaying() || StatusReport.getElapsedTime() === 0 || StatusReport.getElapsedTime() === initialElapsedTime)
-            await sleep(500);
+            await Common.sleep(500);
         
         if (Action.prevTrack() == '0')
             return;
 
         do {
-            await sleep(500);
+            await Common.sleep(500);
         } while (!StatusReport.getIsPlaying())
         
         if (Action.prevTrack() == '0')
@@ -25,7 +21,7 @@
 
         var newInitialElapsedTime = StatusReport.getElapsedTime();
         while (!StatusReport.getIsPlaying() || StatusReport.getElapsedTime() === 0 || StatusReport.getElapsedTime() === newInitialElapsedTime)
-            await sleep(100);
+            await Common.sleep(100);
     }
 
     export async function tryResolveStart() {
@@ -62,7 +58,7 @@
 
         Action.seekPlayback(newElapsedTime / totalTime);
 
-        await sleep(1000);
+        await Common.sleep(1000);
         Action.play();
     }
 }

@@ -26,6 +26,8 @@ namespace XpoMusicWebAgent
 
         private TaskCompletionSource<string> newAccessTokenTcs;
 
+        public bool WebPlayerBackupEnabled { get; set; }
+
         public void ShowProgressBar(double left, double top, double width)
         {
             ProgressBarCommandReceived?.Invoke(this, new ProgressBarCommandEventArgs
@@ -140,6 +142,11 @@ namespace XpoMusicWebAgent
             {
                 Message = message,
             });
+        }
+
+        public bool IsWebPlayerBackupEnabled()
+        {
+            return WebPlayerBackupEnabled;
         }
     }
 }
