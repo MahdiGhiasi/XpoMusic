@@ -8,7 +8,7 @@ namespace XpoMusic.Classes.Model.WebResourceModifications
 {
     public enum WebResourceModificationRuleType
     {
-        ReplaceWholeFile,
-        ModifyString,
+        ReplaceWholeFile = 1,
+        ModifyString = 2,
     }
 }
