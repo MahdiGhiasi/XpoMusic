@@ -90,6 +90,7 @@
         </VisualStateManager.VisualStateGroups>
         
         <WebView x:Name="mainWebView"
+                 WebResourceRequested="MainWebView_WebResourceRequested"
                  NavigationStarting="MainWebView_NavigationStarting"
                  NavigationFailed="MainWebView_NavigationFailed"
                  LoadCompleted="MainWebView_LoadCompleted" />

@@ -130,6 +130,9 @@
     <Compile Include="Classes\Cache\CacheStore.cs" />
     <Compile Include="Classes\Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Classes\Model\SongExtraInfo.cs" />
+    <Compile Include="Classes\Model\WebResourceModifications\WebResourceModificationRule.cs" />
+    <Compile Include="Classes\Model\WebResourceModifications\WebResourceModificationRuleType.cs" />
+    <Compile Include="Classes\Model\WebResourceModifications\WebResourceStringModificationRule.cs" />
     <Compile Include="Classes\SemaphoreQueue.cs" />
     <Compile Include="Classes\Cache\SongExtraInfoStore.cs" />
     <Compile Include="Controls\FlyoutContainer.xaml.cs">
@@ -150,6 +153,7 @@
     <Compile Include="Helpers\MediaControlsHelper.cs" />
     <Compile Include="Helpers\StoryboardExtensions.cs" />
     <Compile Include="Helpers\StuckResolveHelper.cs" />
+    <Compile Include="Helpers\WebResourceModificationHelper.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>

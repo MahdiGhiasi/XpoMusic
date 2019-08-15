@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.ViewManagement;
+using XpoMusic.Classes.Model.WebResourceModifications;
 using XpoMusic.Helpers;
 using XpoMusic.XpotifyApi;
 
@@ -80,6 +81,9 @@ namespace XpoMusic.Classes
 
         [JsonProperty]
         public int MaxStuckResolveTryCount { get; private set; } = 1;
+
+        [JsonProperty]
+        public WebResourceModificationRule[] ModificationRules { get; private set; } = null;
 
         public static async void Update()
         {
