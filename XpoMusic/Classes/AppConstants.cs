@@ -59,6 +59,7 @@ namespace XpoMusic.Classes
         [JsonProperty]
         public int PlayStatePollIntervalMillisecondsWithCompactOverlayOpen { get; private set; } = 15000;
 
+        [JsonIgnore]
         public TimeSpan PlayStatePollInterval
         {
             get
@@ -76,6 +77,7 @@ namespace XpoMusic.Classes
         [JsonProperty]
         public int HeartbeatIntervalSeconds { get; private set; } = 60 * 10;
 
+        [JsonIgnore]
         public TimeSpan HeartbeatInterval => TimeSpan.FromSeconds(HeartbeatIntervalSeconds);
 
         [JsonProperty]
