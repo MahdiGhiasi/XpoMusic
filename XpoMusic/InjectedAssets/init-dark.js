@@ -31,18 +31,6 @@ var XpoMusicScript;
     (function (Common) {
         var UiInjector;
         (function (UiInjector) {
-            function injectBackButton(backButtonDiv) {
-                var navbarHeader = document.getElementsByClassName('navBar-header');
-                if (navbarHeader.length === 0) {
-                    setTimeout(function () {
-                        injectBackButton(backButtonDiv);
-                    }, 500);
-                }
-                else {
-                    navbarHeader[0].prepend(backButtonDiv);
-                }
-            }
-            UiInjector.injectBackButton = injectBackButton;
             function injectNavbarDownButton(button) {
                 var navbar = document.querySelectorAll(".NavBarFooter");
                 var sessionInfo = document.querySelectorAll(".sessionInfo");
@@ -157,30 +145,15 @@ var XpoMusicScript;
     (function (Common) {
         var UiElementModifier;
         (function (UiElementModifier) {
-            function createPageTitle() {
-                try {
-                    var body = document.getElementsByTagName('body')[0];
-                    var titleDiv = document.createElement('div');
-                    titleDiv.classList.add("xpotifyWindowTitle");
-                    titleDiv.innerText = Common.getAppName();
-                    body.appendChild(titleDiv);
-                }
-                catch (ex) {
-                    XpoMusic.log("injectTitleFailed");
-                    XpoMusic.log(ex.toString());
-                    return "injectTitleFailed,";
-                }
-                return "";
-            }
-            UiElementModifier.createPageTitle = createPageTitle;
             function createBackButton() {
                 try {
+                    var body = document.getElementsByTagName('body')[0];
                     var backButtonDiv = document.createElement('div');
                     backButtonDiv.classList.add("backButtonContainer");
                     backButtonDiv.classList.add("backButtonContainer-disabled");
-                    backButtonDiv.innerHTML = "<a class='backbutton'><span>&#xE72B;</span></a>";
+                    backButtonDiv.innerHTML = "<span>&#xE72B;</span>";
                     backButtonDiv.onclick = Common.BrowserHistory.goBack;
-                    Common.UiInjector.injectBackButton(backButtonDiv);
+                    body.appendChild(backButtonDiv);
                 }
                 catch (ex) {
                     XpoMusic.log("injectBackFailed");
@@ -2140,7 +2113,6 @@ var XpoMusicScript;
             initDragDrop();
             XpoMusic.log("Initializing UiElemetModifier stuff...");
             errors += injectCss();
-            errors += Common.UiElementModifier.createPageTitle();
             errors += Common.UiElementModifier.createBackButton();
             errors += Common.UiElementModifier.createNavBarButtons();
             errors += Common.UiElementModifier.createCompactOverlayButton();

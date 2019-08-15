@@ -273,6 +273,7 @@ namespace XpoMusic.Controls
                     SetInitialPlaybackState();
                     PlayStatusTracker.StartRegularRefresh();
                     SetFocusToWebView();
+                    windowTitle.Text = PackageHelper.GetAppNameString();
                 }
 
                 if (AutoPlayAction != AutoPlayAction.None)
@@ -280,6 +281,10 @@ namespace XpoMusic.Controls
                     AutoPlayOnStartup(AutoPlayAction);
                     AutoPlayAction = AutoPlayAction.None;
                 }
+            }
+            else
+            {
+                windowTitle.Text = "";
             }
 
             if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
@@ -420,6 +425,19 @@ namespace XpoMusic.Controls
             {
                 logger.Warn("SetInitialPlaybackState failed: " + ex.ToString());
             }
+        }
+
+        private void MainWebView_WebResourceRequested(WebView sender, WebViewWebResourceRequestedEventArgs args)
+        {
+            // Getting deferral does not work as args.Response can't be set will cause an exception (The application 
+            // called an interface that was marshalled for a different thread) if we set it after an await. So we need
+            // to block the current thread.
+
+            logger.Debug("WebResourceRequested: " + args.Request.RequestUri.ToString());
+
+            var response = WebResourceModificationHelper.WebResourceRequested(args.Request).GetAwaiter().GetResult();
+            if (response != null)
+                args.Response = response;
         }
     }
 }

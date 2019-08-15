@@ -92,17 +92,6 @@ body {
 .TrackListHeader__entity-by {
   margin-right: 4px; }
 
-/* Move top info banners, so they don't get covered up via window close button */
-div[aria-live=polite] {
-  height: auto;
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-right: 150px; }
-
-/* Remove the X button on the top info banners */
-div[aria-live=polite] button {
-  display: none; }
-
 .nowPlaying-icon {
   width: 22px;
   height: 22px;
@@ -198,30 +187,31 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
     width: 200px; } }
 
 .backButtonContainer {
-  transition: opacity linear .2s;
-  margin-top: 16px; }
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  width: 46px;
+  height: 32px;
+  text-align: center;
+  cursor: default; }
+
+.backButtonContainer:hover {
+  background: rgba(70, 70, 70, 0.5); }
 
 .backButtonContainer-disabled {
   opacity: 0.4;
   pointer-events: none;
   cursor: default; }
 
-.backbutton {
-  padding-left: 24px;
-  margin-right: -6px;
-  margin-bottom: 12px;
-  border-bottom-width: 0px;
-  cursor: pointer; }
+.backButtonContainer-disabled:hover {
+  background: unset; }
 
-.backbutton span {
+.backButtonContainer span {
   font-family: Segoe MDL2 Assets;
-  font-size: 20px;
-  padding-top: 10px;
+  font-size: 14px;
+  padding-top: 6px;
   display: inline-block; }
-
-@media (max-width: 720px) {
-  .backbutton {
-    padding-left: 30px; } }
 
 /* Context menu */
 .react-contextmenu {
@@ -231,6 +221,7 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
   background-color: rgba(30, 30, 30, 0.7); }
 
 .react-contextmenu.react-contextmenu--visible {
+  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.25); }
 
@@ -278,6 +269,7 @@ h1 {
 
 .Root__nav-bar {
   background-color: rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   position: relative;
   overflow: hidden;
@@ -286,7 +278,8 @@ h1 {
 .navBar {
   position: absolute;
   bottom: 0;
-  top: 0; }
+  top: 0;
+  padding-top: 36px; }
 
 .main-view-container__content, .main-view-container__scroll-node {
   /* Acrylic behind navbar in artist page */
@@ -318,11 +311,13 @@ h1 {
     margin-bottom: 10px; } }
 
 .Root__now-playing-bar {
-  background-color: transparent; }
+  background-color: transparent;
+  z-index: 10; }
 
 .now-playing-bar-container {
   border: 0;
   background-color: rgba(40, 40, 40, 0.6);
+  backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px); }
 
 .now-playing-bar {
@@ -431,19 +426,27 @@ body {
     padding-right: 0 !important;
     width: 100%; }
   .Root__nav-bar {
-    width: 80px; }
+    width: 46px; }
   .Root__nav-bar .navBar-item .navbar-link__text {
     display: none; }
+  .sessionInfo {
+    margin-left: 8px; }
+  .Root__nav-bar .navBar-item .icon, .UserWidget__container {
+    transform: scale(0.75); }
   [dir=ltr] .SearchInputBox {
     left: 80px; }
   .navBar-link {
-    padding: 0 30px; }
+    padding: 0 11px; }
   .navBar-item--with-icon-left .navBar-link-text-with-icon-wrapper,
   .navBar-item--with-icon-right .navBar-link-text-with-icon-wrapper {
     justify-content: initial; }
   .recently-played {
     display: none; }
   .Rootlist__playlists {
+    display: none; }
+  .NavBar__xpotifysettings-item {
+    padding-left: 2px; }
+  .xpotifyWindowTitle {
     display: none; } }
 
 @media (max-width: 640px) {
@@ -529,8 +532,8 @@ body {
   position: fixed;
   font-family: Segoe UI;
   font-weight: 400;
-  padding-top: 8px;
-  padding-left: 12px;
+  padding-top: 5px;
+  padding-left: 54px;
   color: white;
   font-size: 12px;
   pointer-events: none;

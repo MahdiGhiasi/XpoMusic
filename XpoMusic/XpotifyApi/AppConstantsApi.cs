@@ -36,8 +36,18 @@ namespace XpoMusic.XpotifyApi
                     var response = await client.GetAsync(UpdateUri);
                     if (response.IsSuccessStatusCode == false)
                     {
-                        logger.Warn($"UpdateAppConstants failed because request failed with status code {response.StatusCode}.");
-                        return null;
+                        if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                        {
+                            // If this happens, first session will contain the previous updated values since it's cached. 
+                            // But the next sessions will have the values defined in code.
+                            logger.Info("GetAppConstantsString could not find a constants file on the server. Will return an empty json.");
+                            return "{}";
+                        }
+                        else
+                        {
+                            logger.Warn($"GetAppConstantsString failed because request failed with status code {response.StatusCode}.");
+                            return null;
+                        }
                     }
 
                     var result = await response.Content.ReadAsStringAsync();
@@ -46,7 +56,7 @@ namespace XpoMusic.XpotifyApi
             }
             catch (Exception ex)
             {
-                logger.Warn("UpdateAppConstants failed: " + ex.ToString());
+                logger.Warn("GetAppConstantsString failed: " + ex.ToString());
                 return null;
             }
         }

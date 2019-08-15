@@ -245,7 +245,6 @@
                         <Setter Target="showNowPlayingListButton.Visibility" Value="Collapsed" />
                         <Setter Target="miniViewButton.Visibility" Value="Collapsed" />
                         <Setter Target="fullScreenButton.Visibility" Value="Collapsed" />
-                        <Setter Target="backButton.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState>
@@ -253,17 +252,6 @@
                         <StateTrigger IsActive="{x:Bind ViewModel.IsNormalViewMode, Mode=OneWay}" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="miniViewBackButton.Visibility" Value="Collapsed" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-            <VisualStateGroup>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="backButton.Margin" Value="14,40,0,0" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -647,7 +635,7 @@
                   Height="32"
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Top" />
-            <Button x:Name="miniViewBackButton" 
+            <Button x:Name="backButton" 
                     Style="{StaticResource TopBarDarkButtonStyle}"
                     Width="46"
                     Height="32"
@@ -661,21 +649,6 @@
                           HorizontalAlignment="Left"
                           Foreground="#ddd"
                           FontSize="14" 
-                          Glyph="&#xE0A6;" />
-            </Button>
-            <Button x:Name="backButton" 
-                    Style="{StaticResource MinimalButtonStyle}"
-                    Width="40"
-                    Height="40"
-                    Margin="20,40,0,0"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Background="Transparent"
-                    ToolTipService.ToolTip="Back"
-                    Click="BackButton_Click">
-                <FontIcon FontFamily="Segoe MDL2 Assets" 
-                          VerticalAlignment="Top"
-                          HorizontalAlignment="Left"
                           Glyph="&#xE0A6;" />
             </Button>
             <Button x:Name="smallOptionsButton" 

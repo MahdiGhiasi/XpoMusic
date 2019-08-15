@@ -277,6 +277,18 @@ namespace XpoMusic.Classes
             }
         }
 
+        public static string LatestAppConstants
+        {
+            get
+            {
+                return GetConfiguration("LatestAppConstants");
+            }
+            set
+            {
+                SetConfiguration("LatestAppConstants", value.ToString());
+            }
+        }
+
         private static string GetConfiguration(string key)
         {
             var completeKey = "LocalConfiguration_" + key;

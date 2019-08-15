@@ -1,15 +1,4 @@
 ﻿namespace XpoMusicScript.Common.UiInjector {
-    export function injectBackButton(backButtonDiv) {
-        var navbarHeader = document.getElementsByClassName('navBar-header');
-        if (navbarHeader.length === 0) {
-            setTimeout(function () {
-                injectBackButton(backButtonDiv);
-            }, 500);
-        } else {
-            navbarHeader[0].prepend(backButtonDiv);
-        }
-    }
-
     export function injectNavbarDownButton(button) {
         var navbar = document.querySelectorAll(".NavBarFooter");
         var sessionInfo = document.querySelectorAll(".sessionInfo");

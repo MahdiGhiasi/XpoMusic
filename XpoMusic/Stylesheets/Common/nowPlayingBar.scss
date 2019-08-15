@@ -1,11 +1,13 @@
 ﻿
 .Root__now-playing-bar {
     background-color: transparent;
+    z-index: 10;
 }
 
 .now-playing-bar-container {
     border: 0;
     background-color: rgba(40, 40, 40, 0.6);
+    backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
 }
 

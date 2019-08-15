@@ -43,7 +43,6 @@ namespace XpoMusicScript.Common {
 
         XpoMusic.log("Initializing UiElemetModifier stuff...");
         errors += injectCss();
-        errors += UiElementModifier.createPageTitle();
         errors += UiElementModifier.createBackButton();
         errors += UiElementModifier.createNavBarButtons();
         errors += UiElementModifier.createCompactOverlayButton();

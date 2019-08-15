@@ -33,11 +33,19 @@ body {
     }
 
     .Root__nav-bar {
-        width: 80px;
+        width: 46px;
     }
 
     .Root__nav-bar .navBar-item .navbar-link__text {
         display: none;
+    }
+
+    .sessionInfo {
+        margin-left: 8px;
+    }
+
+    .Root__nav-bar .navBar-item .icon, .UserWidget__container {
+        transform: scale(0.75);
     }
 
     [dir=ltr] .SearchInputBox {
@@ -45,7 +53,7 @@ body {
     }
 
     .navBar-link {
-        padding: 0 30px;
+        padding: 0 11px;
     }
 
     .navBar-item--with-icon-left .navBar-link-text-with-icon-wrapper,
@@ -58,6 +66,14 @@ body {
     }
 
     .Rootlist__playlists {
+        display: none;
+    }
+
+    .NavBar__xpotifysettings-item {
+        padding-left: 2px;
+    }
+
+    .xpotifyWindowTitle {
         display: none;
     }
 }
