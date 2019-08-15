@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Toolkit.Uwp.Helpers;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -83,6 +84,7 @@ namespace XpoMusic.Controls
             xpoWebAgent = new XpoMusicWebAgent.WebAgent()
             {
                 WebPlayerBackupEnabled = AppConstants.Instance.WebPlayerBackupEnabled,
+                OSVersion = SystemInformation.OperatingSystemVersion.ToString(),
             };
             xpoWebAgent.ProgressBarCommandReceived += XpotifyWebAgent_ProgressBarCommandReceived;
             xpoWebAgent.StatusReportReceived += XpotifyWebAgent_StatusReportReceived;

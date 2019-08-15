@@ -27,6 +27,7 @@ namespace XpoMusicWebAgent
         private TaskCompletionSource<string> newAccessTokenTcs;
 
         public bool WebPlayerBackupEnabled { get; set; }
+        public string OSVersion { get; set; }
 
         public void ShowProgressBar(double left, double top, double width)
         {
@@ -147,6 +148,19 @@ namespace XpoMusicWebAgent
         public bool IsWebPlayerBackupEnabled()
         {
             return WebPlayerBackupEnabled;
+        }
+
+        public int GetOSBuildVersion()
+        {
+            try
+            {
+                return new Version(OSVersion).Build;
+            }
+            catch (Exception ex)
+            {
+                Log("Exception in WebAgent.GetOSBuildVersion(): " + ex.ToString());
+                return 0;
+            }
         }
     }
 }

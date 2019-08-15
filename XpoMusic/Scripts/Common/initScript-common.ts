@@ -41,12 +41,15 @@ namespace XpoMusicScript.Common {
     }
 
     export function init() {
-        if (document.querySelectorAll("#main").length === 0 && XpoMusic.isWebPlayerBackupEnabled()) {
-            XpoMusic.log("#main is missing. Will try runWebPlayerBackup()")
+        if (document.querySelectorAll("#main").length === 0
+            && XpoMusic.isWebPlayerBackupEnabled()
+            && XpoMusic.getOSBuildVersion() < 17763) {
+            // This is for 1803 and below. (v1809 == 17763)
+            XpoMusic.log("#main is missing. Will try runWebPlayerBackup()");
             try {
                 WebPlayerBackup.runWebPlayerBackup();
             } catch (ex) {
-                XpoMusic.log("runWebPlayerBackup() failed: " + ex)
+                XpoMusic.log("runWebPlayerBackup() failed: " + ex);
             }
         }
 
