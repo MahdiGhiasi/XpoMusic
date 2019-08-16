@@ -19,7 +19,11 @@ namespace XpoMusicScript.Common.RequestIntercepter {
                 console.log(args[1].body);
                 var appName = Common.getAppName();
                 var spotifyConnectName = Common.getDeviceName() + ' (' + appName + ')';
-                args[1].body = args[1].body.toString().replace('Web Player (Microsoft Edge)', spotifyConnectName);
+
+                // On 1809+, we try to change 'Web Player([browser])' to 'Xpo Music' in web-player.xxx.js. But it might fail
+                // in case of code change, and also this feature is not supported on 1803 and below, so we replace both
+                // 'Web Player (Microsoft Edge)' and 'Xpo Music' to the desired name.
+                args[1].body = args[1].body.toString().replace('Web Player (Microsoft Edge)', spotifyConnectName).replace('Xpo Music', spotifyConnectName);
             }
 
             // Sending the real request
