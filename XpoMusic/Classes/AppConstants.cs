@@ -102,7 +102,12 @@ namespace XpoMusic.Classes
                         {
                             RegexMatch = Regex.Escape(@"window.matchMedia(""(display-mode: standalone)"").addEventListener(""change"",function(t){e(t.matches)})"),
                             ReplaceTo = @"window.matchMedia(""(display-mode: standalone)"").addListener(""change"",function(t){e(t.matches)})",
-                        }
+                        },
+                        new WebResourceStringModificationRule
+                        {
+                            RegexMatch = Regex.Escape(@"var t=window.matchMedia(""(display-mode: standalone)"");(t.addEventListener||t.addListener)(""change"",function(t){return e(t.matches)})"),
+                            ReplaceTo = @"var t=window.matchMedia(""(display-mode: standalone)"");t.addListener(""change"",function(t){return e(t.matches)})",
+                        },
                     }
                 },
             };
