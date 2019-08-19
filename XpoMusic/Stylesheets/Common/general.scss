@@ -188,6 +188,11 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
     padding-left: 10px;
 }
 
+.Rootlist {
+    /* Navbar bottom items placement fix on short window size */
+    min-height: 0;
+}
+
 /* Recently played items */
 @media (max-height:820px) {
     .recently-played__item-5 {
