@@ -65,6 +65,9 @@ namespace XpoMusicScript.Common {
         errors += UiElementModifier.addBackgroundClass();
         errors += initNowPlayingBarCheck();
 
+        XpoMusic.log("Removing top right 'Upgrade' button if present...");
+        removeTopUpgradeButton();
+
         XpoMusic.log("Setting page hash and initializing resize and periodic checks...");
         setInitialPageHash();
         initOnResizeCheck();
@@ -97,6 +100,24 @@ namespace XpoMusicScript.Common {
         return errors;
     }
 
+    function removeTopUpgradeButton() {
+        try {
+            var itemCandidate = document.querySelectorAll('.main-view-container__scroll-node-child > div > button');
+            if (itemCandidate.length == 0) {
+                return;
+            } else if (itemCandidate.length > 1) {
+                XpoMusic.log("Too many candidates for removeTopUpgradeButton. Will not remove.");
+                return;
+            }
+
+            var item = itemCandidate[0].parentElement;
+            var css = "." + item.classList[0] + " { display: none; }";
+            injectCustomCssContent(css);
+        } catch (ex) {
+            XpoMusic.log('RemoveTopUpgradeButton failed: ' + ex);
+        }
+    }
+
     function markPageAsInjected() {
         var body = document.getElementsByTagName('body')[0];
         body.setAttribute('data-scriptinjection', '1');
@@ -109,12 +130,16 @@ namespace XpoMusicScript.Common {
     }
 
     function injectCss() {
+        var css = '{{XPOTIFYCSSBASE64CONTENT}}';
+        return injectCustomCssContent(atob(css));
+    }
+
+    function injectCustomCssContent(content) {
         try {
-            var css = '{{XPOTIFYCSSBASE64CONTENT}}';
             var style = document.createElement('style');
             document.getElementsByTagName('head')[0].appendChild(style);
             style.type = 'text/css';
-            style.appendChild(document.createTextNode(atob(css)));
+            style.appendChild(document.createTextNode(content));
         }
         catch (ex) {
             return "injectCssFailed,";
