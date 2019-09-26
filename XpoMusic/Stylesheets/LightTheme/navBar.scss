@@ -5,5 +5,9 @@
 }
 
 .RootlistItem--is-active:before {
-    filter: invert(1);
+    background-color: #E246AB;
+}
+
+.navBar-link--active:before {
+    background-color: #E246AB;
 }
