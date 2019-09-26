@@ -74,6 +74,10 @@ namespace XpoMusic.Helpers
                 type = "dailymix:";
             else if (code2.Contains("track:"))
                 type = "track:";
+            else if (code2.Contains("artist:"))
+                type = "artist:";
+            else if (code2.Contains("show:"))
+                type = "show:";
             else
                 return "";
 
