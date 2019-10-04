@@ -240,6 +240,9 @@
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SpotifyApi\Library.cs" />
+    <Compile Include="SpotifyApi\Model\FollowedArtistsResponse.cs" />
+    <Compile Include="SpotifyApi\Model\SavedAlbum.cs" />
+    <Compile Include="SpotifyApi\Model\Paging.cs" />
     <Compile Include="ViewModels\TopBarViewModel.cs" />
     <Compile Include="XpotifyApi\AppConstantsApi.cs" />
     <Compile Include="XpotifyApi\AssetUpdatesApi.cs" />

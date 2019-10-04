@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using XpoMusic.SpotifyApi.Model;
 
 namespace XpoMusic.SpotifyApi
 {
@@ -55,6 +56,37 @@ namespace XpoMusic.SpotifyApi
                 $"ids={trackId}", HttpMethod.Delete);
 
             return result.IsSuccessStatusCode;
+        }
+
+
+        public async Task<Paging<SavedAlbum>> GetAlbums(int offset, int limit = 50)
+        {
+            var result = await SendRequestWithTokenAsync(
+                $"https://api.spotify.com/v1/me/albums?limit={limit}&offset={offset}", HttpMethod.Get);
+
+            var resultString = await result.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Paging<SavedAlbum>>(resultString);
+        }
+
+        public async Task<Paging<Model.Playlist>> GetPlaylists(int offset, int limit = 50)
+        {
+            var result = await SendRequestWithTokenAsync(
+                $"https://api.spotify.com/v1/me/playlists?limit={limit}&offset={offset}", HttpMethod.Get);
+
+            var resultString = await result.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Paging<Model.Playlist>>(resultString);
+        }
+
+        public async Task<Paging<Model.Artist>> GetArtists(int offset, int limit = 50)
+        {
+            var result = await SendRequestWithTokenAsync(
+                $"https://api.spotify.com/v1/me/following?type=artist&limit={limit}&offset={offset}", HttpMethod.Get);
+
+            var resultString = await result.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<FollowedArtistsResponse>(resultString).artists;
         }
     }
 }

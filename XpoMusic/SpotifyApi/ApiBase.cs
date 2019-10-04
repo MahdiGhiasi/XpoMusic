@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using XpoMusic.SpotifyApi.Model;
 
 namespace XpoMusic.SpotifyApi
 {
@@ -92,6 +94,58 @@ namespace XpoMusic.SpotifyApi
                 await TokenHelper.GetAndSaveNewTokenAsync();
                 return await SendJsonRequestWithTokenAsync(url, httpMethod, data, false);
             }
+        }
+
+        public async Task<Paging<T>> GetNextPage<T>(Paging<T> page)
+        {
+            if (!page.hasNext)
+                return null;
+
+            var result = await SendRequestWithTokenAsync(
+                page.next, HttpMethod.Get);
+
+            var resultString = await result.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Paging<T>>(resultString);
+        }
+
+        public async Task<Paging<T>> GetPrevPage<T>(Paging<T> page)
+        {
+            if (!page.hasPrev)
+                return null;
+
+            var result = await SendRequestWithTokenAsync(
+                page.previous, HttpMethod.Get);
+
+            var resultString = await result.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Paging<T>>(resultString);
+        }
+
+        public async Task<Paging<Model.Artist>> GetNextPage(Paging<Model.Artist> page)
+        {
+            if (!page.hasNext)
+                return null;
+
+            var result = await SendRequestWithTokenAsync(
+                page.next, HttpMethod.Get);
+
+            var resultString = await result.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<FollowedArtistsResponse>(resultString).artists;
+        }
+
+        public async Task<Paging<Model.Artist>> GetPrevPage(Paging<Model.Artist> page)
+        {
+            if (!page.hasPrev)
+                return null;
+
+            var result = await SendRequestWithTokenAsync(
+                page.previous, HttpMethod.Get);
+
+            var resultString = await result.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<FollowedArtistsResponse>(resultString).artists;
         }
     }
 }
