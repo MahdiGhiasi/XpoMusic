@@ -74,6 +74,11 @@
         var rows = tracklist[0].querySelectorAll('.tracklist-row');
         var trackIds = [];
         for (var i = 0; i < rows.length; i++) {
+            if (rows[i].classList.contains("tracklistSongExistsInLibrary") || rows[i].classList.contains("tracklistSongNotExistsInLibrary")) {
+                // Don't ask server for the items we already know the status
+                continue;
+            }
+
             var attr = rows[i].getAttribute('data-trackid');
             if (attr !== undefined)
                 trackIds.push(attr);
@@ -115,7 +120,6 @@
         XpoMusic.log('Some new track list elements found. will try to find track ids.');
         injectTrackIdsToTrackList();
 
-        // TODO: Don't ask server for the items we already know the status
         await setAddRemoveButtons(); 
     }
 

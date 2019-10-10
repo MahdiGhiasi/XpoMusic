@@ -149,9 +149,13 @@ namespace XpoMusicScript.Common.UiElementModifier {
     export function createTrackListAddRemoveButtons(): boolean {
         try {
             var count = 0;
+            var needsRefresh = false;
             var tracks = document.querySelectorAll(".tracklist .tracklist-row");
             for (var i = 0; i < tracks.length; i++) {
                 if (tracks[i].getAttribute("data-xpotify-addremovebuttonsadded") !== null) {
+                    if (!tracks[i].classList.contains("tracklistSongExistsInLibrary") && !tracks[i].classList.contains("tracklistSongNotExistsInLibrary")) {
+                        needsRefresh = true;
+                    }
                     continue;
                 }
 
@@ -213,7 +217,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 tracks[i].setAttribute("data-xpotify-addremovebuttonsadded", "1");
             }
 
-            return count > 0;
+            return (count > 0) || needsRefresh;
         } catch (ex) {
             XpoMusic.log(ex.toString());
             return false;
