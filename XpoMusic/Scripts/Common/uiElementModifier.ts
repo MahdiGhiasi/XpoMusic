@@ -153,7 +153,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
             var tracks = document.querySelectorAll(".tracklist .tracklist-row");
             for (var i = 0; i < tracks.length; i++) {
                 if (tracks[i].getAttribute("data-xpotify-addremovebuttonsadded") !== null) {
-                    if (!tracks[i].classList.contains("tracklistSongExistsInLibrary") && !tracks[i].classList.contains("tracklistSongNotExistsInLibrary")) {
+                    if (!tracks[i].classList.contains("tracklistSongExistsInLibrary") && !tracks[i].classList.contains("tracklistSongNotExistsInLibrary") && tracks[i].getAttribute("data-trackid") !== null) {
                         needsRefresh = true;
                     }
                     continue;
