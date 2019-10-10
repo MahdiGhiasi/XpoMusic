@@ -80,8 +80,12 @@
             }
 
             var attr = rows[i].getAttribute('data-trackid');
-            if (attr !== undefined)
-                trackIds.push(attr);
+            if (attr !== undefined && attr.length > 0) {
+                if (trackIds.indexOf(attr) < 0) { 
+                    // Add each track id once
+                    trackIds.push(attr);
+                }
+            }
         }
 
         var api = new SpotifyApi.Library();
@@ -92,12 +96,14 @@
             if (element.length < 1)
                 return;
 
-            if (item) {
-                (<HTMLElement>element[0]).classList.remove('tracklistSongNotExistsInLibrary');
-                (<HTMLElement>element[0]).classList.add('tracklistSongExistsInLibrary');
-            } else {
-                (<HTMLElement>element[0]).classList.remove('tracklistSongExistsInLibrary');
-                (<HTMLElement>element[0]).classList.add('tracklistSongNotExistsInLibrary');
+            for (var i = 0; i < element.length; i++) {
+                if (item) {
+                    (<HTMLElement>element[i]).classList.remove('tracklistSongNotExistsInLibrary');
+                    (<HTMLElement>element[i]).classList.add('tracklistSongExistsInLibrary');
+                } else {
+                    (<HTMLElement>element[i]).classList.remove('tracklistSongExistsInLibrary');
+                    (<HTMLElement>element[i]).classList.add('tracklistSongNotExistsInLibrary');
+                }
             }
         });
     }
