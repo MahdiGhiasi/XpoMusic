@@ -65,8 +65,7 @@
                 (<HTMLElement>menus[i]).style.opacity = '0';
                 (<HTMLElement>menus[i]).style.display = 'unset';
             }
-        }, 500);
-
+        }, 1000);
     }
 
     export async function setAddRemoveButtons() {
