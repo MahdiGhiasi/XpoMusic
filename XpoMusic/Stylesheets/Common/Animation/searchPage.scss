@@ -1,0 +1,19 @@
+﻿
+@for $i from 1 through 5 {
+    #searchPage section:nth-child(#{$i}) {
+        opacity: 0;
+        animation: animation-entrance-search-section 0.3s ease #{($i - 1) * 0.1}s forwards;
+    }
+}
+
+@keyframes animation-entrance-search-section {
+    0% {
+        opacity: 0;
+        transform: translateY(32px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
