@@ -22,6 +22,13 @@ namespace XpoMusic.Helpers
             if (!data.IsPlaying)
                 return;
 
+            if (!(await controller.IsPlayingOnThisApp()))
+            {
+                // Not playing on this app. StuckResolve is not valid in this context.
+                lastElapsed = -1;
+                return;
+            }
+
             logger.Trace(data.ElapsedTime.ToString());
 
             try
