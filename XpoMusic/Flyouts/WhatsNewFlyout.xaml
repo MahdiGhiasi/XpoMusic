@@ -48,6 +48,41 @@
                             <StackPanel x:Name="Content">
                                 <StackPanel
                                     Margin="0,0,0,24"
+                                    Tag="5"
+                                    Visibility="Visible">
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; UI improvements and fixes"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Fixed an issue where Xpo Music was interfering with playback when another device was playing music via Spotify Connect"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Fixed an issue where Save to Library button was missing from some items in track list"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Fixed an issue where parts of screen were shown pixelated on tall screens"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Fixed an issue where the scrollbar of playlists side bar section was missing"
+                                        TextWrapping="Wrap" />
+                                    <TextBlock
+                                        Margin="0,0,0,8"
+                                        FontWeight="SemiBold"
+                                        Text="&#8226; Fixed an issue where certain URIs (like podcast section) were not handled properly"
+                                        TextWrapping="Wrap" />
+                                </StackPanel>
+                                <StackPanel
+                                    Margin="0,0,0,24"
                                     Tag="4"
                                     Visibility="Visible">
                                     <TextBlock

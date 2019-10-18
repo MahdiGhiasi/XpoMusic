@@ -6,7 +6,7 @@ namespace XpoMusicScript.Common.MouseWheelListener {
     function volumeMouseWheelHandler(e) {
         var { deltaY } = e;
         var currentVolume = StatusReport.getVolume();
-        var newVolume = Math.max(Math.min(currentVolume - (deltaY / 1000), 1), 0);
+        var newVolume = Math.max(Math.min(currentVolume - (deltaY / 2000), 1), 0);
 
         Action.seekVolume(newVolume);
     }

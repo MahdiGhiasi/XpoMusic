@@ -736,7 +736,7 @@ namespace XpoMusic.Controls
                 if (volumeSetSemaphore.WaitingCount > 0)
                     return;
 
-                double newValue = Math.Max(0.0, Math.Min(sliderExtended.Value + ((double)delta / 10.0), 100.0));
+                double newValue = Math.Max(0.0, Math.Min(sliderExtended.Value + ((double)delta / 20.0), 100.0));
                 ActionRequested?.Invoke(this, new ActionRequestedEventArgs
                 {
                     Action = Action.SeekVolume,

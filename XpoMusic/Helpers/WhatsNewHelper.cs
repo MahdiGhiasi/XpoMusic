@@ -59,6 +59,9 @@ namespace XpoMusic.Helpers
 
             List<string> output = new List<string>();
 
+            if (prevVersion < new Version("2.1.0.0"))
+                output.Add("5");
+
             if (prevVersion < new Version("1.6.0.0"))
                 output.Add("4");
 

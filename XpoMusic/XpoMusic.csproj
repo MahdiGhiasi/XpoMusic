@@ -240,6 +240,9 @@
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="SpotifyApi\Library.cs" />
+    <Compile Include="SpotifyApi\Model\FollowedArtistsResponse.cs" />
+    <Compile Include="SpotifyApi\Model\SavedAlbum.cs" />
+    <Compile Include="SpotifyApi\Model\Paging.cs" />
     <Compile Include="ViewModels\TopBarViewModel.cs" />
     <Compile Include="XpotifyApi\AppConstantsApi.cs" />
     <Compile Include="XpotifyApi\AssetUpdatesApi.cs" />
@@ -440,6 +443,7 @@
     <None Include="Stylesheets\Common\Animation\pageEntrance.scss" />
     <None Include="Stylesheets\Common\Animation\pivotEntrance.scss" />
     <None Include="Stylesheets\Common\Animation\nowPlayingStartup.scss" />
+    <None Include="Stylesheets\Common\Animation\searchPage.scss" />
     <None Include="Stylesheets\Common\Animation\tracklistEntrance.scss" />
     <None Include="Stylesheets\Common\backButton.scss" />
     <None Include="Stylesheets\Common\contextMenu.scss" />
@@ -448,6 +452,7 @@
     <None Include="Stylesheets\Common\navBar.scss" />
     <None Include="Stylesheets\Common\nowPlayingBar.scss" />
     <None Include="Stylesheets\Common\pivotTabStyle.scss" />
+    <None Include="Stylesheets\Common\searchPage.scss" />
     <None Include="Stylesheets\Common\smallWidthWindow.scss" />
     <None Include="Stylesheets\Common\trackList.scss" />
     <None Include="Stylesheets\Common\windowTitle.scss" />
@@ -461,6 +466,7 @@
     <None Include="Stylesheets\LightTheme\nowPlayingBar.scss" />
     <None Include="Stylesheets\LightTheme\podcastEpisodeDetails.scss" />
     <None Include="Stylesheets\LightTheme\progressBar.scss" />
+    <None Include="Stylesheets\LightTheme\searchPage.scss" />
     <None Include="Stylesheets\LightTheme\windowTitle.scss" />
     <None Include="Xpotify_StoreKey.pfx" />
   </ItemGroup>

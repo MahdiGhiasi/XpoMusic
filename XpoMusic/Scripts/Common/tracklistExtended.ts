@@ -65,8 +65,7 @@
                 (<HTMLElement>menus[i]).style.opacity = '0';
                 (<HTMLElement>menus[i]).style.display = 'unset';
             }
-        }, 500);
-
+        }, 1000);
     }
 
     export async function setAddRemoveButtons() {
@@ -74,9 +73,18 @@
         var rows = tracklist[0].querySelectorAll('.tracklist-row');
         var trackIds = [];
         for (var i = 0; i < rows.length; i++) {
+            if (rows[i].classList.contains("tracklistSongExistsInLibrary") || rows[i].classList.contains("tracklistSongNotExistsInLibrary")) {
+                // Don't ask server for the items we already know the status
+                continue;
+            }
+
             var attr = rows[i].getAttribute('data-trackid');
-            if (attr !== undefined)
-                trackIds.push(attr);
+            if (attr !== undefined && attr.length > 0) {
+                if (trackIds.indexOf(attr) < 0) { 
+                    // Add each track id once
+                    trackIds.push(attr);
+                }
+            }
         }
 
         var api = new SpotifyApi.Library();
@@ -87,12 +95,14 @@
             if (element.length < 1)
                 return;
 
-            if (item) {
-                (<HTMLElement>element[0]).classList.remove('tracklistSongNotExistsInLibrary');
-                (<HTMLElement>element[0]).classList.add('tracklistSongExistsInLibrary');
-            } else {
-                (<HTMLElement>element[0]).classList.remove('tracklistSongExistsInLibrary');
-                (<HTMLElement>element[0]).classList.add('tracklistSongNotExistsInLibrary');
+            for (var i = 0; i < element.length; i++) {
+                if (item) {
+                    (<HTMLElement>element[i]).classList.remove('tracklistSongNotExistsInLibrary');
+                    (<HTMLElement>element[i]).classList.add('tracklistSongExistsInLibrary');
+                } else {
+                    (<HTMLElement>element[i]).classList.remove('tracklistSongExistsInLibrary');
+                    (<HTMLElement>element[i]).classList.add('tracklistSongNotExistsInLibrary');
+                }
             }
         });
     }
@@ -115,7 +125,6 @@
         XpoMusic.log('Some new track list elements found. will try to find track ids.');
         injectTrackIdsToTrackList();
 
-        // TODO: Don't ask server for the items we already know the status
         await setAddRemoveButtons(); 
     }
 

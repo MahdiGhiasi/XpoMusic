@@ -47,33 +47,14 @@ namespace XpoMusic.Helpers
             if (uriLowerCase.StartsWith(WebViewController.SpotifyPwaUrlBeginsWith))
                 return uri;
 
-            if (uriLowerCase.StartsWith("spotify:"))
+
+            var spotifyUriMatch = Regex.Match(uriLowerCase, "^spotify:[A-Za-z]+:");
+            if (spotifyUriMatch.Success)
             {
-                if (uriLowerCase.Contains("spotify:artist:"))
-                {
-                    var idx = uriLowerCase.IndexOf("spotify:artist:") + "spotify:artist:".Length;
-                    return "https://open.spotify.com/artist/" + uri.Substring(idx);
-                }
-                else if (uriLowerCase.Contains("spotify:album:"))
-                {
-                    var idx = uriLowerCase.IndexOf("spotify:album:") + "spotify:album:".Length;
-                    return "https://open.spotify.com/album/" + uri.Substring(idx);
-                }
-                else if (uriLowerCase.Contains("spotify:playlist:"))
-                {
-                    var idx = uriLowerCase.IndexOf("spotify:playlist:") + "spotify:playlist:".Length;
-                    return "https://open.spotify.com/playlist/" + uri.Substring(idx);
-                }
-                else if (uriLowerCase.Contains("spotify:track:"))
-                {
-                    var idx = uriLowerCase.IndexOf("spotify:track:") + "spotify:track:".Length;
-                    return "https://open.spotify.com/track/" + uri.Substring(idx);
-                }
-                else if (uriLowerCase.Contains("spotify:dailymix:"))
-                {
-                    var idx = uriLowerCase.IndexOf("spotify:dailymix:") + "spotify:dailymix:".Length;
-                    return "https://open.spotify.com/dailymix/" + uri.Substring(idx);
-                }
+                var categoryTerm = spotifyUriMatch.ToString();
+                var category = categoryTerm.Split(':')[1].ToLower();
+                var idx = uriLowerCase.IndexOf(categoryTerm) + categoryTerm.Length;
+                return "https://open.spotify.com/" + category + "/" + uri.Substring(idx);
             }
 
             return "";
@@ -93,6 +74,10 @@ namespace XpoMusic.Helpers
                 type = "dailymix:";
             else if (code2.Contains("track:"))
                 type = "track:";
+            else if (code2.Contains("artist:"))
+                type = "artist:";
+            else if (code2.Contains("show:"))
+                type = "show:";
             else
                 return "";
 
