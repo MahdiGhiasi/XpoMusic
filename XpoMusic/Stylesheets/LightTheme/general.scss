@@ -20,24 +20,29 @@ div[aria-live=polite], .control-button--active, .Root__nav-bar .sessionInfo .ava
 .UserWidget__link--is-active span, .AdsContainer__inner, img[src*=profilepic],
 img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
     filter: invert(1);
+    transform: translate3d(0, 0, 0);
 }
 
 .tracklist-row--active .position, .tracklist-row--active .tracklist-duration, .tracklist-row--active .tracklist-name, .tracklist-row--active .tracklist-play-pause {
     color: #1DB954 !important;
     filter: invert(1);
+    transform: translate3d(0, 0, 0);
 }
 
 .navBar-link--active:after, .RecentlyPlayedWidget__link--active:after {
     background-color: #1DB954;
     filter: invert(1);
+    transform: translate3d(0, 0, 0);
 }
 
 #searchPage .react-contextmenu-wrapper button {
     filter: invert(1);
+    transform: translate3d(0, 0, 0);
 }
 
 .Root__main-view nav {
     filter: invert(1);
+    transform: translate3d(0, 0, 0);
 }
 
 .Root__main-view nav a {
@@ -76,13 +81,18 @@ img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
 /* Error page image */
 #main .dialog img {
     filter: invert(1);
+    transform: translate3d(0, 0, 0);
 }
 
 /* Show emojis in playlist names correctly */
+/* DISABLED BECAUSE OF EDGE FILTER RENDERING BUG */
+/*
 .RootlistItemPlaylist__text-wrapper,
 .mo-info-name,
 .TrackListHeader .mo-info-name,
 .TrackListHeader__entity-name h2 {
     color: black;
     filter: invert(1);
+    transform: translate3d(0, 0, 0);
 }
+*/

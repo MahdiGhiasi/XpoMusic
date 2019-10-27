@@ -227,12 +227,10 @@ namespace XpoMusicScript.Common {
     }
 
     function forceRedrawScreen() {
-        document.body.style.marginTop = "1px";
-        requestAnimationFrame(function () {
-            requestAnimationFrame(function () {
-                document.body.style.marginTop = "0";
-            });
-        });
+        document.body.style.opacity = "0.99";
+        setTimeout(function () {
+            document.body.style.opacity = "1";
+        }, 100);
     }
 
     var redrawFixPrevLocation = "";
@@ -245,9 +243,8 @@ namespace XpoMusicScript.Common {
             if (isLightTheme()) {
                 // Fix Edge glitches where css invert() stops working sometimes after page change.
                 if (redrawFixPrevLocation !== window.location.href) {
-                    setTimeout(forceRedrawScreen, 500);
-                    setTimeout(forceRedrawScreen, 1000);
-                    setTimeout(forceRedrawScreen, 2500);
+                    setTimeout(forceRedrawScreen, 700);
+                    setTimeout(forceRedrawScreen, 1250);
                     redrawFixPrevLocation = window.location.href;
                 }
             }
@@ -259,5 +256,10 @@ namespace XpoMusicScript.Common {
 
     function initPeriodicPageCheck() {
         setInterval(periodicPageCheck, 1000);
+
+        // Fix Edge glitches where css invert() stops working sometimes after page change.
+        if (isLightTheme()) {
+            setInterval(forceRedrawScreen, 3000);
+        }
     }
 }
