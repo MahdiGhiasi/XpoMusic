@@ -186,7 +186,6 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 removeSongDiv.classList.add("tracklist-middle-align");
                 removeSongDiv.classList.add("control-button");
                 removeSongDiv.classList.add("spoticon-added-16");
-                removeSongDiv.classList.add("control-button--active");
                 removeSongDiv.classList.add("trackListAddRemoveSongButton");
                 removeSongDiv.classList.add("trackListRemoveSongButton");
                 removeSongDiv.setAttribute("title", "Remove from your Liked Songs");

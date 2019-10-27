@@ -469,6 +469,7 @@
     <None Include="Stylesheets\LightTheme\podcastEpisodeDetails.scss" />
     <None Include="Stylesheets\LightTheme\progressBar.scss" />
     <None Include="Stylesheets\LightTheme\searchPage.scss" />
+    <None Include="Stylesheets\LightTheme\trackList.scss" />
     <None Include="Stylesheets\LightTheme\windowTitle.scss" />
     <None Include="Xpotify_StoreKey.pfx" />
   </ItemGroup>
