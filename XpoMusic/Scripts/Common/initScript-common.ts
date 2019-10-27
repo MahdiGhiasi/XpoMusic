@@ -226,10 +226,27 @@ namespace XpoMusicScript.Common {
         setInterval(Resize.onResize, 5000); // Sometimes an OnResize is necessary when users goes to a new page.
     }
 
+    function forceRedrawScreen() {
+        document.body.style.marginTop = "1px";
+        requestAnimationFrame(function () {
+            document.body.style.marginTop = "0";
+        });
+    }
+
+    var redrawFixPrevLocation = "";
     function periodicPageCheck() {
         try {
             if (document.querySelectorAll(".tracklist").length > 0) {
                 TracklistExtended.initTracklistMod();
+            }
+
+            if (isLightTheme()) {
+                // Fix Edge glitches where css invert() stops working sometimes after page change.
+                if (redrawFixPrevLocation !== window.location.href) {
+                    setTimeout(forceRedrawScreen, 500);
+                    setTimeout(forceRedrawScreen, 1000);
+                    redrawFixPrevLocation = window.location.href;
+                }
             }
         }
         catch (ex) {
