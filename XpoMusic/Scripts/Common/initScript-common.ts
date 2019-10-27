@@ -229,7 +229,9 @@ namespace XpoMusicScript.Common {
     function forceRedrawScreen() {
         document.body.style.marginTop = "1px";
         requestAnimationFrame(function () {
-            document.body.style.marginTop = "0";
+            requestAnimationFrame(function () {
+                document.body.style.marginTop = "0";
+            });
         });
     }
 
