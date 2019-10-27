@@ -81,6 +81,8 @@ namespace XpoMusic.Controls
 
             loadFailedAppVersionText.Text = PackageHelper.GetAppVersionString();
 
+            AppConstants.Instance.ConstantsUpdated += App_ConstantsUpdated;
+
             xpoWebAgent = new XpoMusicWebAgent.WebAgent()
             {
                 WebPlayerBackupEnabled = AppConstants.Instance.WebPlayerBackupEnabled,
@@ -94,6 +96,18 @@ namespace XpoMusic.Controls
             xpoWebAgent.LogMessageReceived += XpotifyWebAgent_LogMessageReceived;
 
             VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
+
+            SetInvertColorFilterVisibility();
+        }
+
+        private void App_ConstantsUpdated(object sender, EventArgs e)
+        {
+            SetInvertColorFilterVisibility();
+        }
+
+        private void SetInvertColorFilterVisibility()
+        {
+            invertColorFilter.Visibility = (ThemeHelper.GetCurrentTheme() == Theme.Light && AppConstants.Instance.XamlInvertFilterForLightThemeEnabled) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void XpotifyWebAgent_LogMessageReceived(object sender, LogMessageReceivedEventArgs e)
