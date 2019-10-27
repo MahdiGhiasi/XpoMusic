@@ -107,7 +107,7 @@ namespace XpoMusic.Controls
 
         private void SetInvertColorFilterVisibility()
         {
-            invertColorFilter.Visibility = (ThemeHelper.GetCurrentTheme() == Theme.Light && AppConstants.Instance.XamlInvertFilterForLightThemeEnabled) ? Visibility.Visible : Visibility.Collapsed;
+            invertColorFilter.Visibility = (IsWebAppLoaded && ThemeHelper.GetCurrentTheme() == Theme.Light && AppConstants.Instance.XamlInvertFilterForLightThemeEnabled) ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void XpotifyWebAgent_LogMessageReceived(object sender, LogMessageReceivedEventArgs e)
@@ -313,8 +313,9 @@ namespace XpoMusic.Controls
             }
             else if (e.Uri.ToString().ToLower().Contains(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
             {
-                WebAppLoaded?.Invoke(this, new EventArgs());
                 IsWebAppLoaded = true;
+                SetInvertColorFilterVisibility();
+                WebAppLoaded?.Invoke(this, new EventArgs());
             }
             else
             {
