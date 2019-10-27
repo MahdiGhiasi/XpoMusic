@@ -247,6 +247,7 @@ namespace XpoMusicScript.Common {
                 if (redrawFixPrevLocation !== window.location.href) {
                     setTimeout(forceRedrawScreen, 500);
                     setTimeout(forceRedrawScreen, 1000);
+                    setTimeout(forceRedrawScreen, 2500);
                     redrawFixPrevLocation = window.location.href;
                 }
             }
