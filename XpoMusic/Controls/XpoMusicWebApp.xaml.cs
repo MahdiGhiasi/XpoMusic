@@ -308,8 +308,9 @@ namespace XpoMusic.Controls
 
             if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
             {
-                FinalizeAuthorization(e.Uri.ToString());
                 IsWebAppLoaded = false;
+                SetInvertColorFilterVisibility();
+                FinalizeAuthorization(e.Uri.ToString());
             }
             else if (e.Uri.ToString().ToLower().Contains(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
             {
@@ -319,8 +320,9 @@ namespace XpoMusic.Controls
             }
             else
             {
-                PageLoaded?.Invoke(this, new EventArgs());
                 IsWebAppLoaded = false;
+                SetInvertColorFilterVisibility();
+                PageLoaded?.Invoke(this, new EventArgs());
             }
 
             if (!await Controller.CheckLoggedIn())
