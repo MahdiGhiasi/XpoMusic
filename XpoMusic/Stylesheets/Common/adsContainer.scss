@@ -1,6 +1,7 @@
 ﻿
 .Root__ads-container {
-    background-color: rgba(24, 24, 24, 0.7);
+    background-color: rgba(24, 24, 24, 0.6);
+    backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
 }
 
