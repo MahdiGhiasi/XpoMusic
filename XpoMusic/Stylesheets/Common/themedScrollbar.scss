@@ -1,0 +1,17 @@
+﻿
+.xpo-scroll-container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -ms-overflow-style: none;
+}
+
+.xpo-extra-scrollbar-fixed {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    width: 20px;
+    /*-ms-overflow-style: -ms-autohiding-scrollbar;*/
+    -ms-overflow-style: scrollbar;
+    filter: invert(1) /*brightness(1.25)*/;
+}

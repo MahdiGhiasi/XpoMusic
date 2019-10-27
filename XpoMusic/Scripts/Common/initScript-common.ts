@@ -12,6 +12,7 @@
 /// <reference path="pageTitleFinder.ts" />
 /// <reference path="keyboardShortcutListener.ts" />
 /// <reference path="mouseWheelListener.ts" />
+/// <reference path="themedScrollbar.ts" />
 /// <reference path="web-player-backup.ts" />
 
 
@@ -38,6 +39,11 @@ namespace XpoMusicScript.Common {
 
     export function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    export function getCurrentZoomLevel(): number {
+        // @ts-ignore
+        return (screen.deviceXDPI / screen.logicalXDPI);
     }
 
     export function init() {
@@ -87,6 +93,18 @@ namespace XpoMusicScript.Common {
 
         XpoMusic.log("Initializing StatusReport...");
         StatusReport.initRegularStatusReport();
+
+        var nowPlayingBar = document.querySelector(".Root__now-playing-bar");
+        ThemedScrollbar.initScrollbar(".main-view-container__scroll-node", 1000, function (el) {
+            if (nowPlayingBar == null)
+                el.style.bottom = "90px";
+            else
+                el.style.bottom = nowPlayingBar.clientHeight + "px";
+
+            el.style.top = (32.0 / getCurrentZoomLevel()) + "px";
+        });
+
+        ThemedScrollbar.initScrollbar(".Rootlist__playlists-scroll-node", 1000);
 
         XpoMusic.log("Initializing StartupAnimation...");
         StartupAnimation.init();
