@@ -116,9 +116,12 @@ namespace XpoMusicScript.Common {
         }
 
         var nowPlayingBar = document.querySelector(".Root__now-playing-bar");
+        var adsBar = document.querySelector(".Root__ads-container");
         ThemedScrollbar.initScrollbar(".main-view-container__scroll-node", 1000, function (el) {
             if (nowPlayingBar == null)
                 el.style.bottom = "90px";
+            else if (adsBar != null)
+                el.style.bottom = (nowPlayingBar.clientHeight + adsBar.clientHeight) + "px";
             else
                 el.style.bottom = nowPlayingBar.clientHeight + "px";
 
