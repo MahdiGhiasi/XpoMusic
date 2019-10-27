@@ -94,17 +94,8 @@ namespace XpoMusicScript.Common {
         XpoMusic.log("Initializing StatusReport...");
         StatusReport.initRegularStatusReport();
 
-        var nowPlayingBar = document.querySelector(".Root__now-playing-bar");
-        ThemedScrollbar.initScrollbar(".main-view-container__scroll-node", 1000, function (el) {
-            if (nowPlayingBar == null)
-                el.style.bottom = "90px";
-            else
-                el.style.bottom = nowPlayingBar.clientHeight + "px";
-
-            el.style.top = (32.0 / getCurrentZoomLevel()) + "px";
-        });
-
-        ThemedScrollbar.initScrollbar(".Rootlist__playlists-scroll-node", 1000);
+        XpoMusic.log("Initializing themed scrollbars...");
+        initThemedScrollbars();
 
         XpoMusic.log("Initializing StartupAnimation...");
         StartupAnimation.init();
@@ -116,6 +107,25 @@ namespace XpoMusicScript.Common {
 
         XpoMusic.log("Common.init() finished. errors = '" + errors + "'");
         return errors;
+    }
+
+    function initThemedScrollbars() {
+        if (document.querySelectorAll(".main-view-container__scroll-node").length == 0 || document.querySelectorAll(".Rootlist__playlists-scroll-node").length == 0) {
+            setTimeout(initThemedScrollbars, 200);
+            return;
+        }
+
+        var nowPlayingBar = document.querySelector(".Root__now-playing-bar");
+        ThemedScrollbar.initScrollbar(".main-view-container__scroll-node", 1000, function (el) {
+            if (nowPlayingBar == null)
+                el.style.bottom = "90px";
+            else
+                el.style.bottom = nowPlayingBar.clientHeight + "px";
+
+            el.style.top = (32.0 / getCurrentZoomLevel()) + "px";
+        });
+
+        ThemedScrollbar.initScrollbar(".Rootlist__playlists-scroll-node", 1000);
     }
 
     function removeTopUpgradeButton() {
@@ -169,7 +179,7 @@ namespace XpoMusicScript.Common {
         // Check and set now playing bar background color when now playing album art changes
         try {
             Lib.Vibrant.init();
-            
+
             setInterval(function () {
                 try {
                     var url = (<HTMLElement>document.querySelectorAll(".Root__now-playing-bar .now-playing .cover-art-image")[0]).style.backgroundImage.slice(5, -2);
