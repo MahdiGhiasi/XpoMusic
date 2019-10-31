@@ -229,11 +229,33 @@ namespace XpoMusicScript.Common {
         setInterval(Resize.onResize, 5000); // Sometimes an OnResize is necessary when users goes to a new page.
     }
 
-    function forceRedrawScreen() {
-        document.body.style.opacity = "0.99";
+    function forceRedrawItem1(item: HTMLElement) {
+        item.style.paddingRight = "0.1px";
         setTimeout(function () {
-            document.body.style.opacity = "1";
+            item.style.paddingRight = "0px";
         }, 100);
+    }
+
+
+    function forceRedrawItem2(item: HTMLElement) {
+        item.style.opacity = "0.999";
+        setTimeout(function () {
+            item.style.opacity = "1";
+        }, 100);
+    }
+
+    function forceRedrawScreen() {
+        forceRedrawItem1(document.querySelector('.Root__now-playing-bar'));
+
+        var navs = document.querySelectorAll('nav');
+        for (var i = 0; i < navs.length; i++) {
+            forceRedrawItem1(navs[i]);
+        }
+
+        var imgs = document.querySelectorAll('.cover-art-image, img');
+        for (var i = 0; i < imgs.length; i++) {
+            forceRedrawItem2(<HTMLElement>imgs[i]);
+        }
     }
 
     var redrawFixPrevLocation = "";
@@ -262,7 +284,7 @@ namespace XpoMusicScript.Common {
 
         // Fix Edge glitches where css invert() stops working sometimes after page change.
         if (isLightTheme()) {
-            setInterval(forceRedrawScreen, 3000);
+            setInterval(forceRedrawScreen, 2000);
         }
     }
 }
