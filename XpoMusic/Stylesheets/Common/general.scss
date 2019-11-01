@@ -165,6 +165,11 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
     padding-left: 10px;
 }
 
+#main {
+    /* Default background color for when background gradient is not present in the current page */
+    background: #292929;
+}
+
 #main div[data-xpoBackground] {
     filter: brightness(0.7);
 }

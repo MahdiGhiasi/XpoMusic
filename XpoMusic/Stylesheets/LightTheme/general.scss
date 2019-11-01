@@ -5,6 +5,11 @@
     background-color: #E7E7E7;
 }
 
+#main {
+    /* Default background color for when background gradient is not present in the current page */
+    background: #191919;
+}
+
 #main div[data-xpoBackground] {
     /* 
         Make background the same color as the original one, not inverted of it.
