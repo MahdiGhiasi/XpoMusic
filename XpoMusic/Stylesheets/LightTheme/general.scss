@@ -5,13 +5,13 @@
     background-color: #E7E7E7;
 }
 
-.xpotifyBackground {
+#main div[data-xpoBackground] {
     /* 
         Make background the same color as the original one, not inverted of it.
         (As Spotify PWA chooses color based on the page that is currently open,
         with 'invert + hueRotate' we can have almost the same color, only lightened)
     */
-    filter: hue-rotate(180deg);
+    filter: hue-rotate(180deg) brightness(0.7);
 }
 
 

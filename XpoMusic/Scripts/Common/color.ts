@@ -49,12 +49,8 @@
             setTimeout(function () {
                 addXpotifyClassToBackground(retryCount - 1);
             }, 250);
-        } else if ((<HTMLElement>rootElement[0].previousSibling).style.backgroundImage === "") {
-            setTimeout(function () {
-                addXpotifyClassToBackground(retryCount - 1);
-            }, 250);
         } else {
-            (<HTMLElement>rootElement[0].previousSibling).classList.add('xpotifyBackground');
+            (<HTMLElement>rootElement[0].previousSibling).setAttribute('data-xpoBackground', '1');
         }
     }
 

@@ -165,6 +165,11 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
     padding-left: 10px;
 }
 
+#main div[data-xpoBackground] {
+    filter: brightness(0.7);
+}
+
+
 .Rootlist {
     /* Navbar bottom items placement fix on short window size */
     min-height: 0;
