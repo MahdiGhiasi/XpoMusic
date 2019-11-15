@@ -446,6 +446,7 @@
     <None Include="Stylesheets\Common\Animation\nowPlayingStartup.scss" />
     <None Include="Stylesheets\Common\Animation\searchPage.scss" />
     <None Include="Stylesheets\Common\Animation\tracklistEntrance.scss" />
+    <None Include="Stylesheets\Common\artistPage.scss" />
     <None Include="Stylesheets\Common\backButton.scss" />
     <None Include="Stylesheets\Common\contextMenu.scss" />
     <None Include="Stylesheets\Common\fontStyle.scss" />
