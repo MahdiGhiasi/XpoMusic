@@ -77,11 +77,19 @@ img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
     outline-color: #111;
 }
 
+.Root__main-view img {
+    filter: invert(1);
+}
+
+.Root__main-view .react-contextmenu-wrapper button {
+    filter: invert(1);
+}
+
 /* Workaround for an Edge bug where Search page comes in front of now playing bar on tall screens */
 .Search, .Search__content {
     position: initial;
     z-index: initial;
-} 
+}
 
 /* Error page image */
 #main .dialog img {
