@@ -5,4 +5,12 @@
 
 #searchPage img {
     filter: invert(1);
-} 
+}
+
+#searchPage a[href^="/genre"] {
+    filter: invert(1);
+}
+
+#searchPage a[href^="/genre"] img {
+    filter: invert(0);
+}
