@@ -6,7 +6,7 @@
     font-size: 16px !important;
     letter-spacing: normal !important;
     text-transform: lowercase !important;
-    margin: 10px 2px !important;
+    margin: 10px 6px !important;
 }
 
 .Root__main-view nav ul li a::first-letter {
@@ -18,9 +18,9 @@
     height: 2px;
     position: absolute;
     display: block;
-    left: 10px !important;
-    right: 10px !important;
-    bottom: -4px !important;
+    left: 0px !important;
+    right: 0px !important;
+    bottom: -6px !important;
     width: unset !important;
     margin: 0 !important;
     transition: opacity .2s ease-out .1s,transform .2s ease-out .1s;
