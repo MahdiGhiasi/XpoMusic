@@ -1,13 +1,13 @@
 ﻿namespace XpoMusicScript.Common.UiInjector {
     export function injectNavbarDownButton(button) {
-        var navbar = document.querySelectorAll(".NavBarFooter");
-        var sessionInfo = document.querySelectorAll(".sessionInfo");
-        if (navbar.length === 0 || sessionInfo.length === 0) {
+        var sessionInfo = document.querySelectorAll(".NavBarFooter .navBar-item");
+        if (sessionInfo.length === 0) {
             setTimeout(function () {
                 injectNavbarDownButton(button);
             }, 500);
         } else {
-            navbar[0].insertBefore(button, sessionInfo[0]);
+            var navbar = sessionInfo[0].parentElement;
+            navbar.insertBefore(button, sessionInfo[0]);
         }
     }
 

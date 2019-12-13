@@ -165,15 +165,14 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
     padding-left: 10px;
 }
 
-#main {
-    /* Default background color for when background gradient is not present in the current page */
-    background: #292929;
-}
-
 #main div[data-xpoBackground] {
     filter: brightness(0.7);
 }
 
+.main-view-container__scroll-node-child > header {
+    /* Hide top bar and user menu */
+    display: none;
+}
 
 .Rootlist {
     /* Navbar bottom items placement fix on short window size */
