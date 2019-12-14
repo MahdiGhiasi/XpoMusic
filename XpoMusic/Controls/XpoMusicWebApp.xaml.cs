@@ -45,6 +45,7 @@ namespace XpoMusic.Controls
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(
             "IsOpen", typeof(bool), typeof(XpoMusicWebApp), new PropertyMetadata(defaultValue: false,
                 propertyChangedCallback: new PropertyChangedCallback(OnIsOpenPropertyChanged)));
+        private readonly string initialLoadPageUrl = "https://open.spotify.com/static/offline.html?";
 
         public bool IsOpen
         {
@@ -189,7 +190,7 @@ namespace XpoMusic.Controls
         public void OpenWebApp()
         {
             var destinationUrl = "https://open.spotify.com";
-            var navigateUrl = "https://open.spotify.com/static/offline.html?redirectUrl=" + System.Net.WebUtility.UrlEncode(destinationUrl);
+            var navigateUrl = initialLoadPageUrl + "redirectUrl=" + System.Net.WebUtility.UrlEncode(destinationUrl);
 
             OpenWebApp(navigateUrl);
         }
@@ -225,13 +226,21 @@ namespace XpoMusic.Controls
             }
         }
 
-        private void MainWebView_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
+        private async void MainWebView_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
         {
             if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
             {
                 FinalizeAuthorization(e.Uri.ToString());
                 return;
             }
+
+
+            if (e.Uri.ToString().StartsWith(initialLoadPageUrl + "redirectUrl="))
+            {
+                await InitialLoadPageCompleted(e.Uri.ToString());
+                return;
+            }
+
 
             VisualStateManager.GoToState(this, nameof(LoadFailedVisualState), false);
             PageLoaded?.Invoke(this, new EventArgs());
@@ -253,34 +262,9 @@ namespace XpoMusic.Controls
                 }
             }
 
-            if (e.Uri.ToString().StartsWith("https://open.spotify.com/static/offline.html?redirectUrl="))
+            if (e.Uri.ToString().StartsWith(initialLoadPageUrl + "redirectUrl="))
             {
-                var url = e.Uri.ToString();
-
-                logger.Info("Clearing local storage and redirecting...");
-                var result = await Controller.ClearPlaybackLocalStorage();
-
-                try
-                {
-                    if (result.Length > 0)
-                    {
-                        initialPlaybackState = JsonConvert.DeserializeObject<LocalStoragePlayback>(result);
-                        logger.Info("initial playback volume = " + initialPlaybackState.volume);
-                    }
-                    else
-                    {
-                        logger.Info("localStorage.playback was undefined.");
-                    }
-                }
-                catch
-                {
-                    logger.Warn("Decoding localStorage.playback failed.");
-                    logger.Info("localStorage.playback content was: " + result);
-                }
-
-                var urlDecoder = new WwwFormUrlDecoder(url.Substring(url.IndexOf('?') + 1));
-                Controller.Navigate(new Uri(urlDecoder.GetFirstValueByName("redirectUrl")));
-
+                await InitialLoadPageCompleted(e.Uri.ToString());
                 return;
             }
 
@@ -330,6 +314,33 @@ namespace XpoMusic.Controls
                 Authorize("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F", clearExisting: true);
                 AnalyticsHelper.Log("mainEvent", "notLoggedIn");
             }
+        }
+
+        private async Task InitialLoadPageCompleted(string url)
+        {
+            logger.Info("Clearing local storage and redirecting...");
+            var result = await Controller.ClearPlaybackLocalStorage();
+
+            try
+            {
+                if (result.Length > 0)
+                {
+                    initialPlaybackState = JsonConvert.DeserializeObject<LocalStoragePlayback>(result);
+                    logger.Info("initial playback volume = " + initialPlaybackState.volume);
+                }
+                else
+                {
+                    logger.Info("localStorage.playback was undefined.");
+                }
+            }
+            catch
+            {
+                logger.Warn("Decoding localStorage.playback failed.");
+                logger.Info("localStorage.playback content was: " + result);
+            }
+
+            var urlDecoder = new WwwFormUrlDecoder(url.Substring(url.IndexOf('?') + 1));
+            Controller.Navigate(new Uri(urlDecoder.GetFirstValueByName("redirectUrl")));
         }
 
         public async void SetFocusToWebView()
