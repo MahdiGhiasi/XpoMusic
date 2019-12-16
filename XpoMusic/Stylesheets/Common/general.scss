@@ -170,6 +170,11 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
     display: none;
 }
 
+.main-view-container__scroll-node-child > header > div > button, .main-view-container__scroll-node-child > header > div > div > button, .main-view-container__scroll-node-child > header .sessionInfo {
+    /* Hide top bar and user menu content, as top bar itself will become visible in search page (via js) */
+    display: none !important;
+}
+
 .Rootlist {
     /* Navbar bottom items placement fix on short window size */
     min-height: 0;

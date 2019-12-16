@@ -258,6 +258,7 @@ namespace XpoMusicScript.Common {
         }
     }
 
+    var pagePrevLocation = "";
     var redrawFixPrevLocation = "";
     function periodicPageCheck() {
         try {
@@ -272,6 +273,16 @@ namespace XpoMusicScript.Common {
                     setTimeout(forceRedrawScreen, 1250);
                     redrawFixPrevLocation = window.location.href;
                 }
+            }
+
+            if (pagePrevLocation !== window.location.href) {
+                if (window.location.href.startsWith('https://open.spotify.com/search')) {
+                    (<HTMLElement>document.querySelector('.main-view-container__scroll-node-child > header')).style.display = 'block';
+                } else {
+                    (<HTMLElement>document.querySelector('.main-view-container__scroll-node-child > header')).style.display = 'none';
+                }
+
+                pagePrevLocation = window.location.href;
             }
         }
         catch (ex) {
