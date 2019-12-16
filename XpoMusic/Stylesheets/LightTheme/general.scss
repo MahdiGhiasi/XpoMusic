@@ -79,6 +79,16 @@ img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
     filter: invert(1);
 }
 
+input, svg[role=img] {
+    /* Search input box */
+    filter: invert(1);
+}
+
+.dialog input {
+    /* New playlist input box */
+    filter: invert(0);
+}
+
 /* Workaround for an Edge bug where Search page comes in front of now playing bar on tall screens */
 .Search, .Search__content {
     position: initial;
