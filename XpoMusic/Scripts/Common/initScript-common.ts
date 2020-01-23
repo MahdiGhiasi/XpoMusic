@@ -110,20 +110,19 @@ namespace XpoMusicScript.Common {
     }
 
     function initThemedScrollbars() {
-        if (document.querySelectorAll(".main-view-container__scroll-node").length == 0 || document.querySelectorAll(".Rootlist__playlists-scroll-node").length == 0) {
+        if (document.querySelectorAll(".main-view-container__scroll-node").length == 0
+            || document.querySelectorAll(".Rootlist__playlists-scroll-node").length == 0) {
             setTimeout(initThemedScrollbars, 200);
             return;
         }
 
-        var nowPlayingBar = document.querySelector(".Root__now-playing-bar");
-        var adsBar = document.querySelector(".Root__ads-container");
+        var adsBar = document.querySelector(".Root__main-view--has-ads > div:nth-child(3)");
         ThemedScrollbar.initScrollbar(".main-view-container__scroll-node", 1000, function (el) {
-            if (nowPlayingBar == null)
-                el.style.bottom = "90px";
-            else if (adsBar != null)
-                el.style.bottom = (nowPlayingBar.clientHeight + adsBar.clientHeight) + "px";
-            else
-                el.style.bottom = nowPlayingBar.clientHeight + "px";
+            if (adsBar != null) {
+                el.style.bottom = (adsBar.clientHeight) + "px";
+            } else {
+                el.style.bottom = "0px";
+            }
 
             el.style.top = (32.0 / getCurrentZoomLevel()) + "px";
         });

@@ -1,6 +1,7 @@
 ﻿/* Making UI usable for width < 720px, as UWP needs to support 500px+ */
 body {
     min-width: 500px;
+    min-height: 500px;
 }
 
 .now-playing-bar-container {

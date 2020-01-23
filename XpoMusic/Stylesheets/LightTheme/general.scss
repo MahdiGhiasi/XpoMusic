@@ -75,10 +75,6 @@ img[src*=p200x200], .akh8GUlQiyVVqyYbwYzyr {
     filter: invert(1);
 }
 
-.Root__main-view .react-contextmenu-wrapper button {
-    filter: invert(1);
-}
-
 input, svg[role=img] {
     /* Search input box */
     filter: invert(1);
@@ -93,6 +89,11 @@ input, svg[role=img] {
 .Search, .Search__content {
     position: initial;
     z-index: initial;
+}
+
+/* Ad */
+.Root__main-view iframe {
+    filter: invert(1);
 }
 
 /* Error page image */
