@@ -165,14 +165,22 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
     padding-left: 10px;
 }
 
-.main-view-container__scroll-node-child > header {
+.Root__top-bar {
     /* Hide top bar and user menu */
     display: none;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 40px;
 }
 
-.main-view-container__scroll-node-child > header > div > button, .main-view-container__scroll-node-child > header > div > div > button, .main-view-container__scroll-node-child > header .sessionInfo {
+.Root__top-bar > header > div > button, .Root__top-bar > header > div > div > button, .Root__top-bar > header .sessionInfo {
     /* Hide top bar and user menu content, as top bar itself will become visible in search page (via js) */
     display: none !important;
+}
+
+.main-view-container__scroll-node-child-spacer {
+    height: 0px;
 }
 
 .Rootlist {

@@ -276,9 +276,12 @@ namespace XpoMusicScript.Common {
 
             if (pagePrevLocation !== window.location.href) {
                 if (window.location.href.startsWith('https://open.spotify.com/search')) {
-                    (<HTMLElement>document.querySelector('.main-view-container__scroll-node-child > header')).style.display = 'block';
+                    (<HTMLElement>document.querySelector('.Root__top-bar')).style.display = 'block';
+                    (<HTMLElement>document.querySelector('.main-view-container__scroll-node-child-spacer')).style.height = '60px';
+                    (<HTMLElement>document.querySelector('.Root__top-bar input')).focus();
                 } else {
-                    (<HTMLElement>document.querySelector('.main-view-container__scroll-node-child > header')).style.display = 'none';
+                    (<HTMLElement>document.querySelector('.Root__top-bar')).style.display = 'none';
+                    (<HTMLElement>document.querySelector('.main-view-container__scroll-node-child-spacer')).removeAttribute('style');
                 }
 
                 pagePrevLocation = window.location.href;
