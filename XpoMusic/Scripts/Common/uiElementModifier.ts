@@ -45,12 +45,22 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 return false;
             };
 
-            var accountButton = document.createElement('div');
-            accountButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
-                + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE8D4;</span></div>'
-                + '<span class="navbar-link__text">Account</span></div></a></div>';
-            accountButton.querySelector('a').onclick = function () {
-                Action.navigateToPage('/settings/account');
+            //var accountButton = document.createElement('div');
+            //accountButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
+            //    + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE8D4;</span></div>'
+            //    + '<span class="navbar-link__text">Account</span></div></a></div>';
+            //accountButton.querySelector('a').onclick = function () {
+            //    Action.navigateToPage('/settings/account');
+            //    return false;
+            //};
+
+            var logOutButton = document.createElement('div');
+            logOutButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
+                + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xF3B1;</span></div>'
+                + '<span class="navbar-link__text">Log out</span></div></a></div>';
+            logOutButton.querySelector('a').onclick = function () {
+                (<HTMLElement>(document.querySelectorAll(".Root__top-bar a[role=button]")[0])).click();
+                document.body.style.opacity = '0';
                 return false;
             };
 
@@ -72,9 +82,9 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 return false;
             };
 
-            UiInjector.injectNavbarDownButton(accountButton);
-            UiInjector.injectNavbarDownButton(pinToStartButton);
+            UiInjector.injectNavbarDownButton(logOutButton);
             UiInjector.injectNavbarDownButton(settingsButton);
+            UiInjector.injectNavbarDownButton(pinToStartButton);
             //UiInjector.injectNavbarDownButton(aboutButton);
             //if (!Common.isProVersion())
             //    UiInjector.injectNavbarDownButton(donateButton);
