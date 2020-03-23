@@ -14,7 +14,7 @@
     animation: animation-entrance-fade-in-60 0.4s ease forwards;
 }
 
-@for $i from 1 through 16 {
+@for $i from 1 through 32 {
     .Root__main-view section > div > div:nth-child(#{$i}) {
         opacity: 0;
         animation: animation-entrance-content 0.4s ease #{($i - 1) * 0.03}s forwards;
