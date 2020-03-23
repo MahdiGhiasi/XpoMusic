@@ -1,42 +1,22 @@
 ﻿
-.artist-header .btn-green, .artist-header .btn-black {
-    filter: invert(0);
+.content.artist header {
+    filter: invert(1);
 }
 
-.Root__main-view .artist-header nav {
-    filter: invert(0);
-    z-index: 2;
+.content.artist header > div {
+    filter: invert(1);
 }
 
-.Root__main-view .artist-header nav a {
-    color: black !important;
+.content.artist header::before {
+    /* background: -webkit-gradient(linear,left top,left bottom,color-stop(-30%,transparent),to(#121212)); */
+    background: linear-gradient(transparent 40%,#f2f2f2);
 }
 
-header.artist-header:before {
-    background: linear-gradient( to bottom, rgba(242, 242, 242, 0) 0%, rgba(242, 242, 242, 0.013) 8.1%, rgba(242, 242, 242, 0.049) 15.5%, rgba(242, 242, 242, 0.104) 22.5%, rgba(242, 242, 242, 0.175) 29%, rgba(242, 242, 242, 0.259) 35.3%, rgba(242, 242, 242, 0.352) 41.2%, rgba(242, 242, 242, 0.45) 47.1%, rgba(242, 242, 242, 0.55) 52.9%, rgba(242, 242, 242, 0.648) 58.8%, rgba(242, 242, 242, 0.741) 64.7%, rgba(242, 242, 242, 0.825) 71%, rgba(242, 242, 242, 0.896) 77.5%, rgba(242, 242, 242, 0.951) 84.5%, rgba(242, 242, 242, 0.987) 91.9%, rgba(242, 242, 242, 1) 100% );
+.content.artist header h1, .content.artist header .contentSpacing > div {
+    filter: invert(1);
 }
 
-.Root__main-view .artist-header .contentSpacing {
-    margin-bottom: 0px !important;
+.Root__main-view .artist .contentSpacing > span {
+    /* Monthly listeners */
+    filter: invert(1);
 }
-
-.view-header:after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    bottom: 0;
-    left: 0;
-    pointer-events: none;
-    width: 100%;
-    height: 250px;
-    background: linear-gradient( to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.013) 8.1%, rgba(255, 255, 255, 0.049) 15.5%, rgba(255, 255, 255, 0.104) 22.5%, rgba(255, 255, 255, 0.175) 29%, rgba(255, 255, 255, 0.259) 35.3%, rgba(255, 255, 255, 0.352) 41.2%, rgba(255, 255, 255, 0.45) 47.1%, rgba(255, 255, 255, 0.55) 52.9%, rgba(255, 255, 255, 0.648) 58.8%, rgba(255, 255, 255, 0.741) 64.7%, rgba(255, 255, 255, 0.825) 71%, rgba(255, 255, 255, 0.896) 77.5%, rgba(255, 255, 255, 0.951) 84.5%, rgba(255, 255, 255, 0.987) 91.9%, rgba(255, 255, 255, 1) 100% );
-}
-
-header.artist-header .monthly-listeners {
-    font-weight: 700;
-}
-
-header.artist-header h1 {
-    color: black;
-}
-

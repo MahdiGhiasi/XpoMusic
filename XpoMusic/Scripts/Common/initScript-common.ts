@@ -124,7 +124,11 @@ namespace XpoMusicScript.Common {
                 el.style.bottom = "0px";
             }
 
-            el.style.top = (32.0 / getCurrentZoomLevel()) + "px";
+            var headerIsBlurred = !(<HTMLElement>document.querySelector('.Root__top-bar header div:nth-child(1)')).classList.contains('xpo-transparent-top-bar-background');
+            if (headerIsBlurred)
+                el.style.top = "85px";
+            else
+                el.style.top = (32.0 / getCurrentZoomLevel()) + "px";
         });
 
         ThemedScrollbar.initScrollbar(".Rootlist__playlists-scroll-node", 1000);
@@ -228,6 +232,7 @@ namespace XpoMusicScript.Common {
         setInterval(Resize.onResize, 5000); // Sometimes an OnResize is necessary when users goes to a new page.
     }
 
+    /*
     function forceRedrawItem1(item: HTMLElement) {
         item.style.paddingRight = "0.1px";
         setTimeout(function () {
@@ -256,6 +261,54 @@ namespace XpoMusicScript.Common {
             forceRedrawItem2(<HTMLElement>imgs[i]);
         }
     }
+    */
+
+    function InjectTopBarCustomStyles() {
+        var topBarBackground = document.querySelectorAll('.Root__top-bar header div:nth-child(1)');
+        if (topBarBackground.length !== 1)
+            return;
+
+        var element = <HTMLElement>(topBarBackground[0]);
+        element.style.backgroundColor = "rgba(18, 18, 18, 0.6)";
+        element.style.setProperty('backdrop-filter', 'blur(30px)');
+        element.style.setProperty('-webkit-backdrop-filter', 'blur(30px)');
+    }
+
+    function expandPivotInTopBar() {
+        try {
+            var childNodesList = document.querySelectorAll('.Root__top-bar nav ul li ul li');
+            document.querySelectorAll('.xpo-modified-pivot-item').forEach(x => x.parentNode.removeChild(x));
+
+            if (childNodesList.length === 0)
+                return;
+
+            var childNodes = Array.prototype.slice.call(childNodesList);
+            var correctNodes = Array.prototype.slice.call(document.querySelectorAll('.Root__top-bar nav ul li')).filter(el => !childNodes.includes(el));
+            var correctClassName = correctNodes[0].className;
+            childNodes.forEach(x => x.className = correctClassName);
+            var correctAClassName = correctNodes[0].querySelector('a').className;
+            childNodes.forEach(x => x.querySelector('a').className = correctAClassName);
+            var containingLiElement = childNodes[0].closest('ul').closest('li');
+            var correctUl = containingLiElement.closest('ul');
+            childNodes.forEach(x => {
+                var newNode = <HTMLElement>correctUl.appendChild(x.cloneNode(true));
+                newNode.classList.add('xpo-modified-pivot-item');
+
+                var newA = newNode.querySelector('a');
+                var href = newA.href;
+                newA.href = "#";
+
+                newA.onclick = function () {
+                    Common.Action.navigateToPage(href);
+                    return false;
+                };
+            });
+            containingLiElement.style.display = 'none';
+        }
+        catch (ex) {
+            XpoMusic.log(ex);
+        }
+    }
 
     var pagePrevLocation = "";
     var redrawFixPrevLocation = "";
@@ -265,23 +318,44 @@ namespace XpoMusicScript.Common {
                 TracklistExtended.initTracklistMod();
             }
 
-            if (isLightTheme()) {
-                // Fix Edge glitches where css invert() stops working sometimes after page change.
-                if (redrawFixPrevLocation !== window.location.href) {
-                    setTimeout(forceRedrawScreen, 700);
-                    setTimeout(forceRedrawScreen, 1250);
-                    redrawFixPrevLocation = window.location.href;
-                }
-            }
+            InjectTopBarCustomStyles();
+            expandPivotInTopBar();
+
+            //if (isLightTheme()) {
+            //    // Fix Edge glitches where css invert() stops working sometimes after page change.
+            //    if (redrawFixPrevLocation !== window.location.href) {
+            //        setTimeout(forceRedrawScreen, 700);
+            //        setTimeout(forceRedrawScreen, 1250);
+            //        redrawFixPrevLocation = window.location.href;
+            //    }
+            //}
 
             if (pagePrevLocation !== window.location.href) {
                 if (window.location.href.startsWith('https://open.spotify.com/search')) {
-                    (<HTMLElement>document.querySelector('.Root__top-bar')).style.display = 'block';
-                    (<HTMLElement>document.querySelector('.main-view-container__scroll-node-child-spacer')).style.height = '60px';
                     (<HTMLElement>document.querySelector('.Root__top-bar input')).focus();
+                    (<HTMLElement>document.querySelector('.Root__main-view')).classList.remove('xpo-collection-page');
+                    (<HTMLElement>document.querySelector('.Root__top-bar')).classList.remove('xpo-top-bar-hidden');
+                    (<HTMLElement>document.querySelector('.Root__top-bar header div:nth-child(1)')).classList.remove('xpo-transparent-top-bar-background');
+
+                } else if (window.location.href.startsWith('https://open.spotify.com/artist')
+                    || window.location.href.startsWith('https://open.spotify.com/album')
+                    || window.location.href.startsWith('https://open.spotify.com/show')
+                    || window.location.href.startsWith('https://open.spotify.com/playlist')
+                    || window.location.href.startsWith('https://open.spotify.com/collection/tracks')) {
+
+                    (<HTMLElement>document.querySelector('.Root__main-view')).classList.remove('xpo-collection-page');
+                    (<HTMLElement>document.querySelector('.Root__top-bar')).classList.add('xpo-top-bar-hidden');
+                    (<HTMLElement>document.querySelector('.Root__top-bar header div:nth-child(1)')).classList.add('xpo-transparent-top-bar-background');
+
+                } else if (window.location.href.startsWith('https://open.spotify.com/collection')) {
+                    (<HTMLElement>document.querySelector('.Root__main-view')).classList.add('xpo-collection-page');
+                    (<HTMLElement>document.querySelector('.Root__top-bar')).classList.remove('xpo-top-bar-hidden');
+                    (<HTMLElement>document.querySelector('.Root__top-bar header div:nth-child(1)')).classList.remove('xpo-transparent-top-bar-background');
+
                 } else {
-                    (<HTMLElement>document.querySelector('.Root__top-bar')).style.display = 'none';
-                    (<HTMLElement>document.querySelector('.main-view-container__scroll-node-child-spacer')).removeAttribute('style');
+                    (<HTMLElement>document.querySelector('.Root__main-view')).classList.remove('xpo-collection-page');
+                    (<HTMLElement>document.querySelector('.Root__top-bar')).classList.remove('xpo-top-bar-hidden');
+                    (<HTMLElement>document.querySelector('.Root__top-bar header div:nth-child(1)')).classList.add('xpo-transparent-top-bar-background');
                 }
 
                 pagePrevLocation = window.location.href;
@@ -296,8 +370,8 @@ namespace XpoMusicScript.Common {
         setInterval(periodicPageCheck, 1000);
 
         // Fix Edge glitches where css invert() stops working sometimes after page change.
-        if (isLightTheme()) {
-            setInterval(forceRedrawScreen, 2000);
-        }
+        //if (isLightTheme()) {
+        //    setInterval(forceRedrawScreen, 2000);
+        //}
     }
 }

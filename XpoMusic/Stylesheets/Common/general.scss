@@ -56,6 +56,10 @@ body {
     margin-top: -20px;
 }
 
+.Root__main-view h2 {
+    font-weight: 100;
+}
+
 .cover-art {
     /* Fixed a bug where some images show up as inverted in Edge. */
     filter: invert(0);
@@ -165,18 +169,46 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
     padding-left: 10px;
 }
 
-.Root__top-bar {
-    /* Hide top bar and user menu */
-    display: none;
-    position: absolute;
-    left: 0px;
-    right: 0px;
-    top: 40px;
+.Root__top-bar header {
+    padding-top: 60px;
+    padding-bottom: 25px;
+    /*background: rgba(30, 30, 30, 0.7);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+        */
 }
 
-.Root__top-bar > header > div > button, .Root__top-bar > header > div > div > button, .Root__top-bar > header .sessionInfo {
-    /* Hide top bar and user menu content, as top bar itself will become visible in search page (via js) */
+.xpo-top-bar-hidden {
     display: none !important;
+}
+
+.xpo-transparent-top-bar-background {
+    /* Hide background */
+    display: none !important;
+}
+
+.Root__top-bar header > div:nth-child(2) > button:nth-child(1), .Root__top-bar header > div:nth-child(2) > button:nth-child(2) {
+    /* Hide back/forward buttons in top menu */
+    display: none !important;
+}
+
+.xpo-collection-page {
+    /* Added to .Root__main-view when on /collection/* pages */
+    padding-top: 40px;
+}
+
+.xpo-collection-page h1 {
+    display: none;
+}
+
+.main-view-container__scroll-node-child section.contentSpacing {
+    /* Add padding to page content because of top-bar shift */
+    padding-top: 60px !important;
+}
+
+.main-view-container__scroll-node-child #searchPage {
+    /* Add padding to page content because of top-bar shift */
+    padding-top: 80px !important;
 }
 
 .main-view-container__scroll-node-child-spacer {

@@ -440,6 +440,7 @@
     <Content Include="Scripts\DarkTheme\tsconfig.json" />
     <Content Include="Scripts\LightTheme\tsconfig.json" />
     <None Include="Stylesheets\Common\adsContainer.scss" />
+    <None Include="Stylesheets\Common\Animation\artistPage.scss" />
     <None Include="Stylesheets\Common\Animation\navBarStartup.scss" />
     <None Include="Stylesheets\Common\Animation\pageEntrance.scss" />
     <None Include="Stylesheets\Common\Animation\pivotEntrance.scss" />
@@ -467,6 +468,7 @@
     <None Include="Stylesheets\Common\common.scss" />
     <None Include="Stylesheets\LightTheme\navBar.scss" />
     <None Include="Stylesheets\LightTheme\nowPlayingBar.scss" />
+    <None Include="Stylesheets\LightTheme\pivotTabStyle.scss" />
     <None Include="Stylesheets\LightTheme\podcastEpisodeDetails.scss" />
     <None Include="Stylesheets\LightTheme\progressBar.scss" />
     <None Include="Stylesheets\LightTheme\searchPage.scss" />

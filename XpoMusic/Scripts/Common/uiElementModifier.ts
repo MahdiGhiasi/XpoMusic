@@ -54,15 +54,15 @@ namespace XpoMusicScript.Common.UiElementModifier {
             //    return false;
             //};
 
-            var logOutButton = document.createElement('div');
-            logOutButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
-                + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xF3B1;</span></div>'
-                + '<span class="navbar-link__text">Log out</span></div></a></div>';
-            logOutButton.querySelector('a').onclick = function () {
-                (<HTMLElement>(document.querySelectorAll(".Root__top-bar a[role=button]")[0])).click();
-                document.body.style.opacity = '0';
-                return false;
-            };
+            //var logOutButton = document.createElement('div');
+            //logOutButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
+            //    + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xF3B1;</span></div>'
+            //    + '<span class="navbar-link__text">Log out</span></div></a></div>';
+            //logOutButton.querySelector('a').onclick = function () {
+            //    (<HTMLElement>(document.querySelectorAll(".Root__top-bar a[role=button]")[0])).click();
+            //    document.body.style.opacity = '0';
+            //    return false;
+            //};
 
             var aboutButton = document.createElement('div');
             aboutButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
@@ -82,7 +82,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 return false;
             };
 
-            UiInjector.injectNavbarDownButton(logOutButton);
+            // UiInjector.injectNavbarDownButton(logOutButton);
             UiInjector.injectNavbarDownButton(settingsButton);
             UiInjector.injectNavbarDownButton(pinToStartButton);
             //UiInjector.injectNavbarDownButton(aboutButton);

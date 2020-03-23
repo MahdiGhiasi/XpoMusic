@@ -1,8 +1,28 @@
 ﻿
-.artist-header {
+.content.artist header::before {
+    /* background: -webkit-gradient(linear,left top,left bottom,color-stop(-30%,transparent),to(#121212)); */
+    background: linear-gradient(transparent 40%, #0d0d0d);
+}
+
+.content.artist header h1 {
+    max-width: 100% !important;
+    font-weight: bolder !important;
+    text-shadow: 0 0 10px #000, 0 0 20px #000, 0 0 30px #000, 0 0 40px #000, 0 0 50px #000, 0 0 60px #000, 0 0 70px #000;
+}
+
+.Root__main-view .artist .contentSpacing > span {
+    /* Monthly listeners */
+    text-align: center;
+    color: white;
+    text-shadow: 0 0 10px #000, 0 0 20px #000, 0 0 30px #000, 0 0 40px #000, 0 0 50px #000, 0 0 60px #000, 0 0 70px #000;
+    font-weight: 500;
+}
+
+.content.artist header h1, .content.artist header .contentSpacing > div {
     text-align: center;
 }
 
-.artist-header h1 {
-    max-width: 100% !important;
+.Root__main-view .artist .contentSpacing {
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
 }
