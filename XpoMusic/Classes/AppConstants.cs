@@ -113,6 +113,16 @@ namespace XpoMusic.Classes
                             RegexMatch = @"""Web Player \("".concat\([a-zA-Z]+.getBrowserName\(\),""\)""\)",
                             ReplaceTo = @"""Xpo Music""",
                         },
+                        new WebResourceStringModificationRule
+                        {
+                            RegexMatch = @"\{\.\.\.r\._propagators,\.\.\.e\.propagators\}",
+                            ReplaceTo = @"Object.assign({}, r._propagators, e.propagators)",
+                        },
+                        new WebResourceStringModificationRule
+                        {
+                            RegexMatch = @"\{\.\.\.p\}",
+                            ReplaceTo = @"Object.assign({}, p)",
+                        },
                     }
                 },
                 new WebResourceModificationRule
