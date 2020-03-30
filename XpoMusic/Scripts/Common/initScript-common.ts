@@ -264,7 +264,7 @@ namespace XpoMusicScript.Common {
     */
 
     function InjectTopBarCustomStyles() {
-        var topBarBackground = document.querySelectorAll('.Root__top-bar header div:nth-child(1)');
+        var topBarBackground = document.querySelectorAll('.Root__top-bar header > div:nth-child(1)');
         if (topBarBackground.length !== 1)
             return;
 
