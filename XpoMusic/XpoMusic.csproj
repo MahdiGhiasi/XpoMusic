@@ -223,6 +223,7 @@
     <TypeScriptCompile Include="Scripts\Common\dragDrop.ts" />
     <TypeScriptCompile Include="Scripts\Common\mouseWheelListener.ts" />
     <TypeScriptCompile Include="Scripts\Common\playbackStuckHelper.ts" />
+    <TypeScriptCompile Include="Scripts\Common\themedScrollbar.ts" />
     <TypeScriptCompile Include="Scripts\Common\tracklistExtended.ts" />
     <TypeScriptCompile Include="Scripts\Common\web-player-backup.ts" />
     <TypeScriptCompile Include="Scripts\Lib\focus-visible.ts" />
@@ -439,12 +440,14 @@
     <Content Include="Scripts\DarkTheme\tsconfig.json" />
     <Content Include="Scripts\LightTheme\tsconfig.json" />
     <None Include="Stylesheets\Common\adsContainer.scss" />
+    <None Include="Stylesheets\Common\Animation\artistPage.scss" />
     <None Include="Stylesheets\Common\Animation\navBarStartup.scss" />
     <None Include="Stylesheets\Common\Animation\pageEntrance.scss" />
     <None Include="Stylesheets\Common\Animation\pivotEntrance.scss" />
     <None Include="Stylesheets\Common\Animation\nowPlayingStartup.scss" />
     <None Include="Stylesheets\Common\Animation\searchPage.scss" />
     <None Include="Stylesheets\Common\Animation\tracklistEntrance.scss" />
+    <None Include="Stylesheets\Common\artistPage.scss" />
     <None Include="Stylesheets\Common\backButton.scss" />
     <None Include="Stylesheets\Common\contextMenu.scss" />
     <None Include="Stylesheets\Common\fontStyle.scss" />
@@ -454,6 +457,7 @@
     <None Include="Stylesheets\Common\pivotTabStyle.scss" />
     <None Include="Stylesheets\Common\searchPage.scss" />
     <None Include="Stylesheets\Common\smallWidthWindow.scss" />
+    <None Include="Stylesheets\Common\themedScrollbar.scss" />
     <None Include="Stylesheets\Common\trackList.scss" />
     <None Include="Stylesheets\Common\windowTitle.scss" />
     <None Include="Stylesheets\DarkTheme\dark.scss" />
@@ -464,9 +468,11 @@
     <None Include="Stylesheets\Common\common.scss" />
     <None Include="Stylesheets\LightTheme\navBar.scss" />
     <None Include="Stylesheets\LightTheme\nowPlayingBar.scss" />
+    <None Include="Stylesheets\LightTheme\pivotTabStyle.scss" />
     <None Include="Stylesheets\LightTheme\podcastEpisodeDetails.scss" />
     <None Include="Stylesheets\LightTheme\progressBar.scss" />
     <None Include="Stylesheets\LightTheme\searchPage.scss" />
+    <None Include="Stylesheets\LightTheme\trackList.scss" />
     <None Include="Stylesheets\LightTheme\windowTitle.scss" />
     <None Include="Xpotify_StoreKey.pfx" />
   </ItemGroup>

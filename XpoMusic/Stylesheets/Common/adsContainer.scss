@@ -1,7 +1,13 @@
 ﻿
-.Root__ads-container {
-    background-color: rgba(24, 24, 24, 0.7);
+.Root__main-view--has-ads > div:nth-child(3) {
+    z-index: 10000;
+}
+
+.Root__main-view--has-ads > div:nth-child(3) > div {
+    background-color: rgba(24, 24, 24, 0.6);
+    backdrop-filter: blur(30px);
     -webkit-backdrop-filter: blur(30px);
+    border-top: 0px;
 }
 
 .AdsContainer {

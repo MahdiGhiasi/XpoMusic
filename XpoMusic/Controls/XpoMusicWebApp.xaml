@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
@@ -95,6 +96,17 @@
                  NavigationStarting="MainWebView_NavigationStarting"
                  NavigationFailed="MainWebView_NavigationFailed"
                  LoadCompleted="MainWebView_LoadCompleted" />
+
+        <Border x:Name="invertColorFilter"
+                BorderBrush="Transparent" 
+                BorderThickness="0"
+                IsHitTestVisible="False"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Stretch">
+            <Border.Background>
+                <media:BackdropInvertBrush />
+            </Border.Background>
+        </Border>
 
         <TextBlock x:Name="windowTitle"
                    Visibility="Visible"

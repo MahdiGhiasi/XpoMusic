@@ -12,7 +12,8 @@
                     var vibrant = new Vibrant(img);
                     var swatches = vibrant.swatches();
 
-                    var opacity = 0.25;
+                    var brigtnessFactor = 0.6;
+                    var opacity = 0.7;
                     var rgb = swatches.Muted.getRgb();
                     if (swatches.Muted.getPopulation() < swatches.Vibrant.getPopulation()) {
                         rgb = swatches.Vibrant.getRgb();
@@ -23,8 +24,13 @@
                         rgb[1] = 255 - rgb[1];
                         rgb[2] = 255 - rgb[2];
 
-                        opacity = 0.3;
+                        brigtnessFactor = 0.7;
+                        opacity = 0.6;
                     }
+
+                    rgb[0] = Math.max(brigtnessFactor * rgb[0], 0);
+                    rgb[1] = Math.max(brigtnessFactor * rgb[1], 0);
+                    rgb[2] = Math.max(brigtnessFactor * rgb[2], 0);
 
                     (<HTMLElement>document.querySelectorAll(".Root__now-playing-bar .now-playing-bar")[0]).style.backgroundColor = "rgba(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ", " + opacity + ")";
                 }
@@ -49,12 +55,8 @@
             setTimeout(function () {
                 addXpotifyClassToBackground(retryCount - 1);
             }, 250);
-        } else if ((<HTMLElement>rootElement[0].previousSibling).style.backgroundImage === "") {
-            setTimeout(function () {
-                addXpotifyClassToBackground(retryCount - 1);
-            }, 250);
         } else {
-            (<HTMLElement>rootElement[0].previousSibling).classList.add('xpotifyBackground');
+            (<HTMLElement>rootElement[0].previousSibling).setAttribute('data-xpoBackground', '1');
         }
     }
 

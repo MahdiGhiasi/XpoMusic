@@ -123,8 +123,9 @@
             return; // No new elements present
 
         XpoMusic.log('Some new track list elements found. will try to find track ids.');
-        injectTrackIdsToTrackList();
 
+        await Common.sleep(500); // Make sure animations and UI is completely loaded (avoid lag)
+        injectTrackIdsToTrackList();
         await setAddRemoveButtons(); 
     }
 

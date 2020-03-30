@@ -12,20 +12,6 @@ html {
     overflow-y: hidden;
 }
 
-@media (max-height: 1100px) {
-    .main-view-container__content, .main-view-container__content > section, .main-view-container__content > div,
-    .main-view-container__scroll-node, .main-view-container__scroll-node-child {
-        /*
-            Fix for new scrollbar theme: We invert the color of the element with scrollbar, as well as its immediate child, so
-            the content is not inverted but the scrollbar is.
-            
-            Note: We don't do this for pages with height more than 1100px, because of Edge pixelation bug.
-            This is a compromise, on too tall displays scrollbar color is not correct but at least page is not pixelated.
-        */
-        filter: invert(1);
-    }
-}
-
 body {
     background-color: #181818;
 
@@ -70,6 +56,10 @@ body {
     margin-top: -20px;
 }
 
+.Root__main-view h2 {
+    font-weight: 100;
+}
+
 .cover-art {
     /* Fixed a bug where some images show up as inverted in Edge. */
     filter: invert(0);
@@ -106,17 +96,6 @@ body {
 
 .btn.btn-transparent:not(.disabled):hover {
     opacity: 0.7;
-}
-
-/* Playlist list on navbar scrollbar color fix */
-@media (max-height: 1300px) {
-    .Rootlist__playlists-scroll-node {
-        filter: invert(1);
-    }
-
-        .Rootlist__playlists-scroll-node li {
-            filter: invert(1);
-        }
 }
 
 /* By [artistName] padding */
@@ -190,9 +169,59 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
     padding-left: 10px;
 }
 
+.Root__top-bar header {
+    padding-top: 60px;
+    padding-bottom: 25px;
+    /*background: rgba(30, 30, 30, 0.7);
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+        */
+}
+
+.xpo-top-bar-hidden {
+    display: none !important;
+}
+
+.xpo-transparent-top-bar-background {
+    /* Hide background */
+    display: none !important;
+}
+
+.Root__top-bar header > div:nth-child(2) > button:nth-child(1), .Root__top-bar header > div:nth-child(2) > button:nth-child(2) {
+    /* Hide back/forward buttons in top menu */
+    display: none !important;
+}
+
+.xpo-collection-page {
+    /* Added to .Root__main-view when on /collection/* pages */
+    padding-top: 40px;
+}
+
+.xpo-collection-page h1 {
+    display: none;
+}
+
+.main-view-container__scroll-node-child section.contentSpacing {
+    /* Add padding to page content because of top-bar shift */
+    padding-top: 60px !important;
+}
+
+.main-view-container__scroll-node-child #searchPage {
+    /* Add padding to page content because of top-bar shift */
+    padding-top: 80px !important;
+}
+
+.main-view-container__scroll-node-child-spacer {
+    height: 0px;
+}
+
 .Rootlist {
     /* Navbar bottom items placement fix on short window size */
     min-height: 0;
+}
+
+.NowPlayingCoverSlotExpanded__container {
+    display: none;
 }
 
 /* Recently played items */

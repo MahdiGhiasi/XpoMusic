@@ -17,20 +17,20 @@
     }
 
     export function getTrackName() {
-        return getTextContent('.Root__now-playing-bar .now-playing-bar__left .track-info .track-info__name', 0);
+        return getTextContent('.Root__now-playing-bar .now-playing-bar__left .ellipsis-one-line', 1);
     }
 
     export function getTrackArtist() {
-        return getTextContent('.Root__now-playing-bar .now-playing-bar__left .track-info .track-info__artists', 0);
+        return getTextContent('.Root__now-playing-bar .now-playing-bar__left .ellipsis-one-line', 2);
     }
 
     export function getTrackAlbumId() {
-        var artistUri = (<HTMLLinkElement>((document.querySelectorAll(".Root__now-playing-bar .now-playing-bar__left .track-info .track-info__name a")[0]))).href;
+        var artistUri = (<HTMLLinkElement>((document.querySelectorAll(".Root__now-playing-bar .now-playing-bar__left a")[1]))).href;
         return artistUri.substring(artistUri.lastIndexOf('/') + 1);
     }
 
     export function getTrackArtistId() {
-        var artistUri = (<HTMLLinkElement>((document.querySelectorAll(".Root__now-playing-bar .now-playing-bar__left .track-info .track-info__artists a")[0]))).href;
+        var artistUri = (<HTMLLinkElement>((document.querySelectorAll(".Root__now-playing-bar .now-playing-bar__left a")[2]))).href;
         return artistUri.substring(artistUri.lastIndexOf('/') + 1);
     }
 
@@ -105,7 +105,7 @@
             return window.xpotify_prevTrackId;
         }
 
-        var tracks = document.querySelectorAll('.Root__now-playing-bar .now-playing-bar__left .track-info .track-info__name a');
+        var tracks = document.querySelectorAll('.Root__now-playing-bar .now-playing-bar__left .ellipsis-one-line a');
         if (tracks.length === 0)
             return "";
 

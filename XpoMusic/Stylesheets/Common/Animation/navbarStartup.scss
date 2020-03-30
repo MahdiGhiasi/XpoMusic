@@ -16,11 +16,9 @@
     animation: animation-entrance-nav-bar-item 0.4s ease 0.75s forwards;
 }
 
-@for $i from 1 through 5 {
-    .NavBarFooter > div:nth-child(#{$i}) {
-        opacity: 0;
-        animation: animation-entrance-nav-bar-item 0.4s ease #{0.85 + ($i - 1) * 0.05}s forwards;
-    }
+.NavBarFooter .navBar-item {
+    opacity: 0;
+    animation: animation-entrance-nav-bar-item 0.4s ease 0.85s forwards;
 }
 
 /* Keyframes */

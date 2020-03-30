@@ -1,4 +1,5 @@
-﻿/// <reference path="browserHistory.ts" />
+﻿/// <reference path="action.ts" />
+/// <reference path="browserHistory.ts" />
 /// <reference path="uiInjector.ts" />
 /// <reference path="color.ts" />
 
@@ -44,6 +45,25 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 return false;
             };
 
+            //var accountButton = document.createElement('div');
+            //accountButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
+            //    + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE8D4;</span></div>'
+            //    + '<span class="navbar-link__text">Account</span></div></a></div>';
+            //accountButton.querySelector('a').onclick = function () {
+            //    Action.navigateToPage('/settings/account');
+            //    return false;
+            //};
+
+            //var logOutButton = document.createElement('div');
+            //logOutButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
+            //    + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xF3B1;</span></div>'
+            //    + '<span class="navbar-link__text">Log out</span></div></a></div>';
+            //logOutButton.querySelector('a').onclick = function () {
+            //    (<HTMLElement>(document.querySelectorAll(".Root__top-bar a[role=button]")[0])).click();
+            //    document.body.style.opacity = '0';
+            //    return false;
+            //};
+
             var aboutButton = document.createElement('div');
             aboutButton.innerHTML = '<div class="navBar-item navBar-item--with-icon-left NavBar__xpotifysettings-item"><a class="link-subtle navBar-link ellipsis-one-line" href="#">'
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE946;</span></div>'
@@ -62,8 +82,9 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 return false;
             };
 
-            UiInjector.injectNavbarDownButton(pinToStartButton);
+            // UiInjector.injectNavbarDownButton(logOutButton);
             UiInjector.injectNavbarDownButton(settingsButton);
+            UiInjector.injectNavbarDownButton(pinToStartButton);
             //UiInjector.injectNavbarDownButton(aboutButton);
             //if (!Common.isProVersion())
             //    UiInjector.injectNavbarDownButton(donateButton);
@@ -153,7 +174,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
             var tracks = document.querySelectorAll(".tracklist .tracklist-row");
             for (var i = 0; i < tracks.length; i++) {
                 if (tracks[i].getAttribute("data-xpotify-addremovebuttonsadded") !== null) {
-                    if (!tracks[i].classList.contains("tracklistSongExistsInLibrary") && !tracks[i].classList.contains("tracklistSongNotExistsInLibrary") && tracks[i].getAttribute("data-trackid") !== null) {
+                    if (!tracks[i].classList.contains("tracklistSongExistsInLibrary") && !tracks[i].classList.contains("tracklistSongNotExistsInLibrary") && tracks[i].getAttribute("data-trackid") !== null && tracks[i].querySelectorAll('.more').length > 0) {
                         needsRefresh = true;
                     }
                     continue;
@@ -186,7 +207,6 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 removeSongDiv.classList.add("tracklist-middle-align");
                 removeSongDiv.classList.add("control-button");
                 removeSongDiv.classList.add("spoticon-added-16");
-                removeSongDiv.classList.add("control-button--active");
                 removeSongDiv.classList.add("trackListAddRemoveSongButton");
                 removeSongDiv.classList.add("trackListRemoveSongButton");
                 removeSongDiv.setAttribute("title", "Remove from your Liked Songs");

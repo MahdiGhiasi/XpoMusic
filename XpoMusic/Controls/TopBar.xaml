@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="using:XpoMusic.ViewModels"
+    xmlns:media="using:Microsoft.Toolkit.Uwp.UI.Media"
     mc:Ignorable="d"
     Loaded="UserControl_Loaded"
     d:DesignHeight="300"
@@ -28,10 +29,12 @@
                        Fill="#01000000" />
             <StackPanel x:Name="topBarButtonsStackPanel" 
                         HorizontalAlignment="Right"
-                        Background="{ThemeResource topBarButtonsAcrylicBrush}"
                         Padding="0,0,0,0"
                         Orientation="Horizontal" 
                         FlowDirection="RightToLeft">
+                <StackPanel.Background>
+                    <media:BackdropBlurBrush Amount="30" />
+                </StackPanel.Background>
                 <Grid Width="{x:Bind ViewModel.TopBarBehindSystemControlsAreaWidth, Mode=OneWay}"
                       Height="{x:Bind ViewModel.TopBarButtonHeight, Mode=OneWay}" />
                 <Grid x:Name="topBarButtonSeparator"

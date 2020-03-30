@@ -113,12 +113,38 @@ namespace XpoMusic.Classes
                             RegexMatch = @"""Web Player \("".concat\([a-zA-Z]+.getBrowserName\(\),""\)""\)",
                             ReplaceTo = @"""Xpo Music""",
                         },
+                        new WebResourceStringModificationRule
+                        {
+                            RegexMatch = @"\{\.\.\.r\._propagators,\.\.\.e\.propagators\}",
+                            ReplaceTo = @"Object.assign({}, r._propagators, e.propagators)",
+                        },
+                        new WebResourceStringModificationRule
+                        {
+                            RegexMatch = @"\{\.\.\.p\}",
+                            ReplaceTo = @"Object.assign({}, p)",
+                        },
                     }
                 },
+                new WebResourceModificationRule
+                {
+                    UriRegexMatch = @"https\:\/\/accounts\.spotify\.com(\/[a-z]+)?\/status.*",
+                    Type = WebResourceModificationRuleType.ModifyString,
+                    StringModificationRules = new[]
+                    {
+                        new WebResourceStringModificationRule
+                        {
+                            RegexMatch = @"^(.*\s*)*$",
+                            ReplaceTo = @"<script>window.location.href='https://open.spotify.com'</script><meta http-equiv='refresh' content='0;URL=https://open.spotify.com/'>",
+                        },
+                    }
+                }
             };
 
         [JsonProperty]
         public bool WebPlayerBackupEnabled { get; private set; } = true;
+
+        [JsonProperty]
+        public bool XamlInvertFilterForLightThemeEnabled { get; private set; } = true;
 
         public static async void Update()
         {
