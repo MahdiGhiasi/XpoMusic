@@ -131,7 +131,9 @@ namespace XpoMusicScript.Common {
                 el.style.top = (32.0 / getCurrentZoomLevel()) + "px";
         });
 
-        ThemedScrollbar.initScrollbar(".Rootlist__playlists-scroll-node", 1000);
+        ThemedScrollbar.initScrollbar(".Rootlist__playlists-scroll-node", 1000, function (el) {
+            el.style.top = "130px";
+        });
     }
 
     function removeTopUpgradeButton() {
