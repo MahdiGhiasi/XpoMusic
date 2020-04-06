@@ -123,6 +123,11 @@ namespace XpoMusic.Classes
                             RegexMatch = @"\{\.\.\.p\}",
                             ReplaceTo = @"Object.assign({}, p)",
                         },
+                        new WebResourceStringModificationRule
+                        {
+                            RegexMatch = @"\{\.\.\.f\}",
+                            ReplaceTo = @"Object.assign({}, f)",
+                        },
                     }
                 },
                 new WebResourceModificationRule
