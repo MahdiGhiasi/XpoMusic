@@ -97,6 +97,9 @@
     }
 
     export function getTrackId() {
+
+        return ""; // right clicking on current playing song is broken in PWA!
+
         var fingerprint = getTrackFingerprint();
 
         // @ts-ignore
