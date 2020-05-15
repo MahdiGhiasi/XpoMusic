@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XpoMusic", "XpoMusic\XpoMus
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XpoMusicWebAgent", "XpoMusicWebAgent\XpoMusicWebAgent.csproj", "{15FACA69-C86A-4447-97DC-B6CB59056075}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XpoMusicInstaller", "XpoMusicInstaller\XpoMusicInstaller.csproj", "{36C336EE-BE94-4085-9F0F-262F7B200DBD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,26 @@ Global
 		{15FACA69-C86A-4447-97DC-B6CB59056075}.Release|x64.Build.0 = Release|x64
 		{15FACA69-C86A-4447-97DC-B6CB59056075}.Release|x86.ActiveCfg = Release|x86
 		{15FACA69-C86A-4447-97DC-B6CB59056075}.Release|x86.Build.0 = Release|x86
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Debug|ARM.Build.0 = Debug|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Debug|x64.Build.0 = Debug|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Debug|x86.Build.0 = Debug|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Release|ARM.ActiveCfg = Release|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Release|ARM.Build.0 = Release|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Release|ARM64.Build.0 = Release|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Release|x64.ActiveCfg = Release|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Release|x64.Build.0 = Release|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Release|x86.ActiveCfg = Release|Any CPU
+		{36C336EE-BE94-4085-9F0F-262F7B200DBD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
