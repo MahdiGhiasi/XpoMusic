@@ -31,6 +31,11 @@ namespace XpoMusic.SpotifyApi
 
         private async Task<bool[]> IsTrackSavedInternal(string[] trackIds)
         {
+            trackIds = trackIds.Where(x => x != null && x.Length > 0).ToArray();
+
+            if (trackIds.Length == 0)
+                return new bool[] { };
+
             var result = await SendRequestWithTokenAsync(
                 "https://api.spotify.com/v1/me/tracks/contains?" +
                 $"ids={string.Join(',', trackIds)}", HttpMethod.Get);

@@ -1,4 +1,6 @@
-﻿namespace XpoMusicScript.SpotifyApi {
+﻿/// <reference path="apiBase.ts" />
+
+namespace XpoMusicScript.SpotifyApi {
     export class Library extends ApiBase {
         public async isTrackSaved(trackId: string): Promise<boolean> {
             return (await this.isTracksSaved([trackId]))[0];

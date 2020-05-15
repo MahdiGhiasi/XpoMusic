@@ -499,7 +499,8 @@ namespace XpoMusic.Pages
 
         private async Task<bool> EnableNowPlayingIfReady()
         {
-            var nowPlayingShouldBeEnabled = !string.IsNullOrWhiteSpace(PlayStatusTracker.LastPlayStatus.SongId);
+            var nowPlayingShouldBeEnabled = (!string.IsNullOrWhiteSpace(PlayStatusTracker.LastPlayStatus.SongId)) ||
+                (!string.IsNullOrWhiteSpace(PlayStatusTracker.LastPlayStatus.SongName));
 
             if (!isNowPlayingEnabled && nowPlayingShouldBeEnabled)
             {

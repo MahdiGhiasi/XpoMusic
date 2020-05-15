@@ -420,6 +420,7 @@
     <Content Include="InjectedAssets\init-light.js" />
     <TypeScriptCompile Include="Scripts\LightTheme\pageOverlay.ts" />
     <TypeScriptCompile Include="Scripts\SpotifyApi\apiBase.ts" />
+    <TypeScriptCompile Include="Scripts\SpotifyApi\player.ts" />
     <TypeScriptCompile Include="Scripts\SpotifyApi\library.ts" />
   </ItemGroup>
   <ItemGroup>

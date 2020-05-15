@@ -1,4 +1,6 @@
-﻿namespace XpoMusicScript.Common.StatusReport {
+﻿/// <reference path="../SpotifyApi/player.ts" />
+
+namespace XpoMusicScript.Common.StatusReport {
 
     declare var XpoMusic: any;
 
@@ -96,18 +98,43 @@
         return true;
     }
 
-    export function getTrackId() {
-
-        return ""; // right clicking on current playing song is broken in PWA!
-
+    export async function getTrackIdViaApi() {
         var fingerprint = getTrackFingerprint();
-
         // @ts-ignore
         if (window.xpotify_prevFingerprint === fingerprint) {
             // @ts-ignore
             return window.xpotify_prevTrackId;
         }
+        // @ts-ignore
+        window.xpotify_prevTrackId = ""; // Return empty at least until we get a response from api.
+        // @ts-ignore
+        window.xpotify_prevFingerprint = fingerprint;
 
+        XpoMusic.log("getTrackIdViaApi(): getting track id... local fingerprint: " + fingerprint);
+
+        var playerApi = new SpotifyApi.Player();
+        var result = await playerApi.getCurrentlyPlaying();
+
+        var trackName = result.item.name;
+        var trackId = result.item.id;
+        XpoMusic.log("getTrackIdViaApi() result: track name = '" + trackName + "'; id = '" + trackId + "'");
+
+        if (trackName == getTrackName()) {
+            XpoMusic.log("getTrackIdViaApi(): retrieved name matches local name. Will return its id.");
+
+            // @ts-ignore
+            window.xpotify_prevTrackId = trackId;
+            return trackId;
+        }
+
+        return "";
+    }
+
+    export async function getTrackId() {
+
+        return await getTrackIdViaApi(); // right clicking on current playing song is broken in PWA!
+
+        
         var tracks = document.querySelectorAll('.Root__now-playing-bar .now-playing-bar__left .ellipsis-one-line a');
         if (tracks.length === 0)
             return "";
@@ -181,7 +208,7 @@
         }
     }
 
-    function getNowPlaying() {
+    async function getNowPlaying() {
         var trackName, trackId, albumId, artistName, artistId, elapsedTime, totalTime, trackFingerprint;
         var isPrevTrackAvailable, isNextTrackAvailable, isPlaying, isSavedToLibrary, volume;
         var success = true;
@@ -189,44 +216,44 @@
         try {
             trackName = getTrackName();
         } catch (ex) {
-            console.log("Failed to get trackName.");
+            XpoMusic.log("Failed to get trackName.");
             success = false;
         }
         try {
-            trackId = getTrackId();
+            trackId = await getTrackId();
         } catch (ex) {
-            console.log("Failed to get trackId.");
-            trackId = ex.toString();
+            XpoMusic.log("Failed to get trackId.");
+            trackId = "";
             success = false;
         }
         try {
             albumId = getTrackAlbumId();
         } catch (ex) {
-            console.log("Failed to get albumId.");
+            XpoMusic.log("Failed to get albumId.");
             success = false;
         }
         try {
             artistName = getTrackArtist();
         } catch (ex) {
-            console.log("Failed to get artistName.");
+            XpoMusic.log("Failed to get artistName.");
             success = false;
         }
         try {
             artistId = getTrackArtistId();
         } catch (ex) {
-            console.log("Failed to get artistId.");
+            XpoMusic.log("Failed to get artistId.");
             success = false;
         }
         try {
             elapsedTime = getElapsedTime();
         } catch (ex) {
-            console.log("Failed to get elapsedTime.");
+            XpoMusic.log("Failed to get elapsedTime.");
             success = false;
         }
         try {
             totalTime = getTotalTime();
         } catch (ex) {
-            console.log("Failed to get totalTime.");
+            XpoMusic.log("Failed to get totalTime.");
             success = false;
         }
         try {
@@ -238,31 +265,31 @@
         try {
             isPrevTrackAvailable = getIsPrevTrackAvailable();
         } catch (ex) {
-            console.log("Failed to get isPrevTrackAvailable.");
+            XpoMusic.log("Failed to get isPrevTrackAvailable.");
             success = false;
         }
         try {
             isNextTrackAvailable = getIsNextTrackAvailable();
         } catch (ex) {
-            console.log("Failed to get isNextTrackAvailable.");
+            XpoMusic.log("Failed to get isNextTrackAvailable.");
             success = false;
         }
         try {
             isPlaying = getIsPlaying();
         } catch (ex) {
-            console.log("Failed to get isPlaying.");
+            XpoMusic.log("Failed to get isPlaying.");
             success = false;
         }
         try {
             isSavedToLibrary = getIsSavedToLibrary();
         } catch (ex) {
-            console.log("Failed to get isSavedToLibrary.");
+            XpoMusic.log("Failed to get isSavedToLibrary.");
             success = false;
         }
         try {
             volume = getVolume();
         } catch (ex) {
-            console.log("Failed to get volume.");
+            XpoMusic.log("Failed to get volume.");
             success = false;
         }
 
