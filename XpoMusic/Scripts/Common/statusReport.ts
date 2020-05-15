@@ -99,7 +99,7 @@ namespace XpoMusicScript.Common.StatusReport {
     }
 
     export async function getTrackIdViaApi() {
-        var fingerprint = getTrackFingerprint();
+        var fingerprint = getTrackFingerprint() + "\n" + (getIsPlaying() ? "playing" : "paused");
         // @ts-ignore
         if (window.xpotify_prevFingerprint === fingerprint) {
             // @ts-ignore
@@ -310,6 +310,8 @@ namespace XpoMusicScript.Common.StatusReport {
             Success: success,
         };
 
+        // XpoMusic.log("getNowPlaying(): sending data: " + JSON.stringify(data));
+
         return data;
     }
 
@@ -325,10 +327,10 @@ namespace XpoMusicScript.Common.StatusReport {
         }
     }
 
-    function sendStatusReport() {
+    async function sendStatusReport() {
         var data = JSON.stringify({
             BackButtonEnabled: isBackPossible(),
-            NowPlaying: getNowPlaying(),
+            NowPlaying: await getNowPlaying(),
         });
 
         XpoMusic.statusReport(data);
