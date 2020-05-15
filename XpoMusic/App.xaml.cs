@@ -20,6 +20,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using XpoMusic.Pages;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Analytics;
 
 namespace XpoMusic
 {
@@ -39,6 +42,12 @@ namespace XpoMusic
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             this.UnhandledException += App_UnhandledException;
+
+            if (!string.IsNullOrWhiteSpace(Secrets.AppCenterId))
+            {
+                AppCenter.LogLevel = LogLevel.Debug;
+                AppCenter.Start(Secrets.AppCenterId, typeof(Analytics), typeof(Crashes));
+            }
         }
 
         private async void App_UnhandledException(object sender, Windows.UI.Xaml.UnhandledExceptionEventArgs e)

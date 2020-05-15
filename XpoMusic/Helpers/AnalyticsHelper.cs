@@ -1,4 +1,5 @@
 ﻿using GoogleAnalytics;
+using Microsoft.AppCenter.Analytics;
 using Microsoft.Services.Store.Engagement;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,10 @@ namespace XpoMusic.Helpers
             StoreCustomEventLogger.Log(eventName + " : " + action);
             GoogleAnalyticsTracker.Send(HitBuilder.CreateCustomEvent(eventName, action).Build());
 #endif
+            Analytics.TrackEvent(eventName, new Dictionary<string, string>()
+            {
+                { "action", action },
+            });
             logger.Info($"Analytics event '{eventName} : {action}' fired.");
         }
 
@@ -58,6 +63,11 @@ namespace XpoMusic.Helpers
             StoreCustomEventLogger.Log(eventName + " : " + action + " : " + label);
             GoogleAnalyticsTracker.Send(HitBuilder.CreateCustomEvent(eventName, action, label).Build());
 #endif
+            Analytics.TrackEvent(eventName, new Dictionary<string, string>()
+            {
+                { "action", action },
+                { "label", label },
+            });
             logger.Info($"Analytics event '{eventName} : {action} : {label}' fired.");
         }
 
@@ -69,6 +79,10 @@ namespace XpoMusic.Helpers
             else
                 GoogleAnalyticsTracker.Send(HitBuilder.CreateScreenView(pageName).Build());
 #endif
+            Analytics.TrackEvent("pageView", new Dictionary<string, string>()
+            {
+                { "name", pageName },
+            });
             logger.Info($"PageView '{pageName}' fired.");
         }
     }
