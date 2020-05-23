@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using XpoMusic.Classes;
+using XpoMusic.WebAgent.Model;
 using XpoMusic.SpotifyApi;
-using XpoMusicWebAgent.Model;
 
 namespace XpoMusic.Helpers
 {

@@ -1,7 +1,5 @@
 ﻿namespace XpoMusicScript.Common.TracklistExtended {
 
-    declare var XpoMusic: any;
-
     export function injectTrackIdsToTrackList() {
 
         // Hide menus
@@ -38,7 +36,7 @@
             }
         }
 
-        XpoMusic.log(counter.toString() + " trackIds extracted.");
+        window.XpoMusic.Log(counter.toString() + " trackIds extracted.");
 
         // Close context menu
         var clickX = 1;
@@ -122,7 +120,7 @@
         if (!UiElementModifier.createTrackListAddRemoveButtons())
             return; // No new elements present
 
-        XpoMusic.log('Some new track list elements found. will try to find track ids.');
+        window.XpoMusic.Log('Some new track list elements found. will try to find track ids.');
 
         await Common.sleep(500); // Make sure animations and UI is completely loaded (avoid lag)
         injectTrackIdsToTrackList();

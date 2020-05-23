@@ -4,33 +4,27 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{CF732FD1-9200-423A-8BB6-1685B598A3DC}</ProjectGuid>
+    <ProjectGuid>{CB8462CB-F77E-47E7-9D6F-83AD65A10D16}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>XpoMusic</RootNamespace>
     <AssemblyName>XpoMusic</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
-    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>16</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>Xpotify_StoreKey.pfx</PackageCertificateKeyFile>
-    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
-    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
-    <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>184210D91298B470060D82EF00968C2CE43DB4CF</PackageCertificateThumbprint>
-    <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
-    <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
+    <IsWinUIAlpha Condition="'$(IsWinUIAlpha)' == ''">true</IsWinUIAlpha>
+    <WindowsKitsPath Condition="'$(IsWinUIAlpha)' == 'true'">WinUI-Alpha-Projects-Don-t-Use-SDK-Xaml-Tools</WindowsKitsPath>
+    <PackageCertificateKeyFile>XpoMusic_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
-    <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -41,56 +35,8 @@
     <OutputPath>bin\x86\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
-    <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x86</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>true</Prefer32Bit>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ARM\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
-    <NoWarn>;2008</NoWarn>
-    <DebugType>full</DebugType>
-    <PlatformTarget>ARM</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>true</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
-    <OutputPath>bin\ARM\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
-    <Optimize>true</Optimize>
-    <NoWarn>;2008</NoWarn>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>ARM</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>true</Prefer32Bit>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\ARM64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
-    <NoWarn>;2008</NoWarn>
-    <DebugType>full</DebugType>
-    <PlatformTarget>ARM64</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>true</Prefer32Bit>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
-    <OutputPath>bin\ARM64\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
-    <Optimize>true</Optimize>
-    <NoWarn>;2008</NoWarn>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>ARM64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
@@ -100,7 +46,6 @@
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x64\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
-    <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -111,7 +56,6 @@
     <OutputPath>bin\x64\Release\</OutputPath>
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <Optimize>true</Optimize>
-    <NoWarn>;2008</NoWarn>
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -123,20 +67,39 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Classes\AppConstants.cs" />
+    <Compile Include="Classes\Cache\AlbumStore.cs" />
+    <Compile Include="Classes\Cache\ArtistStore.cs" />
+    <Compile Include="Classes\Cache\CacheStore.cs" />
     <Compile Include="Classes\Cache\GlobalCache.cs" />
     <Compile Include="Classes\Cache\PlaylistStore.cs" />
-    <Compile Include="Classes\Cache\ArtistStore.cs" />
-    <Compile Include="Classes\Cache\AlbumStore.cs" />
-    <Compile Include="Classes\Cache\CacheStore.cs" />
+    <Compile Include="Classes\Cache\SongExtraInfoStore.cs" />
     <Compile Include="Classes\Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Classes\Converters\LanguageToStringConverter.cs" />
+    <Compile Include="Classes\Converters\LiveTileDesignToStringConverter.cs" />
+    <Compile Include="Classes\Converters\MillisecondsToMinSecConverter.cs" />
+    <Compile Include="Classes\Converters\ThemeToStringConverter.cs" />
+    <Compile Include="Classes\LocalConfiguration.cs" />
+    <Compile Include="Classes\Model\AutoPlayAction.cs" />
+    <Compile Include="Classes\Model\Language.cs" />
+    <Compile Include="Classes\Model\LocalStoragePlayback.cs" />
+    <Compile Include="Classes\Model\LyricsViewer\CurrentPlayingSongInfo.cs" />
     <Compile Include="Classes\Model\SongExtraInfo.cs" />
+    <Compile Include="Classes\Model\Theme.cs" />
     <Compile Include="Classes\Model\WebResourceModifications\WebResourceModificationRule.cs" />
     <Compile Include="Classes\Model\WebResourceModifications\WebResourceModificationRuleType.cs" />
     <Compile Include="Classes\Model\WebResourceModifications\WebResourceStringModificationRule.cs" />
+    <Compile Include="Classes\PlayStatusTracker.cs" />
     <Compile Include="Classes\SemaphoreQueue.cs" />
-    <Compile Include="Classes\Cache\SongExtraInfoStore.cs" />
+    <Compile Include="Classes\WebViewController.cs" />
     <Compile Include="Controls\FlyoutContainer.xaml.cs">
       <DependentUpon>FlyoutContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NowPlayingView.xaml.cs">
+      <DependentUpon>NowPlayingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\SliderExtended.cs" />
     <Compile Include="Controls\SplashScreen.xaml.cs">
@@ -148,103 +111,74 @@
     <Compile Include="Controls\XpoMusicWebApp.xaml.cs">
       <DependentUpon>XpoMusicWebApp.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\DeviceInfoHelper.cs" />
-    <Compile Include="Helpers\KeyboardShortcutHelper.cs" />
-    <Compile Include="Helpers\MediaControlsHelper.cs" />
-    <Compile Include="Helpers\StoryboardExtensions.cs" />
-    <Compile Include="Helpers\StuckResolveHelper.cs" />
-    <Compile Include="Helpers\WebResourceModificationHelper.cs" />
-    <Compile Include="Pages\AboutPage.xaml.cs">
-      <DependentUpon>AboutPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Content Include="Assets\ReauthorizeForV2.html" />
-    <Content Include="Assets\TileTemplates\LiveTileArtistArtOnly.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Assets\TileTemplates\LiveTileAlbumArtOnly.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Assets\TileTemplates\LiveTileAlbumAndArtistArt.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Compile Include="Classes\AppConstants.cs" />
-    <Compile Include="Classes\Converters\LiveTileDesignToStringConverter.cs" />
-    <Compile Include="Classes\Converters\MillisecondsToMinSecConverter.cs" />
-    <Compile Include="Classes\Converters\ThemeToStringConverter.cs" />
-    <Compile Include="Classes\Converters\LanguageToStringConverter.cs" />
-    <Compile Include="Classes\Model\AutoPlayAction.cs" />
-    <Compile Include="Classes\Model\Language.cs" />
-    <Compile Include="Classes\Model\LocalStoragePlayback.cs" />
-    <Compile Include="Classes\Model\LyricsViewer\CurrentPlayingSongInfo.cs" />
-    <Compile Include="Classes\Model\Theme.cs" />
-    <Compile Include="Classes\PlayStatusTracker.cs" />
-    <Compile Include="Controls\ProxyConfiguration.xaml.cs">
-      <DependentUpon>ProxyConfiguration.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\DonatePage.xaml.cs">
-      <DependentUpon>DonatePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Flyouts\DeveloperMessageFlyout.xaml.cs">
-      <DependentUpon>DeveloperMessageFlyout.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Flyouts\IFlyout.cs" />
-    <Compile Include="Flyouts\SettingsFlyout.xaml.cs">
-      <DependentUpon>SettingsFlyout.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Flyouts\WhatsNewFlyout.xaml.cs">
-      <DependentUpon>WhatsNewFlyout.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Helpers\AnalyticsHelper.cs" />
     <Compile Include="Helpers\AssetManager.cs" />
+    <Compile Include="Helpers\AuthorizationHelper.cs" />
     <Compile Include="Helpers\ClipboardHelper.cs" />
     <Compile Include="Helpers\CropBitmap.cs" />
     <Compile Include="Helpers\DeveloperMessageHelper.cs" />
+    <Compile Include="Helpers\DeviceInfoHelper.cs" />
     <Compile Include="Helpers\ImageSaveHelper.cs" />
-    <Compile Include="Classes\LocalConfiguration.cs" />
     <Compile Include="Helpers\Integration\LyricsViewerIntegrationHelper.cs" />
     <Compile Include="Helpers\JumpListHelper.cs" />
+    <Compile Include="Helpers\KeyboardShortcutHelper.cs" />
     <Compile Include="Helpers\LanguageHelper.cs" />
     <Compile Include="Helpers\LiveTileHelper.cs" />
+    <Compile Include="Helpers\MediaControlsHelper.cs" />
     <Compile Include="Helpers\PackageHelper.cs" />
     <Compile Include="Helpers\PlaybackActionHelper.cs" />
     <Compile Include="Helpers\ProxyHelper.cs" />
     <Compile Include="Helpers\SongImageProvider.cs" />
-    <Compile Include="Helpers\AnalyticsHelper.cs" />
     <Compile Include="Helpers\SpotifyShareUriHelper.cs" />
+    <Compile Include="Helpers\StoryboardExtensions.cs" />
+    <Compile Include="Helpers\StuckResolveHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\TileHelper.cs" />
     <Compile Include="Helpers\ToastHelper.cs" />
     <Compile Include="Helpers\UnauthorizedHelper.cs" />
-    <TypeScriptCompile Include="Scripts\Common\action.ts" />
-    <TypeScriptCompile Include="Scripts\Common\browserHistory.ts" />
-    <TypeScriptCompile Include="Scripts\Common\color.ts" />
-    <TypeScriptCompile Include="Scripts\Common\dragDrop.ts" />
-    <TypeScriptCompile Include="Scripts\Common\mouseWheelListener.ts" />
-    <TypeScriptCompile Include="Scripts\Common\playbackStuckHelper.ts" />
-    <TypeScriptCompile Include="Scripts\Common\themedScrollbar.ts" />
-    <TypeScriptCompile Include="Scripts\Common\tracklistExtended.ts" />
-    <TypeScriptCompile Include="Scripts\Common\web-player-backup.ts" />
-    <TypeScriptCompile Include="Scripts\Lib\focus-visible.ts" />
-    <TypeScriptCompile Include="Scripts\Common\indeterminateProgressBarHandler.ts" />
-    <TypeScriptCompile Include="Scripts\Common\keyboardShortcutListener.ts" />
-    <TypeScriptCompile Include="Scripts\Common\pageTitleFinder.ts" />
-    <TypeScriptCompile Include="Scripts\Common\requestIntercepter.ts" />
-    <TypeScriptCompile Include="Scripts\Common\startupAnimation.ts" />
-    <TypeScriptCompile Include="Scripts\Common\statusReport.ts" />
-    <TypeScriptCompile Include="Scripts\Lib\vibrant.ts" />
-    <TypeScriptCompile Include="Scripts\Common\resize.ts" />
-    <TypeScriptCompile Include="Scripts\Common\uriHelper.ts" />
-    <TypeScriptCompile Include="Scripts\Common\uiElementModifier.ts" />
-    <Compile Include="Pages\HelpPage.xaml.cs">
-      <DependentUpon>HelpPage.xaml</DependentUpon>
+    <Compile Include="Helpers\WebResourceModificationHelper.cs" />
+    <Compile Include="Helpers\WhatsNewHelper.cs" />
+    <Compile Include="Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Secrets.cs" />
+    <Compile Include="SpotifyApi\Album.cs" />
+    <Compile Include="SpotifyApi\ApiBase.cs" />
+    <Compile Include="SpotifyApi\Artist.cs" />
+    <Compile Include="SpotifyApi\Authorization.cs" />
     <Compile Include="SpotifyApi\Library.cs" />
+    <Compile Include="SpotifyApi\Model\AlbumSimplified.cs" />
+    <Compile Include="SpotifyApi\Model\Artist.cs" />
+    <Compile Include="SpotifyApi\Model\ArtistSimplified.cs" />
+    <Compile Include="SpotifyApi\Model\CurrentlyPlayingContext.cs" />
+    <Compile Include="SpotifyApi\Model\Device.cs" />
+    <Compile Include="SpotifyApi\Model\Devices.cs" />
     <Compile Include="SpotifyApi\Model\FollowedArtistsResponse.cs" />
-    <Compile Include="SpotifyApi\Model\SavedAlbum.cs" />
+    <Compile Include="SpotifyApi\Model\Image.cs" />
     <Compile Include="SpotifyApi\Model\Paging.cs" />
+    <Compile Include="SpotifyApi\Model\Playlist.cs" />
+    <Compile Include="SpotifyApi\Model\SavedAlbum.cs" />
+    <Compile Include="SpotifyApi\Model\Track.cs" />
+    <Compile Include="SpotifyApi\Player.cs" />
+    <Compile Include="SpotifyApi\Playlist.cs" />
+    <Compile Include="SpotifyApi\TokenHelper.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\NowPlayingViewModel.cs" />
+    <Compile Include="ViewModels\ProxyConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TopBarViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="WebAgent\Model\ActionRequestedEventArgs.cs" />
+    <Compile Include="WebAgent\Model\InitFailedEventArgs.cs" />
+    <Compile Include="WebAgent\Model\LogMessageReceivedEventArgs.cs" />
+    <Compile Include="WebAgent\Model\NowPlayingData.cs" />
+    <Compile Include="WebAgent\Model\ProgressBarCommandEventArgs.cs" />
+    <Compile Include="WebAgent\Model\StatusReportReceivedEventArgs.cs" />
+    <Compile Include="WebAgent\Model\WebAgentMessage.cs" />
+    <Compile Include="WebAgent\Model\WebAppStatus.cs" />
+    <Compile Include="WebAgent\WebAgentBase.cs" />
+    <Compile Include="WebAgent\XpoWebAgent.cs" />
     <Compile Include="XpotifyApi\AppConstantsApi.cs" />
     <Compile Include="XpotifyApi\AssetUpdatesApi.cs" />
     <Compile Include="XpotifyApi\DeveloperMessageApi.cs" />
@@ -252,38 +186,15 @@
     <Compile Include="XpotifyApi\Model\AssetPackageInfo.cs" />
     <Compile Include="XpotifyApi\Model\DeveloperMessage.cs" />
     <Compile Include="XpotifyApi\Model\DeveloperMessageCollection.cs" />
-    <Content Include="Assets\Logo\contrast-black\Square44x44Logo.altform-unplated_targetsize-24.png" />
-    <Content Include="Assets\Logo\contrast-standard\Square44x44Logo.altform-unplated_targetsize-24.png" />
-    <Content Include="Assets\Logo\contrast-white\Square44x44Logo.altform-unplated_targetsize-24.png" />
-    <Content Include="Assets\TransparentSquare.png" />
-    <Content Include="Assets\xpotify-white.png" />
-    <Content Include="Assets\xpotify.png" />
-    <Compile Include="Classes\WebViewController.cs" />
-    <Compile Include="Secrets.cs" />
-    <Compile Include="Pages\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SpotifyApi\ApiBase.cs" />
-    <Compile Include="SpotifyApi\Album.cs" />
-    <Compile Include="SpotifyApi\Artist.cs" />
-    <Compile Include="SpotifyApi\Authorization.cs" />
-    <Compile Include="SpotifyApi\Model\AlbumSimplified.cs" />
-    <Compile Include="SpotifyApi\Model\Artist.cs" />
-    <Compile Include="SpotifyApi\Model\ArtistSimplified.cs" />
-    <Compile Include="SpotifyApi\Model\CurrentlyPlayingContext.cs" />
-    <Compile Include="SpotifyApi\Model\Device.cs" />
-    <Compile Include="SpotifyApi\Model\Devices.cs" />
-    <Compile Include="SpotifyApi\Model\Image.cs" />
-    <Compile Include="SpotifyApi\Model\Playlist.cs" />
-    <Compile Include="SpotifyApi\Model\Track.cs" />
-    <Compile Include="SpotifyApi\Player.cs" />
-    <Compile Include="SpotifyApi\Playlist.cs" />
-    <Compile Include="SpotifyApi\TokenHelper.cs" />
-    <Compile Include="ViewModels\NowPlayingViewModel.cs" />
-    <Compile Include="ViewModels\MainPageViewModel.cs" />
-    <Compile Include="ViewModels\ProxyConfigurationViewModel.cs" />
-    <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <None Include=".eslintrc" />
+    <None Include="compilerconfig.json" />
+    <None Include="InjectedAssets\init-dark.js.map" />
+    <None Include="InjectedAssets\init-light.js.map" />
     <Content Include="Assets\Logo\contrast-black\LargeTile.scale-100.png" />
     <Content Include="Assets\Logo\contrast-black\LargeTile.scale-125.png" />
     <Content Include="Assets\Logo\contrast-black\LargeTile.scale-150.png" />
@@ -300,6 +211,7 @@
     <Content Include="Assets\Logo\contrast-black\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Logo\contrast-black\Square150x150Logo.scale-400.png" />
     <Content Include="Assets\Logo\contrast-black\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\Logo\contrast-black\Square44x44Logo.altform-unplated_targetsize-24.png" />
     <Content Include="Assets\Logo\contrast-black\Square44x44Logo.altform-unplated_targetsize-256.png" />
     <Content Include="Assets\Logo\contrast-black\Square44x44Logo.altform-unplated_targetsize-32.png" />
     <Content Include="Assets\Logo\contrast-black\Square44x44Logo.altform-unplated_targetsize-48.png" />
@@ -339,6 +251,7 @@
     <Content Include="Assets\Logo\contrast-standard\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Logo\contrast-standard\Square150x150Logo.scale-400.png" />
     <Content Include="Assets\Logo\contrast-standard\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\Logo\contrast-standard\Square44x44Logo.altform-unplated_targetsize-24.png" />
     <Content Include="Assets\Logo\contrast-standard\Square44x44Logo.altform-unplated_targetsize-256.png" />
     <Content Include="Assets\Logo\contrast-standard\Square44x44Logo.altform-unplated_targetsize-32.png" />
     <Content Include="Assets\Logo\contrast-standard\Square44x44Logo.altform-unplated_targetsize-48.png" />
@@ -378,6 +291,7 @@
     <Content Include="Assets\Logo\contrast-white\Square150x150Logo.scale-200.png" />
     <Content Include="Assets\Logo\contrast-white\Square150x150Logo.scale-400.png" />
     <Content Include="Assets\Logo\contrast-white\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\Logo\contrast-white\Square44x44Logo.altform-unplated_targetsize-24.png" />
     <Content Include="Assets\Logo\contrast-white\Square44x44Logo.altform-unplated_targetsize-256.png" />
     <Content Include="Assets\Logo\contrast-white\Square44x44Logo.altform-unplated_targetsize-32.png" />
     <Content Include="Assets\Logo\contrast-white\Square44x44Logo.altform-unplated_targetsize-48.png" />
@@ -406,50 +320,30 @@
     <Content Include="Assets\Logo\SplashScreen.scale-150.png" />
     <Content Include="Assets\Logo\SplashScreen.scale-200.png" />
     <Content Include="Assets\Logo\SplashScreen.scale-400.png" />
-    <Content Include="InjectedAssets\clearPlaybackLocalStorage.js" />
-    <Content Include="InjectedAssets\clickOnFacebookLogin.js" />
-    <Compile Include="Helpers\WhatsNewHelper.cs" />
-    <Compile Include="Pages\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\NowPlayingView.xaml.cs">
-      <DependentUpon>NowPlayingView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Content Include="InjectedAssets\init-dark.js" />
-    <Content Include="InjectedAssets\init-light.js" />
-    <TypeScriptCompile Include="Scripts\LightTheme\pageOverlay.ts" />
-    <TypeScriptCompile Include="Scripts\SpotifyApi\apiBase.ts" />
-    <TypeScriptCompile Include="Scripts\SpotifyApi\player.ts" />
-    <TypeScriptCompile Include="Scripts\SpotifyApi\library.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest" Condition="'$(Configuration)'=='Release'">
-      <SubType>Designer</SubType>
-    </AppxManifest>
-    <AppxManifest Include="Package.debug.appxmanifest" Condition="'$(Configuration)'=='Debug'">
-      <SubType>Designer</SubType>
-    </AppxManifest>
-    <None Include="compilerconfig.json" />
-    <None Include="compilerconfig.json.defaults">
-      <DependentUpon>compilerconfig.json</DependentUpon>
-    </None>
-    <None Include="InjectedAssets\style-dark.css" />
-    <Content Include="InjectedAssets\style-dark.min.css" />
-    <None Include="InjectedAssets\style-light.css" />
-    <Content Include="InjectedAssets\style-light.min.css" />
+    <Content Include="Assets\Media\silent.wav" />
+    <Content Include="Assets\ReauthorizeForV2.html" />
+    <Content Include="Assets\TileTemplates\LiveTileAlbumAndArtistArt.xml" />
+    <Content Include="Assets\TileTemplates\LiveTileAlbumArtOnly.xml" />
+    <Content Include="Assets\TileTemplates\LiveTileArtistArtOnly.xml" />
+    <Content Include="Assets\TransparentSquare.png" />
+    <Content Include="Assets\xpotify-white.png" />
+    <Content Include="Assets\xpotify.png" />
     <Content Include="Scripts\DarkTheme\tsconfig.json" />
     <Content Include="Scripts\LightTheme\tsconfig.json" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Stylesheets\Common\adsContainer.scss" />
     <None Include="Stylesheets\Common\Animation\artistPage.scss" />
-    <None Include="Stylesheets\Common\Animation\navBarStartup.scss" />
+    <None Include="Stylesheets\Common\Animation\navbarStartup.scss" />
+    <None Include="Stylesheets\Common\Animation\nowPlayingStartup.scss" />
     <None Include="Stylesheets\Common\Animation\pageEntrance.scss" />
     <None Include="Stylesheets\Common\Animation\pivotEntrance.scss" />
-    <None Include="Stylesheets\Common\Animation\nowPlayingStartup.scss" />
     <None Include="Stylesheets\Common\Animation\searchPage.scss" />
     <None Include="Stylesheets\Common\Animation\tracklistEntrance.scss" />
     <None Include="Stylesheets\Common\artistPage.scss" />
     <None Include="Stylesheets\Common\backButton.scss" />
+    <None Include="Stylesheets\Common\common.scss" />
     <None Include="Stylesheets\Common\contextMenu.scss" />
     <None Include="Stylesheets\Common\fontStyle.scss" />
     <None Include="Stylesheets\Common\general.scss" />
@@ -466,7 +360,6 @@
     <None Include="Stylesheets\LightTheme\contextMenu.scss" />
     <None Include="Stylesheets\LightTheme\general.scss" />
     <None Include="Stylesheets\LightTheme\light.scss" />
-    <None Include="Stylesheets\Common\common.scss" />
     <None Include="Stylesheets\LightTheme\navBar.scss" />
     <None Include="Stylesheets\LightTheme\nowPlayingBar.scss" />
     <None Include="Stylesheets\LightTheme\pivotTabStyle.scss" />
@@ -475,23 +368,30 @@
     <None Include="Stylesheets\LightTheme\searchPage.scss" />
     <None Include="Stylesheets\LightTheme\trackList.scss" />
     <None Include="Stylesheets\LightTheme\windowTitle.scss" />
-    <None Include="Xpotify_StoreKey.pfx" />
+    <None Include="XpoMusic_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Media\silent.wav" />
+    <Content Include="InjectedAssets\clearPlaybackLocalStorage.js" />
+    <Content Include="InjectedAssets\clickOnFacebookLogin.js" />
+    <Content Include="InjectedAssets\gridTest.html" />
+    <Content Include="InjectedAssets\init-dark.js" />
+    <Content Include="InjectedAssets\init-light.js" />
     <Content Include="InjectedAssets\isLoggedInCheck.js" />
-    <Content Include="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="Package.StoreAssociation.xml" />
+    <Content Include="InjectedAssets\style-dark.css" />
+    <Content Include="InjectedAssets\style-dark.min.css" />
+    <Content Include="InjectedAssets\style-light.css" />
+    <Content Include="InjectedAssets\style-light.min.css" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Controls\FlyoutContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NowPlayingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -507,70 +407,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\AboutPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Controls\ProxyConfiguration.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\DonatePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Flyouts\DeveloperMessageFlyout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Flyouts\SettingsFlyout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Flyouts\WhatsNewFlyout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\HelpPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Pages\MainPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Controls\NowPlayingView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\SettingsPage.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\CircleButtonStyle.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\MinimalButtonStyle.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\TopBarDarkButtonStyle.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\TopBarLightButtonStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BuildWebCompiler">
-      <Version>1.12.394</Version>
+      <Version>1.12.405</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.AppCenter.Analytics">
       <Version>3.2.1</Version>
@@ -581,62 +440,67 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.10</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.TypeScript.MSBuild">
-      <Version>3.5.2</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.1.190405004.1</Version>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.2</Version>
-    </PackageReference>
-    <PackageReference Include="UWP.SDKforGoogleAnalytics.Managed">
-      <Version>1.5.2</Version>
-    </PackageReference>
-    <SDKReference Include="Microsoft.Services.Store.Engagement, Version=10.0">
-      <Name>Microsoft Engagement Framework</Name>
-    </SDKReference>
-    <PackageReference Include="Microsoft.Services.Store.Engagement">
-      <Version>10.1901.28001</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Services.Store.SDK">
-      <Version>10.1705.16001</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp">
-      <Version>5.1.1</Version>
+      <Version>6.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Animations">
-      <Version>5.1.1</Version>
+      <Version>6.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>5.1.1</Version>
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Media">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.WinUI">
+      <Version>3.0.0-preview1.200515.3</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.3</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.6.2</Version>
-    </PackageReference>
-    <PackageReference Include="NLog.Schema">
-      <Version>4.6.2</Version>
+      <Version>4.7.2</Version>
     </PackageReference>
     <PackageReference Include="sameerIOTApps.Plugin.SecureStorage">
       <Version>2.5.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Scripts\Common\action.ts" />
+    <TypeScriptCompile Include="Scripts\Common\browserHistory.ts" />
+    <TypeScriptCompile Include="Scripts\Common\color.ts" />
+    <TypeScriptCompile Include="Scripts\Common\dragDrop.ts" />
+    <TypeScriptCompile Include="Scripts\Common\indeterminateProgressBarHandler.ts" />
     <TypeScriptCompile Include="Scripts\Common\initScript-common.ts" />
+    <TypeScriptCompile Include="Scripts\Common\keyboardShortcutListener.ts" />
+    <TypeScriptCompile Include="Scripts\Common\mouseWheelListener.ts" />
+    <TypeScriptCompile Include="Scripts\Common\pageTitleFinder.ts" />
+    <TypeScriptCompile Include="Scripts\Common\playbackStuckHelper.ts" />
+    <TypeScriptCompile Include="Scripts\Common\requestIntercepter.ts" />
+    <TypeScriptCompile Include="Scripts\Common\resize.ts" />
+    <TypeScriptCompile Include="Scripts\Common\startupAnimation.ts" />
+    <TypeScriptCompile Include="Scripts\Common\statusReport.ts" />
+    <TypeScriptCompile Include="Scripts\Common\themedScrollbar.ts" />
+    <TypeScriptCompile Include="Scripts\Common\tracklistExtended.ts" />
+    <TypeScriptCompile Include="Scripts\Common\uiElementModifier.ts" />
     <TypeScriptCompile Include="Scripts\Common\uiInjector.ts" />
+    <TypeScriptCompile Include="Scripts\Common\uriHelper.ts" />
+    <TypeScriptCompile Include="Scripts\Common\web-player-backup.ts" />
+    <TypeScriptCompile Include="Scripts\Common\windowEx.ts" />
     <TypeScriptCompile Include="Scripts\DarkTheme\initScript-dark.ts" />
+    <TypeScriptCompile Include="Scripts\Lib\focus-visible.ts" />
+    <TypeScriptCompile Include="Scripts\Lib\vibrant.ts" />
     <TypeScriptCompile Include="Scripts\LightTheme\initScript-light.ts" />
+    <TypeScriptCompile Include="Scripts\LightTheme\pageOverlay.ts" />
+    <TypeScriptCompile Include="Scripts\SpotifyApi\apiBase.ts" />
+    <TypeScriptCompile Include="Scripts\SpotifyApi\library.ts" />
+    <TypeScriptCompile Include="Scripts\SpotifyApi\player.ts" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XpoMusicWebAgent\XpoMusicWebAgent.csproj">
-      <Project>{15faca69-c86a-4447-97dc-b6cb59056075}</Project>
-      <Name>XpoMusicWebAgent</Name>
-    </ProjectReference>
+    <Folder Include="Stylesheets\Common\Libraries\" />
   </ItemGroup>
-  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
-    <VisualStudioVersion>14.0</VisualStudioVersion>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '$(MinimumVisualStudioVersion)' ">
+    <VisualStudioVersion>$(MinimumVisualStudioVersion)</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

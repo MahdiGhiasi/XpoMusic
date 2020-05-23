@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.UI.Xaml.Controls;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,18 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
-using XpoMusicWebAgent.Model;
+using XpoMusic.WebAgent.Model;
 
-namespace XpoMusicWebAgent
+namespace XpoMusic.WebAgent
 {
-    [AllowForWeb]
-    public sealed class WebAgent
+    public sealed class XpoWebAgent : WebAgentBase
     {
-        // NOTE:
-        // It seems that WebView automatically changes PascalCase method names to 
-        // camelCase on the Javascript side.
-
-        public event EventHandler<ProgressBarCommandEventArgs> ProgressBarCommandReceived;
         public event EventHandler<StatusReportReceivedEventArgs> StatusReportReceived;
         public event EventHandler<ActionRequestedEventArgs> ActionRequested;
         public event EventHandler<InitFailedEventArgs> InitializationFailed;
@@ -29,30 +24,34 @@ namespace XpoMusicWebAgent
         public bool WebPlayerBackupEnabled { get; set; }
         public string OSVersion { get; set; }
 
+        public XpoWebAgent(WebView2 webView, string objectAccessibleName) : base(webView, objectAccessibleName)
+        {
+        }
+
         public void ShowProgressBar(double left, double top, double width)
         {
-            ProgressBarCommandReceived?.Invoke(this, new ProgressBarCommandEventArgs
-            {
-                Command = ProgressBarCommand.Show,
-                Left = left,
-                Top = top,
-                Width = width,
-            });
+            //ProgressBarCommandReceived?.Invoke(this, new ProgressBarCommandEventArgs
+            //{
+            //    Command = ProgressBarCommand.Show,
+            //    Left = left,
+            //    Top = top,
+            //    Width = width,
+            //});
         }
 
         public void HideProgressBar()
         {
-            ProgressBarCommandReceived?.Invoke(this, new ProgressBarCommandEventArgs
-            {
-                Command = ProgressBarCommand.Hide,
-            });
+            //ProgressBarCommandReceived?.Invoke(this, new ProgressBarCommandEventArgs
+            //{
+            //    Command = ProgressBarCommand.Hide,
+            //});
         }
 
-        public void StatusReport(string data)
+        public void StatusReport(WebAppStatus data)
         {
             StatusReportReceived?.Invoke(this, new StatusReportReceivedEventArgs
             {
-                Status = JsonConvert.DeserializeObject<WebAppStatus>(data),
+                Status = data,
             });
         }
 
@@ -120,12 +119,7 @@ namespace XpoMusicWebAgent
             });
         }
 
-        public IAsyncOperation<string> GetNewAccessTokenAsync()
-        {
-            return GetNewAccessToken().AsAsyncOperation();
-        }
-
-        private Task<string> GetNewAccessToken()
+        public Task<string> GetNewAccessTokenAsync()
         {
             newAccessTokenTcs = new TaskCompletionSource<string>();
             NewAccessTokenRequested?.Invoke(this, new EventArgs());
@@ -161,6 +155,17 @@ namespace XpoMusicWebAgent
                 Log("Exception in WebAgent.GetOSBuildVersion(): " + ex.ToString());
                 return 0;
             }
+        }
+
+        public Task DelayTest()
+        {
+            return Task.Delay(10000);
+        }
+
+        public async Task<int> AsyncTaskTest()
+        {
+            await Task.Delay(500);
+            return 256;
         }
     }
 }

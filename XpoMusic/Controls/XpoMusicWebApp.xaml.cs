@@ -1,20 +1,25 @@
-﻿using Microsoft.Toolkit.Uwp.Helpers;
-using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Navigation;
+using Windows.Foundation.Collections;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
+using System.Threading.Tasks;
 using XpoMusic.Classes;
-using XpoMusic.Classes.Model;
 using XpoMusic.Helpers;
+using XpoMusic.Classes.Model;
+using XpoMusic.WebAgent.Model;
 using XpoMusic.SpotifyApi;
-using XpoMusicWebAgent;
-using XpoMusicWebAgent.Model;
+
+// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace XpoMusic.Controls
 {
@@ -29,23 +34,21 @@ namespace XpoMusic.Controls
             OpenDonateFlyout,
             GoToCompactOverlay,
             GoToNowPlaying,
-            ShowSplashScreen,
         }
 
-        public event EventHandler<EventArgs> PageLoaded;
+        public event EventHandler<EventArgs> PageLoadBegin;
+        public event EventHandler<EventArgs> PageLoadFinished;
         public event EventHandler<EventArgs> WebAppLoaded;
         public event EventHandler<XpoMusicWebAppActionRequest> ActionRequested;
 
-        public AutoPlayAction AutoPlayAction { get; set; } = AutoPlayAction.None;
-        public WebViewController Controller { get; }
         public bool BackEnabled { get; private set; } = false;
-        public bool IsWebAppLoaded { get; private set; } = false;
+        public WebViewController Controller { get; }
+
 
         #region Custom Properties
         public static readonly DependencyProperty IsOpenProperty = DependencyProperty.Register(
             "IsOpen", typeof(bool), typeof(XpoMusicWebApp), new PropertyMetadata(defaultValue: false,
                 propertyChangedCallback: new PropertyChangedCallback(OnIsOpenPropertyChanged)));
-        private readonly string initialLoadPageUrl = "https://open.spotify.com/static/offline.html?";
 
         public bool IsOpen
         {
@@ -55,8 +58,20 @@ namespace XpoMusic.Controls
                 if (IsOpen != value)
                     SetValue(IsOpenProperty, value);
 
-                this.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
-                mainWebView.Visibility = this.Visibility;
+                // Currently WebView2 Visibility does not work, so we set its width to 0 instead when we want to hide it.
+
+                //this.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
+                //mainWebView.Visibility = this.Visibility;
+                if (value)
+                {
+                    mainWebView.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    mainWebView.Width = double.NaN;
+                }
+                else
+                {
+                    mainWebView.HorizontalAlignment = HorizontalAlignment.Left;
+                    mainWebView.Width = 0;
+                }
 
                 // TODO: Hide html content from DOM when possible via javascript to reduce CPU usage
             }
@@ -68,90 +83,72 @@ namespace XpoMusic.Controls
         }
         #endregion
 
-        private Uri loadFailedUrl;
-        private string webViewPreviousUri = "";
-        private LocalStoragePlayback initialPlaybackState;
-        private XpoMusicWebAgent.WebAgent xpoWebAgent;
 
         public XpoMusicWebApp()
         {
             this.InitializeComponent();
+            //mainWebView.Visibility = Visibility.Collapsed;
 
             Controller = new WebViewController(this.mainWebView);
+            Controller.WebAgent.StatusReportReceived += WebAgent_StatusReportReceived;
+            Controller.WebAgent.ActionRequested += WebAgent_ActionRequested;
+            Controller.WebAgent.InitializationFailed += WebAgent_InitializationFailed;
+            Controller.WebAgent.NewAccessTokenRequested += WebAgent_NewAccessTokenRequested;
+            Controller.WebAgent.LogMessageReceived += WebAgent_LogMessageReceived;
             PlaybackActionHelper.SetController(Controller);
 
-            loadFailedAppVersionText.Text = PackageHelper.GetAppVersionString();
-
-            AppConstants.Instance.ConstantsUpdated += App_ConstantsUpdated;
-
-            xpoWebAgent = new XpoMusicWebAgent.WebAgent()
-            {
-                WebPlayerBackupEnabled = AppConstants.Instance.WebPlayerBackupEnabled,
-                OSVersion = SystemInformation.OperatingSystemVersion.ToString(),
-            };
-            xpoWebAgent.ProgressBarCommandReceived += XpotifyWebAgent_ProgressBarCommandReceived;
-            xpoWebAgent.StatusReportReceived += XpotifyWebAgent_StatusReportReceived;
-            xpoWebAgent.ActionRequested += XpotifyWebAgent_ActionRequested;
-            xpoWebAgent.InitializationFailed += XpotifyWebAgent_InitializationFailed;
-            xpoWebAgent.NewAccessTokenRequested += XpotifyWebAgent_NewAccessTokenRequested;
-            xpoWebAgent.LogMessageReceived += XpotifyWebAgent_LogMessageReceived;
-
-            VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
-
-            SetInvertColorFilterVisibility();
+            OpenWebApp(WebViewController.SpotifyPwaUrlHome);
         }
 
-        private void App_ConstantsUpdated(object sender, EventArgs e)
-        {
-            SetInvertColorFilterVisibility();
-        }
 
-        private void SetInvertColorFilterVisibility()
-        {
-            invertColorFilter.Visibility = (IsWebAppLoaded && ThemeHelper.GetCurrentTheme() == Theme.Light && AppConstants.Instance.XamlInvertFilterForLightThemeEnabled) ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        private void XpotifyWebAgent_LogMessageReceived(object sender, LogMessageReceivedEventArgs e)
+        private void WebAgent_LogMessageReceived(object sender, LogMessageReceivedEventArgs e)
         {
             logger.Info($"js::{e.Message}");
         }
 
-        private async void XpotifyWebAgent_NewAccessTokenRequested(object sender, object e)
+        private async void WebAgent_NewAccessTokenRequested(object sender, object e)
         {
-            await TokenHelper.GetAndSaveNewTokenAsync();
-            xpoWebAgent.SetNewAccessToken(TokenHelper.GetTokens().AccessToken);
+            try
+            {
+                await TokenHelper.GetAndSaveNewTokenAsync();
+                Controller.WebAgent.SetNewAccessToken(TokenHelper.GetTokens().AccessToken);
+            }
+            catch (Exception ex)
+            {
+                logger.Error($"Exception in WebAgent_NewAccessTokenRequested: {ex}");
+            }
         }
 
-        private void XpotifyWebAgent_InitializationFailed(object sender, InitFailedEventArgs e)
+        private void WebAgent_InitializationFailed(object sender, InitFailedEventArgs e)
         {
             Controller.LastInitErrors = e.Errors;
             logger.Warn("WebAgent: InitFailed :: " + e.Errors);
             AnalyticsHelper.Log("webAgentInitFailed", e.Errors);
         }
 
-        private async void XpotifyWebAgent_ActionRequested(object sender, XpoMusicWebAgent.Model.ActionRequestedEventArgs e)
+        private async void WebAgent_ActionRequested(object sender, WebAgent.Model.ActionRequestedEventArgs e)
         {
             switch (e.Action)
             {
-                case XpoMusicWebAgent.Model.Action.PinToStart:
-                    await PinPageToStart();
+                case WebAgent.Model.Action.PinToStart:
+                    // await PinPageToStart();
                     break;
-                case XpoMusicWebAgent.Model.Action.OpenSettings:
+                case WebAgent.Model.Action.OpenSettings:
                     ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.OpenSettingsFlyout);
                     break;
-                case XpoMusicWebAgent.Model.Action.OpenDonate:
+                case WebAgent.Model.Action.OpenDonate:
                     ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.OpenDonateFlyout);
                     break;
-                case XpoMusicWebAgent.Model.Action.OpenAbout:
+                case WebAgent.Model.Action.OpenAbout:
                     ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.OpenAboutFlyout);
                     break;
-                case XpoMusicWebAgent.Model.Action.OpenMiniView:
+                case WebAgent.Model.Action.OpenMiniView:
                     ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.GoToCompactOverlay);
                     break;
-                case XpoMusicWebAgent.Model.Action.OpenNowPlaying:
+                case WebAgent.Model.Action.OpenNowPlaying:
                     ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.GoToNowPlaying);
                     break;
-                case XpoMusicWebAgent.Model.Action.NavigateToClipboardUri:
+                case WebAgent.Model.Action.NavigateToClipboardUri:
                     if (await ClipboardHelper.IsSpotifyUriPresent())
                     {
                         var uri = await ClipboardHelper.GetSpotifyUri();
@@ -164,7 +161,7 @@ namespace XpoMusic.Controls
             }
         }
 
-        private void XpotifyWebAgent_StatusReportReceived(object sender, StatusReportReceivedEventArgs e)
+        private void WebAgent_StatusReportReceived(object sender, StatusReportReceivedEventArgs e)
         {
             logger.Trace("StatusReport Received.");
 
@@ -173,46 +170,25 @@ namespace XpoMusic.Controls
             StuckResolveHelper.StatusReportReceived(e.Status.NowPlaying, Controller);
         }
 
-        private void XpotifyWebAgent_ProgressBarCommandReceived(object sender, ProgressBarCommandEventArgs e)
-        {
-            if (e.Command == ProgressBarCommand.Show)
-            {
-                playbackBarProgressBar.Margin = new Thickness(e.Left * mainWebView.ActualWidth, e.Top * mainWebView.ActualHeight, 0, 0);
-                playbackBarProgressBar.Width = e.Width * mainWebView.ActualWidth;
-                playbackBarProgressBar.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                playbackBarProgressBar.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        public void OpenWebApp()
-        {
-            var destinationUrl = "https://open.spotify.com";
-            var navigateUrl = initialLoadPageUrl + "redirectUrl=" + System.Net.WebUtility.UrlEncode(destinationUrl);
-
-            OpenWebApp(navigateUrl);
-        }
-
         public void OpenWebApp(string targetUrl)
         {
             if (TokenHelper.HasTokens())
             {
                 if (LocalConfiguration.ApiTokenVersion < 2)
                 {
-                    var authorizeUrl = Authorization.GetAuthorizationUrl(targetUrl);
-                    Controller.Navigate(new Uri($"ms-appx-web:///Assets/ReauthorizeForV2.html?theme={(ThemeHelper.GetCurrentTheme() == Theme.Light ? "light" : "dark")}&" +
-                        $"redirectUri={System.Net.WebUtility.UrlEncode(authorizeUrl)}"));
+                    AuthorizationHelper.Authorize(Controller, clearExisting: false);
                 }
                 else
                 {
                     if (LocalConfiguration.IsLoggedInByFacebook)
                     {
+                        Controller.Navigate(new Uri(targetUrl));
+                        // TODO
+
                         // We need to open the login page and click on facebook button
-                        logger.Info("Logging in via Facebook...");
-                        var loginUrl = "https://accounts.spotify.com/login?continue=" + System.Net.WebUtility.UrlEncode(targetUrl);
-                        Controller.Navigate(new Uri(loginUrl));
+                        //logger.Info("Logging in via Facebook...");
+                        //var loginUrl = "https://accounts.spotify.com/login?continue=" + System.Net.WebUtility.UrlEncode(targetUrl);
+                        //Controller.Navigate(new Uri(loginUrl));
                     }
                     else
                     {
@@ -222,255 +198,58 @@ namespace XpoMusic.Controls
             }
             else
             {
-                Authorize(targetUrl, clearExisting: false);
+                AuthorizationHelper.Authorize(Controller, clearExisting: false);
             }
         }
 
-        private async void MainWebView_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
+        private async void mainWebView_NavigationCompleted(WebView2 sender, WebView2NavigationCompletedEventArgs e)
         {
-            if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
-            {
-                FinalizeAuthorization(e.Uri.ToString());
-                return;
-            }
+            logger.Info($"XpoMusicWebApp.MainWebView: NavigationCompleted: IsSuccess={e.IsSuccess}, WebErrorStatus={e.WebErrorStatus}, Url={sender.Source}");
 
-
-            if (e.Uri.ToString().StartsWith(initialLoadPageUrl + "redirectUrl="))
-            {
-                await InitialLoadPageCompleted(e.Uri.ToString());
-                return;
-            }
-
-
-            VisualStateManager.GoToState(this, nameof(LoadFailedVisualState), false);
-            PageLoaded?.Invoke(this, new EventArgs());
-            loadFailedUrlText.Text = e.Uri.ToString();
-            loadFailedUrl = e.Uri;
-            errorMessageText.Text = e.WebErrorStatus.ToString();
-        }
-
-        private async void MainWebView_LoadCompleted(object sender, NavigationEventArgs e)
-        {
-            VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
-
-            if (e.Uri.ToString().StartsWith(Authorization.SpotifyLoginUri) && LocalConfiguration.IsLoggedInByFacebook)
-            {
-                if (await Controller.TryPushingFacebookLoginButton())
-                {
-                    logger.Info("Pushed the facebook login button.");
-                    return;
-                }
-            }
-
-            if (e.Uri.ToString().StartsWith(initialLoadPageUrl + "redirectUrl="))
-            {
-                await InitialLoadPageCompleted(e.Uri.ToString());
-                return;
-            }
-
-            if (e.Uri.ToString().ToLower().Contains(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
+            if (sender.Source.ToString().ToLower().Contains(WebViewController.SpotifyPwaUrlHome.ToLower()))
             {
                 var justInjected = await Controller.InjectInitScript(ThemeHelper.GetCurrentTheme() == Theme.Light);
-                if (justInjected)
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
                 {
-                    SetInitialPlaybackState();
-                    PlayStatusTracker.StartRegularRefresh();
-                    SetFocusToWebView();
-                    windowTitle.Text = PackageHelper.GetAppNameString();
-                }
+                    if (justInjected)
+                    {
+                        WebAppLoaded?.Invoke(this, null);
+                        // SetInitialPlaybackState();
+                        PlayStatusTracker.StartRegularRefresh();
+                        // SetFocusToWebView();
+                        // windowTitle.Text = PackageHelper.GetAppNameString();
+                    }
 
-                if (AutoPlayAction != AutoPlayAction.None)
+                    //if (AutoPlayAction != AutoPlayAction.None)
+                    //{
+                    //    AutoPlayOnStartup(AutoPlayAction);
+                    //    AutoPlayAction = AutoPlayAction.None;
+                    //}
+                });
+
+                if (!await Controller.CheckLoggedIn())
                 {
-                    AutoPlayOnStartup(AutoPlayAction);
-                    AutoPlayAction = AutoPlayAction.None;
+                    AuthorizationHelper.Authorize(Controller, clearExisting: true);
+                    AnalyticsHelper.Log("mainEvent", "notLoggedIn");
                 }
             }
             else
             {
-                windowTitle.Text = "";
+                PageLoadFinished?.Invoke(this, null);
             }
+        }
 
+        private void mainWebView_NavigationStarting(WebView2 sender, WebView2NavigationStartingEventArgs e)
+        {
+            logger.Info($"XpoMusicWebApp.MainWebView: NavigationStarting to {e.Uri}");
+
+            PageLoadBegin?.Invoke(this, null);
+            
             if (e.Uri.ToString().StartsWith(Authorization.RedirectUri))
             {
-                IsWebAppLoaded = false;
-                SetInvertColorFilterVisibility();
-                FinalizeAuthorization(e.Uri.ToString());
-            }
-            else if (e.Uri.ToString().ToLower().Contains(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
-            {
-                IsWebAppLoaded = true;
-                SetInvertColorFilterVisibility();
-                WebAppLoaded?.Invoke(this, new EventArgs());
-            }
-            else
-            {
-                IsWebAppLoaded = false;
-                SetInvertColorFilterVisibility();
-                PageLoaded?.Invoke(this, new EventArgs());
-            }
-
-            if (!await Controller.CheckLoggedIn())
-            {
-                Authorize("https://accounts.spotify.com/login?continue=https%3A%2F%2Fopen.spotify.com%2F", clearExisting: true);
-                AnalyticsHelper.Log("mainEvent", "notLoggedIn");
-            }
-        }
-
-        private async Task InitialLoadPageCompleted(string url)
-        {
-            logger.Info("Clearing local storage and redirecting...");
-            var result = await Controller.ClearPlaybackLocalStorage();
-
-            try
-            {
-                if (result.Length > 0)
-                {
-                    initialPlaybackState = JsonConvert.DeserializeObject<LocalStoragePlayback>(result);
-                    logger.Info("initial playback volume = " + initialPlaybackState.volume);
-                }
-                else
-                {
-                    logger.Info("localStorage.playback was undefined.");
-                }
-            }
-            catch
-            {
-                logger.Warn("Decoding localStorage.playback failed.");
-                logger.Info("localStorage.playback content was: " + result);
-            }
-
-            var urlDecoder = new WwwFormUrlDecoder(url.Substring(url.IndexOf('?') + 1));
-            Controller.Navigate(new Uri(urlDecoder.GetFirstValueByName("redirectUrl")));
-        }
-
-        public async void SetFocusToWebView()
-        {
-            await FocusManager.TryFocusAsync(mainWebView, FocusState.Programmatic);
-        }
-
-        private async void AutoPlayOnStartup(AutoPlayAction autoPlayAction)
-        {
-            await Task.Delay(TimeSpan.FromSeconds(1));
-            logger.Info("AutoPlay " + autoPlayAction);
-            await Controller.AutoPlay(autoPlayAction);
-        }
-
-        private async void MainWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs e)
-        {
-            logger.Info("Page: " + e.Uri.ToString());
-
-            if (e.Uri.ToString().EndsWith("#xpotifyInitialPage"))
-            {
-            }
-            else if (e.Uri.ToString().ToLower().Contains(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
-            {
-                mainWebView.AddWebAllowedObject("XpoMusic", xpoWebAgent);
-            }
-            else
-            {
-                if (!webViewPreviousUri.ToLower().StartsWith(WebViewController.SpotifyPwaUrlBeginsWith.ToLower())
-                    || !e.Uri.ToString().ToLower().StartsWith(WebViewController.SpotifyPwaUrlBeginsWith.ToLower()))
-                {
-                    // Open splash screen, unless both new and old uris are in open.spotify.com itself.
-                    ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.ShowSplashScreen);
-                }
-            }
-
-            if (e.Uri.ToString().StartsWith(Authorization.FacebookLoginFinishRedirectUri))
-            {
-                logger.Info("Logged in by Facebook.");
-                LocalConfiguration.IsLoggedInByFacebook = true;
-            }
-
-            webViewPreviousUri = e.Uri.ToString();
-        }
-
-        private async Task PinPageToStart()
-        {
-            VisualStateManager.GoToState(this, nameof(WaitingVisualState), false);
-
-            var pageUrl = await Controller.GetPageUrl();
-            var pageTitle = await Controller.GetPageTitle();
-
-            if (await TileHelper.PinPageToStart(pageUrl, pageTitle))
-                AnalyticsHelper.Log("mainEvent", "pinToStart");
-
-            VisualStateManager.GoToState(this, nameof(DefaultVisualState), false);
-        }
-
-        private void RetryConnectButton_Click(object sender, RoutedEventArgs e)
-        {
-            ActionRequested?.Invoke(this, XpoMusicWebAppActionRequest.ShowSplashScreen);
-            Controller.Navigate(loadFailedUrl);
-        }
-
-        private async void FinalizeAuthorization(string url)
-        {
-            try
-            {
-                var urlDecoder = new WwwFormUrlDecoder(url.Substring(url.IndexOf('?') + 1));
-                await Authorization.RetrieveAndSaveTokensFromAuthCode(urlDecoder.GetFirstValueByName("code"));
-                Controller.Navigate(new Uri(urlDecoder.GetFirstValueByName("state")));
-            }
-            catch (Exception ex)
-            {
-                logger.Info("Authorization failed. " + ex.ToString());
-
-                Authorize("https://open.spotify.com/", clearExisting: false);
-            }
-        }
-
-        public void Authorize(string targetUrl, bool clearExisting)
-        {
-            if (clearExisting)
-            {
-                Controller.ClearCookies();
-                TokenHelper.ClearTokens();
-                LocalConfiguration.IsLoggedInByFacebook = false;
-            }
-
-            var authorizationUrl = Authorization.GetAuthorizationUrl(targetUrl);
-            Controller.Navigate(new Uri(authorizationUrl));
-        }
-
-        private void LoadFailedProxySettingsLink_Click(object sender, RoutedEventArgs e)
-        {
-            loadFailedProxySettingsLink.Visibility = Visibility.Collapsed;
-            loadFailedProxySettings.Visibility = Visibility.Visible;
-        }
-
-        private async void SetInitialPlaybackState()
-        {
-            // Restore initial playback state
-            // (We removed the localStorage entry, because of PWA's bug with Edge. See clearPlaybackLocalStorage.js for more info)
-
-            if (initialPlaybackState == null)
+                AuthorizationHelper.FinalizeAuthorization(Controller, e.Uri.ToString());
                 return;
-
-            try
-            {
-                await Task.Delay(1000);
-
-                logger.Info($"Setting [initial] volume to {initialPlaybackState.volume}");
-                await Controller.SeekVolume(initialPlaybackState.volume);
             }
-            catch (Exception ex)
-            {
-                logger.Warn("SetInitialPlaybackState failed: " + ex.ToString());
-            }
-        }
-
-        private void MainWebView_WebResourceRequested(WebView sender, WebViewWebResourceRequestedEventArgs args)
-        {
-            // Getting deferral does not work as args.Response can't be set will cause an exception (The application 
-            // called an interface that was marshalled for a different thread) if we set it after an await. So we need
-            // to block the current thread.
-
-            logger.Debug("WebResourceRequested: " + args.Request.RequestUri.ToString());
-
-            var response = WebResourceModificationHelper.WebResourceRequested(args.Request).GetAwaiter().GetResult();
-            if (response != null)
-                args.Response = response;
         }
     }
 }

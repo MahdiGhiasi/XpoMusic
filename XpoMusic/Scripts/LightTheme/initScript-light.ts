@@ -12,8 +12,7 @@ namespace XpoMusicScript {
 
     if (errors.length > 0) {
         try {
-            // @ts-ignore
-            XpoMusic.initFailed(errors);
+            window.XpoMusic.InitFailed(errors);
         }
         catch (ex) { }
 

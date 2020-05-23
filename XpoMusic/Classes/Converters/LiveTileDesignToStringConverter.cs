@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Data;
 using static XpoMusic.Helpers.LiveTileHelper;
 
 namespace XpoMusic.Classes.Converters

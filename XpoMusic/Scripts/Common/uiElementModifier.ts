@@ -5,8 +5,6 @@
 
 namespace XpoMusicScript.Common.UiElementModifier {
 
-    declare var XpoMusic: any;
-
     export function createBackButton(): string {
         try {
             var body = <HTMLElement>document.getElementsByTagName('body')[0];
@@ -18,8 +16,8 @@ namespace XpoMusicScript.Common.UiElementModifier {
             body.appendChild(backButtonDiv);
         }
         catch (ex) {
-            XpoMusic.log("injectBackFailed");
-            XpoMusic.log(ex.toString());
+            window.XpoMusic.Log("injectBackFailed");
+            window.XpoMusic.Log(ex.toString());
             return "injectBackFailed,";
         }
         return "";
@@ -32,7 +30,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE718;</span></div>'
                 + '<span class="navbar-link__text">Pin this page to Start</span></div></a></div>';
             pinToStartButton.querySelector('a').onclick = function () {
-                XpoMusic.pinToStart();
+                window.XpoMusic.PinToStart();
                 return false;
             };
 
@@ -41,7 +39,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE115;</span></div>'
                 + '<span class="navbar-link__text">Settings</span></div></a></div>';
             settingsButton.querySelector('a').onclick = function () {
-                XpoMusic.openSettings();
+                window.XpoMusic.OpenSettings();
                 return false;
             };
 
@@ -69,7 +67,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE946;</span></div>'
                 + '<span class="navbar-link__text">About</span></div></a></div>';
             aboutButton.querySelector('a').onclick = function () {
-                XpoMusic.openAbout();
+                window.XpoMusic.OpenAbout();
                 return false;
             };
 
@@ -78,7 +76,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 + '<div class="navBar-link-text-with-icon-wrapper"><div class="icon segoe-icon NavBar__icon"><span style="font-family:Segoe MDL2 Assets;">&#xE719;</span></div>'
                 + '<span class="navbar-link__text">Donate</span></div></a></div>';
             donateButton.querySelector('a').onclick = function () {
-                XpoMusic.openDonate();
+                window.XpoMusic.OpenDonate();
                 return false;
             };
 
@@ -90,8 +88,8 @@ namespace XpoMusicScript.Common.UiElementModifier {
             //    UiInjector.injectNavbarDownButton(donateButton);
         }
         catch (ex) {
-            XpoMusic.log("injectNavBarFooterFailed");
-            XpoMusic.log(ex.toString());
+            window.XpoMusic.Log("injectNavBarFooterFailed");
+            window.XpoMusic.Log(ex.toString());
             return "injectNavBarFooterFailed,";
         }
         return "";
@@ -109,14 +107,14 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 + '<div style="left: 12px; top: -6px; font-size: 9px; position: absolute;">&#xEB9F;</div>'
                 + '</div></button></a>';
             compactOverlayButton.querySelector('a').onclick = function () {
-                XpoMusic.openMiniView();
+                window.XpoMusic.OpenMiniView();
                 return false;
             };
             UiInjector.injectNowPlayingRightButton(compactOverlayButton);
         }
         catch (ex) {
-            XpoMusic.log("injectCompactOverlayFailed");
-            XpoMusic.log(ex.toString());
+            window.XpoMusic.Log("injectCompactOverlayFailed");
+            window.XpoMusic.Log(ex.toString());
             return "injectCompactOverlayFailed,";
         }
         return "";
@@ -131,14 +129,14 @@ namespace XpoMusicScript.Common.UiElementModifier {
                 + '<div class="icon NavBar__icon nowPlaying-icon"></div>'
                 + '<span class="navbar-link__text">Now Playing</span></div></a></div></div></li>';
             nowPlayingButton.querySelector('a').onclick = function () {
-                XpoMusic.openNowPlaying();
+                window.XpoMusic.OpenNowPlaying();
                 return false;
             };
             UiInjector.injectNowPlayingNavBarButton(nowPlayingButton);
         }
         catch (ex) {
-            XpoMusic.log("addNowPlayingButtonFailed");
-            XpoMusic.log(ex.toString());
+            window.XpoMusic.Log("addNowPlayingButtonFailed");
+            window.XpoMusic.Log(ex.toString());
             return "addNowPlayingButtonFailed,";
         }
         return "";
@@ -160,8 +158,8 @@ namespace XpoMusicScript.Common.UiElementModifier {
             }, 4000);
         }
         catch (ex) {
-            XpoMusic.log("findBackgroundDivFailed");
-            XpoMusic.log(ex.toString());
+            window.XpoMusic.Log("findBackgroundDivFailed");
+            window.XpoMusic.Log(ex.toString());
             return "findBackgroundDivFailed,";
         }
         return "";
@@ -239,7 +237,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
 
             return (count > 0) || needsRefresh;
         } catch (ex) {
-            XpoMusic.log(ex.toString());
+            window.XpoMusic.Log(ex.toString());
             return false;
         }
     }

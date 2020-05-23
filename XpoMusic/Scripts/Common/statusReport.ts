@@ -2,8 +2,6 @@
 
 namespace XpoMusicScript.Common.StatusReport {
 
-    declare var XpoMusic: any;
-
     function getTextContent(element, index) {
         var e = document.querySelectorAll(element);
 
@@ -110,17 +108,17 @@ namespace XpoMusicScript.Common.StatusReport {
         // @ts-ignore
         window.xpotify_prevFingerprint = fingerprint;
 
-        XpoMusic.log("getTrackIdViaApi(): getting track id... local fingerprint: " + fingerprint);
+        window.XpoMusic.Log("getTrackIdViaApi(): getting track id... local fingerprint: " + fingerprint);
 
         var playerApi = new SpotifyApi.Player();
         var result = await playerApi.getCurrentlyPlaying();
 
         var trackName = result.item.name;
         var trackId = result.item.id;
-        XpoMusic.log("getTrackIdViaApi() result: track name = '" + trackName + "'; id = '" + trackId + "'");
+        window.XpoMusic.Log("getTrackIdViaApi() result: track name = '" + trackName + "'; id = '" + trackId + "'");
 
         if (trackName == getTrackName()) {
-            XpoMusic.log("getTrackIdViaApi(): retrieved name matches local name. Will return its id.");
+            window.XpoMusic.Log("getTrackIdViaApi(): retrieved name matches local name. Will return its id.");
 
             // @ts-ignore
             window.xpotify_prevTrackId = trackId;
@@ -216,44 +214,44 @@ namespace XpoMusicScript.Common.StatusReport {
         try {
             trackName = getTrackName();
         } catch (ex) {
-            XpoMusic.log("Failed to get trackName.");
+            window.XpoMusic.Log("Failed to get trackName.");
             success = false;
         }
         try {
             trackId = await getTrackId();
         } catch (ex) {
-            XpoMusic.log("Failed to get trackId.");
+            window.XpoMusic.Log("Failed to get trackId.");
             trackId = "";
             success = false;
         }
         try {
             albumId = getTrackAlbumId();
         } catch (ex) {
-            XpoMusic.log("Failed to get albumId.");
+            window.XpoMusic.Log("Failed to get albumId.");
             success = false;
         }
         try {
             artistName = getTrackArtist();
         } catch (ex) {
-            XpoMusic.log("Failed to get artistName.");
+            window.XpoMusic.Log("Failed to get artistName.");
             success = false;
         }
         try {
             artistId = getTrackArtistId();
         } catch (ex) {
-            XpoMusic.log("Failed to get artistId.");
+            window.XpoMusic.Log("Failed to get artistId.");
             success = false;
         }
         try {
             elapsedTime = getElapsedTime();
         } catch (ex) {
-            XpoMusic.log("Failed to get elapsedTime.");
+            window.XpoMusic.Log("Failed to get elapsedTime.");
             success = false;
         }
         try {
             totalTime = getTotalTime();
         } catch (ex) {
-            XpoMusic.log("Failed to get totalTime.");
+            window.XpoMusic.Log("Failed to get totalTime.");
             success = false;
         }
         try {
@@ -265,31 +263,31 @@ namespace XpoMusicScript.Common.StatusReport {
         try {
             isPrevTrackAvailable = getIsPrevTrackAvailable();
         } catch (ex) {
-            XpoMusic.log("Failed to get isPrevTrackAvailable.");
+            window.XpoMusic.Log("Failed to get isPrevTrackAvailable.");
             success = false;
         }
         try {
             isNextTrackAvailable = getIsNextTrackAvailable();
         } catch (ex) {
-            XpoMusic.log("Failed to get isNextTrackAvailable.");
+            window.XpoMusic.Log("Failed to get isNextTrackAvailable.");
             success = false;
         }
         try {
             isPlaying = getIsPlaying();
         } catch (ex) {
-            XpoMusic.log("Failed to get isPlaying.");
+            window.XpoMusic.Log("Failed to get isPlaying.");
             success = false;
         }
         try {
             isSavedToLibrary = getIsSavedToLibrary();
         } catch (ex) {
-            XpoMusic.log("Failed to get isSavedToLibrary.");
+            window.XpoMusic.Log("Failed to get isSavedToLibrary.");
             success = false;
         }
         try {
             volume = getVolume();
         } catch (ex) {
-            XpoMusic.log("Failed to get volume.");
+            window.XpoMusic.Log("Failed to get volume.");
             success = false;
         }
 
@@ -310,7 +308,7 @@ namespace XpoMusicScript.Common.StatusReport {
             Success: success,
         };
 
-        // XpoMusic.log("getNowPlaying(): sending data: " + JSON.stringify(data));
+        // window.XpoMusic.Log("getNowPlaying(): sending data: " + JSON.stringify(data));
 
         return data;
     }
@@ -328,12 +326,17 @@ namespace XpoMusicScript.Common.StatusReport {
     }
 
     async function sendStatusReport() {
-        var data = JSON.stringify({
+        var data = {
             BackButtonEnabled: isBackPossible(),
             NowPlaying: await getNowPlaying(),
-        });
+        };
 
-        XpoMusic.statusReport(data);
+        if (data.NowPlaying.TrackId.toString().trim().length > 0
+            || data.NowPlaying.TrackName.toString().trim().length > 0) {
+            Common.Action.enableNowPlaying();
+        }
+
+        window.XpoMusic.StatusReport(data);
     }
 
     export function initRegularStatusReport() {

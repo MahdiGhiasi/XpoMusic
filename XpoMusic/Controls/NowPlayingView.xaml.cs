@@ -1,16 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
+using Windows.Foundation.Collections;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml.Media.Animation;
 using XpoMusic.Classes;
-using XpoMusic.Classes.Cache;
-using XpoMusic.Classes.Model;
 using XpoMusic.Helpers;
+using Windows.UI.ViewManagement;
+using System.Threading.Tasks;
+using XpoMusic.Classes.Cache;
 using XpoMusic.SpotifyApi;
+
+// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace XpoMusic.Controls
 {
@@ -118,7 +128,7 @@ namespace XpoMusic.Controls
         private string currentSongId = "";
         private bool? currentShowArtistArtState = null;
         private bool isCompactOverlayFromNowPlaying = false;
-        
+
         private SemaphoreQueue volumeSetSemaphore = new SemaphoreQueue(1, 1);
 
         private SongExtraInfoStore songInfoCache = new SongExtraInfoStore();
@@ -204,7 +214,7 @@ namespace XpoMusic.Controls
                     if (prevTrackCommandIssued)
                     {
                         prevTrackCommandIssued = false;
-
+                        
                         animationState = AnimationState.HiddenToRightSide;
                         await hideToRightStoryboard.RunAsync();
                     }
@@ -280,7 +290,7 @@ namespace XpoMusic.Controls
 
         private void SetTopBar()
         {
-            Window.Current.SetTitleBar(titleBarArea);
+            //Window.Current.SetTitleBar(titleBarArea);
         }
 
         private void OnViewClosed()

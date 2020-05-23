@@ -12,7 +12,9 @@ using Windows.UI.Xaml;
 using Newtonsoft.Json;
 using XpoMusic.Classes.Model;
 using XpoMusic.Classes.Cache;
-using XpoMusicWebAgent.Model;
+using XpoMusic.WebAgent.Model;
+using Windows.UI.Core;
+using System.Threading;
 
 namespace XpoMusic.Classes
 {
@@ -20,10 +22,11 @@ namespace XpoMusic.Classes
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        static DispatcherTimer timer;
+        static Timer timer;
         static DateTime lastStatusFetch = DateTime.MinValue;
 
         public static bool IsLocalStatusTrackingOperational { get; private set; } = false;
+
 
         public static class LastPlayStatus
         {
@@ -66,15 +69,6 @@ namespace XpoMusic.Classes
             }
         }
 
-        static PlayStatusTracker()
-        {
-            timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(1),
-            };
-            timer.Tick += Timer_Tick;
-        }
-
         public static void SeekPlayback(double percentage)
         {
             LastPlayStatus.ProgressedMilliseconds = (int)(LastPlayStatus.SongLengthMilliseconds * percentage);
@@ -87,7 +81,7 @@ namespace XpoMusic.Classes
             LastPlayStatus.InvokeUpdated();
         }
 
-        private static async void Timer_Tick(object sender, object e)
+        private static async void Timer_Tick(object state)
         {
             // Ignore if not logged in
             if (!TokenHelper.HasTokens())
@@ -102,8 +96,10 @@ namespace XpoMusic.Classes
 
         public static void StartRegularRefresh()
         {
-            if (!timer.IsEnabled)
-                timer.Start();
+            if (timer == null)
+            {
+                timer = new Timer(Timer_Tick, null, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(1));
+            }
         }
 
         private static int timesFingerprintEmpty = 0;

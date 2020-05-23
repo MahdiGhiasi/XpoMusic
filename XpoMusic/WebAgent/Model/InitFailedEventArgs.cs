@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XpoMusicWebAgent.Model
+namespace XpoMusic.WebAgent.Model
 {
-    public sealed class LogMessageReceivedEventArgs
+    public sealed class InitFailedEventArgs
     {
-        public string Message { get; set; }
+        public string Errors { get; set; }
     }
 }

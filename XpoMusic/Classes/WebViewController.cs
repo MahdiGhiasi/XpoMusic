@@ -13,22 +13,29 @@ using Newtonsoft.Json;
 using Windows.UI.Popups;
 using XpoMusic.SpotifyApi;
 using Windows.Networking.Connectivity;
+using Microsoft.UI.Xaml.Controls;
+using XpoMusic.Helpers;
+using XpoMusic.WebAgent;
+using NLog.Targets;
 
-namespace XpoMusic.Helpers
+namespace XpoMusic.Classes
 {
     public class WebViewController
     {
         private NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
 
-        public const string SpotifyPwaUrlBeginsWith = "https://open.spotify.com";
+        public const string SpotifyPwaUrlHome = "https://open.spotify.com";
 
         public string LastInitErrors { get; internal set; } = "";
 
-        private WebView mainWebView;
+        public XpoWebAgent WebAgent { get; }
 
-        public WebViewController(WebView webView)
+        private WebView2 mainWebView;
+
+        public WebViewController(WebView2 webView)
         {
             mainWebView = webView;
+            WebAgent = new XpoWebAgent(webView, "XpoMusic");
         }
 
         public void Navigate(Uri targetUri)
@@ -44,14 +51,17 @@ namespace XpoMusic.Helpers
             if (!string.IsNullOrWhiteSpace(languageString))
                 request.Headers.Add("Accept-Language", languageString);
 
-            mainWebView.NavigateWithHttpRequestMessage(request);
+            // TODO: Accept-Language header?
+            mainWebView.Source = targetUri;
         }
 
         /// <returns>true if just injected the script, false if it was already injected.</returns>
         public async Task<bool> InjectInitScript(bool lightTheme)
         {
-            var checkIfInjected = "((document.getElementsByTagName('body')[0].getAttribute('data-scriptinjection') == null) ? '0' : '1');";
-            var injected = await mainWebView.InvokeScriptAsync("eval", new string[] { checkIfInjected });
+            await WebAgent.Init();
+
+            var checkIfInjected = "((document.getElementsByTagName('body')[0].getAttribute('data-scriptinjection') == null) ? 0 : 1);";
+            var injected = await mainWebView.ExecuteScriptAsync(checkIfInjected);
 
             if (injected != "1")
             {
@@ -68,7 +78,7 @@ namespace XpoMusic.Helpers
 
                 try
                 {
-                    await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+                    var result = await mainWebView.ExecuteScriptAsync(script);
                 }
                 catch (Exception ex)
                 {
@@ -104,7 +114,7 @@ namespace XpoMusic.Helpers
         public async Task<bool> CheckLoggedIn()
         {
             var script = await AssetManager.LoadAssetString("isLoggedInCheck.js");
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
 
             return (result != "0");
         }
@@ -112,21 +122,21 @@ namespace XpoMusic.Helpers
         public async Task<bool> TryPushingFacebookLoginButton()
         {
             var script = await AssetManager.LoadAssetString("clickOnFacebookLogin.js");
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
 
             return (result == "1");
         }
 
-        public async Task EnableNowPlaying()
-        {
-            var script = "window.XpoMusicScript.Common.Action.enableNowPlaying();";
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
-        }
+        //public async Task EnableNowPlaying()
+        //{
+        //    var script = "window.XpoMusicScript.Common.Action.enableNowPlaying();";
+        //    var result = await mainWebView.ExecuteScriptAsync(script);
+        //}
 
         public async Task<bool> GoBackIfPossible()
         {
             var script = "window.XpoMusicScript.Common.Action.goBackIfPossible();";
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
 
             return (result == "1");
         }
@@ -156,25 +166,25 @@ namespace XpoMusic.Helpers
 
         public async Task<string> GetPageUrl()
         {
-            return await mainWebView.InvokeScriptAsync("eval", new string[] { "window.location.href" });
+            return await mainWebView.ExecuteScriptAsync("window.location.href");
         }
 
         public async Task<string> GetPageTitle()
         {
             var findPageTitleScript = "window.XpoMusicScript.Common.PageTitleFinder.getTitle();";
-            var pageTitle = await mainWebView.InvokeScriptAsync("eval", new string[] { findPageTitleScript });
+            var pageTitle = await mainWebView.ExecuteScriptAsync(findPageTitleScript);
 
             return pageTitle;
         }
 
         public async Task NavigateToSpotifyUrl(string url)
         {
-            var currentUrl = await mainWebView.InvokeScriptAsync("eval", new String[] { "document.location.href;" });
+            var currentUrl = await mainWebView.ExecuteScriptAsync("document.location.href;");
 
-            if (currentUrl.ToLower().StartsWith(SpotifyPwaUrlBeginsWith.ToLower()))
+            if (currentUrl.ToLower().StartsWith(SpotifyPwaUrlHome.ToLower()))
             {
                 var script = $"window.XpoMusicScript.Common.Action.navigateToPage('{url.Replace("'", "\\'")}');";
-                await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+                await mainWebView.ExecuteScriptAsync(script);
             }
             else
             {
@@ -190,13 +200,13 @@ namespace XpoMusic.Helpers
             else
                 script = "window.XpoMusicScript.Common.Action.autoPlayPlaylist();";
             
-            var currentPlaying = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var currentPlaying = await mainWebView.ExecuteScriptAsync(script);
         }
 
         public async Task<string> ClearPlaybackLocalStorage()
         {
             var script = await AssetManager.LoadAssetString("clearPlaybackLocalStorage.js");
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
 
             return result;
         }
@@ -204,7 +214,7 @@ namespace XpoMusic.Helpers
         public async Task<bool> PlayPause()
         {
             var script = "window.XpoMusicScript.Common.Action.playPause();";
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
 
             return (result == "1");
         }
@@ -212,7 +222,7 @@ namespace XpoMusic.Helpers
         public async Task<bool> Play()
         {
             var script = "window.XpoMusicScript.Common.Action.play();";
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
 
             return (result == "1");
         }
@@ -220,7 +230,7 @@ namespace XpoMusic.Helpers
         public async Task<bool> Pause()
         {
             var script = "window.XpoMusicScript.Common.Action.pause();";
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
 
             return (result == "1");
         }
@@ -228,7 +238,7 @@ namespace XpoMusic.Helpers
         public async Task<bool> NextTrack()
         {
             var script = "window.XpoMusicScript.Common.Action.nextTrack();";
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
 
             return (result == "1");
         }
@@ -241,7 +251,7 @@ namespace XpoMusic.Helpers
             else
                 script = "window.XpoMusicScript.Common.Action.prevTrackForce();";
 
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
 
             return (result == "1");
         }
@@ -249,7 +259,7 @@ namespace XpoMusic.Helpers
         internal async Task<bool> IsPlayingOnThisApp()
         {
             var script = "window.XpoMusicScript.Common.Action.isPlayingOnThisApp();";
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
 
             return (result == "1");
         }
@@ -257,13 +267,13 @@ namespace XpoMusic.Helpers
         internal async Task SeekPlayback(double percentage)
         {
             var script = $"window.XpoMusicScript.Common.Action.seekPlayback({percentage});";
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
         }
 
         internal async Task SeekVolume(double percentage)
         {
             var script = $"window.XpoMusicScript.Common.Action.seekVolume({percentage});";
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
         }
 
         internal async Task<bool> OnKeyDown(int charCode, bool shiftPressed, bool ctrlPressed, bool altPressed)
@@ -271,7 +281,7 @@ namespace XpoMusic.Helpers
             var script = $"window.XpoMusicScript.Common.KeyboardShortcutListener.keyDownExternalCall" +
                 $"({charCode}, {shiftPressed.ToString().ToLower()}, {ctrlPressed.ToString().ToLower()}, " +
                 $"{altPressed.ToString().ToLower()});";
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
             logger.Info(result);
             return result == "1";
         }
@@ -279,13 +289,13 @@ namespace XpoMusic.Helpers
         internal async Task TryResolvePlaybackStartStuck()
         {
             var script = $"window.XpoMusicScript.Common.PlaybackStuckHelper.tryResolveStart();";
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
         }
 
         internal async Task TryResolvePlaybackMiddleStuck()
         {
             var script = $"window.XpoMusicScript.Common.PlaybackStuckHelper.tryResolveMiddle();";
-            var result = await mainWebView.InvokeScriptAsync("eval", new string[] { script });
+            var result = await mainWebView.ExecuteScriptAsync(script);
         }
     }
 }

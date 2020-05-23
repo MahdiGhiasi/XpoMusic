@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace XpoMusicWebAgent.Model
+namespace XpoMusic.WebAgent.Model
 {
     public sealed class StatusReportReceivedEventArgs
     {

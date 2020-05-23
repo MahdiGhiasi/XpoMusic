@@ -18,8 +18,6 @@
 
 namespace XpoMusicScript.Common {
 
-    declare var XpoMusic: any;
-
     export function isProVersion(): boolean {
         //@ts-ignore
         return '{{XPOTIFYISPROVERSION}}' === '1';
@@ -46,14 +44,14 @@ namespace XpoMusicScript.Common {
         return (screen.deviceXDPI / screen.logicalXDPI);
     }
 
-    export function init() {
+    export async function init() {
         if (document.querySelectorAll("#main").length === 0
-            && XpoMusic.isWebPlayerBackupEnabled()) {
-            XpoMusic.log("#main is missing. Will try runWebPlayerBackup()");
+            && await window.XpoMusic.IsWebPlayerBackupEnabled()) {
+            window.XpoMusic.Log("#main is missing. Will try runWebPlayerBackup()");
             try {
                 WebPlayerBackup.runWebPlayerBackup();
             } catch (ex) {
-                XpoMusic.log("runWebPlayerBackup() failed: " + ex);
+                window.XpoMusic.Log("runWebPlayerBackup() failed: " + ex);
             }
         }
 
@@ -62,7 +60,7 @@ namespace XpoMusicScript.Common {
         markPageAsInjected();
         initDragDrop();
 
-        XpoMusic.log("Initializing UiElemetModifier stuff...");
+        window.XpoMusic.Log("Initializing UiElemetModifier stuff...");
         errors += injectCss();
         errors += UiElementModifier.createBackButton();
         errors += UiElementModifier.createNavBarButtons();
@@ -71,41 +69,44 @@ namespace XpoMusicScript.Common {
         errors += UiElementModifier.addBackgroundClass();
         errors += initNowPlayingBarCheck();
 
-        XpoMusic.log("Removing top right 'Upgrade' button if present...");
+        window.XpoMusic.Log("Removing top right 'Upgrade' button if present...");
         removeTopUpgradeButton();
 
-        XpoMusic.log("Setting page hash and initializing resize and periodic checks...");
+        window.XpoMusic.Log("Setting page hash and initializing resize and periodic checks...");
         setInitialPageHash();
         initOnResizeCheck();
         initPeriodicPageCheck();
 
-        XpoMusic.log("Initializing libraries...");
+        window.XpoMusic.Log("Initializing libraries...");
         Lib.FocusVisible.init();
 
-        XpoMusic.log("Initializing MouseWheelListener...");
+        window.XpoMusic.Log("Initializing MouseWheelListener...");
         MouseWheelListener.init();
 
-        XpoMusic.log("Initializing KeyboardShortcutListener...");
+        window.XpoMusic.Log("Initializing KeyboardShortcutListener...");
         KeyboardShortcutListener.init();
 
-        XpoMusic.log("Initializing RequestIntercepter...");
+        window.XpoMusic.Log("Initializing RequestIntercepter...");
         RequestIntercepter.startInterceptingFetch();
 
-        XpoMusic.log("Initializing StatusReport...");
+        window.XpoMusic.Log("Initializing StatusReport...");
         StatusReport.initRegularStatusReport();
 
-        XpoMusic.log("Initializing themed scrollbars...");
-        initThemedScrollbars();
+        // Themed scrollbars are not needed in Chromium
+        // window.XpoMusic.Log("Initializing themed scrollbars...");
+        // initThemedScrollbars();
 
-        XpoMusic.log("Initializing StartupAnimation...");
-        StartupAnimation.init();
+        window.XpoMusic.Log("Initializing StartupAnimation...");
+        setTimeout(function () {
+            StartupAnimation.init();
+        }, 5000);
 
         // @ts-ignore
         if (window.XpoMusicScript === undefined)
             // @ts-ignore
             window.XpoMusicScript = XpoMusicScript;
 
-        XpoMusic.log("Common.init() finished. errors = '" + errors + "'");
+        window.XpoMusic.Log("Common.init() finished. errors = '" + errors + "'");
         return errors;
     }
 
@@ -142,7 +143,7 @@ namespace XpoMusicScript.Common {
             if (itemCandidate.length == 0) {
                 return;
             } else if (itemCandidate.length > 1) {
-                XpoMusic.log("Too many candidates for removeTopUpgradeButton. Will not remove.");
+                window.XpoMusic.Log("Too many candidates for removeTopUpgradeButton. Will not remove.");
                 return;
             }
 
@@ -150,7 +151,7 @@ namespace XpoMusicScript.Common {
             var css = "." + item.classList[0] + " { display: none; }";
             injectCustomCssContent(css);
         } catch (ex) {
-            XpoMusic.log('RemoveTopUpgradeButton failed: ' + ex);
+            window.XpoMusic.Log('RemoveTopUpgradeButton failed: ' + ex);
         }
     }
 
@@ -308,7 +309,7 @@ namespace XpoMusicScript.Common {
             containingLiElement.style.display = 'none';
         }
         catch (ex) {
-            XpoMusic.log(ex);
+            window.XpoMusic.Log(ex);
         }
     }
 
@@ -364,7 +365,7 @@ namespace XpoMusicScript.Common {
             }
         }
         catch (ex) {
-            XpoMusic.log(ex);
+            window.XpoMusic.Log(ex);
         }
     }
 

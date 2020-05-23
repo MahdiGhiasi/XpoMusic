@@ -1,54 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" IgnorableNamespaces="uap uap3 mp">
-  <Identity Name="36835MahdiGhiasi.Xpotify" Publisher="CN=980F2E87-1831-4300-B1DC-4FDADD353F32" Version="2.1.6.0" />
-  <mp:PhoneIdentity PhoneProductId="f4804a35-66dc-4b7f-bee4-fc64421e3643" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+
+<Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  IgnorableNamespaces="uap mp uap3">
+
+  <Identity
+    Name="68e73388-f4fe-413e-a013-4b7b30948498"
+    Publisher="CN=Mahdi"
+    Version="1.0.0.0" />
+
+  <mp:PhoneIdentity PhoneProductId="68e73388-f4fe-413e-a013-4b7b30948498" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+
   <Properties>
-    <DisplayName>Xpo Music</DisplayName>
-    <PublisherDisplayName>Mahdi Ghiasi</PublisherDisplayName>
+    <DisplayName>XpoMusic</DisplayName>
+    <PublisherDisplayName>Mahdi</PublisherDisplayName>
     <Logo>Assets\Logo\StoreLogo.png</Logo>
   </Properties>
+
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.17134.0" MaxVersionTested="10.0.17134.0" />
   </Dependencies>
+
   <Resources>
-    <Resource Language="x-generate" />
+    <Resource Language="x-generate"/>
   </Resources>
+
   <Applications>
-    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="XpoMusic.App">
-      <uap:VisualElements DisplayName="Xpo Music" Square150x150Logo="Assets\Logo\Square150x150Logo.png" Square44x44Logo="Assets\Logo\Square44x44Logo.png" Description="Xpo Music - A modern third-party Spotify client for Windows 10" BackgroundColor="#201B1B">
-        <uap:DefaultTile Wide310x150Logo="Assets\Logo\Wide310x150Logo.png" Square310x310Logo="Assets\Logo\LargeTile.png" Square71x71Logo="Assets\Logo\SmallTile.png">
+    <Application Id="App"
+      Executable="$targetnametoken$.exe"
+      EntryPoint="XpoMusic.App">
+      <uap:VisualElements
+        DisplayName="Xpo Music vNext"
+        Square150x150Logo="Assets\Logo\Square150x150Logo.png"
+        Square44x44Logo="Assets\Logo\Square44x44Logo.png"
+        Description="Xpo Music vNext"
+        BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\Logo\Wide310x150Logo.png" Square71x71Logo="Assets\Logo\SmallTile.png" Square310x310Logo="Assets\Logo\LargeTile.png">
           <uap:ShowNameOnTiles>
-            <uap:ShowOn Tile="square150x150Logo" />
-            <uap:ShowOn Tile="wide310x150Logo" />
-            <uap:ShowOn Tile="square310x310Logo" />
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
           </uap:ShowNameOnTiles>
-        </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\Logo\SplashScreen.png" BackgroundColor="#201B1B" />
+        </uap:DefaultTile >
+        <uap:SplashScreen Image="Assets\Logo\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="spotify">
-            <uap:Logo>Assets\Logo\Square44x44Logo.png</uap:Logo>
-            <uap:DisplayName>Xpo Music</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="xpotify">
-            <uap:Logo>Assets\Logo\Square44x44Logo.png</uap:Logo>
-            <uap:DisplayName>Xpo Music</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
-        <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="xpomusic">
             <uap:Logo>Assets\Logo\Square44x44Logo.png</uap:Logo>
-            <uap:DisplayName>Xpo Music</uap:DisplayName>
+            <uap:DisplayName>Xpo Music vNext</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
+
   <Capabilities>
     <Capability Name="internetClient" />
-    <uap3:Capability Name="backgroundMediaPlayback" />
+    <uap3:Capability Name="backgroundMediaPlayback"/>
   </Capabilities>
 </Package>

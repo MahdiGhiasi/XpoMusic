@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using XpoMusic.Classes;
 
 namespace XpoMusic.Helpers
 {
@@ -44,7 +45,7 @@ namespace XpoMusic.Helpers
                 uriLowerCase = uri.ToLower();
             }
 
-            if (uriLowerCase.StartsWith(WebViewController.SpotifyPwaUrlBeginsWith))
+            if (uriLowerCase.StartsWith(WebViewController.SpotifyPwaUrlHome))
                 return uri;
 
 

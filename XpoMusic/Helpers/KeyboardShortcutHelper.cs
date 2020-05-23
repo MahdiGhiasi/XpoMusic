@@ -28,15 +28,17 @@ namespace XpoMusic.Helpers
             {
                 // Next Track
                 await controller.NextTrack();
-                if (nowPlaying.IsOpen)
-                    nowPlaying.PlayChangeTrackAnimation(reverse: false);
+                // TODO: Reenable
+                //if (nowPlaying.IsOpen)
+                //    nowPlaying.PlayChangeTrackAnimation(reverse: false);
             }
             else if (key == VirtualKey.Left && ctrlPressed)
             {
                 // Prev Track
                 await controller.PreviousTrack();
-                if (nowPlaying.IsOpen)
-                    nowPlaying.PlayChangeTrackAnimation(reverse: true);
+                // TODO: Reenable
+                //if (nowPlaying.IsOpen)
+                //    nowPlaying.PlayChangeTrackAnimation(reverse: true);
             }
             else if (key == VirtualKey.Up && ctrlPressed & shiftPressed)
             {
@@ -72,10 +74,11 @@ namespace XpoMusic.Helpers
                 // Back
                 return KeyDownProcessResult.GoBack;
             }
-            else if (key == VirtualKey.M && ctrlPressed && nowPlaying.IsOpen && nowPlaying.ViewMode == Controls.NowPlayingView.NowPlayingViewMode.Normal)
-            {
-                await nowPlaying.SwitchToMiniView();
-            }
+            // TODO: Reenable
+            //else if (key == VirtualKey.M && ctrlPressed && nowPlaying.IsOpen && nowPlaying.ViewMode == Controls.NowPlayingView.NowPlayingViewMode.Normal)
+            //{
+            //    await nowPlaying.SwitchToMiniView();
+            //}
             else if (key == VirtualKey.Left || key == VirtualKey.Right || key == VirtualKey.Up || key == VirtualKey.Down)
             {
                 // Do nothing, but don't switch out of now playing either.

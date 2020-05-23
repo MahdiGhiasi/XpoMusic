@@ -64,8 +64,9 @@ namespace XpoMusic.Classes
         {
             get
             {
-                if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
-                    return TimeSpan.FromMilliseconds(PlayStatePollIntervalMillisecondsWithCompactOverlayOpen);
+                // TODO
+                //if (ApplicationView.GetForCurrentView().ViewMode == ApplicationViewMode.CompactOverlay)
+                //    return TimeSpan.FromMilliseconds(PlayStatePollIntervalMillisecondsWithCompactOverlayOpen);
 
                 return TimeSpan.FromMilliseconds(PlayStatePollIntervalMilliseconds);
             }

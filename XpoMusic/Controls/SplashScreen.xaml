@@ -6,9 +6,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Loaded="UserControl_Loaded"
     d:DesignHeight="300"
     d:DesignWidth="400">
+
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -32,7 +32,7 @@
             </Storyboard>
         </ResourceDictionary>
     </UserControl.Resources>
-    
+
     <Grid x:Name="splashScreen" Background="#201B1B">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
@@ -70,7 +70,7 @@
                                 <ExponentialEase EasingMode="EaseOut" />
                             </DoubleAnimation.EasingFunction>
                         </DoubleAnimation>
-                        
+
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="splashScreen"
                                                        Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0:0:0.9" Value="Collapsed" />
