@@ -25,6 +25,7 @@ Create a file named `Secrets.cs` in the `XpoMusic/` directory, and put the follo
             internal static readonly string SpotifyClientId = "";
             internal static readonly string SpotifyClientSecret = "";
             internal static readonly string GoogleAnalyticsTrackerId = "";
+            internal static readonly string AppCenterId = "";
         }
     }
 
