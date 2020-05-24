@@ -1,6 +1,18 @@
 ﻿
-.content.artist header {
+.content.artist > div:nth-child(1) {
     filter: invert(1);
+}
+
+.content.artist button[aria-label=Play], .content.artist button[title=Play] {
+    filter: invert(1);
+}
+
+.content.artist img {
+    filter: invert(0);
+}
+
+.Root__main-view .react-contextmenu-wrapper button {
+    filter: invert(0);
 }
 
 .content.artist header > div {
