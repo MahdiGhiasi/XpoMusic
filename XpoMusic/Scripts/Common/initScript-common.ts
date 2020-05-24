@@ -316,9 +316,10 @@ namespace XpoMusicScript.Common {
     var redrawFixPrevLocation = "";
     function periodicPageCheck() {
         try {
-            if (document.querySelectorAll(".tracklist").length > 0) {
-                TracklistExtended.initTracklistMod();
-            }
+            // Temporarily disable tracklist mod
+            //if (document.querySelectorAll(".tracklist").length > 0) {
+            //    TracklistExtended.initTracklistMod();
+            //}
 
             InjectTopBarCustomStyles();
             expandPivotInTopBar();
