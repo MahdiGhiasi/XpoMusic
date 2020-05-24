@@ -1,7 +1,7 @@
 # Xpo Music (formerly Xpotify)
 A modern Spotify experience for Windows 10
 
-Get it from [XpoMusic.com](https://xpomusic.com/)
+**Get it from [XpoMusic.com](https://xpomusic.com/)**
 
 ## Building from source
 
