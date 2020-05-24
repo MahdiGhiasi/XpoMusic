@@ -334,6 +334,8 @@ namespace XpoMusicScript.Common {
             //}
 
             if (pagePrevLocation !== window.location.href) {
+                // Color.addXpotifyClassToSectionBackground(4);
+
                 if (window.location.href.startsWith('https://open.spotify.com/search')) {
                     (<HTMLElement>document.querySelector('.Root__top-bar input')).focus();
                     (<HTMLElement>document.querySelector('.Root__main-view')).classList.remove('xpo-collection-page');

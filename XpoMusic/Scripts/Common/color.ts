@@ -60,4 +60,19 @@
         }
     }
 
+    export function addXpotifyClassToSectionBackground(retryCount) {
+        if (retryCount < 0)
+            return;
+
+        var elements = document.querySelectorAll(".main-view-container__scroll-node-child > section > div:nth-child(1), .main-view-container__scroll-node-child > section > div:nth-child(2)");
+        if (elements.length <= 1) {
+            setTimeout(function () {
+                addXpotifyClassToSectionBackground(retryCount - 1);
+            }, 250);
+        } else {
+            (<HTMLElement>elements[0]).setAttribute('data-xpoBackground', '1');
+            (<HTMLElement>elements[1]).setAttribute('data-xpoBackground', '1');
+        }
+    }
+
 }
