@@ -128,6 +128,11 @@ namespace XpoMusic.Classes
                             RegexMatch = @"\{\.\.\.f\}",
                             ReplaceTo = @"Object.assign({}, f)",
                         },
+                        new WebResourceStringModificationRule
+                        {
+                            RegexMatch = @"globalThis",
+                            ReplaceTo = @"window",
+                        },
                     }
                 },
                 new WebResourceModificationRule
