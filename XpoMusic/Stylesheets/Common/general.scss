@@ -36,6 +36,14 @@ body {
     overflow-y: auto;
 }
 
+.logo {
+    display: none;
+}
+
+div[role=banner] {
+    min-height: 30px;
+}
+
 .Root__main-view .contentSpacing {
     margin-bottom: 90px !important;
     padding-top: 20px !important;
@@ -67,6 +75,10 @@ body {
 
 .NavBar__download-item {
     display: none;
+}
+
+.navBar-item .segoe-icon {
+    float: left;
 }
 
 .segoe-icon {

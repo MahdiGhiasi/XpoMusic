@@ -1,6 +1,6 @@
 ﻿namespace XpoMusicScript.Common.UiInjector {
     export function injectNavbarDownButton(button) {
-        var sessionInfo = document.querySelectorAll(".NavBarFooter .navBar-item");
+        var sessionInfo = document.querySelectorAll(".navBar-item.NavBar__download-item");
         if (sessionInfo.length === 0) {
             setTimeout(function () {
                 injectNavbarDownButton(button);
