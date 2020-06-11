@@ -23,7 +23,7 @@
     }
 
     export function injectNowPlayingNavBarButton(button) {
-        var extraControlsBar = document.querySelectorAll('.Root__top-container .navBar ul');
+        var extraControlsBar = document.querySelectorAll('.Root__top-container nav ul');
         if (extraControlsBar.length === 0) {
             setTimeout(function () {
                 injectNowPlayingNavBarButton(button);
