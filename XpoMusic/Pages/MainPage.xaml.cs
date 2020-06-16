@@ -49,11 +49,6 @@ namespace XpoMusic.Pages
             silentMediaPlayer.CommandManager.IsEnabled = false;
         }
 
-        private void XpoWebView_WebAppLoaded(object sender, EventArgs e)
-        {
-            VisualStateManager.GoToState(this, nameof(MainScreenVisualState), false);
-        }
-
         private async void XpoWebView_ActionRequested(object sender, Controls.XpoMusicWebApp.XpoMusicWebAppActionRequest e)
         {
             try
@@ -215,6 +210,11 @@ namespace XpoMusic.Pages
         }
 
         private void XpoWebView_PageLoadFinished(object sender, EventArgs e)
+        {
+            VisualStateManager.GoToState(this, nameof(MainScreenVisualState), false);
+        }
+
+        private void XpoWebView_WebAppLoaded(object sender, EventArgs e)
         {
             VisualStateManager.GoToState(this, nameof(MainScreenVisualState), false);
         }
