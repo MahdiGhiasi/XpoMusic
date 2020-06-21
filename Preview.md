@@ -11,7 +11,7 @@ Xpo Music v3.0 will replace the current version when WinUI 3 is stable enough. C
 
 Here are the steps to get the Xpo Music Preview:
 
-1. Make sure you have installed Edge Chromium on your PC (version 82.0.448.0 or above)
+1. Make sure you have installed new Edge browser (Beta, Dev or Canary version) on your PC.
 
 2. Install test certificate [from here](https://xpomusic.com/vNext/get/XpoMusic_3.0.1.0_Debug_Test/XpoMusic_3.0.1.0_x86_Debug.cer); make sure to install it on Local Machine, inside Trusted Root Certificate Authorities.
 
