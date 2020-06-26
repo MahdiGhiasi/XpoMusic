@@ -44,16 +44,10 @@ div[role=banner] {
     min-height: 30px;
 }
 
-.Root__main-view .contentSpacing {
-    margin-bottom: 90px !important;
-    padding-top: 20px !important;
-}
-
 .Root__main-view .row .contentSpacing {
     margin-bottom: 0 !important;
     padding-top: 0 !important;
 }
-
 
 .Root__main-view .Search .contentSpacing {
     margin-bottom: 0px !important;
@@ -213,7 +207,11 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
     display: none;
 }
 
-.main-view-container__scroll-node-child section.contentSpacing {
+[aria-label='Upgrade to Premium'] {
+    display:none;
+}
+
+.main-view-container__scroll-node-child > section {
     /* Add padding to page content because of top-bar shift */
     padding-top: 60px !important;
 }
@@ -230,6 +228,7 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
 .Rootlist {
     /* Navbar bottom items placement fix on short window size */
     min-height: 0;
+    margin-bottom: 16px;
 }
 
 .NowPlayingCoverSlotExpanded__container {
