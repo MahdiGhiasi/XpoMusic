@@ -17,14 +17,16 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
-    <PackageCertificateKeyFile>Xpotify_StoreKey.pfx</PackageCertificateKeyFile>
-    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <PackageCertificateKeyFile>XpoMusic_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <GenerateAppInstallerFile>True</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxBundle>Always</AppxBundle>
-    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>184210D91298B470060D82EF00968C2CE43DB4CF</PackageCertificateThumbprint>
+    <AppxBundlePlatforms>x86</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>8F18CEE4DB82F386156DD07A482E2A743846E045</PackageCertificateThumbprint>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
+    <AppxPackageDir>C:\Users\Mahdi\source\repos\ModernSpotifyUWP\XpoMusic\AppPackages\Sideload</AppxPackageDir>
+    <AppInstallerUri>https://xpomusic.com/get/</AppInstallerUri>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -438,6 +440,7 @@
     <Content Include="InjectedAssets\style-dark.min.css" />
     <None Include="InjectedAssets\style-light.css" />
     <Content Include="InjectedAssets\style-light.min.css" />
+    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Scripts\DarkTheme\tsconfig.json" />
     <Content Include="Scripts\LightTheme\tsconfig.json" />
     <None Include="Stylesheets\Common\adsContainer.scss" />
@@ -475,7 +478,7 @@
     <None Include="Stylesheets\LightTheme\searchPage.scss" />
     <None Include="Stylesheets\LightTheme\trackList.scss" />
     <None Include="Stylesheets\LightTheme\windowTitle.scss" />
-    <None Include="Xpotify_StoreKey.pfx" />
+    <None Include="XpoMusic_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Media\silent.wav" />
@@ -483,7 +486,6 @@
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Package.StoreAssociation.xml" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
