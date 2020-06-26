@@ -22,7 +22,7 @@ namespace XpoMusic.Controls
 {
     public sealed partial class ProxyConfiguration : UserControl
     {
-        private readonly Uri localProxyHelpPage = new Uri("https://ghiasi.net/xpotify/loopback");
+        private readonly Uri localProxyHelpPage = new Uri("https://xpomusic.com/loopback");
 
         public ProxyConfiguration()
         {

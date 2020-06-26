@@ -17,7 +17,7 @@ namespace XpoMusic.XpotifyApi
         {
             get
             {
-                var endpoint = "https://ghiasi.net/xpotify/constants";
+                var endpoint = "https://xpomusic.com/constants";
                 var version = PackageHelper.GetAppVersion().ToString(3);
                 var fileName = "constants.json";
                 var query = "?date=" + DateTime.Now.ToString("yyyyMMddHHmmss");

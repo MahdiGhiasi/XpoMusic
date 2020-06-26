@@ -18,7 +18,7 @@ namespace XpoMusic.XpotifyApi
         {
             get
             {
-                var endpoint = "https://ghiasi.net/xpotify/devmessages";
+                var endpoint = "https://xpomusic.com/devmessages";
                 var version = PackageHelper.GetAppVersion().ToString(3);
                 var fileName = "messages.json";
                 var query = "?date=" + DateTime.Now.ToString("yyyyMMddHHmmss");

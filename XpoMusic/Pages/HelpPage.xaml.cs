@@ -30,8 +30,8 @@ namespace XpoMusic.Pages
     {
         private const string supportEmailAddress = "xpotifyapp@gmail.com";
         private readonly Uri gitHubIssuesHelpPage = new Uri("https://github.com/MahdiGhiasi/Xpotify/issues");
-        private readonly Uri localProxyHelpPage = new Uri("https://ghiasi.net/xpotify/loopback");
-        private readonly Uri keyboardShortuctsHelpPage = new Uri("https://ghiasi.net/xpotify/keyboardShortcuts");
+        private readonly Uri localProxyHelpPage = new Uri("https://xpomusic.com/loopback");
+        private readonly Uri keyboardShortuctsHelpPage = new Uri("https://xpomusic.com/keyboardShortcuts");
         private readonly Uri discordServerUrl = new Uri("https://discord.gg/4RQCctB");
 
         public HelpPage()

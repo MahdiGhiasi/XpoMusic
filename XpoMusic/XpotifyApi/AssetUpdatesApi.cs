@@ -21,7 +21,7 @@ namespace XpoMusic.XpotifyApi
         {
             get
             {
-                var endpoint = "https://ghiasi.net/xpotify/assets";
+                var endpoint = "https://xpomusic.com/assets";
                 var version = PackageHelper.GetAppVersion().ToString(3);
                 var fileName = "assetPackageInfo.json";
                 var query = "?date=" + DateTime.Now.ToString("yyyyMMddHHmmss");

@@ -25,7 +25,7 @@ namespace XpoMusic.Pages
     {
         private readonly Uri twitterPageUri = new Uri("https://twitter.com/XpoMusic");
         private readonly Uri githubPageUri = new Uri("https://github.com/MahdiGhiasi/Xpotify");
-        private readonly Uri privacyPolicyPageUri = new Uri("https://ghiasi.net/xpotify/privacy.html");
+        private readonly Uri privacyPolicyPageUri = new Uri("https://xpomusic.com/privacy.html");
 
         public AboutPage()
         {
