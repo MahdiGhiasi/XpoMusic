@@ -17,6 +17,7 @@ namespace XpoMusic.SpotifyApi
         internal static readonly string SpotifyLoginUri = "https://accounts.spotify.com/";
         internal static readonly string FacebookLoginFinishRedirectUri = "https://accounts.spotify.com/api/facebook/oauth/access_token";
         internal static readonly string RedirectUri = "https://xpomusic.ghiasi.net/login/redirect";
+        internal static readonly string FacebookLoginUri = "https://www.facebook.com/login.php";
 
         public static string GetAuthorizationUrl(string state)
         {

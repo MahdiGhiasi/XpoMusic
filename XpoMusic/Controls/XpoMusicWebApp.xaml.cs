@@ -72,6 +72,7 @@ namespace XpoMusic.Controls
         private string webViewPreviousUri = "";
         private LocalStoragePlayback initialPlaybackState;
         private XpoMusicWebAgent.WebAgent xpoWebAgent;
+        private bool isLoggingInByFacebook = false;
 
         public XpoMusicWebApp()
         {
@@ -302,6 +303,10 @@ namespace XpoMusic.Controls
                 SetInvertColorFilterVisibility();
                 WebAppLoaded?.Invoke(this, new EventArgs());
             }
+            else if (e.Uri.ToString().ToLower().StartsWith(Authorization.FacebookLoginUri))
+            {
+                isLoggingInByFacebook = true;
+            }
             else
             {
                 IsWebAppLoaded = false;
@@ -411,6 +416,12 @@ namespace XpoMusic.Controls
                 var urlDecoder = new WwwFormUrlDecoder(url.Substring(url.IndexOf('?') + 1));
                 await Authorization.RetrieveAndSaveTokensFromAuthCode(urlDecoder.GetFirstValueByName("code"));
                 Controller.Navigate(new Uri(urlDecoder.GetFirstValueByName("state")));
+
+                if (isLoggingInByFacebook)
+                {
+                    LocalConfiguration.IsLoggedInByFacebook = true;
+                    isLoggingInByFacebook = false;
+                }
             }
             catch (Exception ex)
             {
