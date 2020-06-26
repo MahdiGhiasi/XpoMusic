@@ -1,1 +1,1 @@
-﻿(document.querySelectorAll('.navBar-signupPrompt').length === 0) ? "1" : "0"
+﻿(document.querySelectorAll('[data-testid=signup-bar]').length === 0) ? "1" : "0"
