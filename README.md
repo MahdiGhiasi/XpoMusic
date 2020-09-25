@@ -9,8 +9,8 @@ A modern Spotify experience for Windows 10
 
 You need to have these components installed in order to build Xpo Music:
 
-* Visual Studio 2017
-* Windows 10 SDK v1809 (17763)
+* Visual Studio 2019 (or 2017)
+* Windows 10 SDK 18362
 * TypeScript
 * [Web Compiler extension for Visual Studio](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebCompiler)
 
