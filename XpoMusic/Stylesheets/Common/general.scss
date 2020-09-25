@@ -73,6 +73,11 @@ div[role=banner] {
 
 .navBar-item .segoe-icon, .nowPlaying-icon {
     float: left;
+    padding: 0px 20px;
+}
+
+.navBar-link-text-with-icon-wrapper {
+    padding: 10px 0px;
 }
 
 .segoe-icon {
@@ -113,13 +118,15 @@ div[role=banner] {
     width: 22px;
     height: 22px;
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFgAAABYCAYAAABxlTA0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABh0RVh0U29mdHdhcmUAcGFpbnQubmV0IDQuMS42/U4J6AAAAYtJREFUeF7t3D1OA0EQBWHfgIPwEziGgANCBFchdQa3WngrhoCRZhwsJZt2fdIk3l6rp1JL3kmSJEk6T8uyPOW8dee5PdZWifn+2clnH+2xtjIwzMAwA8MMDDMwzMAwA8MMDDMwzMAwA8MMDDMwzMAwA8MMDDMwzMAwA8MMDNsaOLPXOf2v0uu5aSOXLSE2Bc74/fdbv+U7HtrIZTMwzMAwA8MMDDMwzMAwA8MMDDMwzMAwA8MMDDMwzMATucdVLvLYn/XzNnJU5k8eOLP7de/u7Nvj08k9/uJy5xB40w6Y7GFgUvYwMCl7GJiUPQxMyh4GJmUPA5Oyh4FJ2cPApOxhYFL2MDApexiYlD0MTMoeBiZlDwOTsoeBZ/Ilm/5SK3sYeKbC5TJu4JkKOwxVuFzGDTxTYYehCpfLuIFnKuwwVOFyGTfwTIUdhipcLuMGnqmww1CFy2XcwDMVdhiqcLmMG3imwg5DFS6X8bMO/JJz6M5re3xUZm+7d3/OXRs5KrP/fgdJkiTpcux2X+XA1jrUxBuXAAAAAElFTkSuQmCC');
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     opacity: 0.7;
     transition: opacity ease-out .2s;
 }
 
 .nowPlaying-navBar-item {
     transition: opacity .3s ease-out;
+    margin-left: 22px;
 }
 
 .nowPlaying-navBar-item:hover .nowPlaying-icon {
@@ -228,7 +235,6 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
 .Rootlist {
     /* Navbar bottom items placement fix on short window size */
     min-height: 0;
-    margin-bottom: 16px;
 }
 
 .NowPlayingCoverSlotExpanded__container {
