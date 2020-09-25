@@ -235,6 +235,7 @@ a.search-history-result.focus-visible h1, a.search-history-result.focus-visible 
 .Rootlist {
     /* Navbar bottom items placement fix on short window size */
     min-height: 0;
+    margin-bottom: 16px;
 }
 
 .NowPlayingCoverSlotExpanded__container {
