@@ -14,7 +14,7 @@
     }
 
     export function injectNowPlayingRightButton(button) {
-        var extraControlsBar = document.querySelectorAll('.Root__now-playing-bar .now-playing-bar__right__inner .ExtraControls');
+        var extraControlsBar = document.querySelectorAll('.Root__now-playing-bar .ExtraControls');
         if (extraControlsBar.length === 0) {
             setTimeout(function () {
                 injectNowPlayingRightButton(button);

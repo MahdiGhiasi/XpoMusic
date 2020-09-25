@@ -106,7 +106,7 @@ namespace XpoMusicScript.Common.UiElementModifier {
             compactOverlayButton.innerHTML = '<a style="border-bottom: 0px;" href="#"><button title="Mini view" class="control-button">'
                 + '<div style="font-family: Segoe MDL2 Assets; position:relative; cursor: default;">'
                 + '<div style="left: 6px; top: -3px; font-size: 19px; position: absolute;">&#xE7FB;</div>'
-                + '<div style="left: 12px; top: -6px; font-size: 9px; position: absolute;">&#xEB9F;</div>'
+                + '<div style="left: 12px; top: -1px; font-size: 9px; position: absolute;">&#xEB9F;</div>'
                 + '</div></button></a>';
             compactOverlayButton.querySelector('a').onclick = function () {
                 XpoMusic.openMiniView();
